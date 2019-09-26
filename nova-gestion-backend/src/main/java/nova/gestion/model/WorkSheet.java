@@ -12,6 +12,6 @@ public class WorkSheet {
     private int idStatus;
     private int quantity;
     private Date dateCreation;
-    private Data dueDate;
+    private Date dueDate;
     private String orderNumber;
 }
