@@ -194,3 +194,15 @@ VALUES (1, 3);
 
 INSERT INTO ta_user_type_permission (id_user_type, id_permission)
 VALUES (1, 4);
+
+INSERT INTO user (id_user_type, id_employee, email, password)
+VALUES (1, 1, 'admin@gmail.com', 'test');
+
+INSERT INTO user (id_user_type, id_employee, email, password)
+VALUES (2, 2, 'superviseur@gmail.com', 'test');
+
+INSERT INTO user (id_user_type, id_employee, email, password)
+VALUES (3, 3, 'outilleur@gmail.com', 'test');
+
+INSERT INTO user (id_user_type, id_employee, email, password)
+VALUES (4, 4, 'emballeur@gmail.com', 'test');
