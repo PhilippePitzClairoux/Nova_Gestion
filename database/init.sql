@@ -39,7 +39,7 @@ CREATE TABLE model(
 );
 
 CREATE TABLE machine(
-    id_machine BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_machine VARCHAR(255) NOT NULL PRIMARY KEY,
     id_model BIGINT NOT NULL,
     name VARCHAR(255),
     serial_number VARCHAR(255),
@@ -49,7 +49,7 @@ CREATE TABLE machine(
 
 CREATE TABLE maintenance(
     id_maintenance BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_machine BIGINT NOT NULL,
+    id_machine VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     date DATE,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine)
@@ -70,7 +70,7 @@ CREATE TABLE client(
 
 CREATE TABLE program(
     id_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_machine BIGINT NOT NULL,
+    id_machine VARCHAR(255) NOT NULL,
     id_tool BIGINT,
     name VARCHAR(255),
     file VARCHAR(255),
@@ -115,11 +115,11 @@ CREATE TABLE ta_user_type_permission(
 CREATE TABLE user(
     id_user BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_user_type BIGINT NOT NULL,
-    id_employe BIGINT,
+    id_employee BIGINT,
     email VARCHAR(255),
     password VARCHAR(255),
     CONSTRAINT FOREIGN KEY(id_user_type) REFERENCES type_user(id_type_user),
-    CONSTRAINT FOREIGN KEY(id_employe) REFERENCES employee(id_employee)
+    CONSTRAINT FOREIGN KEY(id_employee) REFERENCES employee(id_employee)
 );
 
 CREATE TABLE work_sheet(
