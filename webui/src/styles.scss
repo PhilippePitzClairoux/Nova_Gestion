@@ -25,11 +25,29 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$webui-primary: mat-palette($mat-indigo);
-$webui-accent: mat-palette($mat-pink, A200, A100, A400);
+$primary: (
+  500: #213343,
+  contrast: (
+    500: white,
+  )
+);
+$accent: (
+  500: #444444,
+  contrast: (
+    500: white,
+  )
+);
+$danger: (
+  500: #a94442,
+  contrast: (
+    500: white,
+  )
+);
+$webui-primary: mat-palette($primary);
+$webui-accent: mat-palette($accent);
 
 // The warn palette is optional (defaults to red).
-$webui-warn: mat-palette($mat-red);
+$webui-warn: mat-palette($danger);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
