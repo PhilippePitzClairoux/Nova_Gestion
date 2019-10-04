@@ -26,19 +26,19 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $primary: (
-  500: #213343,
+  500: #2370b8,
   contrast: (
     500: white,
   )
 );
 $accent: (
-  500: #444444,
+  500: #f1f1f6,
   contrast: (
-    500: white,
+    500: 444444,
   )
 );
 $danger: (
-  500: #a94442,
+  500: #ff3823,
   contrast: (
     500: white,
   )
