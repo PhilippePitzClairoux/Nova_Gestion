@@ -1,4 +1,41 @@
+.menu {
+  background-color: #000000 !important;
+  color: white !important;
+}
 
+.btn-menu {
+  border: none;
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.btn-menu:hover {
+  background-color: #2370b8 !important;
+}
+
+.header {
+  background-color: #444444 !important;
+  color: white !important;
+}
+
+.title {
+  background-color: #213343 !important;
+  color: white !important;
+}
+
+.table-header {
+  background-color: none !important;
+  color: #2370b8 !important;
+}
+
+.table-row {
+  background-color: none !important;
+  color: #000000 !important;
+}
+
+.table-row:hover {
+  background-color: rgb(35,112,184,0.25) !important;
+}
 
 @import '~@angular/material/theming';
 
@@ -8,19 +45,19 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $primary: (
-  500: #213343,
+  500: #2370b8,
   contrast: (
     500: white,
   )
 );
 $accent: (
-  500: #444444,
+  500: #f1f1f6,
   contrast: (
-    500: white,
+    500: 444444,
   )
 );
 $danger: (
-  500: #a94442,
+  500: #ff3823,
   contrast: (
     500: white,
   )
