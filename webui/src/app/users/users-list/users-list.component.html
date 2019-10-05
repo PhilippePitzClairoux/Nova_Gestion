@@ -1,1 +1,22 @@
-<p>users-list works!</p>
+<mat-drawer-container class="page">
+  <!-- TODO create a component for the menu -->
+  <mat-drawer class="menu" mode="side" opened>Menu</mat-drawer>
+  <mat-drawer-content class="content">
+    <div class="header">
+      Gestion des comptes utilisateur
+    </div>
+    <div>
+      <input type="text" placeholder="Recherche">
+      <button mat-raised-button color="primary">Créer un compte</button>
+    </div>
+    <div class="table-header">
+      <div>NOM</div>
+      <div>COURRIEL</div>
+      <div>TYPE</div>
+    </div>
+    <div class="table-row">
+      <div>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
