@@ -1,3 +1,4 @@
+import { MatButtonModule, MatCardModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,6 +10,8 @@ import { AuthentificationComponent } from './authentification/authentification.c
   declarations: [AuthentificationComponent],
   imports: [
     CommonModule,
+    MatCardModule,
+    MatButtonModule,
     AuthentificationRoutingModule
   ]
 })
