@@ -6,6 +6,7 @@ import { MatSliderModule, MatMenuModule, MatIconModule, MatSidenavModule, MatBut
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthentificationModule } from './authentification/authentification.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AuthentificationModule } from './authentification/authentification.modu
     BrowserModule,
     BrowserAnimationsModule,
     AuthentificationModule,
+    UsersModule,
     MatMenuModule,
     MatIconModule,
     MatSidenavModule,
