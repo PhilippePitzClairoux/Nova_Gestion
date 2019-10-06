@@ -9,3 +9,19 @@
 .content {
   background-color: white;
 }
+
+.table-header-content,
+.table-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.table-header,
+.table-row {
+  display: flex;
+  width: 90%;
+}
+
+.table-item {
+  width: 25%;
+}

@@ -1,22 +1,18 @@
-<mat-drawer-container class="page">
-  <!-- TODO create a component for the menu -->
-  <mat-drawer class="menu" mode="side" opened>Menu</mat-drawer>
-  <mat-drawer-content class="content">
-    <div class="header">
-      Gestion des comptes utilisateur
-    </div>
-    <div>
-      <input type="text" placeholder="Recherche">
-      <button mat-raised-button color="primary">Créer un compte</button>
-    </div>
-    <div class="table-header">
-      <div>NOM</div>
-      <div>COURRIEL</div>
-      <div>TYPE</div>
-    </div>
+<div class="table-header-content">
+  <div class="table-header">
+    <div class="table-item">NOM</div>
+    <div class="table-item">COURRIEL</div>
+    <div class="table-item">TYPE</div>
+    <div class="table-item">a</div>
+  </div>
+</div>
+<div *ngFor="let user of users">
+  <div class="table-content">
     <div class="table-row">
-      <div>
-      </div>
+      <div class="table-item">{{user.name}}</div>
+      <div class="table-item">{{user.email}}</div>
+      <div class="table-item">{{user.type}}</div>
+      <div class="table-item">a</div>
     </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </div>
+</div>
