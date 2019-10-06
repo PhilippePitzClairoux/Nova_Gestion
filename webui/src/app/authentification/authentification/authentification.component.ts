@@ -9,7 +9,10 @@ export class AuthentificationComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void { }
+
+  public loginUser(): void {
+    alert('loginUser');
   }
 
 }
