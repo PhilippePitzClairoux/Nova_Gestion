@@ -42,6 +42,8 @@
 
 .links a:hover {
   background: #2370b8;
+  -webkit-transition: 0.3s background ease;
+  transition: 0.3s background ease;
 }
 
 .logout {
