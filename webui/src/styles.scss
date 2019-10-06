@@ -17,3 +17,10 @@
   font-family: Roboto Medium;
   src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
 }
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}

@@ -1,13 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './button/button.component';
+import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ButtonComponent
+    ButtonComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule
@@ -15,4 +17,5 @@ import { ButtonComponent } from './button/button.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
