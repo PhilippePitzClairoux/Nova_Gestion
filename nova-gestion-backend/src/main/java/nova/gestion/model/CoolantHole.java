@@ -9,6 +9,6 @@ public class CoolantHole {
 
     private int idCoolantHole;
     private int idTypeCoolantHole;
-    private int quality;
+    private int quantity;
     private double diameter;
 }
