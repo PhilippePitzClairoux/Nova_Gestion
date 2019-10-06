@@ -8,5 +8,4 @@ import lombok.Data;
 public class TypeUser {
     private int idTypeUser;
     private String name;
-
 }

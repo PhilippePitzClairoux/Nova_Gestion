@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Blank {
-
     private int idBlank;
     private int codeGrade;
     private int idCoolantHole;

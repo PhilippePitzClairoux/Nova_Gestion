@@ -8,7 +8,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class Maintenance {
-
     private int idMaintenance;
     private int idMachine;
     private String description;

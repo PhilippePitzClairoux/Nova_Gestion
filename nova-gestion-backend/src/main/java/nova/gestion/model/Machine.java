@@ -8,7 +8,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class Machine {
-
     private int idMachine;
     private int idModel;
     private String name;
