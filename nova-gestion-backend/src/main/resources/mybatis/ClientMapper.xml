@@ -19,6 +19,13 @@
         SELECT * FROM `nova_gestion`.`client`;
     </select>
 
+    <insert id = "insertClient" parameterType = "Client">
+       INSERT INTO `nova_gestion`.`client` (name, phone_number)
+       VALUES (#{name}, #{phoneNumber});
+    </insert>
 
+    <update id = "updateClient" parameterType = "Client">
+       UPDATE `nova_gestion`.`client` SET name = #{name}, phone_number = #{phoneNumber} WHERE id_client = #{idClient};
+    </update>
 
 </mapper>

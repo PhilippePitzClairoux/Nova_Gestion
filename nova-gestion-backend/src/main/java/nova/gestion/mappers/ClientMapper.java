@@ -8,5 +8,6 @@ public interface ClientMapper {
 
     Tool getClient(Long idClient);
     List<Client> getAllClient();
-
+    void insertClient(Client client);
+    void updateClient(Client client);
 }
