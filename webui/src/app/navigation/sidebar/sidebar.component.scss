@@ -7,7 +7,6 @@
   flex-direction: column;
   font-family: 'Lato', sans-serif;
   font-size: 14px;
-  font-weight: 700;
 }
 
 .header {
@@ -26,10 +25,11 @@
 
 .header .title {
   padding: 10px 0 0;
+  font-weight: 700;
 }
 
 .header .user {
-
+  font-size: 12px;
 }
 
 .links {
@@ -41,6 +41,7 @@
   color: #fff;
   padding: 15px 40px;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .links a:hover {
@@ -49,6 +50,9 @@
   transition: 0.3s background ease;
   display: flex;
   align-items: center;
+  text-shadow: 0 0 18px rgb(255,255,255);
+  -webkit-transition: 0.3s color ease;
+  transition: 0.3s color ease;
 }
 
 fa-icon {
@@ -71,4 +75,9 @@ fa-icon {
   background: #444;
   text-decoration: none;
   color: #2370b8;
+  font-weight: 700;
+}
+
+.logout a:hover {
+  box-shadow: 0 0 18px rgba(255,255,255,0.7);
 }
