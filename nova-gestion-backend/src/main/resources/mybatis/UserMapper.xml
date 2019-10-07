@@ -5,12 +5,19 @@
 <mapper namespace="nova.gestion.mappers.UserMapper">
 
     <resultMap id="UserMap" type="nova.gestion.model.User">
+        <constructor>
+            <arg name="idUser" column="id_user"/>
+            <arg name="email" column="email"/>
+            <arg name="password" column="password"/>
+        </constructor>
         <id column="id_user" javaType="int" property="idUser"/>
         <result column="email" javaType="string" property="email"/>
         <result column="password" javaType="string" property="password"/>
-        <association column="id_user_type" property="typeUser" javaType="object"
+
+        <association column="id_user_type" property="typeUser" javaType="nova.gestion.model.TypeUser"
                      select="nova.gestion.mappers.TypeUserMapper.getTypeUser"/>
-        <association column="id_employee" property="employee" javaType="object"
+
+        <association column="id_employee" property="employee" javaType="nova.gestion.model.Employee"
                      select="nova.gestion.mappers.EmployeeMapper.getEmployee"/>
     </resultMap>
 
@@ -19,5 +26,15 @@
         FROM `nova_gestion`.`user`
         WHERE `nova_gestion`.`user`.id_user = #{idUser};
     </select>
+
+    <select id="getAllUsers" resultMap="UserMap">
+        SELECT * FROM `nova_gestion`.`user`;
+    </select>
+
+    <insert id="insertUser" parameterType="nova.gestion.model.User" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`user`(id_user_type, id_employee, email, password)
+        VALUES (#{typeUser.idTypeUser}, #{employee.idEmployee}, #{email}, #{password});
+    </insert>
+
 
 </mapper>

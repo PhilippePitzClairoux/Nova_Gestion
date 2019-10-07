@@ -12,4 +12,11 @@ public class User {
     private String password;
     private TypeUser typeUser;
     private Employee employee;
+
+    public User(int idUser, String email, String password) {
+        this.idUser = idUser;
+        this.email = email;
+        this.password = password;
+    }
+
 }

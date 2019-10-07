@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Mapper
@@ -12,4 +13,8 @@ import java.util.Map;
 public interface UserMapper {
 
     User getUser(int idUser);
+
+    ArrayList<User> getAllUsers();
+
+    User insertUser(User user);
 }
