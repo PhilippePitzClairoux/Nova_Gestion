@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthentificationModule } from './authentification/authentification.module';
 import { UsersModule } from './users/users.module';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
