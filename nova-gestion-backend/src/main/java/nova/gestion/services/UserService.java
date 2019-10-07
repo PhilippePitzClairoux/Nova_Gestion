@@ -8,6 +8,7 @@ import nova.gestion.mappers.UserMapper;
 import nova.gestion.model.Employee;
 import nova.gestion.model.TypeUser;
 import nova.gestion.model.User;
+import nova.gestion.model.post.UserPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,6 +75,35 @@ public class UserService {
         userMapper.insertUser(toInsert);
 
         return toInsert.getIdUser();
+    }
+
+    @Transactional
+    public void updateUser(UserPost user) {
+        System.out.println(user);
+        if (user == null)
+            throw new InvalidRequest("No arguments passed");
+
+        if (user.getIdUser() == 0)
+            throw new InvalidRequest("No idUser");
+
+        User loadUser = userMapper.getUser(user.getIdUser());
+
+        if (loadUser == null)
+            throw new RessourceNotFound("User does not exist");
+
+        if (user.getEmail() != null && !loadUser.getEmail().equals(user.getEmail()) && !user.getEmail().isEmpty())
+            loadUser.setEmail(user.getEmail());
+
+        if (user.getPassword() != null && !loadUser.getPassword().equals(user.getPassword()) && !user.getPassword().isEmpty())
+            loadUser.setPassword(user.getPassword());
+
+        if (user.getIdEmployee() != 0 && loadUser.getEmployee().getIdEmployee() != user.getIdEmployee())
+            loadUser.setEmployee(employeeMapper.getEmployee(user.getIdEmployee()));
+
+        if (user.getIdUserType() != 0 && loadUser.getTypeUser().getIdTypeUser() != user.getIdUserType())
+            loadUser.setTypeUser(typeUserMapper.getTypeUser(user.getIdUserType()));
+
+        userMapper.updateUser(loadUser);
     }
 
 }
