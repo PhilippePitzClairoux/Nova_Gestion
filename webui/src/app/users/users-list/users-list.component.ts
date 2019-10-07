@@ -18,4 +18,7 @@ export class UsersListComponent implements OnInit {
   public ngOnInit(): void {
   }
 
+  public onAdd($event) {
+  }
+
 }
