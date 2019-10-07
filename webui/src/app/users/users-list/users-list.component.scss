@@ -1,21 +1,17 @@
-.menu {
-  width: 200px;
-}
-
 .page {
   height: 100%;
 }
 
-.content {
-  background-color: white;
-}
-
+.header-content,
+.search-add,
 .table-header-content,
 .table-content {
   display: flex;
   justify-content: space-around;
 }
 
+.header-text,
+.search-add-content,
 .table-header,
 .table-row {
   display: flex;
@@ -24,4 +20,40 @@
 
 .table-item {
   width: 25%;
+}
+
+.search-add {
+  margin: 20px 0px;
+}
+
+.search-content {
+  width: 75%;
+}
+
+.search {
+  width: 90%;
+  height: 30px;
+  font-size: 15px;
+}
+
+.add-user-button {
+  width: 25%;
+}
+
+.btn-add-user {
+  width: 90%;
+  height: 30px;
+}
+
+
+/* TODO move to style.scss */
+.table-header {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.table-row {
+  padding: 10px;
+  border: #f1f1f6 solid 1px;
+  font-size: 15px;
 }
