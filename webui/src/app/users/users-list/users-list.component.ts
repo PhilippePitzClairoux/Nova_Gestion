@@ -1,4 +1,6 @@
+import { UserComponent } from './../user/user.component';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-users-list',
@@ -13,13 +15,13 @@ export class UsersListComponent implements OnInit {
     {name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'outilleur'}
   ];
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   public ngOnInit(): void {
   }
 
   public onAdd($event) {
-    alert('adding pop-up');
+    this.dialog.open(UserComponent);
   }
 
 }

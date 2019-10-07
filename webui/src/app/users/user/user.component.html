@@ -1,10 +1,30 @@
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+<h2 mat-dialog-title>Ajouter un utilisateur</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="input-container">
+    <label for="name">Prénom</label>
+    <input id="name" class="input-100" type="text">
+    <label for="family-name">Nom de famille</label>
+    <input id="family-name" class="input-100" type="text">
   </div>
-
-</div>
+  <div class="input-container">
+    <label for="type">Type</label>
+    <select id="type" class="input-100" name="" id=""></select>
+    <label for="email">Courriel</label>
+    <input id="email" class="input-100" type="text">
+    <div class="input-100">
+      <div class="input-50">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="text">
+      </div>
+      <div class="input-50">
+        <label for="password-confirmation">Confirmation du mot de passe</label>
+        <input id="password-confirmation" type="text">
+      </div>
+    </div>
+  </div>
+  <div class="input-container"></div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ajouter</button>
+</mat-dialog-actions>

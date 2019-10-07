@@ -1,3 +1,4 @@
+import { UserComponent } from './users/user/user.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,9 @@ import { UsersModule } from './users/users.module';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    UserComponent
+  ]
 })
 export class AppModule { }
