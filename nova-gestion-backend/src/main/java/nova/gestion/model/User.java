@@ -12,4 +12,6 @@ public class User {
     private int idEmploye;
     private String email;
     private String password;
+    private TypeUser typeUser;
+    private Employee employee;
 }

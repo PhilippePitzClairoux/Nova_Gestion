@@ -29,9 +29,7 @@ public class InitialClass {
     @GetMapping
     public String getTest() throws JsonProcessingException {
 
-        User user = userMapper.getUser(1L);
-
-        return objectMapper.writeValueAsString(user);
+        return objectMapper.writeValueAsString(userMapper.getUser(1L));
     }
 
 }

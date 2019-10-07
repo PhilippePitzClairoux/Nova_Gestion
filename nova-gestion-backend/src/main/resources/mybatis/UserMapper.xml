@@ -4,9 +4,17 @@
 
 <mapper namespace="nova.gestion.mappers.UserMapper">
 
-    <select id="getUser" parameterType="Long" resultType="nova.gestion.model.User">
+    <resultMap id="UserTest" type="nova.gestion.model.User">
+        <id column="id_user" property="idUser"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="id_employe" property="idEmploye"/>
+        <result column="id_user_type" property="idUserType"/>
+    </resultMap>
+
+    <select id="getUser" parameterType="Long" resultMap="UserTest">
         SELECT * FROM `nova_gestion`.`user`
-        WHERE id_user = #{user};
+        WHERE `nova_gestion`.`user`.id_user = #{userId};
     </select>
 
 </mapper>
