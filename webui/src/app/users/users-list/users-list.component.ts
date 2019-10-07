@@ -19,6 +19,7 @@ export class UsersListComponent implements OnInit {
   }
 
   public onAdd($event) {
+    alert('adding pop-up');
   }
 
 }

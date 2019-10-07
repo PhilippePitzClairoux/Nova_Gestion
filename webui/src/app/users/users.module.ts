@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +11,7 @@ import { UsersListComponent } from './users-list/users-list.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     UsersRoutingModule
   ]
 })
