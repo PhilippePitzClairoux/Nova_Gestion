@@ -20,6 +20,12 @@
         SELECT * FROM `nova_gestion`.`tool`;
     </select>
 
+    <insert id = "insertTool" parameterType = "Tool">
+       INSERT INTO `nova_gestion`.`tool` (name, stock_quantity, minimum_quantity)
+       VALUES (#{name}, #{stockQuantity}, #{minimumQuantity});
+    </insert>
 
-
+    <update id = "updateTool" parameterType = "Tool">
+       UPDATE `nova_gestion`.`tool` SET name = #{name}, stock_quantity = #{stockQuantity}, minimum_quantity = #{minimumQuantity} WHERE id_tool = #{idTool};
+    </update>
 </mapper>
