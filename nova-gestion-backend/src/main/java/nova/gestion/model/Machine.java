@@ -9,8 +9,16 @@ import java.util.Date;
 @AllArgsConstructor
 public class Machine {
     private int idMachine;
-    private int idModel;
+    private Model model;
     private String name;
     private String serialNumber;
     private Date acquisitionDate;
+
+    public Machine(int idMachine, String name, String serialNumber,  Date acquisitionDate)
+    {
+        this.idMachine = idMachine;
+        this.name = name;
+        this.serialNumber = serialNumber;
+        this.acquisitionDate= acquisitionDate;
+    }
 }

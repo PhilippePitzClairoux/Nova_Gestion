@@ -9,9 +9,18 @@ import java.sql.Date;
 @AllArgsConstructor
 public class WorkSheet {
     private int idWorkSheet;
-    private int idStatus;
+    private Status status;
     private int quantity;
     private Date dateCreation;
     private Date dueDate;
     private String orderNumber;
+
+    public WorkSheet(int idWorkSheet, int quantity, Date dateCreation, Date dueDate, String orderNumber)
+    {
+        this.idWorkSheet = idWorkSheet;
+        this.quantity = quantity;
+        this.dateCreation = dateCreation;
+        this.dueDate = dueDate;
+        this.orderNumber = orderNumber;
+    }
 }
