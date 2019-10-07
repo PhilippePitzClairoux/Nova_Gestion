@@ -7,5 +7,6 @@ import nova.gestion.model.Tool;
 public interface ToolMapper {
 
     Tool getTool(Long idTool);
+    List<Tool> getAllTool();
 
 }

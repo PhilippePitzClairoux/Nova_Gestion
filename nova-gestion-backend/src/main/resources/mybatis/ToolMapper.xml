@@ -16,4 +16,10 @@
         WHERE `nova_gestion`.`tool`.id_tool = #{idTool};
     </select>
 
+    <select id="getAllTool"  resultMap="ToolMap">
+        SELECT * FROM `nova_gestion`.`tool`;
+    </select>
+
+
+
 </mapper>
