@@ -21,7 +21,7 @@ export class UsersListComponent implements OnInit {
   }
 
   public onAdd($event) {
-    this.dialog.open(UserComponent);
+    this.dialog.open(UserComponent, { panelClass: 'custom-dialog-container' });
   }
 
 }

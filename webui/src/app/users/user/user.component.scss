@@ -1,3 +1,35 @@
+label {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+input, select {
+  height: 30px;
+  border: #d8d8dd solid 1px;
+  font-size: 15px;
+}
+
+.container {
+  margin: 10px;
+}
+
+.dialog-header {
+  background-color: #2370b8;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0px;
+  vertical-align: middle;
+}
+
+.input-container {
+  border: #ebebeb solid 1px;
+  padding: 10px;
+  padding-top: 0px;
+  margin-bottom: 10px;
+}
 .input-100 {
   display: flex;
   justify-content: space-between;
@@ -10,4 +42,8 @@
 
 .input-50 input {
   width: 100%;
+}
+
+.buttons {
+  float: right;
 }

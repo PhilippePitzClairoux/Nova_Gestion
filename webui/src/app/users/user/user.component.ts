@@ -9,7 +9,14 @@ export class UserComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
+  public onClose(): void {
+
+  }
+
+  public onAdd(): void {
+
+  }
 }

@@ -37,10 +37,18 @@
 }
 
 .table-row:hover {
-  background-color: rgb(35,112,184,0.25) !important;
+  background-color: rgb(35, 112, 184, 0.25) !important;
 }
 
-@import '~@angular/material/theming';
+.custom-dialog-container .mat-dialog-container {
+  padding: 0px !important;
+}
+
+.mat-dialog-content {
+  padding: 0px !important;
+}
+
+@import "~@angular/material/theming";
 
 @include mat-core();
 
@@ -50,19 +58,19 @@
 $primary: (
   500: #2370b8,
   contrast: (
-    500: white,
+    500: white
   )
 );
 $accent: (
   500: #f1f1f6,
   contrast: (
-    500: 444444,
+    500: 444444
   )
 );
 $danger: (
   500: #ff3823,
   contrast: (
-    500: #333,
+    500: #333
   )
 );
 $webui-primary: mat-palette($primary);
@@ -76,25 +84,30 @@ $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
 
-html, body { height: 100%; }
-body { margin: 0; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
 
 @font-face {
   font-family: Roboto;
-  src: url('assets/fonts/Roboto-Regular.ttf') format('truetype');
+  src: url("assets/fonts/Roboto-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Roboto Bold;
-  src: url('assets/fonts/Roboto-Bold.ttf') format('truetype');
+  src: url("assets/fonts/Roboto-Bold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Roboto Light;
-  src: url('assets/fonts/Roboto-Light.ttf') format('truetype');
+  src: url("assets/fonts/Roboto-Light.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Roboto Medium;
-  src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
+  src: url("assets/fonts/Roboto-Medium.ttf") format("truetype");
 }
