@@ -16,5 +16,7 @@ public interface UserMapper {
 
     ArrayList<User> getAllUsers();
 
-    User insertUser(User user);
+    void insertUser(User user);
+
+    void updateUser(User user);
 }

@@ -31,10 +31,14 @@
         SELECT * FROM `nova_gestion`.`user`;
     </select>
 
-    <insert id="insertUser" parameterType="nova.gestion.model.User" useGeneratedKeys="true">
+    <insert id="insertUser" parameterType="nova.gestion.model.User" keyProperty="idUser" useGeneratedKeys="true">
         INSERT INTO `nova_gestion`.`user`(id_user_type, id_employee, email, password)
         VALUES (#{typeUser.idTypeUser}, #{employee.idEmployee}, #{email}, #{password});
     </insert>
 
+    <update id="updateUser" parameterType="nova.gestion.model.User">
+        UPDATE `nova_gestion`.`user` SET password = #{password}, email = #{email}, id_employee = #{employee.idEmployee},
+                                         id_user_type = #{typeUser.idTypeUser}
+    </update>
 
 </mapper>
