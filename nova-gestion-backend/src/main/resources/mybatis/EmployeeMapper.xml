@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.EmployeeMapper">
+
+    <resultMap id="EmployeeMap" type="nova.gestion.model.Employee">
+        <id property="idEmployee" column="id_employee" javaType="int"/>
+        <result property="name" column="name" javaType="string"/>
+        <result property="surname" column="surname" javaType="string"/>
+    </resultMap>
+
+
+    <select id="getEmployee" parameterType="Long" resultMap="EmployeeMap">
+        SELECT * FROM `nova_gestion`.`employee`
+        WHERE id_employee = #{idEmployee};
+    </select>
+
+</mapper>

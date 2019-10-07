@@ -8,8 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
     private int idUser;
-    private int idUserType;
-    private int idEmploye;
     private String email;
     private String password;
     private TypeUser typeUser;

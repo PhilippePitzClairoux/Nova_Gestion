@@ -5,11 +5,13 @@
 <mapper namespace="nova.gestion.mappers.UserMapper">
 
     <resultMap id="UserTest" type="nova.gestion.model.User">
-        <id column="id_user" property="idUser"/>
-        <result column="email" property="email"/>
-        <result column="password" property="password"/>
-        <result column="id_employe" property="idEmploye"/>
-        <result column="id_user_type" property="idUserType"/>
+        <id column="id_user" javaType="int" property="idUser"/>
+        <result column="email" javaType="string" property="email"/>
+        <result column="password" javaType="string" property="password"/>
+        <association property="employee" javaType="nova.gestion.model.Employee" column="id_employee"
+                     select="nova.gestion.mappers.EmployeeMapper.getEmployee"/>
+        <association property="typeUser" javaType="nova.gestion.model.TypeUser" column="id_user_type"
+                     select="nova.gestion.mappers.TypeUserMapper.getTypeUser"/>
     </resultMap>
 
     <select id="getUser" parameterType="Long" resultMap="UserTest">
