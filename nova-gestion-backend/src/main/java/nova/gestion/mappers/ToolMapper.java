@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Repository
 public interface ToolMapper {
 
-    Tool getTool(Long idTool);
+    Tool getTool(int idTool);
     ArrayList<Tool> getAllTool();
     void insertTool(Tool tool);
     void updateTool(Tool tool);
