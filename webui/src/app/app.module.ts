@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {SidebarComponent} from './navigation/sidebar/sidebar.component';
   ],
   imports: [
     BrowserModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

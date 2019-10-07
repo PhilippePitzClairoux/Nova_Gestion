@@ -5,6 +5,9 @@
   display: flex;
   background: #232323;
   flex-direction: column;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .header {
@@ -44,6 +47,12 @@
   background: #2370b8;
   -webkit-transition: 0.3s background ease;
   transition: 0.3s background ease;
+  display: flex;
+  align-items: center;
+}
+
+fa-icon {
+  padding-right: 10px;
 }
 
 .logout {
