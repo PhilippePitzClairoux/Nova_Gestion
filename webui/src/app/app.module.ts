@@ -1,10 +1,9 @@
-import { SharedModule } from './shared/shared.module';
+import {SharedModule} from './shared/shared.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
-import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
