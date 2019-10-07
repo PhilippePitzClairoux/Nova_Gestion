@@ -11,5 +11,5 @@ import java.util.Map;
 @Repository
 public interface UserMapper {
 
-    User getUser(@Param("userId") Long userId);
+    User getUser(int idUser);
 }

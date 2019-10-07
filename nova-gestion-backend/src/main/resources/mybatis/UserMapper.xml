@@ -4,19 +4,20 @@
 
 <mapper namespace="nova.gestion.mappers.UserMapper">
 
-    <resultMap id="UserTest" type="nova.gestion.model.User">
+    <resultMap id="UserMap" type="nova.gestion.model.User">
         <id column="id_user" javaType="int" property="idUser"/>
         <result column="email" javaType="string" property="email"/>
         <result column="password" javaType="string" property="password"/>
-        <association property="employee" javaType="nova.gestion.model.Employee" column="id_employee"
-                     select="nova.gestion.mappers.EmployeeMapper.getEmployee"/>
-        <association property="typeUser" javaType="nova.gestion.model.TypeUser" column="id_user_type"
+        <association column="id_user_type" property="typeUser" javaType="object"
                      select="nova.gestion.mappers.TypeUserMapper.getTypeUser"/>
+        <association column="id_employee" property="employee" javaType="object"
+                     select="nova.gestion.mappers.EmployeeMapper.getEmployee"/>
     </resultMap>
 
-    <select id="getUser" parameterType="Long" resultMap="UserTest">
-        SELECT * FROM `nova_gestion`.`user`
-        WHERE `nova_gestion`.`user`.id_user = #{userId};
+    <select id="getUser" parameterType="int" resultMap="UserMap">
+        SELECT *
+        FROM `nova_gestion`.`user`
+        WHERE `nova_gestion`.`user`.id_user = #{idUser};
     </select>
 
 </mapper>

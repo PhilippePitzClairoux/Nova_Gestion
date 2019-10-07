@@ -11,7 +11,7 @@
     </resultMap>
 
 
-    <select id="getEmployee" parameterType="Long" resultMap="EmployeeMap">
+    <select id="getEmployee" parameterType="int" resultMap="EmployeeMap">
         SELECT * FROM `nova_gestion`.`employee`
         WHERE id_employee = #{idEmployee};
     </select>
