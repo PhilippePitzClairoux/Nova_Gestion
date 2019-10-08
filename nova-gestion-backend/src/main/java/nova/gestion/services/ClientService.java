@@ -59,7 +59,6 @@ public class ClientService {
 
     @Transactional
     public void updateClient(ClientPost client) {
-        System.out.println(client);
         if (client == null)
             throw new InvalidRequest("No arguments passed");
 

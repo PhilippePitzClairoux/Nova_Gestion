@@ -79,7 +79,6 @@ public class UserService {
 
     @Transactional
     public void updateUser(UserPost user) {
-        System.out.println(user);
         if (user == null)
             throw new InvalidRequest("No arguments passed");
 
