@@ -1,16 +1,16 @@
-.my-header {
-  background-color: #444444 !important;
-  color: white !important;
+.header {
+  background-color: #444444;
+  color: white;
   font-size: 28px;
-  padding: 10px 0px;
+  padding: 10px 0;
 }
 
-.my-header-content {
+.header-content {
   display: flex;
   justify-content: space-around;
 }
 
-.my-header-text {
+.header-text {
   display: flex;
   width: 90%;
 }
