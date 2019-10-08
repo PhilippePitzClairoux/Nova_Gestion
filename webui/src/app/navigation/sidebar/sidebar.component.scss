@@ -1,0 +1,83 @@
+.nav-wrapper {
+  color: #fff;
+  width: 250px;
+  height: 100%;
+  display: flex;
+  background: #232323;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  border-bottom: 1px solid #444;
+  margin-bottom: 20px;
+}
+
+.header img {
+  width: 80%;
+  height: auto;
+}
+
+.header .title {
+  padding: 10px 0 0;
+  font-weight: 700;
+}
+
+.header .user {
+  font-size: 12px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.links a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 15px 40px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.links a:hover {
+  background: #2370b8;
+  text-shadow: 0 0 10px rgb(255,255,255);
+  transition: 0.3s all ease;
+}
+
+fa-icon {
+  padding-right: 10px;
+  width: 10%;
+}
+
+.logout {
+  align-self: center;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 20px;
+}
+
+.logout a {
+  width: 150px;
+  border-radius: 4px;
+  text-align: center;
+  padding: 10px 20px;
+  background: #444;
+  text-decoration: none;
+  color: #2370b8;
+  font-weight: 700;
+}
+
+.logout a:hover {
+  box-shadow: 0 0 20px rgba(255,255,255,0.7);
+  color: #fff;
+  transition: 0.3s all ease;
+}

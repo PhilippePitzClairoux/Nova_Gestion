@@ -1,3 +1,9 @@
+import {SharedModule} from './shared/shared.module';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './app.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,10 +15,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
+    SharedModule,
+    FontAwesomeModule
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
@@ -20,4 +29,5 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
