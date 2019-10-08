@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Repository
 public interface ClientMapper {
 
-    Client getClient(Long idClient);
+    Client getClient(int idClient);
     ArrayList<Client> getAllClient();
     void insertClient(Client client);
     void updateClient(Client client);
