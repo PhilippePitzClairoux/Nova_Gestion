@@ -19,6 +19,7 @@ import java.util.Map;
 @RequestMapping(value = "/v1/client", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClientController {
 
+
     private final ClientService clientService;
 
     @Autowired
@@ -26,14 +27,13 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
     @GetMapping
     public ArrayList<Client> getAllClients throws JsonProcessingException {
         return clientService.getListOfAllClients();
     }
 
     @GetMapping("/{idClient}/")
-    public Client getUser(@PathVariable @Validated Integer idClient) {
+    public Client getClient(@PathVariable @Validated Integer idClient) {
         return clientService.getClient(idClient);
     }
 
