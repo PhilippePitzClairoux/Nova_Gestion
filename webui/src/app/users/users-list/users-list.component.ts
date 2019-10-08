@@ -1,6 +1,7 @@
 import { UserComponent } from './../user/user.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog } from '@angular/material';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-users-list',
@@ -9,10 +10,13 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 })
 export class UsersListComponent implements OnInit {
 
+  public faPen = faPen;
+  public faTrash = faTrash;
+
   public users = [
-    {name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'administrateur'},
-    {name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'superviseur'},
-    {name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'outilleur'}
+    {id: 1, name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'administrateur'},
+    {id: 2, name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'superviseur'},
+    {id: 3, name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'outilleur'}
   ];
 
   constructor(public dialog: MatDialog) { }
@@ -22,6 +26,14 @@ export class UsersListComponent implements OnInit {
 
   public onAdd($event) {
     this.dialog.open(UserComponent, { panelClass: 'custom-dialog-container' });
+  }
+
+  public onEdit(id): void {
+    alert(id);
+  }
+
+  public onDelete(id): void {
+    alert(id);
   }
 
 }

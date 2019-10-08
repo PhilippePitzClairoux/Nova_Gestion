@@ -1,3 +1,19 @@
+.btn-edit, .btn-delete {
+  height: 20px;
+  width: 35px;
+  background: none;
+  border: none;
+  color: #c0c0c0;
+}
+
+.btn-edit:hover {
+  color: #2370b8;
+}
+
+.btn-delete:hover {
+  color: #ff3823;
+}
+
 .page {
   height: 100%;
 }
