@@ -84,14 +84,6 @@ $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-}
-
 @font-face {
   font-family: Roboto;
   src: url("assets/fonts/Roboto-Regular.ttf") format("truetype");
@@ -103,11 +95,21 @@ body {
 }
 
 @font-face {
-  font-family: Roboto Light;
-  src: url("assets/fonts/Roboto-Light.ttf") format("truetype");
+  font-family: Roboto Medium;
+  src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: Roboto Medium;
-  src: url("assets/fonts/Roboto-Medium.ttf") format("truetype");
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
