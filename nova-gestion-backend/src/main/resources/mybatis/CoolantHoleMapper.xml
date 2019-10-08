@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.CoolantHoleMapper">
+
+    <resultMap id="CoolantHoleMap" type="nova.gestion.model.CoolantHole">
+
+        <constructor>
+            <arg name="idCoolantHole" column="id_coolant_hole"/>
+            <arg name="quantity" column="quantity"/>
+            <arg name="diameter" column="diameter"/>
+        </constructor>
+
+        <id property="idCoolantHole" column="id_coolant_hole" javaType="int"/>
+        <result property="quantity" column="quantity" javaType="int"/>
+        <result property="diameter" column="diameter" javaType="double"/>
+
+        <association column="id_type_coolant_hole" property="typeCoolantHole" javaType="nova.gestion.model.TypeCoolantHole"
+                     select="nova.gestion.mappers.TypeCoolantHoleMapper.getTypeCoolantHole"/>
+
+    </resultMap>
+
+    <select id="getCoolantHole" parameterType="int" resultMap="CoolantHoleMap">
+        SELECT * FROM `nova_gestion`.`coolant_hole`
+        WHERE id_coolant_hole = #{idCoolantHole};
+    </select>
+
+</mapper>

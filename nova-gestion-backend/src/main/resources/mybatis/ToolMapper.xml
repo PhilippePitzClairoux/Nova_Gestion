@@ -28,4 +28,9 @@
     <update id = "updateTool" parameterType = "nova.gestion.model.Tool">
        UPDATE `nova_gestion`.`tool` SET name = #{name}, stock_quantity = #{stockQuantity}, minimum_quantity = #{minimumQuantity} WHERE id_tool = #{idTool};
     </update>
+
+    <delete id = "deleteTool" parameterType = "int">
+        DELETE FROM `nova_gestion`.`tool` WHERE id_tool = #{idTool};
+    </delete>
+
 </mapper>

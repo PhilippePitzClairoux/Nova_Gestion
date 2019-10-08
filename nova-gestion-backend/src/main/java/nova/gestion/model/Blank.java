@@ -12,19 +12,21 @@ public class Blank {
     private Grade grade;
     private CoolantHole coolantHole;
     private String name;
-    private int stockQuanity;
+    private int stockQuantity;
     private int minimumQuantity;
     private double diameter;
     private double length;
 
-    public Blank(int idBlank, String name, int stockQuanity, int minimumQuantity, double diameter, double length)
+    public Blank(int idBlank, String name, int stockQuantity, int minimumQuantity, double diameter, double length)
     {
         this.idBlank = idBlank;
         this.name = name;
-        this.stockQuanity = stockQuanity;
+        this.stockQuantity = stockQuantity;
         this.minimumQuantity = minimumQuantity;
         this.diameter = diameter;
         this.length = length;
     }
+
+
 }
 

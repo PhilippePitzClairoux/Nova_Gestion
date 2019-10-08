@@ -14,5 +14,6 @@ public interface ToolMapper {
     ArrayList<Tool> getAllTool();
     void insertTool(Tool tool);
     void updateTool(Tool tool);
+    void deleteTool(int idTool);
 
 }
