@@ -105,4 +105,15 @@ public class UserService {
         userMapper.updateUser(loadUser);
     }
 
+    @Transactional
+    public void deleteUser(UserPost user) {
+
+        User loadUser = userMapper.getUser(user.getIdUser());
+
+        if (loadUser == null)
+            throw new RessourceNotFound("Invalid idUser");
+
+        userMapper.deleteUser(loadUser);
+    }
+
 }

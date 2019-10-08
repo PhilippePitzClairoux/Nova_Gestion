@@ -10,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -28,18 +26,34 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * GET /v1/user -> retourne la liste des utilisateurs
+     * @return ArrayList {@link nova.gestion.model.User}
+     * @throws JsonProcessingException
+     */
     @GetMapping
     public ArrayList<User> getAllUsers() throws JsonProcessingException {
         return userService.getListOfAllUsers();
     }
 
 
+    /**
+     * GET /v1/user/{idUser}/ -> retourne un utilisateur ayant le id specifier
+     * @param idUser l'id de l'utilisateur voulu
+     * @return {@link nova.gestion.model.User}
+     */
     @GetMapping("/{idUser}/")
     public User getUser(@PathVariable @Validated Integer idUser) {
         return userService.getUser(idUser);
     }
 
 
+    /**
+     * POST /v1/user
+     * Cree un utilisateur dans la base de donnee
+     * @param user
+     * @return
+     */
     @PostMapping
     public Map<String, Integer> createUser(@JsonView(UserPost.Views.Insert.class)
                                                @RequestBody @Validated UserPost user) {
@@ -54,8 +68,14 @@ public class UserController {
 
     @PutMapping
     public void updateUser(@JsonView(UserPost.Views.Update.class)
-                               @RequestBody @Valid UserPost user) {
+                               @RequestBody @Validated UserPost user) {
         userService.updateUser(user);
+    }
+
+    @DeleteMapping
+    public void deleteUser(@JsonView(UserPost.Views.Delete.class)
+                           @RequestBody @Validated UserPost user) {
+        userService.deleteUser(user);
     }
 
 }

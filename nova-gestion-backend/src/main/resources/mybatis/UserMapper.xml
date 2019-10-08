@@ -44,4 +44,8 @@
         WHERE id_user = #{idUser};
     </update>
 
+    <delete id="deleteUser" parameterType="nova.gestion.model.User">
+        DELETE FROM `nova_gestion`.`user` WHERE `nova_gestion`.`user`.id_user = #{idUser};
+    </delete>
+    
 </mapper>
