@@ -61,7 +61,7 @@ public class ToolService {
     }
 
     @Transactional
-    public void updateUser(ToolPost tool) {
+    public void updateTool(ToolPost tool) {
         System.out.println(tool);
         if (tool == null)
             throw new InvalidRequest("No arguments passed");
