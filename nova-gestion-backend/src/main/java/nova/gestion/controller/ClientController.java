@@ -19,7 +19,6 @@ import java.util.Map;
 @RequestMapping(value = "/v1/client", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClientController {
 
-
     private final ClientService clientService;
 
     @Autowired
@@ -28,7 +27,7 @@ public class ClientController {
     }
 
     @GetMapping
-    public ArrayList<Client> getAllClients throws JsonProcessingException {
+    public ArrayList<Client> getAllClients() throws JsonProcessingException {
         return clientService.getListOfAllClients();
     }
 

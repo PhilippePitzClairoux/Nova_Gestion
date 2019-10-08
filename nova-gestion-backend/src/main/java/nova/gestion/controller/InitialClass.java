@@ -19,20 +19,20 @@ public class InitialClass {
 
     private final ObjectMapper objectMapper;
     private final UserMapper userMapper;
-    private final ClientMapper clientMapper;
+    private final ToolMapper toolMapper;
 
     @Autowired
-    public InitialClass(ObjectMapper objectMapper, UserMapper userMapper, ClientMapper clientMapper) {
+    public InitialClass(ObjectMapper objectMapper, UserMapper userMapper, ToolMapper toolMapper) {
         this.objectMapper = objectMapper;
         this.userMapper = userMapper;
-        this.clientMapper = clientMapper;
+        this.toolMapper = toolMapper;
     }
 
 
     @GetMapping
     public String getTest() throws JsonProcessingException {
 
-        return objectMapper.writeValueAsString(userMapper.getUser(1));
+        return objectMapper.writeValueAsString(toolMapper.getAllTool());
     }
 
 

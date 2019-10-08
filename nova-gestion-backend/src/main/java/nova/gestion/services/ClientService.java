@@ -6,10 +6,12 @@ import nova.gestion.mappers.ClientMapper;
 import nova.gestion.model.Client;
 import nova.gestion.model.post.ClientPost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
+@Service
 public class ClientService {
 
     private final ClientMapper clientMapper;
