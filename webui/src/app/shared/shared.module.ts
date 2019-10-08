@@ -11,9 +11,6 @@ import {CommonModule} from '@angular/common';
   ],
   imports: [
     CommonModule
-  ],
-  exports: [
-    ButtonComponent
   ]
 })
 export class SharedModule {
