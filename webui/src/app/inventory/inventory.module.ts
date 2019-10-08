@@ -4,6 +4,7 @@ import {InventoryComponent} from './inventory/inventory.component';
 import {SharedModule} from '../shared/shared.module';
 import {InventoryRoutingModule} from './inventory-routing.module';
 import {ToolsListComponent} from './tools/tools-list/tools-list.component';
+import {MatTabsModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import {ToolsListComponent} from './tools/tools-list/tools-list.component';
     CommonModule,
     SharedModule,
     InventoryRoutingModule,
+    MatTabsModule,
   ]
 })
 export class InventoryModule {
