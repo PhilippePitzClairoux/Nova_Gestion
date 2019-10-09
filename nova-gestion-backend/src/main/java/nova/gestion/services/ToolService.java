@@ -84,4 +84,15 @@ public class ToolService {
 
         toolMapper.updateTool(loadTool);
     }
+
+    @Transactional
+    public void deleteTool(ToolPost tool) {
+
+        Tool loadTool = toolMapper.getTool(tool.getIdTool());
+
+        if (loadTool == null)
+            throw new RessourceNotFound("Invalid idTool");
+
+        toolMapper.deleteTool(loadTool);
+    }
 }

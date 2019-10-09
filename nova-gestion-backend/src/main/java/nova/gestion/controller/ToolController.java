@@ -51,5 +51,10 @@ public class ToolController {
         toolService.updateTool(tool);
     }
 
+    @DeleteMapping
+    public void deleteTool(@JsonView(ToolPost.Views.Delete.class)
+                           @RequestBody @Validated ToolPost tool) {
+        toolService.deleteTool(tool);
+    }
 
 }
