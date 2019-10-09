@@ -52,7 +52,7 @@ public class ClientController {
     }
 
     @DeleteMapping
-    public void deleteUser(@JsonView(ClientPost.Views.Delete.class)
+    public void deleteClient(@JsonView(ClientPost.Views.Delete.class)
                            @RequestBody @Validated ClientPost client) {
         clientService.deleteClient(client);
     }
