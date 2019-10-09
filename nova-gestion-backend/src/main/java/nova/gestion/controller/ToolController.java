@@ -36,7 +36,7 @@ public class ToolController {
         return toolService.getTool(idTool);
     }
 
-    @PostMapping
+    @PostMapping("/v1/tool")
     public Map<String, Integer> createTool(@JsonView(ToolPost.Views.Insert.class)
                                            @RequestBody @Validated ToolPost tool) {
 
@@ -51,7 +51,7 @@ public class ToolController {
         toolService.updateTool(tool);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/v1/tool")
     public void deleteTool(@JsonView(ToolPost.Views.Delete.class)
                            @RequestBody @Validated ToolPost tool) {
         toolService.deleteTool(tool);
