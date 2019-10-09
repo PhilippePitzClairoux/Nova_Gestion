@@ -1,0 +1,37 @@
+GET localhost:8080/v1/user/1/
+
+###
+GET localhost:8080/v1/users
+
+###
+POST localhost:8080/v1/user
+Content-Type: application/json
+
+
+{
+  "idUserType" : 1,
+  "idEmployee" : 1,
+  "email" : "test123@gmail.com",
+  "password" : "hehexd123"
+}
+
+###
+PUT localhost:8080/v1/user
+Content-Type: application/json
+
+
+{
+  "idUser" : 1,
+  "password" : "test#123"
+}
+
+###
+POST localhost:8080/v1/client
+Content-Type: application/json
+
+{
+  "name" : "Test",
+  "phoneNumber" : "5146666666"
+}
+
+###
