@@ -1,39 +1,38 @@
-<div class="page">
-  <div class="header">
-    <div class="header-content">
-      <div class="header-text">
-        Gestion des comptes utilisateur
-      </div>
+<app-header [title]="'Gestion des comptes utilisateur'"></app-header>
+
+<div class="search-add">
+  <div class="search-add-content">
+    <div class="search-content">
+      <input class="search" type="text" placeholder="Recherche">
+    </div>
+    <div class="add-user-button">
+      <app-button (clicked)="onAdd($event)" [label]="'Créer un utilisateur'" [style]="'primary'"></app-button>
     </div>
   </div>
-  <div class="search-add">
-    <div class="search-add-content">
-      <div class="search-content">
-        <input class="search" type="text" placeholder="Recherche">
-      </div>
-      <div class="add-user-button">
-        <app-button (clicked)="onAdd($event)" [label]="'Créer un utilisateur'" [style]="'primary'"></app-button>
-      </div>
-    </div>
+</div>
+
+<div class="table-header-content">
+  <div class="table-header">
+    <div class="table-item">NOM</div>
+    <div class="table-item">COURRIEL</div>
+    <div class="table-item">TYPE</div>
+    <div class="table-item"></div>
   </div>
-  <div class="table-header-content">
-    <div class="table-header">
-      <div class="table-item">NOM</div>
-      <div class="table-item">COURRIEL</div>
-      <div class="table-item">TYPE</div>
-      <div class="table-item"></div>
-    </div>
-  </div>
-  <div *ngFor="let user of users">
-    <div class="table-content">
-      <div class="table-row">
-        <div class="table-item">{{user.name}}</div>
-        <div class="table-item">{{user.email}}</div>
-        <div class="table-item">{{user.type}}</div>
-        <div class="table-item">
-          <button class="btn-edit" (click)="onEdit(user.id)" title="Modifier"><fa-icon [icon]="faPen"></fa-icon></button>
-          <button class="btn-delete" (click)="onDelete(user.id)" title="Supprimer"><fa-icon [icon]="faTrash"></fa-icon></button>
-        </div>
+</div>
+
+<div *ngFor="let user of users">
+  <div class="table-content">
+    <div class="table-row">
+      <div class="table-item">{{user.name}}</div>
+      <div class="table-item">{{user.email}}</div>
+      <div class="table-item">{{user.type}}</div>
+      <div class="table-item">
+        <button class="btn-edit" (click)="onEdit(user.id)" title="Modifier">
+          <fa-icon [icon]="faPen"></fa-icon>
+        </button>
+        <button class="btn-delete" (click)="onDelete(user.id)" title="Supprimer">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
       </div>
     </div>
   </div>
