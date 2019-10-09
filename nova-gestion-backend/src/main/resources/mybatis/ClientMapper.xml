@@ -28,4 +28,7 @@
        UPDATE `nova_gestion`.`client` SET name = #{name}, phone_number = #{phoneNumber} WHERE id_client = #{idClient};
     </update>
 
+    <delete id="deleteClient" parameterType="nova.gestion.model.Client">
+        DELETE FROM `nova_gestion`.`client` WHERE `nova_gestion`.`client`.id_client = #{idClient};
+    </delete>
 </mapper>

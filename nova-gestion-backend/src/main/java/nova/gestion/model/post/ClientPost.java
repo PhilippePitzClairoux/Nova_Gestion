@@ -12,9 +12,10 @@ public class ClientPost {
     public static class Views {
         public interface Insert {}
         public interface Update {}
+        public interface Delete {}
     }
 
-    @JsonView(UserPost.Views.Update.class)
+    @JsonView({UserPost.Views.Update.class, UserPost.Views.Delete.class})
     private int idClient;
 
     @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
