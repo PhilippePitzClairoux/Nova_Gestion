@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/v1/client", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClientController {
 
     private final ClientService clientService;
@@ -26,17 +26,17 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping
+    @GetMapping("/v1/clients")
     public ArrayList<Client> getAllClients() throws JsonProcessingException {
         return clientService.getListOfAllClients();
     }
 
-    @GetMapping("/{idClient}/")
+    @GetMapping("/v1/client/{idClient}/")
     public Client getClient(@PathVariable @Validated Integer idClient) {
         return clientService.getClient(idClient);
     }
 
-    @PostMapping
+    @PostMapping("/v1/client")
     public Map<String, Integer> createClient(@JsonView(ClientPost.Views.Insert.class)
                                            @RequestBody @Validated ClientPost client) {
 
@@ -45,7 +45,7 @@ public class ClientController {
         return Map.of("id", id);
     }
 
-    @PutMapping
+    @PutMapping("/v1/client")
     public void updateClient(@JsonView(ClientPost.Views.Update.class)
                            @RequestBody @Valid ClientPost client) {
         clientService.updateClient(client);

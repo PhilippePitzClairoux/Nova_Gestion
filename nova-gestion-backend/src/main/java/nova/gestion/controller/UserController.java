@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping(value = "/v1/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
 
@@ -27,11 +27,11 @@ public class UserController {
     }
 
     /**
-     * GET /v1/user -> retourne la liste des utilisateurs
+     * GET /v1/users -> retourne la liste des utilisateurs
      * @return ArrayList {@link nova.gestion.model.User}
      * @throws JsonProcessingException
      */
-    @GetMapping
+    @GetMapping("/v1/users")
     public ArrayList<User> getAllUsers() throws JsonProcessingException {
         return userService.getListOfAllUsers();
     }
@@ -42,7 +42,7 @@ public class UserController {
      * @param idUser l'id de l'utilisateur voulu
      * @return {@link nova.gestion.model.User}
      */
-    @GetMapping("/{idUser}/")
+    @GetMapping("/v1/user/{idUser}/")
     public User getUser(@PathVariable @Validated Integer idUser) {
         return userService.getUser(idUser);
     }
@@ -54,7 +54,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping
+    @PostMapping("/v1/user")
     public Map<String, Integer> createUser(@JsonView(UserPost.Views.Insert.class)
                                                @RequestBody @Validated UserPost user) {
 
@@ -66,13 +66,13 @@ public class UserController {
         return Map.of("id", id);
     }
 
-    @PutMapping
+    @PutMapping("/v1/user")
     public void updateUser(@JsonView(UserPost.Views.Update.class)
                                @RequestBody @Validated UserPost user) {
         userService.updateUser(user);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/v1/user")
     public void deleteUser(@JsonView(UserPost.Views.Delete.class)
                            @RequestBody @Validated UserPost user) {
         userService.deleteUser(user);

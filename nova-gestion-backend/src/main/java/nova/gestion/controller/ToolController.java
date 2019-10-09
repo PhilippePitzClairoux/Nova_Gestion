@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/v1/tool", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class ToolController {
 
     private final ToolService toolService;
@@ -26,12 +26,12 @@ public class ToolController {
         this.toolService = toolService;
     }
 
-    @GetMapping
+    @GetMapping("/v1/tools")
     public ArrayList<Tool> getAllTools() throws JsonProcessingException {
         return toolService.getListOfAllTools();
     }
 
-    @GetMapping("/{idTool}/")
+    @GetMapping("/v1/tool/{idTool}/")
     public Tool getTool(@PathVariable @Validated Integer idTool) {
         return toolService.getTool(idTool);
     }
@@ -45,7 +45,7 @@ public class ToolController {
         return Map.of("id", id);
     }
 
-    @PutMapping
+    @PutMapping("/v1/tool")
     public void updateTool(@JsonView(ToolPost.Views.Update.class)
                            @RequestBody @Valid ToolPost tool) {
         toolService.updateTool(tool);
