@@ -17,8 +17,7 @@ public class Blank {
     private double diameter;
     private double length;
 
-    public Blank(int idBlank, String name, int stockQuantity, int minimumQuantity, double diameter, double length)
-    {
+    public Blank(int idBlank, String name, int stockQuantity, int minimumQuantity, double diameter, double length) {
         this.idBlank = idBlank;
         this.name = name;
         this.stockQuantity = stockQuantity;
