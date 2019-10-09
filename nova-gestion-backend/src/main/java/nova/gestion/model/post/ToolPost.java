@@ -11,9 +11,10 @@ public class ToolPost {
     public static class Views {
         public interface Insert {}
         public interface Update {}
+        public interface Delete {}
     }
 
-    @JsonView(Views.Update.class)
+    @JsonView({Views.Update.class, Views.Delete.class})
     private int idTool;
 
     @JsonView({Views.Update.class, Views.Insert.class})
@@ -24,6 +25,4 @@ public class ToolPost {
 
     @JsonView({Views.Update.class, Views.Insert.class})
     private int minimumQuantity;
-
-
 }
