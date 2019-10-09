@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/v1/blank", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class BlankController {
 
     private final BlankService blankService;
@@ -26,17 +26,17 @@ public class BlankController {
         this.blankService = blankService;
     }
 
-    @GetMapping
+    @GetMapping("/v1/blanks")
     public ArrayList<Blank> getAllBlanks() throws JsonProcessingException {
         return blankService.getListOfAllBlanks();
     }
 
-    @GetMapping("/{idBlank}/")
+    @GetMapping("/v1/blank/{idBlank}/")
     public Blank getBlank(@PathVariable @Validated int idBlank){
         return blankService.getBlank(idBlank);
     }
 
-    @PostMapping
+    @PostMapping("/v1/blank")
     public Map<String, Integer> createBlank(@JsonView(BlankPost.Views.Insert.class)
                                            @RequestBody @Validated BlankPost blank) {
 
@@ -45,7 +45,7 @@ public class BlankController {
         return Map.of("id", id);
     }
 
-    @PutMapping
+    @PutMapping("/v1/blank")
     public void updateBlank(@JsonView(BlankPost.Views.Update.class)
                            @RequestBody @Valid BlankPost blank) {
         blankService.updateBlank(blank);
