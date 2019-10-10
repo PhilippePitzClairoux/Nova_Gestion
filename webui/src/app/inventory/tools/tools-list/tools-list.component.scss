@@ -49,3 +49,9 @@ mat-row:hover {
     transition: 0.2s all ease;
   }
 }
+
+.shortage {
+  mat-cell {
+    color: #e61610;
+  }
+}
