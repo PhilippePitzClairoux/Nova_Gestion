@@ -20,11 +20,11 @@ export class ToolsListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    const users: Tool[] = [];
+    const tools: Tool[] = [];
     for (let i = 1; i <= 100; i++) {
-      users.push(createTool(i));
+      tools.push(createTool(i));
     }
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(tools);
   }
 
   ngAfterViewInit() {
@@ -43,8 +43,7 @@ export class ToolsListComponent implements OnInit, AfterViewInit {
     this.applyFilter('');
   }
 
-  deleteTool(id: number) {
-    console.log('delete ' + id);
+  deleteTool(id: Tool) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: 'Êtes-vous sûr de vouloir supprimer cet outil?'
@@ -52,7 +51,11 @@ export class ToolsListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Yes clicked');
+        const index = this.dataSource.data.indexOf(id);
+        if (index !== -1) {
+          this.dataSource.data.splice(index, 1);
+          console.log('delete in db', id);
+        }
       }
     });
   }
