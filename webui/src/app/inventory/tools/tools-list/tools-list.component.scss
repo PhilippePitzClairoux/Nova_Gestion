@@ -38,4 +38,14 @@
 mat-row:hover {
   background: #e4f4fd;
   transition: 0.2s all ease;
+
+  .edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
 }
