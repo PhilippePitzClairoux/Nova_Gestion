@@ -15,29 +15,29 @@
   <mat-table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="header"> NOM</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header">NOM</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="stockQuantity">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity"> QUANTITÉ</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity">QUANTITÉ</mat-header-cell>
       <mat-cell *matCellDef="let row" class="quantity"> {{row.stockQuantity}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="minimumQuantity">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity"> MINIMUM</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity">MINIMUM</mat-header-cell>
       <mat-cell *matCellDef="let row" class="quantity"> {{row.minimumQuantity}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="client">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity"> CLIENT</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity">CLIENT</mat-header-cell>
       <mat-cell *matCellDef="let row" class="quantity"> {{row.client.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="controls">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
       <mat-cell *matCellDef="let row" class="controls">
-        <mat-icon class="edit">edit</mat-icon>
+        <mat-icon class="edit" (click)="seeTool(row)">edit</mat-icon>
         <mat-icon class="delete" (click)="deleteTool(row.id)">delete</mat-icon>
       </mat-cell>
     </ng-container>

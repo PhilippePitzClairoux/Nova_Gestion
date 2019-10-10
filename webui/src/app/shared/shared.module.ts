@@ -3,18 +3,27 @@ import {CommonModule} from '@angular/common';
 
 import {ButtonComponent} from './button/button.component';
 import {HeaderComponent} from './header/header.component';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
 
 @NgModule({
   declarations: [
     ButtonComponent,
-    HeaderComponent
+    HeaderComponent,
+    ConfirmationDialogComponent
   ],
   exports: [
     ButtonComponent,
-    HeaderComponent
+    HeaderComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule {
