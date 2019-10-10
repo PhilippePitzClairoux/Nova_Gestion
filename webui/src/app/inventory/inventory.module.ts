@@ -4,7 +4,16 @@ import {InventoryComponent} from './inventory/inventory.component';
 import {SharedModule} from '../shared/shared.module';
 import {InventoryRoutingModule} from './inventory-routing.module';
 import {ToolsListComponent} from './tools/tools-list/tools-list.component';
-import {MatTabsModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule
+} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +25,14 @@ import {MatTabsModule} from '@angular/material';
     SharedModule,
     InventoryRoutingModule,
     MatTabsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
+    FormsModule,
   ]
 })
 export class InventoryModule {

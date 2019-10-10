@@ -1,1 +1,50 @@
-<p>tools-list works!</p>
+<div class="top">
+  <mat-form-field class="search">
+    <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField" (keyup)="applyFilter($event.target.value)">
+    <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <app-button [label]="'Ajouter un outil'" [style]="'primary'"></app-button>
+</div>
+
+<div class="mat-elevation-z0 ">
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header"> NOM </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stockQuantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity"> QUANTITÉ </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="quantity"> {{row.stockQuantity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="minimumQuantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity"> MINIMUM </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="quantity"> {{row.minimumQuantity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity"> CLIENT </mat-header-cell>
+      <mat-cell *matCellDef="let row" class="quantity"> {{row.client.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="controls">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+      <mat-cell *matCellDef="let row" class="controls">
+        <mat-icon>edit</mat-icon>
+        <mat-icon (click)="deleteTool(row.id)">delete</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns" class="header"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

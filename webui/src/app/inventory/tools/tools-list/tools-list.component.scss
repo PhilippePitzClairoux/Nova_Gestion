@@ -1,0 +1,41 @@
+.top {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.top app-button {
+  margin-right: 40px;
+}
+
+.search {
+  width: 80%;
+}
+
+.header {
+  text-transform: uppercase;
+  color: #2370b8;
+  font-weight: bold;
+}
+
+.quantity {
+  max-width: 19%;
+}
+
+.controls {
+  max-width: 10%;
+  justify-content: flex-end;
+}
+
+.controls mat-icon {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #c0c0c0;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+}
