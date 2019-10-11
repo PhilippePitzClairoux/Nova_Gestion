@@ -19,19 +19,21 @@ Content-Type: application/json
 PUT localhost:8080/v1/user
 Content-Type: application/json
 
-
 {
   "idUser": 1,
   "email": "test@hehe.com",
   "password": "hehexd123123",
   "typeUser": {
-    "idTypeUser": 2
+    "idTypeUser": 2,
+    "name": "test"
   },
   "employee": {
+    "idEmployee": 1,
     "name": "test",
     "surname": "test123"
   }
 }
+
 
 ###
 POST localhost:8080/v1/client
