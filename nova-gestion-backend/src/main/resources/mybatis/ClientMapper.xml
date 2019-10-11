@@ -10,7 +10,7 @@
         <result column="phone_number" javaType="string" property="phoneNumber"/>
     </resultMap>
 
-    <select id="getClient" parameterType="Long" resultMap="ClientMap">
+    <select id="getClient" parameterType="int" resultMap="ClientMap">
         SELECT * FROM `nova_gestion`.`client`
         WHERE `nova_gestion`.`client`.id_client = #{idClient};
     </select>

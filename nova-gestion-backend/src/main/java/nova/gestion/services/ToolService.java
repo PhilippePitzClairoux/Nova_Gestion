@@ -35,7 +35,7 @@ public class ToolService {
     }
 
     @Transactional
-    public Tool getTool(int idTool) {
+    public Tool getTool(Integer idTool) {
 
         Tool tool = toolMapper.getTool(idTool);
 

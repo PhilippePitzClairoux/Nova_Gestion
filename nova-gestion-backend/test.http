@@ -1,12 +1,20 @@
-GET localhost:8080/v1/user/1/
+GET localhost:8080/v1/user/6/
+###
+GET localhost:8080/v1/tool/1/
+###
+GET localhost:8080/v1/client/1/
 
 ###
 GET localhost:8080/v1/users
+###
+GET localhost:8080/v1/clients
+###
+GET localhost:8080/v1/tools
+
 
 ###
 POST localhost:8080/v1/user
 Content-Type: application/json
-
 
 {
   "idUserType": 1,
@@ -14,37 +22,64 @@ Content-Type: application/json
   "email": "test123@gmail.com",
   "password": "hehexd123"
 }
+###
+POST localhost:8080/v1/client
+Content-Type: application/json
+
+{
+  "name": "Bombardier",
+  "phoneNumber": "8198199874"
+}
+###
+POST localhost:8080/v1/tool
+Content-Type: application/json
+
+{
+  "name": "Cordoba",
+  "stockQuantity": "100",
+  "minimumQuantity": "100"
+}
 
 ###
 PUT localhost:8080/v1/user
 Content-Type: application/json
 
 {
-  "idUser": 1,
-  "email": "test@hehe.com",
+  "idUser": 6,
+  "email": "test@hehe.ca",
   "password": "hehexd123123",
   "typeUser": {
     "idTypeUser": 2,
     "name": "test"
-  },
-  "employee": {
-    "idEmployee": 1,
-    "name": "test",
-    "surname": "test123"
   }
+
 }
 
-
 ###
-POST localhost:8080/v1/client
+PUT localhost:8080/v1/client
 Content-Type: application/json
 
 {
-  "name": "Test",
-  "phoneNumber": "5146666666"
+  "idClient":5,
+  "name":"AK47"
+  "phoneNumber":"8778799887"
+}
+###
+PUT localhost:8080/v1/tool
+Content-Type: application/json
+
+{
+  "idTool":5,
+  "minimumQuantity": "20"
 }
 
+
 ###
-GET localhost:8080/v1/blank/2/
+DELETE  localhost:8080/v1/tool
+Content-Type: application/json
+
+{
+  "idTool":6
+  }
 
 ###

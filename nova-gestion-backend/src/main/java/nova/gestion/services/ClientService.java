@@ -32,7 +32,7 @@ public class ClientService {
     }
 
     @Transactional
-    public Client getClient(int idClient) {
+    public Client getClient(Integer idClient) {
 
         Client client = clientMapper.getClient(idClient);
 
