@@ -46,10 +46,10 @@ public class ToolController {
     }
 
     @PutMapping("/v1/tool")
-    public void updateTool(@JsonView(ToolPost.Views.Update.class)
-                           @RequestBody @Valid ToolPost tool) {
+    public void updateTool(@RequestBody @Valid Tool tool) {
         toolService.updateTool(tool);
     }
+
 
     @DeleteMapping("/v1/tool")
     public void deleteTool(@JsonView(ToolPost.Views.Delete.class)
