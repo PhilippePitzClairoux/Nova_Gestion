@@ -25,7 +25,10 @@
     </insert>
 
     <update id = "updateClient" parameterType = "nova.gestion.model.Client">
-       UPDATE `nova_gestion`.`client` SET name = #{name}, phone_number = #{phoneNumber} WHERE id_client = #{idClient};
+       UPDATE `nova_gestion`.`client` SET
+                        <if test="name != null">name = #{name},</if>
+                        <if test="phoneNumber != null">phone_number = #{phoneNumber} </if>
+                        WHERE id_client = #{idClient};
     </update>
 
     <delete id="deleteClient" parameterType="nova.gestion.model.Client">
