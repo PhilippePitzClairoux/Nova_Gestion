@@ -10,4 +10,5 @@ public interface EmployeeMapper {
 
     Employee getEmployee(int idEmployee);
 
+    void updateEmployee(Employee employee);
 }

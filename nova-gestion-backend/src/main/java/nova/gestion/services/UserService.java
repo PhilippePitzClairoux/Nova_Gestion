@@ -78,31 +78,27 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(UserPost user) {
-        if (user == null)
-            throw new InvalidRequest("No arguments passed");
+    public void updateUser(User user) {
+        User verifiedUser = userMapper.getUser(user.getIdUser());
 
-        if (user.getIdUser() == 0)
-            throw new InvalidRequest("No idUser");
+        if (user.getIdUser() == 0 || verifiedUser == null)
+            throw new InvalidRequest("Missing parameters");
 
-        User loadUser = userMapper.getUser(user.getIdUser());
+        if (user.getPassword() == null && user.getEmail() == null && user.getTypeUser() == null && user.getEmployee() == null)
+            throw new InvalidRequest("Missing information");
 
-        if (loadUser == null)
-            throw new RessourceNotFound("User does not exist");
+        if (user.getEmail() != null || user.getPassword() != null || user.getTypeUser() != null)
+            userMapper.updateUser(user);
 
-        if (user.getEmail() != null && !loadUser.getEmail().equals(user.getEmail()) && !user.getEmail().isEmpty())
-            loadUser.setEmail(user.getEmail());
+        if (user.getEmployee() != null) {
+            if (user.getEmployee().getName() != null)
+                verifiedUser.getEmployee().setName(user.getEmployee().getName());
 
-        if (user.getPassword() != null && !loadUser.getPassword().equals(user.getPassword()) && !user.getPassword().isEmpty())
-            loadUser.setPassword(user.getPassword());
+            if (user.getEmployee().getSurname() != null)
+                verifiedUser.getEmployee().setSurname((user.getEmployee().getName()));
 
-        if (user.getIdEmployee() != 0 && loadUser.getEmployee().getIdEmployee() != user.getIdEmployee())
-            loadUser.setEmployee(employeeMapper.getEmployee(user.getIdEmployee()));
-
-        if (user.getIdUserType() != 0 && loadUser.getTypeUser().getIdTypeUser() != user.getIdUserType())
-            loadUser.setTypeUser(typeUserMapper.getTypeUser(user.getIdUserType()));
-
-        userMapper.updateUser(loadUser);
+            employeeMapper.updateEmployee(verifiedUser.getEmployee());
+        }
     }
 
     @Transactional

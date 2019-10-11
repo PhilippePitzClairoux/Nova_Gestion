@@ -68,7 +68,7 @@ public class UserController {
 
     @PutMapping("/v1/user")
     public void updateUser(@JsonView(UserPost.Views.Update.class)
-                               @RequestBody @Validated UserPost user) {
+                               @RequestBody @Validated User user) {
         userService.updateUser(user);
     }
 

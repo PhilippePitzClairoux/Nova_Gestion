@@ -9,10 +9,10 @@ Content-Type: application/json
 
 
 {
-  "idUserType" : 1,
-  "idEmployee" : 1,
-  "email" : "test123@gmail.com",
-  "password" : "hehexd123"
+  "idUserType": 1,
+  "idEmployee": 1,
+  "email": "test123@gmail.com",
+  "password": "hehexd123"
 }
 
 ###
@@ -21,8 +21,16 @@ Content-Type: application/json
 
 
 {
-  "idUser" : 1,
-  "password" : "test#123"
+  "idUser": 1,
+  "email": "test@hehe.com",
+  "password": "hehexd123123",
+  "typeUser": {
+    "idTypeUser": 2
+  },
+  "employee": {
+    "name": "test",
+    "surname": "test123"
+  }
 }
 
 ###
@@ -30,8 +38,8 @@ POST localhost:8080/v1/client
 Content-Type: application/json
 
 {
-  "name" : "Test",
-  "phoneNumber" : "5146666666"
+  "name": "Test",
+  "phoneNumber": "5146666666"
 }
 
 ###

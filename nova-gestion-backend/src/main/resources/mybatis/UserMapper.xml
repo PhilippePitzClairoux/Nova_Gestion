@@ -37,10 +37,10 @@
     </insert>
 
     <update id="updateUser" parameterType="nova.gestion.model.User">
-        UPDATE `nova_gestion`.`user` SET password = #{password},
-                                         email = #{email},
-                                         id_employee = #{employee.idEmployee},
-                                         id_user_type = #{typeUser.idTypeUser}
+        UPDATE `nova_gestion`.`user` SET
+                                         <if test="password != null">password = #{password},</if>
+                                         <if test="email != null"> email = #{email},</if>
+                                         <if test="typeUser != null"> id_user_type = #{typeUser.idTypeUser}</if>
         WHERE id_user = #{idUser};
     </update>
 
