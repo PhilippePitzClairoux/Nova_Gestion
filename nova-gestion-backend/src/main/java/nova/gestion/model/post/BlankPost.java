@@ -12,29 +12,33 @@ public class BlankPost {
     public static class Views {
         public interface Insert {}
         public interface Update {}
+        public interface Delete {}
+
     }
 
-    @JsonView(UserPost.Views.Update.class)
+    @JsonView({Views.Update.class, Views.Delete.class})
     private int idBlank;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private int idCoolantHole;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private int codeGrade;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private String name;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private int stockQuantity;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private int minimumQuantity;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private double diameter;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private double length;
 }
+
+

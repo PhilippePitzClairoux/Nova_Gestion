@@ -1,5 +1,6 @@
 package nova.gestion.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,5 +17,13 @@ public class CoolantHole {
         this.idCoolantHole = idCoolantHole;
         this.quantity = quantity;
         this.diameter = diameter;
+    }
+
+    @JsonCreator
+    public CoolantHole(int idCoolantHole, int quantity, double diameter, TypeCoolantHole typeCoolantHole) {
+        this.idCoolantHole = idCoolantHole;
+        this.quantity = quantity;
+        this.diameter = diameter;
+        this.typeCoolantHole = typeCoolantHole;
     }
 }

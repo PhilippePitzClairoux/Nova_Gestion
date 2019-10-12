@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CoolantHoleMapper {
 
     CoolantHole getCoolantHole(int idCoolantHole);
+
+    void updateCoolantHole(CoolantHole coolantHole);
 }

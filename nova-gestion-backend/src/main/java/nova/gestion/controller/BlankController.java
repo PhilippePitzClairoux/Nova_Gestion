@@ -46,9 +46,13 @@ public class BlankController {
     }
 
     @PutMapping("/v1/blank")
-    public void updateBlank(@JsonView(BlankPost.Views.Update.class)
-                           @RequestBody @Valid BlankPost blank) {
+    public void updateBlank(@RequestBody @Valid Blank blank) {
         blankService.updateBlank(blank);
     }
 
+    @DeleteMapping("/v1/blank")
+    public void deleteBlank(@JsonView(BlankPost.Views.Delete.class)
+                           @RequestBody @Validated BlankPost blank) {
+        blankService.deleteBlank(blank);
+    }
 }

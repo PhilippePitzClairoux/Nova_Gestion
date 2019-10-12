@@ -3,6 +3,8 @@ GET localhost:8080/v1/user/6/
 GET localhost:8080/v1/tool/1/
 ###
 GET localhost:8080/v1/client/1/
+###
+GET localhost:8080/v1/blank/2/
 
 ###
 GET localhost:8080/v1/users
@@ -10,6 +12,8 @@ GET localhost:8080/v1/users
 GET localhost:8080/v1/clients
 ###
 GET localhost:8080/v1/tools
+###
+GET localhost:8080/v1/blanks
 
 
 ###
@@ -21,6 +25,19 @@ Content-Type: application/json
   "idEmployee": 1,
   "email": "test123@gmail.com",
   "password": "hehexd123"
+}
+###
+POST localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "codeGrade": 1,
+  "idCoolantHole": 1,
+  "name": "1/5 * 5 - Mill ",
+  "stockQuantity": 100,
+  "minimumQuantity": 100,
+  "diameter": 2,
+  "length": 5
 }
 ###
 POST localhost:8080/v1/client
@@ -40,6 +57,7 @@ Content-Type: application/json
   "minimumQuantity": "100"
 }
 
+
 ###
 PUT localhost:8080/v1/user
 Content-Type: application/json
@@ -54,6 +72,31 @@ Content-Type: application/json
   }
 
 }
+###
+PUT localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "idBlank": 3,
+  "name": "1/5 * 5",
+  "stockQuantity": 10,
+  "minimumQuantity":10,
+  "diameter": 20,
+  "length": 50,
+  "grade": {
+    "code": 2,
+    "name": "K01"
+  },
+  "coolantHole": {
+    "idCoolantHole": 2,
+    "quantity": 40,
+    "diameter": 0,
+    "TypeCoolantHole": {
+      "idTypeCoolantHole": 1,
+      "name": "Droit"
+    }
+  }
+}
 
 ###
 PUT localhost:8080/v1/client
@@ -61,7 +104,7 @@ Content-Type: application/json
 
 {
   "idClient":5,
-  "name":"AK47"
+  "name":"AK47",
   "phoneNumber":"8778799887"
 }
 ###
@@ -80,6 +123,5 @@ Content-Type: application/json
 
 {
   "idTool":6
-  }
+}
 
-###

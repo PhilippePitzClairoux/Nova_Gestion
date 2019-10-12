@@ -44,15 +44,20 @@
     </insert>
 
     <update id="updateBlank" parameterType="nova.gestion.model.Blank">
-        UPDATE `nova_gestion`.`blank` SET code_grade = #{grade.code}},
+        UPDATE `nova_gestion`.`blank` SET
+                                    <if test="grade != null">code_grade = #{grade.code},</if>
                                          id_coolant_hole = #{coolantHole.idCoolantHole},
-                                         name = #{name},
-                                         stock_quantity = #{stockQuantity},
-                                         minimum_quantity = #{minimumQuantity},
-                                         diameter = #{diameter},
-                                         length = #{length}
-
-        WHERE id_blank = #{idBlank};
+                                     <if test="name != null">name = #{name},</if>
+                                    <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
+                                    <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
+                                    <if test="diameter != 0">diameter = #{diameter},</if>
+                                    <if test="length != 0">length = #{length}</if>
+                                     WHERE id_blank = #{idBlank};
     </update>
+
+    <delete id="deleteBlank" parameterType="nova.gestion.model.Blank">
+        DELETE FROM `nova_gestion`.`blank` WHERE `nova_gestion`.`blank`.id_blank = #{idBlank};
+    </delete>
+
 
 </mapper>
