@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.ClientMapper">
+
+    <resultMap id="ClientMap" type="nova.gestion.model.Client">
+        <id column="id_client" javaType="int" property="idClient"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="phone_number" javaType="string" property="phoneNumber"/>
+    </resultMap>
+
+    <select id="getClient" parameterType="int" resultMap="ClientMap">
+        SELECT * FROM `nova_gestion`.`client`
+        WHERE `nova_gestion`.`client`.id_client = #{idClient};
+    </select>
+
+    <select id="getAllClient"  resultMap="ClientMap">
+        SELECT * FROM `nova_gestion`.`client`;
+    </select>
+
+    <insert id = "insertClient" parameterType = "nova.gestion.model.Client"  keyProperty="idClient" useGeneratedKeys="true">
+       INSERT INTO `nova_gestion`.`client` (name, phone_number)
+       VALUES (#{name}, #{phoneNumber});
+    </insert>
+
+    <update id = "updateClient" parameterType = "nova.gestion.model.Client">
+       UPDATE `nova_gestion`.`client` SET
+                        <if test="name != null">name = #{name},</if>
+                        <if test="phoneNumber != null">phone_number = #{phoneNumber} </if>
+                        WHERE id_client = #{idClient};
+    </update>
+
+    <delete id="deleteClient" parameterType="nova.gestion.model.Client">
+        DELETE FROM `nova_gestion`.`client` WHERE `nova_gestion`.`client`.id_client = #{idClient};
+    </delete>
+</mapper>
