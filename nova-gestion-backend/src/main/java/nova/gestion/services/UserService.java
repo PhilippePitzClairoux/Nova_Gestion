@@ -51,30 +51,29 @@ public class UserService {
     }
 
     @Transactional
-    public Integer createUser(Integer idUserType,
-                           Integer idEmployee,
-                           String email,
-                           String password ) {
+    public Integer createUser(User user) {
 
-        if (idUserType == null || idEmployee == null || email == null || password == null)
+        if (user == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (email.isEmpty() || password.isEmpty() || idUserType == 0 || idEmployee == 0)
-            throw new InvalidRequest("Invalid parameters");
+        if (user.getEmployee() == null)
+            throw new InvalidRequest("Missing Employee");
 
-        TypeUser typeUser = typeUserMapper.getTypeUser(idUserType);
-        Employee employee = employeeMapper.getEmployee(idEmployee);
+        if (user.getTypeUser() == null)
+            throw new InvalidRequest("Missing TypeUser");
 
-        if (typeUser == null)
-            throw new InvalidRequest("Invalid TypeUser");
+        if (user.getPassword() == null || user.getEmail() == null)
+            throw new InvalidRequest("Missing User parameters");
 
-        if (employee == null)
-            throw new InvalidRequest("Invalid employee");
+        if (user.getEmployee().getSurname() == null || user.getEmployee().getName() == null)
+            throw new InvalidRequest("Missing Employee parameters");
 
-        User toInsert = new User(0, email, password, typeUser, employee);
-        userMapper.insertUser(toInsert);
+        if (user.getTypeUser().getIdTypeUser() == 0)
+            throw new InvalidRequest("Missing idTypeUser");
+        employeeMapper.insertEmployee(user.getEmployee());
+        userMapper.insertUser(user);
 
-        return toInsert.getIdUser();
+        return user.getIdUser();
     }
 
     @Transactional
@@ -95,7 +94,7 @@ public class UserService {
                 verifiedUser.getEmployee().setName(user.getEmployee().getName());
 
             if (user.getEmployee().getSurname() != null)
-                verifiedUser.getEmployee().setSurname((user.getEmployee().getName()));
+                verifiedUser.getEmployee().setSurname((user.getEmployee().getSurname()));
 
             employeeMapper.updateEmployee(verifiedUser.getEmployee());
         }

@@ -55,15 +55,9 @@ public class UserController {
      * @return
      */
     @PostMapping("/v1/user")
-    public Map<String, Integer> createUser(@JsonView(UserPost.Views.Insert.class)
-                                               @RequestBody @Validated UserPost user) {
+    public Map<String, Integer> createUser(@RequestBody @Validated User user) {
 
-        Integer id = userService.createUser(user.getIdUserType(),
-                user.getIdEmployee(),
-                user.getEmail(),
-                user.getPassword());
-
-        return Map.of("id", id);
+        return Map.of("id", userService.createUser(user));
     }
 
     @PutMapping("/v1/user")

@@ -24,4 +24,10 @@
         WHERE id_employee = #{idEmployee};
     </update>
 
+    <insert id="insertEmployee" parameterType="nova.gestion.model.Employee" useGeneratedKeys="true" keyProperty="idEmployee">
+        INSERT INTO `nova_gestion`.employee(name, surname)
+        VALUE
+        (#{name}, #{surname});
+    </insert>
+
 </mapper>
