@@ -14,4 +14,7 @@
         WHERE id_type_coolant_hole = #{idTypeCoolantHole};
     </select>
 
+    <select id="getAllTypeCoolantHole" resultMap="TypeCoolantHoleMap">
+        SELECT * FROM `nova_gestion`.`type_coolant_hole`;
+    </select>
 </mapper>

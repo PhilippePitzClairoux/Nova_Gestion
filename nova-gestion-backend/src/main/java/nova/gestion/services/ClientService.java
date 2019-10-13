@@ -32,7 +32,7 @@ public class ClientService {
     }
 
     @Transactional
-    public Client getClient(int idClient) {
+    public Client getClient(Integer idClient) {
 
         Client client = clientMapper.getClient(idClient);
 
@@ -58,26 +58,19 @@ public class ClientService {
     }
 
     @Transactional
-    public void updateClient(ClientPost client) {
-        if (client == null)
-            throw new InvalidRequest("No arguments passed");
+    public void updateClient(Client client) {
+       Client verifiedClient = clientMapper.getClient(client.getIdClient());
 
-        if (client.getIdClient() == 0)
-            throw new InvalidRequest("No idClient");
+       if(client.getIdClient() == 0 || verifiedClient == null)
+           throw new InvalidRequest("Missing parameters");
 
-        Client loadClient = clientMapper.getClient(client.getIdClient());
+       if (client.getName() == null && client.getPhoneNumber() == null)
+           throw new InvalidRequest("Missing information");
 
-        if (loadClient == null)
-            throw new RessourceNotFound("Client does not exist");
-
-        if (client.getName() != null && !loadClient.getName().equals(client.getName()) && !client.getName().isEmpty())
-            loadClient.setName(client.getName());
-
-        if (client.getPhoneNumber() != null && !loadClient.getPhoneNumber().equals(client.getPhoneNumber()) && !client.getPhoneNumber().isEmpty())
-            loadClient.setPhoneNumber(client.getPhoneNumber());
-
-        clientMapper.updateClient(loadClient);
+       if (client.getName() != null || client.getPhoneNumber() !=null)
+           clientMapper.updateClient(client);
     }
+
 
     @Transactional
     public void deleteClient(ClientPost client) {

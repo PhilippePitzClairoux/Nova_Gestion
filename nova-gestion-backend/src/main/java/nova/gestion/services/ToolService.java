@@ -35,7 +35,7 @@ public class ToolService {
     }
 
     @Transactional
-    public Tool getTool(int idTool) {
+    public Tool getTool(Integer idTool) {
 
         Tool tool = toolMapper.getTool(idTool);
 
@@ -61,28 +61,19 @@ public class ToolService {
     }
 
     @Transactional
-    public void updateTool(ToolPost tool) {
-        if (tool == null)
-            throw new InvalidRequest("No arguments passed");
+    public void updateTool(Tool tool) {
+        Tool verifiedTool = toolMapper.getTool(tool.getIdTool());
 
-        if (tool.getIdTool() == 0)
-            throw new InvalidRequest("No idTool");
+        if (tool.getIdTool() == 0 || verifiedTool == null)
+            throw new InvalidRequest("Missing parameters");
 
-        Tool loadTool = toolMapper.getTool(tool.getIdTool());
+        if(tool.getName() == null && tool.getStockQuantity() == 0 && tool.getMinimumQuantity() == 0){
+            throw new InvalidRequest("Missing information");
+        }
 
-        if (loadTool == null)
-            throw new RessourceNotFound("Tool does not exist");
-
-        if (tool.getName() != null && !loadTool.getName().equals(tool.getName()) && !tool.getName().isEmpty())
-            loadTool.setName(tool.getName());
-
-        if (tool.getStockQuantity() != 0 && loadTool.getStockQuantity() != tool.getStockQuantity())
-            loadTool.setStockQuantity(tool.getStockQuantity());
-
-        if (tool.getMinimumQuantity() != 0 && loadTool.getMinimumQuantity() != tool.getMinimumQuantity())
-            loadTool.setMinimumQuantity(tool.getMinimumQuantity());
-
-        toolMapper.updateTool(loadTool);
+        if (tool.getName() != null || tool.getStockQuantity() != 0 || tool.getMinimumQuantity() != 0){
+            toolMapper.updateTool(tool);
+        }
     }
 
     @Transactional
@@ -96,3 +87,5 @@ public class ToolService {
         toolMapper.deleteTool(loadTool);
     }
 }
+
+

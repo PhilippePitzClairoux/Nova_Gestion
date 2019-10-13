@@ -19,4 +19,6 @@ public interface BlankMapper {
 
     void updateBlank(Blank blank);
 
+    void deleteBlank(Blank blank);
+
 }

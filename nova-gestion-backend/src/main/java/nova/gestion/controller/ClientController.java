@@ -44,10 +44,9 @@ public class ClientController {
 
         return Map.of("id", id);
     }
-
+    
     @PutMapping("/v1/client")
-    public void updateClient(@JsonView(ClientPost.Views.Update.class)
-                           @RequestBody @Valid ClientPost client) {
+    public void updateClient(@RequestBody @Valid Client client) {
         clientService.updateClient(client);
     }
 

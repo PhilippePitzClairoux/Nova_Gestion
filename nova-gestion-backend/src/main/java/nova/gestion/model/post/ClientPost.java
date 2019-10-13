@@ -15,12 +15,12 @@ public class ClientPost {
         public interface Delete {}
     }
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Delete.class})
+    @JsonView({Views.Update.class, Views.Delete.class})
     private int idClient;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({UserPost.Views.Update.class, Views.Insert.class})
     private String name;
 
-    @JsonView({UserPost.Views.Update.class, UserPost.Views.Insert.class})
+    @JsonView({Views.Update.class, Views.Insert.class})
     private String phoneNumber;
 }

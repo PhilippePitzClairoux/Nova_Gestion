@@ -11,7 +11,7 @@
         <result column="minimum_quantity" javaType="int" property="minimumQuantity"/>
     </resultMap>
 
-    <select id="getTool" parameterType="Long" resultMap="ToolMap">
+    <select id="getTool" parameterType="int" resultMap="ToolMap">
         SELECT * FROM `nova_gestion`.`tool`
         WHERE `nova_gestion`.`tool`.id_tool = #{idTool};
     </select>
@@ -26,7 +26,11 @@
     </insert>
 
     <update id = "updateTool" parameterType = "nova.gestion.model.Tool">
-       UPDATE `nova_gestion`.`tool` SET name = #{name}, stock_quantity = #{stockQuantity}, minimum_quantity = #{minimumQuantity} WHERE id_tool = #{idTool};
+       UPDATE `nova_gestion`.`tool` SET
+                    <if test="name != null">name = #{name},</if>
+                    <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
+                    <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity}</if>
+                    WHERE id_tool = #{idTool};
     </update>
 
     <delete id = "deleteTool" parameterType = "nova.gestion.model.Tool">
