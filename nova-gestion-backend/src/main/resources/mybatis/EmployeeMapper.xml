@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.EmployeeMapper">
+
+    <resultMap id="EmployeeMap" type="nova.gestion.model.Employee">
+        <id property="idEmployee" column="id_employee" javaType="int"/>
+        <result property="name" column="name" javaType="string"/>
+        <result property="surname" column="surname" javaType="string"/>
+    </resultMap>
+
+
+    <select id="getEmployee" parameterType="int" resultMap="EmployeeMap">
+        SELECT * FROM `nova_gestion`.`employee`
+        WHERE id_employee = #{idEmployee};
+    </select>
+
+    <update id="updateEmployee" parameterType="nova.gestion.model.Employee">
+        UPDATE `nova_gestion`.employee
+            SET
+                <if test="name != null"> name = #{name},</if>
+                <if test="surname != null">surname = #{surname}</if>
+        WHERE id_employee = #{idEmployee};
+    </update>
+
+    <insert id="insertEmployee" parameterType="nova.gestion.model.Employee" useGeneratedKeys="true" keyProperty="idEmployee">
+        INSERT INTO `nova_gestion`.employee(name, surname)
+        VALUE
+        (#{name}, #{surname});
+    </insert>
+
+</mapper>
