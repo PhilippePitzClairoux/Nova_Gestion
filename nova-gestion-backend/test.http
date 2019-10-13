@@ -7,12 +7,16 @@ GET localhost:8080/v1/users
 POST localhost:8080/v1/user
 Content-Type: application/json
 
-
 {
-  "idUserType": 1,
-  "idEmployee": 1,
-  "email": "test123@gmail.com",
-  "password": "hehexd123"
+  "email": "test@hehe.com",
+  "password": "hehexd123123",
+  "typeUser": {
+    "idTypeUser": 2
+  },
+  "employee": {
+    "name": "test",
+    "surname": "test123"
+  }
 }
 
 ###
