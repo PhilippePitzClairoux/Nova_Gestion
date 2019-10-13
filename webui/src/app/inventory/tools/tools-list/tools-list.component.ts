@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Tool} from '../../../models/tool';
 import {ConfirmationDialogComponent} from '../../../shared/confirmation-dialog/confirmation-dialog.component';
+import {ToolComponent} from '../tool/tool.component';
 
 @Component({
   selector: 'app-tools-list',
@@ -61,7 +62,16 @@ export class ToolsListComponent implements OnInit, AfterViewInit {
   }
 
   seeTool(selected: Tool) {
-    console.log(selected);
+    const dialogRef = this.dialog.open(ToolComponent, {
+      width: '500px',
+      data: selected
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('save', selected);
+      }
+    });
   }
 }
 
