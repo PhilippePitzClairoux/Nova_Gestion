@@ -1,7 +1,10 @@
+import { Observable } from 'rxjs';
+import { UsersService } from './../users.service';
 import { UserComponent } from './../user/user.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-users-list',
@@ -13,15 +16,13 @@ export class UsersListComponent implements OnInit {
   public faPen = faPen;
   public faTrash = faTrash;
 
-  public users = [
-    {id: 1, name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'administrateur'},
-    {id: 2, name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'superviseur'},
-    {id: 3, name: 'Bob Langevin', email: 'boblangevin@gmail.com', type: 'outilleur'}
-  ];
+  public users$: Observable<User[]>;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private userService: UsersService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
+    this.userService.getAllUsers();
+    this.users$ = this.userService.usersList$();
   }
 
   public onAdd($event) {

@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { UserComponent } from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import { SharedModule } from './shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AuthentificationModule,
     UsersModule,
