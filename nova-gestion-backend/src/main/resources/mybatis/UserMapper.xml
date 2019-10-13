@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.UserMapper">
+
+    <resultMap id="UserMap" type="nova.gestion.model.User">
+        <constructor>
+            <arg name="idUser" column="id_user"/>
+            <arg name="email" column="email"/>
+            <arg name="password" column="password"/>
+        </constructor>
+        <id column="id_user" javaType="int" property="idUser"/>
+        <result column="email" javaType="string" property="email"/>
+        <result column="password" javaType="string" property="password"/>
+
+        <association column="id_user_type" property="typeUser" javaType="nova.gestion.model.TypeUser"
+                     select="nova.gestion.mappers.TypeUserMapper.getTypeUser"/>
+
+        <association column="id_employee" property="employee" javaType="nova.gestion.model.Employee"
+                     select="nova.gestion.mappers.EmployeeMapper.getEmployee"/>
+    </resultMap>
+
+    <select id="getUser" parameterType="int" resultMap="UserMap">
+        SELECT *
+        FROM `nova_gestion`.`user`
+        WHERE `nova_gestion`.`user`.id_user = #{idUser};
+    </select>
+
+    <select id="getAllUsers" resultMap="UserMap">
+        SELECT * FROM `nova_gestion`.`user`;
+    </select>
+
+    <insert id="insertUser" parameterType="nova.gestion.model.User" keyProperty="idUser" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`user`(id_user_type, id_employee, email, password)
+        VALUES (#{typeUser.idTypeUser}, #{employee.idEmployee}, #{email}, #{password});
+    </insert>
+
+    <update id="updateUser" parameterType="nova.gestion.model.User">
+        UPDATE `nova_gestion`.`user` SET
+                                         <if test="password != null">password = #{password},</if>
+                                         <if test="email != null"> email = #{email},</if>
+                                         <if test="typeUser != null"> id_user_type = #{typeUser.idTypeUser}</if>
+        WHERE id_user = #{idUser};
+    </update>
+
+    <delete id="deleteUser" parameterType="nova.gestion.model.User">
+        DELETE FROM `nova_gestion`.`user` WHERE `nova_gestion`.`user`.id_user = #{idUser};
+    </delete>
+    
+</mapper>
