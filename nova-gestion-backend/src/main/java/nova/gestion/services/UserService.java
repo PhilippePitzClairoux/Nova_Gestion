@@ -94,7 +94,7 @@ public class UserService {
                 verifiedUser.getEmployee().setName(user.getEmployee().getName());
 
             if (user.getEmployee().getSurname() != null)
-                verifiedUser.getEmployee().setSurname((user.getEmployee().getName()));
+                verifiedUser.getEmployee().setSurname((user.getEmployee().getSurname()));
 
             employeeMapper.updateEmployee(verifiedUser.getEmployee());
         }
