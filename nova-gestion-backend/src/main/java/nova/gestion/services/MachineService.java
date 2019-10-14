@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 public class MachineService {
     private final MachineMapper machineMapper;
@@ -20,6 +22,16 @@ public class MachineService {
         this.machineMapper = machineMapper;
         this.maintenanceMapper = maintenanceMapper;
         this.modelMapper = modelMapper;
+    }
+
+    @Transactional
+    public ArrayList<Machine> getAllMachines() {
+        ArrayList<Machine> machines = machineMapper.getAllMachines();
+
+        if (machines == null)
+            throw new RessourceNotFound("No machines available");
+
+        return machines;
     }
 
     @Transactional

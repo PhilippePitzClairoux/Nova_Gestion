@@ -12,7 +12,7 @@
         </constructor>
         <id column="id_maintenance" javaType="int" property="idMaintenance"/>
         <result column="description" javaType="string" property="description"/>
-        <result column="date" javaType="string" property="date"/>
+        <result column="date" javaType="date" property="date"/>
 
         <association column="id_machine" property="machine" javaType="nova.gestion.model.Maintenance"
                      select="nova.gestion.mappers.MachineMapper.getMachine"/>
@@ -25,7 +25,7 @@
 
     <select id="getMaintenancesByMachine" parameterType="nova.gestion.model.Machine" resultMap="MaintenanceMap">
         SELECT * FROM `nova_gestion`.`maintenance`
-        WHERE `nova_gestion`.`maintenance`.id_machine = #{idMachine};
+        WHERE `nova_gestion`.`maintenance`.id_machine = #{machine.idMachine};
     </select>
 
 

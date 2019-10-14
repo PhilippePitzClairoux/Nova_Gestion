@@ -17,6 +17,8 @@ GET localhost:8080/v1/clients
 GET localhost:8080/v1/tools
 ###
 GET localhost:8080/v1/blanks
+###
+GET localhost:8080/v1/machines
 
 
 ###
