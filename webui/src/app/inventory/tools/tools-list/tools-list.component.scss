@@ -27,6 +27,7 @@
 .controls {
   max-width: 10%;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .controls mat-icon {

@@ -76,8 +76,23 @@ export class ToolsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('save', selected);
+        this.saveTool(result, selected);
       }
     });
+  }
+
+  private saveTool(tool: Tool, isNew) {
+    console.log(tool);
+    if (isNew) {
+      console.log('update');
+      this.toolService.update(tool).subscribe(result => {
+        console.log('upd', result);
+      });
+    } else {
+      console.log('add');
+      this.toolService.add(tool).subscribe(result => {
+        console.log('add', result);
+      });
+    }
   }
 }
