@@ -5,6 +5,7 @@ import {ButtonComponent} from './button/button.component';
 import {HeaderComponent} from './header/header.component';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
   imports: [
     CommonModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   entryComponents: [
     ConfirmationDialogComponent

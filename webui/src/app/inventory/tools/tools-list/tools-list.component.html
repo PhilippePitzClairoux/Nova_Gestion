@@ -31,7 +31,7 @@
 
     <ng-container matColumnDef="client">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity">CLIENT</mat-header-cell>
-      <mat-cell *matCellDef="let row" class="quantity"> {{row.client.name}} </mat-cell>
+      <mat-cell *matCellDef="let row" class="quantity"> <span *ngIf="row.client">{{row.client.name}}</span> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="controls">
