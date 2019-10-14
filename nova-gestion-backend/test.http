@@ -7,6 +7,9 @@ GET localhost:8080/v1/client/1/
 GET localhost:8080/v1/blank/2/
 
 ###
+GET localhost:8080/v1/machine/1/
+
+###
 GET localhost:8080/v1/users
 ###
 GET localhost:8080/v1/clients
