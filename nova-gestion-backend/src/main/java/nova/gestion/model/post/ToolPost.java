@@ -25,4 +25,8 @@ public class ToolPost {
 
     @JsonView({Views.Update.class, Views.Insert.class})
     private int minimumQuantity;
+
+    @JsonView({Views.Update.class, Views.Insert.class})
+    private int idClient;
+
 }
