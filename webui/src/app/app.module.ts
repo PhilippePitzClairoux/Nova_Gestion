@@ -11,6 +11,7 @@ import { UserComponent } from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AuthentificationModule,
