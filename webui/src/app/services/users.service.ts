@@ -1,9 +1,9 @@
-import { User } from './../Models/user.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { User } from './../Models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,7 @@ export class UsersService {
 
   public createUser(user: User): void {
     this.http.post<User>('/v1/user', user, this.httpOptions).subscribe(result => {
-      user.idUser = result.idUser; // TODO Voir si ça marche, parce que angular s'attend de recevoir un user et on retourne un id seulement.
+      user.idUser = result.idUser; // TODO backend changer id pour idUser dans la response
       this.usersList = [...this.usersList, user];
       this.usersListSubject.next(this.usersList);
       console.log('UserService -> CreateUser() : [SUCCESS]');
@@ -39,7 +39,12 @@ export class UsersService {
   }
 
   public updateUser(user: User): void {
-    this.http.put<User>('/v1/user', user, this.httpOptions).subscribe();
+    this.http.put<User>('/v1/user', user, this.httpOptions).subscribe(() => {
+      const index = this.usersList.findIndex(t => t.idUser === user.idUser);
+      this.usersList[index] = user;
+      this.usersListSubject.next(this.usersList);
+      console.log('UserService -> Update() : [SUCCESS]');
+    });
   }
 
   public deleteUser(id: number): void {

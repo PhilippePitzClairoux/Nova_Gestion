@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
+import { noop } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { UserComponent } from './../user/user.component';
 import { UsersService } from '../../services/users.service';
@@ -18,13 +19,13 @@ export class UsersListComponent implements OnInit {
   public faPen = faPen;
   public faTrash = faTrash;
 
-  public users$: Observable<User[]>;
+  public users: User[] = [];
 
   constructor(private userService: UsersService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.userService.getAllUsers();
-    this.users$ = this.userService.usersList$();
+    this.userService.usersList$().pipe(tap(result => this.users = result)).subscribe();
   }
 
   public onAdd($event) {
@@ -34,7 +35,7 @@ export class UsersListComponent implements OnInit {
   public onEdit(id: number): void {
     const initialState = {
       panelClass: 'custom-dialog-container',
-      user: this.users$
+      user: this.users.filter(t => t.idUser === id)
     };
     this.dialog.open(UserComponent, initialState);
   }
