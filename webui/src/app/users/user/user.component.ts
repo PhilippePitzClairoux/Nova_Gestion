@@ -1,9 +1,9 @@
-import { UsersService } from './../../services/users.service';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-
-import { User } from './../../Models/user.model';
 import { MatDialog } from '@angular/material';
+
+import { UsersService } from './../../services/users.service';
+import { User } from './../../models/user.model';
 
 @Component({
   selector: 'app-user',
@@ -46,22 +46,35 @@ export class UserComponent implements OnInit {
   }
 
   public onAdd(): void {
-    let user: User;
-    user = new User();
+    let user = new User();
     user = {
-      id: null,
       email: 'admin@gmail.com',
       password: 'test',
       typeUser: {
-        id: 1,
+        idTypeUser: 1,
         name: 'Admin'
       },
       employee: {
-        id: null,
         name: 'Jean-Pierre',
         surname: 'Vilanova'
       }
     };
     this.userService.createUser(user);
+    // let user = new User();
+    // user = {
+    //   idUser: 1,
+    //   email: 'admin@gmail.com',
+    //   password: 'test',
+    //   typeUser: {
+    //     idTypeUser: 1,
+    //     name: 'Admin'
+    //   },
+    //   employee: {
+    //     idEmployee: 1,
+    //     name: 'Jean-Pier',
+    //     surname: 'Vilanova'
+    //   }
+    // };
+    // this.userService.updateUser(user);
   }
 }

@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { UserComponent } from './../user/user.component';
-import { UsersService } from '../../Services/users.service';
-import { User } from '../../Models/user.model';
+import { UsersService } from '../../services/users.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-users-list',
