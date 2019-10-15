@@ -46,18 +46,23 @@ public class ToolService {
     }
 
     @Transactional
-    public Integer createTool(String name, Integer stockQuantity, Integer minimumQuantity) {
+    public Integer createTool(Tool tool) {
 
-        if (name == null || stockQuantity == null || minimumQuantity == null)
+        if (tool == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (name.isEmpty() || stockQuantity == 0 || minimumQuantity == 0)
-            throw new InvalidRequest("Invalid parameters");
+        if (tool.getClient() == null)
+            throw new InvalidRequest("Missing client");
 
-        Tool toInsert = new Tool(0, name, stockQuantity, minimumQuantity);
-        toolMapper.insertTool(toInsert);
+        if (tool.getName() == null || tool.getStockQuantity() < 0 || tool.getMinimumQuantity() < 0)
+            throw new InvalidRequest("Missing tool parameters");
 
-        return toInsert.getIdTool();
+        if (tool.getClient().getName() == null || tool.getClient().getPhoneNumber() == null)
+            throw new InvalidRequest("Missing Client parameters");
+
+        toolMapper.insertTool(tool);
+
+        return tool.getIdTool();
     }
 
     @Transactional
@@ -67,11 +72,11 @@ public class ToolService {
         if (tool.getIdTool() == 0 || verifiedTool == null)
             throw new InvalidRequest("Missing parameters");
 
-        if(tool.getName() == null && tool.getStockQuantity() == 0 && tool.getMinimumQuantity() == 0){
+        if(tool.getName() == null && tool.getStockQuantity() < 0 && tool.getMinimumQuantity() < 0 && tool.getClient() ==null){
             throw new InvalidRequest("Missing information");
         }
 
-        if (tool.getName() != null || tool.getStockQuantity() != 0 || tool.getMinimumQuantity() != 0){
+        if (tool.getName() != null || tool.getStockQuantity() >= 0 || tool.getMinimumQuantity() >= 0 || tool.getClient() != null){
             toolMapper.updateTool(tool);
         }
     }
