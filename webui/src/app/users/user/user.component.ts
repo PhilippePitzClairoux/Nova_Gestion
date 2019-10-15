@@ -6,6 +6,7 @@ import { UsersService } from './../../services/users.service';
 import { User } from './../../models/user.model';
 import { Employee } from './../../models/employee.model';
 import { TypeUser } from './../../models/user-type.model';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -15,6 +16,7 @@ import { TypeUser } from './../../models/user-type.model';
 export class UserComponent implements OnInit {
 
   public user: User;
+  public userTypesList: TypeUser[] = [];
 
   public adding: boolean;
   public editing: boolean;
@@ -29,13 +31,16 @@ export class UserComponent implements OnInit {
 
   @Output() addUser = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialog, private userService: UsersService, @Inject(MAT_DIALOG_DATA) data) {
-      this.user = data.user;
-      this.adding = data.add;
-      this.editing = data.edit;
+  constructor(private fb: FormBuilder, private dialogRef: MatDialog,
+              private userService: UsersService, @Inject(MAT_DIALOG_DATA) data: any) {
+    this.user = data.user;
+    this.adding = data.add;
+    this.editing = data.edit;
   }
 
   public ngOnInit(): void {
+    this.userService.getAllUserTypes();
+    this.userService.userTypesList$().pipe(tap(result => this.userTypesList = result)).subscribe();
     this.fg = this.fb.group({
       name: (this.fcName = new FormControl(this.user.employee.name || '', Validators.required)),
       surname: (this.fcSurname = new FormControl(this.user.employee.surname || '', Validators.required)),

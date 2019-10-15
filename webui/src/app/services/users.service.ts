@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { User } from './../Models/user.model';
+import { TypeUser } from '../Models/user-type.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +14,19 @@ export class UsersService {
   private usersList: User[] = [];
   private usersListSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
+  private userTypesList: TypeUser[] = [];
+  private userTypesListSubject: BehaviorSubject<TypeUser[]> = new BehaviorSubject<TypeUser[]>([]);
+
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(private http: HttpClient) { }
 
   public usersList$(): Observable<User[]> {
     return this.usersListSubject.asObservable();
+  }
+
+  public userTypesList$(): Observable<TypeUser[]> {
+    return this.userTypesListSubject.asObservable();
   }
 
   public getAllUsers(): void {
@@ -52,6 +60,14 @@ export class UsersService {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
       console.log('UserService -> DeleteUser() : [SUCCESS]');
+    });
+  }
+
+  public getAllUserTypes(): void {
+    this.http.get<TypeUser[]>('/v1/usertypes').subscribe(result => {
+      this.userTypesList = result;
+      this.userTypesListSubject.next(this.userTypesList);
+      console.log('UserService -> GetAllUserTypes() : [SUCCESS]');
     });
   }
 }
