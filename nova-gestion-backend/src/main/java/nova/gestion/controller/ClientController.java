@@ -50,10 +50,9 @@ public class ClientController {
         clientService.updateClient(client);
     }
 
-    @DeleteMapping("/v1/client")
-    public void deleteClient(@JsonView(ClientPost.Views.Delete.class)
-                           @RequestBody @Validated ClientPost client) {
-        clientService.deleteClient(client);
+    @DeleteMapping("/v1/client/{idClient}/")
+    public void deleteClient(@PathVariable @Validated Integer idClient) {
+        clientService.deleteClient(idClient);
     }
 
 }
