@@ -4,8 +4,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
 import { UsersService } from './../../services/users.service';
 import { User } from './../../models/user.model';
-import { Employee } from 'src/app/models/employee.model';
-import { TypeUser } from 'src/app/models/user-type.model';
+import { Employee } from './../../models/employee.model';
+import { TypeUser } from './../../models/user-type.model';
 
 @Component({
   selector: 'app-user',

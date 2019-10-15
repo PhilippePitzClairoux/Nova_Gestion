@@ -7,8 +7,8 @@ import { tap } from 'rxjs/operators';
 import { UserComponent } from './../user/user.component';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user.model';
-import { TypeUser } from 'src/app/models/user-type.model';
-import { Employee } from 'src/app/models/employee.model';
+import { TypeUser } from '../../models/user-type.model';
+import { Employee } from '../../models/employee.model';
 
 @Component({
   selector: 'app-users-list',
@@ -38,8 +38,8 @@ export class UsersListComponent implements OnInit {
 
     // Defining mat dialogs config and passing my user
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = {
-      panelClass: 'custom-dialog-container',
       user: newUser,
       add: true,
       edit: false
@@ -53,8 +53,8 @@ export class UsersListComponent implements OnInit {
 
     // Defining mat dialogs config and passing my user
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = {
-      panelClass: 'custom-dialog-container',
       user: this.users.find(t => t.idUser === id),
       add: false,
       edit: true
