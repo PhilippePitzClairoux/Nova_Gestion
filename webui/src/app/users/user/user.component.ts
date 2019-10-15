@@ -4,6 +4,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
 import { UsersService } from './../../services/users.service';
 import { User } from './../../models/user.model';
+import { Employee } from 'src/app/models/employee.model';
+import { TypeUser } from 'src/app/models/user-type.model';
 
 @Component({
   selector: 'app-user',
@@ -48,21 +50,18 @@ export class UserComponent implements OnInit {
   }
 
   public onAdd(): void {
-    let user = new User();
-    user = {
-      email: 'admin@gmail.com',
-      password: 'test',
-      typeUser: {
-        idTypeUser: 1,
-        name: 'Admin'
-      },
-      employee: {
-        name: 'Jean-Pierre',
-        surname: 'Vilanova'
-      }
-    };
-    this.userService.createUser(user);
+    const user = new User();
+    user.employee = new Employee();
+    user.typeUser = new TypeUser();
+    user.email = this.fcEmail.value;
+    user.password = this.fcPassword.value;
+    user.employee.name = this.fcName.value;
+    user.employee.surname = this.fcSurname.value;
+    user.typeUser.idTypeUser = 1;
+    user.typeUser.name = 'Test';
 
+    this.userService.createUser(user);
+    this.dialogRef.closeAll();
   }
 
   public onEdit(): void {
