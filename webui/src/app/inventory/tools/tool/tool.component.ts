@@ -38,7 +38,7 @@ export class ToolComponent implements OnInit {
     let tool = new Tool();
     if (this.toolForm.valid) {
       if (this.toolForm.dirty) {
-        tool = this.createTool(tool);
+        this.createTool(tool);
       } else {
         tool = this.data;
       }

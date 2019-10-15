@@ -28,8 +28,16 @@ export class ToolsListComponent implements OnInit {
 
   getTools() {
     this.toolService.getAll().subscribe(
-      data => {
-        this.dataSource = new MatTableDataSource(data);
+      tools => {
+        this.dataSource = new MatTableDataSource(tools);
+        this.dataSource.filterPredicate = (data, filter: string)  => {
+          const accumulator = (currentTerm, key) => {
+            return key === 'client' ? currentTerm + data.client.name : currentTerm + data[key];
+          };
+          const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+          const transformedFilter = filter.trim().toLowerCase();
+          return dataStr.indexOf(transformedFilter) !== -1;
+        };
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
