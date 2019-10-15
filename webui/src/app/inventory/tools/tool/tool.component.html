@@ -4,6 +4,9 @@
 <form mat-dialog-content class="content" [formGroup]="toolForm">
   <mat-form-field class="full-width">
     <input matInput placeholder="Nom" formControlName="name">
+    <mat-error *ngIf="toolForm.controls.name.hasError('required')">
+      Un nom est requis.
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
@@ -13,14 +16,23 @@
         {{client.name}}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="toolForm.controls.client.hasError('required')">
+      Un client est requis.
+    </mat-error>
   </mat-form-field>
 
   <div class="quantities">
     <mat-form-field class="mid">
       <input matInput placeholder="Quantité en stock" type="number" formControlName="stockQuantity">
+      <mat-error *ngIf="toolForm.controls.stockQuantity.hasError('required')">
+        Une quantité est requise.
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="mid">
       <input matInput placeholder="Quantité minimum" type="number" formControlName="minimumQuantity">
+      <mat-error *ngIf="toolForm.controls.minimumQuantity.hasError('required')">
+        Une quantité est requise.
+      </mat-error>
     </mat-form-field>
   </div>
 

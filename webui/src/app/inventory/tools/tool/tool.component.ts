@@ -43,6 +43,8 @@ export class ToolComponent implements OnInit {
         tool = this.data;
       }
       this.dialogRef.close(tool);
+    } else {
+      this.validateAllFields(this.toolForm);
     }
   }
 
@@ -75,7 +77,18 @@ export class ToolComponent implements OnInit {
   }
 
   private setClient() {
-    const client =  this.clients.filter(x => x.idClient === this.data.client.idClient)[0];
+    const client = this.clients.filter(x => x.idClient === this.data.client.idClient)[0];
     this.toolForm.controls.client.setValue(client);
+  }
+
+  private validateAllFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control);
+      }
+    });
   }
 }
