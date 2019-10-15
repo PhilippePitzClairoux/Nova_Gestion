@@ -1,3 +1,4 @@
+import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
@@ -70,7 +71,15 @@ export class UsersListComponent implements OnInit {
   }
 
   public onDelete(id: number): void {
-    this.userService.deleteUser(id);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Êtes-vous sûr de vouloir supprimer cet utilisateur?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(id);
+      }
+    });
   }
 
   public filteringUserList(): void {
