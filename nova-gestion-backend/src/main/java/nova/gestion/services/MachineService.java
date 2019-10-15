@@ -67,5 +67,29 @@ public class MachineService {
         return machine.getIdMachine();
     }
 
+    @Transactional
+    public void updateMachine(Machine machine){
+        Machine verifiedMachine = machineMapper.getMachine(machine.getIdMachine());
+
+        if (machine.getIdMachine() == 0 || verifiedMachine == null)
+            throw new InvalidRequest("Missing parameters");
+
+        if (machine.getName() == null && machine.getSerialNumber() == null && machine.getAcquisitionDate() == null && machine.getModel() == null)
+            throw new InvalidRequest("Missing information");
+
+        if (machine.getName() != null || machine.getSerialNumber() != null || machine.getAcquisitionDate() != null )
+            machineMapper.updateMachine(machine);
+
+        if (machine.getModel() != null){
+            if (machine.getModel().getName() != null)
+                verifiedMachine.getModel().setName(machine.getModel().getName());
+
+            modelMapper.updateModel(verifiedMachine.getModel());
+        }
+
+
+    }
+
+
 
 }

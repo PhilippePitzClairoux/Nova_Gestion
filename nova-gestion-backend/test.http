@@ -138,6 +138,21 @@ Content-Type: application/json
   "minimumQuantity": "20"
 }
 
+###
+PUT localhost:8080/v1/machine
+Content-Type: application/json
+
+{
+  "idMachine": 4,
+  "name": "MachineXYZ",
+  "serialNumber": "AAA-125-000",
+  "acquisitionDate": "2019-01-01",
+  "model": {
+    "idModel": 10,
+    "name": "ModelXYZ"
+  }
+
+}
 
 ###
 DELETE  localhost:8080/v1/tool

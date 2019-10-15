@@ -38,4 +38,10 @@ public class MachineController {
         return Map.of("idMachine", machineService.createMachine(machine));
     }
 
+    @PutMapping("/v1/machine")
+    public void updateMachine(@RequestBody @Validated Machine machine) {
+        machineService.updateMachine(machine);
+    }
+
+
 }

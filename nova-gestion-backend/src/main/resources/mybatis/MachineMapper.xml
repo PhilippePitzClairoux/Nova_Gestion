@@ -39,5 +39,13 @@
         VALUES (#{model.idModel}, #{name}, #{serialNumber}, #{acquisitionDate});
     </insert>
 
+    <update id="updateMachine" parameterType="nova.gestion.model.Machine">
+        UPDATE `nova_gestion`.`machine` SET
+        <if test="name  != null">name = #{name},</if>
+        <if test="serialNumber != null"> serial_number = #{serialNumber},</if>
+        <if test="acquisitionDate != null"> acquisition_date = #{acquisitionDate}</if>
+        WHERE id_machine = #{idMachine};
+    </update>
+
 
 </mapper>

@@ -16,4 +16,6 @@ public interface MachineMapper {
     ArrayList<Machine> getAllMachines();
 
     void insertMachine(Machine machine);
+
+    void updateMachine(Machine machine);
 }

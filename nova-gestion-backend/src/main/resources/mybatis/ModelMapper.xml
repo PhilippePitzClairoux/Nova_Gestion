@@ -26,11 +26,9 @@
 
     <update id = "updateModel" parameterType = "nova.gestion.model.Model" >
         UPDATE `nova_gestion`.`model` SET
-        <if test="name != null">name = #{name},</if>
-        <if test="company != null">company = #{company},</if>
+        <if test="name != null">name = #{name}</if>
         WHERE id_model = #{idModel};
     </update>
-
 
 
 </mapper>
