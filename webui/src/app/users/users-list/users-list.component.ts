@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { tap } from 'rxjs/operators';
 
 import { UserComponent } from './../user/user.component';
@@ -16,9 +15,6 @@ import { Employee } from '../../models/employee.model';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-
-  public faPen = faPen;
-  public faTrash = faTrash;
 
   public users: User[] = [];
   public userTypesList: TypeUser[] = [];

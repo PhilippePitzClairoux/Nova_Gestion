@@ -5,14 +5,17 @@
   background: none;
   border: none;
   color: #c0c0c0;
+  cursor: pointer;
 }
 
 .btn-edit:hover {
   color: #2370b8;
+  transition: 0.2s all ease;
 }
 
 .btn-delete:hover {
   color: #ff3823;
+  transition: 0.2s all ease;
 }
 
 .header-content,
@@ -32,7 +35,11 @@
 }
 
 .table-item {
-  width: 25%;
+  width: 30%;
+}
+.table-btn {
+  width: 10%;
+  justify-content: flex-end;
 }
 
 .search-add {
