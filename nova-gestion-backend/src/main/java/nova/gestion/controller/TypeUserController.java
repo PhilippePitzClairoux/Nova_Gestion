@@ -23,8 +23,8 @@ public class TypeUserController {
         this.typeUserService = typeUserService;
     }
 
-    @GetMapping("/v1/typeusers")
-    public ArrayList<TypeUser> getAllTypeUsers() throws JsonProcessingException {
-        return typeUserService.getAllTypeUsers();
+    @GetMapping("/v1/usertypes ")
+    public ArrayList<TypeUser> getAllUserTypes() throws JsonProcessingException {
+        return typeUserService.getAllUserTypes();
     }
 }

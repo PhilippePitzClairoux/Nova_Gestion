@@ -14,7 +14,7 @@
         WHERE id_type_user = #{idUserType};
     </select>
 
-    <select id="getAllTypeUsers" resultMap="TypeUserMap">
+    <select id="getAllUserTypes" resultMap="TypeUserMap">
         SELECT * FROM `nova_gestion`.`type_user`
     </select>
 

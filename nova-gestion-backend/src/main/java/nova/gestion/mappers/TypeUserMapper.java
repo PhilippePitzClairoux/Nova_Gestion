@@ -12,5 +12,5 @@ public interface TypeUserMapper {
 
     TypeUser getTypeUser(int idUserType);
 
-    ArrayList<TypeUser> getAllTypeUsers();
+    ArrayList<TypeUser> getAllUserTypes();
 }

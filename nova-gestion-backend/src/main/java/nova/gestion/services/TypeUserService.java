@@ -20,13 +20,13 @@ public class TypeUserService {
     }
 
     @Transactional
-    public ArrayList<TypeUser> getAllTypeUsers() {
-        ArrayList<TypeUser> typeUsers =  typeUserMapper.getAllTypeUsers();
+    public ArrayList<TypeUser> getAllUserTypes() {
+        ArrayList<TypeUser> userTypes =  typeUserMapper.getAllUserTypes();
 
-        if (typeUsers == null)
+        if (userTypes == null)
             throw new RessourceNotFound("No typeUsers available");
 
-        return typeUsers;
+        return userTypes;
     }
 
 }
