@@ -5,10 +5,19 @@
 <mapper namespace="nova.gestion.mappers.ToolMapper">
 
     <resultMap id="ToolMap" type="nova.gestion.model.Tool">
+        <constructor>
+            <arg name="idTool" column="id_tool"/>
+            <arg name="name" column="name"/>
+            <arg name="stockQuantity" column="stock_quantity"/>
+            <arg name="minimumQuantity" column="minimum_quantity"/>
+        </constructor>
         <id column="id_tool" javaType="int" property="idTool"/>
         <result column="name" javaType="string" property="name"/>
         <result column="stock_quantity" javaType="int" property="stockQuantity"/>
         <result column="minimum_quantity" javaType="int" property="minimumQuantity"/>
+
+        <association column="id_client" property="client" javaType="nova.gestion.model.Client"
+                     select="nova.gestion.mappers.ClientMapper.getClient"/>
     </resultMap>
 
     <select id="getTool" parameterType="int" resultMap="ToolMap">
@@ -20,9 +29,9 @@
         SELECT * FROM `nova_gestion`.`tool`;
     </select>
 
-    <insert id = "insertTool" parameterType = "nova.gestion.model.Tool">
-       INSERT INTO `nova_gestion`.`tool` (name, stock_quantity, minimum_quantity)
-       VALUES (#{name}, #{stockQuantity}, #{minimumQuantity});
+    <insert id = "insertTool" parameterType = "nova.gestion.model.Tool" keyProperty="idTool" useGeneratedKeys="true">
+       INSERT INTO `nova_gestion`.`tool` (name, stock_quantity, minimum_quantity, id_client)
+       VALUES (#{name}, #{stockQuantity}, #{minimumQuantity}, #{client.idClient});
     </insert>
 
     <update id = "updateTool" parameterType = "nova.gestion.model.Tool">
@@ -30,6 +39,7 @@
                     <if test="name != null">name = #{name},</if>
                     <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
                     <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity}</if>
+                    <if test="client != null">id_client = #{client.idClient}</if>
                     WHERE id_tool = #{idTool};
     </update>
 
