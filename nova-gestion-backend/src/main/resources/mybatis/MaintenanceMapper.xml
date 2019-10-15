@@ -5,17 +5,15 @@
 <mapper namespace="nova.gestion.mappers.MaintenanceMapper">
 
     <resultMap id="MaintenanceMap" type="nova.gestion.model.Maintenance">
-        <constructor>
-            <arg name="idMaintenance" column="id_maintenance"/>
-            <arg name="description" column="description"/>
-            <arg name="date" column="date"/>
-        </constructor>
+
         <id column="id_maintenance" javaType="int" property="idMaintenance"/>
+        <result column="id_machine" javaType="int" property="idMachine"/>
         <result column="description" javaType="string" property="description"/>
         <result column="date" javaType="date" property="date"/>
 
-        <association column="id_machine" property="machine" javaType="nova.gestion.model.Maintenance"
-                     select="nova.gestion.mappers.MachineMapper.getMachine"/>
+
+   <!--     <association column="id_machine" property="machine" javaType="nova.gestion.model.Maintenance"
+                     select="nova.gestion.mappers.MachineMapper.getMachine"/> -->
     </resultMap>
 
     <select id="getMaintenance" parameterType="int" resultMap="MaintenanceMap">

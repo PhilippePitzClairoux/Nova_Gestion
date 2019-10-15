@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
 public class Maintenance {
     private int idMaintenance;
+    private int idMachine;
     private String description;
     private Date date;
-    private Machine machine;
 
-    public Maintenance(int idMaintenance, String description, Date date)
+    /*public Maintenance(int idMaintenance, String description, Date date)
     {
         this.idMaintenance = idMaintenance;
         this.description = description;
@@ -22,10 +23,10 @@ public class Maintenance {
     }
 
     @JsonCreator
-    public Maintenance(int idMaintenance, String description, Date date, Machine machine) {
+    public Maintenance(int idMaintenance, String description, Date date, int machine) {
         this.idMaintenance = idMaintenance;
         this.description = description;
         this.date = date;
-        this.machine = machine;
-    }
+        this.idMachine = machine;
+    }*/
 }
