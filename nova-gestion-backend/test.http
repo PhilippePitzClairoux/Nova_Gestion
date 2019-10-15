@@ -162,3 +162,8 @@ Content-Type: application/json
   "idTool":6
 }
 
+###
+DELETE localhost:8080/v1/machine/4/
+
+
+###

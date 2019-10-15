@@ -47,5 +47,8 @@
         WHERE id_machine = #{idMachine};
     </update>
 
+    <delete id="deleteMachine" parameterType="int">
+        DELETE FROM `nova_gestion`.`machine` WHERE `nova_gestion`.`machine`.id_machine = #{idMachine};
+    </delete>
 
 </mapper>

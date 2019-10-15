@@ -18,4 +18,6 @@ public interface MachineMapper {
     void insertMachine(Machine machine);
 
     void updateMachine(Machine machine);
+
+    void deleteMachine(int idMachine);
 }

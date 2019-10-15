@@ -86,8 +86,17 @@ public class MachineService {
 
             modelMapper.updateModel(verifiedMachine.getModel());
         }
+    }
 
+    @Transactional
+    public void deleteMachine(Integer idMachine) {
 
+        Machine loadMachine = machineMapper.getMachine(idMachine);
+
+        if (loadMachine == null)
+            throw new RessourceNotFound("Invalid idMachine");
+
+        machineMapper.deleteMachine(idMachine);
     }
 
 
