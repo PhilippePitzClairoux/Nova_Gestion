@@ -1,29 +1,33 @@
-<div class="dialog-header">Création d'un compte utilisateur</div>
+<div *ngIf="adding" class="dialog-header">Création d'un compte utilisateur</div>
+<div *ngIf="editing" class="dialog-header">Modification d'un compte utilisateur</div>
 <mat-dialog-content class="mat-typography container">
-  <div class="input-container">
-    <label for="name">Prénom</label>
-    <input id="name" class="input-100" type="text">
-    <label for="family-name">Nom de famille</label>
-    <input id="family-name" class="input-100" type="text">
-  </div>
-  <div class="input-container">
-    <label for="type">Type</label>
-    <select id="type" class="input-100" name="" id=""></select>
-    <label for="email">Courriel</label>
-    <input id="email" class="input-100" type="text">
-    <div class="input-100">
-      <div class="input-50">
-        <label for="password">Mot de passe</label>
-        <input id="password" type="text">
-      </div>
-      <div class="input-50">
-        <label for="password-confirmation">Confirmer mot de passe</label>
-        <input id="password-confirmation" type="text">
+  <div [formGroup]="fg">
+    <div class="input-container">
+      <label for="name">Prénom</label>
+      <input id="name" name="name" class="input-100" type="text" formControlName="name">
+      <label for="family-name">Nom de famille</label>
+      <input id="family-name" class="input-100" type="text" formControlName="surname">
+    </div>
+    <div class="input-container">
+      <label for="type">Type</label>
+      <select id="type" class="input-100" name="" id=""></select>
+      <label for="email">Courriel</label>
+      <input id="email" class="input-100" type="email" formControlName="email">
+      <div class="input-100">
+        <div class="input-50">
+          <label for="password">Mot de passe</label>
+          <input id="password" type="password" formControlName="password">
+        </div>
+        <div class="input-50">
+          <label for="password-confirmation">Confirmer mot de passe</label>
+          <input id="password-confirmation" type="password" formControlName="passwordConfirmation">
+        </div>
       </div>
     </div>
-  </div>
-  <div class="buttons">
-    <app-button (clicked)="onClose()" [label]="'Annuler'" [style]="'secondary'"></app-button>
-    <app-button (clicked)="onAdd()" [label]="'Créer'" [style]="'primary'"></app-button>
+    <div class="buttons">
+      <app-button (clicked)="onClose()" [label]="'Annuler'" [style]="'secondary'"></app-button>
+      <app-button *ngIf="adding" (clicked)="onAdd()" [label]="'Créer'" [style]="'primary'"></app-button>
+      <app-button *ngIf="editing" (clicked)="onAdd()" [label]="'Modifier'" [style]="'primary'"></app-button>
+    </div>
   </div>
 </mat-dialog-content>
