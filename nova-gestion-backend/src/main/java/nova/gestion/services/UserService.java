@@ -101,14 +101,14 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(UserPost user) {
+    public void deleteUser(Integer idUser) {
 
-        User loadUser = userMapper.getUser(user.getIdUser());
+        User loadUser = userMapper.getUser(idUser);
 
         if (loadUser == null)
             throw new RessourceNotFound("Invalid idUser");
 
-        userMapper.deleteUser(loadUser);
+        userMapper.deleteUser(idUser);
     }
 
 }
