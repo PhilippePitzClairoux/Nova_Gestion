@@ -37,12 +37,11 @@ public class ToolController {
     }
 
     @PostMapping("/v1/tool")
-    public Map<String, Integer> createTool(@JsonView(ToolPost.Views.Insert.class)
-                                           @RequestBody @Validated ToolPost tool) {
+    public Map<String, Integer> createTool(@RequestBody @Validated Tool tool) {
 
-        Integer id = toolService.createTool(tool.getName(), tool.getStockQuantity(), tool.getMinimumQuantity());
+        Integer id = toolService.createTool(tool);
 
-        return Map.of("id", id);
+        return Map.of("idTool", id);
     }
 
     @PutMapping("/v1/tool")
