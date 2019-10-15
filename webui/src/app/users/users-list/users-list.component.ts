@@ -16,14 +16,18 @@ import { Employee } from '../../models/employee.model';
 })
 export class UsersListComponent implements OnInit {
 
+  public filteredUsersList: User[] = [];
   public users: User[] = [];
   public userTypesList: TypeUser[] = [];
+
+  // tslint:disable-next-line: no-inferrable-types
+  public research: string = '';
 
   constructor(private userService: UsersService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.userService.getAllUsers();
-    this.userService.usersList$().pipe(tap(result => this.users = result)).subscribe();
+    this.userService.usersList$().pipe(tap(result => this.users = result)).subscribe(() => this.filteredUsersList = this.users);
     this.userService.getAllUserTypes();
     this.userService.userTypesList$().pipe(tap(result => this.userTypesList = result)).subscribe();
   }
@@ -67,5 +71,18 @@ export class UsersListComponent implements OnInit {
 
   public onDelete(id: number): void {
     this.userService.deleteUser(id);
+  }
+
+  public filteringUserList(): void {
+    if (this.research !== '') {
+      this.filteredUsersList = this.users.filter(t => {
+        return t.employee.name.toLocaleLowerCase().includes(this.research.toLocaleLowerCase()) ||
+          t.employee.surname.toLocaleLowerCase().includes(this.research.toLocaleLowerCase()) ||
+          t.email.toLocaleLowerCase().includes(this.research.toLocaleLowerCase()) ||
+          t.typeUser.name.toLocaleLowerCase().includes(this.research.toLocaleLowerCase());
+      });
+    } else {
+      this.filteredUsersList = this.users;
+    }
   }
 }

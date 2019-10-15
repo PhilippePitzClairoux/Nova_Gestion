@@ -3,7 +3,7 @@
 <div class="search-add">
   <div class="search-add-content">
     <div class="search-content">
-      <input class="search" type="text" placeholder="Recherche">
+      <input class="search" type="text" [(ngModel)]="research" (keyup)="filteringUserList()" placeholder="Recherche">
     </div>
     <div class="add-user-button">
       <app-button (clicked)="onAdd()" [label]="'Créer un utilisateur'" [style]="'primary'"></app-button>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div *ngFor="let user of users">
+<div *ngFor="let user of filteredUsersList">
   <div class="table-content">
     <div class="table-row">
       <div class="table-item">{{user.employee.name}} {{user.employee.surname}}</div>
