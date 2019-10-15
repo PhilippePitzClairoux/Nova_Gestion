@@ -108,7 +108,7 @@ public class UserService {
         if (loadUser == null)
             throw new RessourceNotFound("Invalid idUser");
 
-        userMapper.deleteUser(loadUser);
+        userMapper.deleteUser(idUser);
     }
 
 }

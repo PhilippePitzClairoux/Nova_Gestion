@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @DeleteMapping("/v1/user/{idUser}/")
-    public void deleteUser(@RequestBody @Validated Integer idUser) {
+    public void deleteUser(@PathVariable @Validated Integer idUser) {
         userService.deleteUser(idUser);
     }
 
