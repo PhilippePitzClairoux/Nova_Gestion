@@ -63,8 +63,13 @@ Content-Type: application/json
 
 {
   "name": "Cordoba",
-  "stockQuantity": "100",
-  "minimumQuantity": "100"
+  "stockQuantity": 1000,
+  "minimumQuantity": 100,
+  "client": {
+    "idClient": 1,
+    "name": "A7 Integration",
+    "phoneNumber": "4503056218"
+  }
 }
 
 ###
@@ -134,7 +139,7 @@ PUT localhost:8080/v1/tool
 Content-Type: application/json
 
 {
-  "idTool":5,
+  "idTool":6,
   "minimumQuantity": "20"
 }
 
@@ -165,5 +170,3 @@ Content-Type: application/json
 ###
 DELETE localhost:8080/v1/machine/4/
 
-
-###

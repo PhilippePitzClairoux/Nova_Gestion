@@ -84,18 +84,6 @@ VALUES (2, 'Changement filtre', '2011-07-12');
 INSERT INTO maintenance (id_machine, description, date)
 VALUES (2, 'Changement filtre', '2018-07-12');
 
-INSERT INTO tool (name, stock_quantity, minimum_quantity)
-VALUES ('Cobra Mill 1/4', 30, 10);
-
-INSERT INTO tool (name, stock_quantity, minimum_quantity)
-VALUES ('Cobra Mill 5/8', 41, 20);
-
-INSERT INTO tool (name, stock_quantity, minimum_quantity)
-VALUES ('Furtif3 3/8', 8, 15);
-
-INSERT INTO tool (name, stock_quantity, minimum_quantity)
-VALUES ('S6-MILL 1/4', 20, 10);
-
 INSERT INTO client (name, phone_number)
 VALUES ('A7-Integration', '4503056218');
 
@@ -107,6 +95,18 @@ VALUES ('NSE-Automatech', '4503787207');
 
 INSERT INTO client (name, phone_number)
 VALUES ('Machinage Gagné Ltée', '4503784929');
+
+INSERT INTO tool (name, stock_quantity, minimum_quantity, id_client)
+VALUES ('Cobra Mill 1/4', 30, 10, 1);
+
+INSERT INTO tool (name, stock_quantity, minimum_quantity, id_client)
+VALUES ('Cobra Mill 5/8', 41, 20, 2);
+
+INSERT INTO tool (name, stock_quantity, minimum_quantity, id_client)
+VALUES ('Furtif3 3/8', 8, 15, 3);
+
+INSERT INTO tool (name, stock_quantity, minimum_quantity, id_client)
+VALUES ('S6-MILL 1/4', 20, 10, 4);
 
 INSERT INTO program (id_machine, id_tool, name)
 VALUES (1, 1, 'E-500-8F-R070-DE');
