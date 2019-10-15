@@ -139,3 +139,8 @@ Content-Type: application/json
 
 ###
 DELETE localhost:8080/v1/user/5/
+
+###
+DELETE localhost:8080/v1/blank/2/
+
+###
