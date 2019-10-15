@@ -21,19 +21,22 @@ export class UsersListComponent implements OnInit {
   public faTrash = faTrash;
 
   public users: User[] = [];
+  public userTypesList: TypeUser[] = [];
 
   constructor(private userService: UsersService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.userService.getAllUsers();
     this.userService.usersList$().pipe(tap(result => this.users = result)).subscribe();
+    this.userService.getAllUserTypes();
+    this.userService.userTypesList$().pipe(tap(result => this.userTypesList = result)).subscribe();
   }
 
-  public onAdd($event) {
+  public onAdd() {
 
     // Creating a user not undefined
     const newUser: User = new User();
-    newUser.typeUser = new TypeUser();
+    // newUser.typeUser = new TypeUser();
     newUser.employee = new Employee();
 
     // Defining mat dialogs config and passing my user
@@ -41,6 +44,7 @@ export class UsersListComponent implements OnInit {
     dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = {
       user: newUser,
+      userTypesList: this.userTypesList,
       add: true,
       edit: false
     };
@@ -56,6 +60,7 @@ export class UsersListComponent implements OnInit {
     dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = {
       user: this.users.find(t => t.idUser === id),
+      userTypesList: this.userTypesList,
       add: false,
       edit: true
     };
@@ -65,7 +70,6 @@ export class UsersListComponent implements OnInit {
   }
 
   public onDelete(id: number): void {
-    alert(id);
+    this.userService.deleteUser(id);
   }
-
 }

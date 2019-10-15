@@ -56,7 +56,7 @@ export class UsersService {
   }
 
   public deleteUser(id: number): void {
-    this.http.delete<User>('/v1/user/' + id.toString()).subscribe(() => {
+    this.http.delete<User>('/v1/user/' + id.toString() + '/').subscribe(() => {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
       console.log('UserService -> DeleteUser() : [SUCCESS]');

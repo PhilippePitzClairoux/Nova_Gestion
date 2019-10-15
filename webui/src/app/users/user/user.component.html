@@ -10,8 +10,8 @@
     </div>
     <div class="input-container">
       <label for="type">Type</label>
-      <select id="type" class="input-100" name="" id="">
-        <option *ngFor="let userType of userTypesList" [selected]="user.typeUser.idTypeUser === userType.idTypeUser" value="userType.idTypeUser">{{userType.name}}</option>
+      <select id="type" class="input-100" formControlName="userType">
+        <option *ngFor="let userType of userTypesList" [ngValue]="userType">{{userType.name}}</option>
       </select>
       <label for="email">Courriel</label>
       <input id="email" class="input-100" type="email" formControlName="email">
@@ -29,7 +29,7 @@
     <div class="buttons">
       <app-button (clicked)="onClose()" [label]="'Annuler'" [style]="'secondary'"></app-button>
       <app-button *ngIf="adding" (clicked)="onAdd()" [label]="'Créer'" [style]="'primary'"></app-button>
-      <app-button *ngIf="editing" (clicked)="onAdd()" [label]="'Modifier'" [style]="'primary'"></app-button>
+      <app-button *ngIf="editing" (clicked)="onEdit()" [label]="'Modifier'" [style]="'primary'"></app-button>
     </div>
   </div>
 </mat-dialog-content>
