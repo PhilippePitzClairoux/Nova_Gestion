@@ -55,18 +55,22 @@ CREATE TABLE maintenance(
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine)
 );
 
-CREATE TABLE tool(
-    id_tool BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255),
-    stock_quantity INTEGER,
-    minimum_quantity INTEGER
-);
-
 CREATE TABLE client(
     id_client BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
     phone_number VARCHAR(25)
 );
+
+CREATE TABLE tool(
+    id_tool BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    stock_quantity INTEGER,
+    minimum_quantity INTEGER,
+	id_client BIGINT NOT NULL,
+    CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client)
+
+);
+
 
 CREATE TABLE program(
     id_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
