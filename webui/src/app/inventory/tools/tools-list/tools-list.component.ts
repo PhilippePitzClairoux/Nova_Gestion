@@ -29,7 +29,6 @@ export class ToolsListComponent implements OnInit {
   getTools() {
     this.toolService.getAll().subscribe(
       data => {
-        console.log(data);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -51,7 +50,7 @@ export class ToolsListComponent implements OnInit {
     this.applyFilter('');
   }
 
-  deleteTool(id: Tool) {
+  deleteTool(id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: 'Êtes-vous sûr de vouloir supprimer cet outil?'
@@ -59,11 +58,9 @@ export class ToolsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.dataSource.data.indexOf(id);
-        if (index !== -1) {
-          this.dataSource.data.splice(index, 1);
-          console.log('delete in db', id);
-        }
+        this.toolService.delete(id).subscribe(res => {
+          this.getTools();
+        });
       }
     });
   }
@@ -82,16 +79,13 @@ export class ToolsListComponent implements OnInit {
   }
 
   private saveTool(tool: Tool, isNew) {
-    console.log(tool);
     if (isNew) {
-      console.log('update');
       this.toolService.update(tool).subscribe(result => {
-        console.log('upd', result);
+        this.getTools();
       });
     } else {
-      console.log('add');
       this.toolService.add(tool).subscribe(result => {
-        console.log('add', result);
+        this.getTools();
       });
     }
   }

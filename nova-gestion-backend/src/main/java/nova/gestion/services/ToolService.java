@@ -77,9 +77,9 @@ public class ToolService {
     }
 
     @Transactional
-    public void deleteTool(ToolPost tool) {
+    public void deleteTool(Integer idTool) {
 
-        Tool loadTool = toolMapper.getTool(tool.getIdTool());
+        Tool loadTool = toolMapper.getTool(idTool);
 
         if (loadTool == null)
             throw new RessourceNotFound("Invalid idTool");

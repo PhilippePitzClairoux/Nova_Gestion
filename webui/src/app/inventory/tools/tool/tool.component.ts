@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Tool} from '../../../models/tool';
 import {Client} from '../../../models/client';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ClientService} from '../../../services/client.service';
 
 @Component({
   selector: 'app-tool',
@@ -10,28 +11,13 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./tool.component.scss']
 })
 export class ToolComponent implements OnInit {
-  clients: Client[] = [
-    {
-      idClient: 1,
-      name: 'Kappa',
-      phoneNumber: '1231231234'
-    },
-    {
-      idClient: 2,
-      name: 'monkaS',
-      phoneNumber: '1231231234'
-    },
-    {
-      idClient: 3,
-      name: 'peepoSad',
-      phoneNumber: '1231231234'
-    }];
-
+  clients: Client[] = [];
   toolForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<ToolComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Tool) {
+    @Inject(MAT_DIALOG_DATA) public data: Tool,
+    private clientService: ClientService) {
   }
 
   onNoClick(): void {
@@ -39,6 +25,7 @@ export class ToolComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getClients();
     this.toolForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.max(254)]),
       stockQuantity: new FormControl('', Validators.required),
@@ -55,14 +42,14 @@ export class ToolComponent implements OnInit {
   }
 
   close() {
-    let tool: any;
+    let tool = new Tool();
     if (this.toolForm.valid) {
       if (this.toolForm.dirty) {
         tool = this.createTool(tool);
       } else {
         tool = this.data;
       }
-      this.dialogRef.close({data: tool});
+      this.dialogRef.close(tool);
     }
   }
 
@@ -74,7 +61,13 @@ export class ToolComponent implements OnInit {
     tool.name = controls.name.value;
     tool.stockQuantity = controls.stockQuantity.value;
     tool.minimumQuantity = controls.minimumQuantity.value;
-    tool.client = null;
+    tool.client = controls.client.value;
     return tool;
+  }
+
+  private getClients() {
+    this.clientService.getAll().subscribe(clients => {
+      this.clients = clients;
+    });
   }
 }

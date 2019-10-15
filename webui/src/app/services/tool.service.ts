@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Tool} from '../models/tool';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import config from '../../assets/config/config.json';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,10 @@ export class ToolService {
   }
 
   add(tool: Tool): Observable<any> {
-    console.log(tool);
-    return this.http.post(this.api + 'tool', tool, this.httpOptions);
+    return this.http.post<any>(this.api + 'tool', tool, this.httpOptions);
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(this.api + 'tool/' + id);
   }
 }

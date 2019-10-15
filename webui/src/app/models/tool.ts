@@ -6,5 +6,4 @@ export class Tool {
   stockQuantity: number;
   minimumQuantity: number;
   client: Client;
-  idClient: number;
 }
