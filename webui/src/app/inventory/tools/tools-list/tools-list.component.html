@@ -16,7 +16,7 @@
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="header">NOM</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.name | truncate}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="stockQuantity">
@@ -31,7 +31,7 @@
 
     <ng-container matColumnDef="client">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity">CLIENT</mat-header-cell>
-      <mat-cell *matCellDef="let row" class="quantity"> <span *ngIf="row.client">{{row.client.name}}</span> </mat-cell>
+      <mat-cell *matCellDef="let row" class="quantity"> <span *ngIf="row.client">{{row.client.name | truncate}}</span> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="controls">

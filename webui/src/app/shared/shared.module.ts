@@ -6,17 +6,20 @@ import {HeaderComponent} from './header/header.component';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
     ButtonComponent,
     HeaderComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    TruncatePipe
   ],
   exports: [
     ButtonComponent,
     HeaderComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    TruncatePipe
   ],
   imports: [
     CommonModule,

@@ -25,20 +25,13 @@ export class ToolComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getClients();
     this.toolForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.max(254)]),
       stockQuantity: new FormControl('', Validators.required),
       minimumQuantity: new FormControl('', Validators.required),
       client: new FormControl('', Validators.required),
     });
-
-    if (this.data) {
-      this.toolForm.controls.name.setValue(this.data.name);
-      this.toolForm.controls.stockQuantity.setValue(this.data.stockQuantity);
-      this.toolForm.controls.minimumQuantity.setValue(this.data.minimumQuantity);
-      this.data.client ? this.toolForm.controls.client.setValue(this.data.client.idClient) : this.toolForm.controls.client.setValue('');
-    }
+    this.getClients();
   }
 
   close() {
@@ -68,6 +61,21 @@ export class ToolComponent implements OnInit {
   private getClients() {
     this.clientService.getAll().subscribe(clients => {
       this.clients = clients;
+      this.setValues();
     });
+  }
+
+  private setValues() {
+    if (this.data) {
+      this.toolForm.controls.name.setValue(this.data.name);
+      this.toolForm.controls.stockQuantity.setValue(this.data.stockQuantity);
+      this.toolForm.controls.minimumQuantity.setValue(this.data.minimumQuantity);
+      this.data.client ? this.setClient() : this.toolForm.controls.client.setValue('');
+    }
+  }
+
+  private setClient() {
+    const client =  this.clients.filter(x => x.idClient === this.data.client.idClient)[0];
+    this.toolForm.controls.client.setValue(client);
   }
 }
