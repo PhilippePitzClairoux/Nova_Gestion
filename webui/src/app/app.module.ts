@@ -1,22 +1,24 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthentificationModule } from './authentification/authentification.module';
+import {InventoryModule} from './inventory/inventory.module';
 import { UsersModule } from './users/users.module';
+import { SharedModule } from './shared/shared.module';
 import { UserComponent } from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
-import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,8 +28,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthentificationModule,
     UsersModule,
     SharedModule,
-    FontAwesomeModule,
-    AppRoutingModule
+    InventoryModule,
+    MatIconModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

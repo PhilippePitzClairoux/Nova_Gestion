@@ -1,0 +1,43 @@
+<h1 mat-dialog-title class="title" *ngIf="data">Modifier un outil</h1>
+<h1 mat-dialog-title class="title" *ngIf="!data">Ajouter un outil</h1>
+
+<form mat-dialog-content class="content" [formGroup]="toolForm">
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Nom" formControlName="name">
+    <mat-error *ngIf="toolForm.controls.name.hasError('required')">
+      Un nom est requis.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Client</mat-label>
+    <mat-select formControlName="client">
+      <mat-option *ngFor="let client of clients" [value]="client">
+        {{client.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="toolForm.controls.client.hasError('required')">
+      Un client est requis.
+    </mat-error>
+  </mat-form-field>
+
+  <div class="quantities">
+    <mat-form-field class="mid">
+      <input matInput placeholder="Quantité en stock" type="number" formControlName="stockQuantity">
+      <mat-error *ngIf="toolForm.controls.stockQuantity.hasError('required')">
+        Une quantité est requise.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="mid">
+      <input matInput placeholder="Quantité minimum" type="number" formControlName="minimumQuantity">
+      <mat-error *ngIf="toolForm.controls.minimumQuantity.hasError('required')">
+        Une quantité est requise.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+</form>
+<div mat-dialog-actions class="controls">
+  <app-button [style]="'secondary'" [label]="'Annuler'" (click)="onNoClick()"></app-button>
+  <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="close()"></app-button>
+</div>
