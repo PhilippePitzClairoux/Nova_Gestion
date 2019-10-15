@@ -1,5 +1,6 @@
 package nova.gestion.services;
 
+import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.MachineMapper;
 import nova.gestion.mappers.MaintenanceMapper;
@@ -45,7 +46,26 @@ public class MachineService {
         return machine;
     }
 
+    @Transactional
+    public Integer createMachine(Machine machine)
+    {
+        if (machine == null)
+            throw new InvalidRequest("Missing parameters");
 
+        if (machine.getModel() == null)
+            throw new InvalidRequest("Missing model");
+
+        if (machine.getName() == null || machine.getSerialNumber() == null || machine.getAcquisitionDate() == null)
+            throw new InvalidRequest("Missing Machine parameters");
+
+        if (machine.getModel().getName() == null)
+            throw new InvalidRequest("Missing Model parameters");
+
+        modelMapper.insertModel(machine.getModel());
+        machineMapper.insertMachine(machine);
+
+        return machine.getIdMachine();
+    }
 
 
 }

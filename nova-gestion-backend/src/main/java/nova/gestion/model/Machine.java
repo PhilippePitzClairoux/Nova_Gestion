@@ -14,7 +14,7 @@ public class Machine {
     private String serialNumber;
     private Date acquisitionDate;
     private Model model;
-    private ArrayList<Maintenance> maintenances;
+//    private ArrayList<Maintenance> maintenances;
 
     public Machine(int idMachine, String name, String serialNumber,  Date acquisitionDate)
     {
@@ -25,12 +25,12 @@ public class Machine {
     }
 
     @JsonCreator
-    public Machine(int idMachine, String name, String serialNumber, Date acquisitionDate, Model model, ArrayList<Maintenance> maintenances) {
+    public Machine(int idMachine, String name, String serialNumber, Date acquisitionDate, Model model) {
         this.idMachine = idMachine;
         this.name = name;
         this.serialNumber = serialNumber;
         this.acquisitionDate = acquisitionDate;
         this.model = model;
-        this.maintenances = maintenances;
+      //  this.maintenances = maintenances;
     }
 }

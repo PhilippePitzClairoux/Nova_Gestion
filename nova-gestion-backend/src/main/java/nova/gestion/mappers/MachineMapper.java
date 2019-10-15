@@ -14,4 +14,6 @@ public interface MachineMapper {
     Machine getMachine(int idMachine);
 
     ArrayList<Machine> getAllMachines();
+
+    void insertMachine(Machine machine);
 }

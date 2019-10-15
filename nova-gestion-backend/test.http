@@ -67,6 +67,18 @@ Content-Type: application/json
   "minimumQuantity": "100"
 }
 
+###
+POST localhost:8080/v1/machine
+Content-Type: application/json
+
+{
+  "name": "MachineXYZ",
+  "serialNumber": "AAA-125",
+  "acquisitionDate": "2019-01-01",
+  "model": {
+    "name": "ModelABC"
+  }
+}
 
 ###
 PUT localhost:8080/v1/user

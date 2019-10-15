@@ -6,12 +6,10 @@ import nova.gestion.services.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,5 +32,10 @@ public class MachineController {
         return machineService.getMachine(idMachine);
     }
 
+    @PostMapping("/v1/machine")
+    public Map<String, Integer> createMachine(@RequestBody @Validated Machine machine) {
+
+        return Map.of("idMachine", machineService.createMachine(machine));
+    }
 
 }

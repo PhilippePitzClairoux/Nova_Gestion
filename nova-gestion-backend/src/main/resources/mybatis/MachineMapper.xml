@@ -20,8 +20,8 @@
         <association column="id_model" property="model" javaType="nova.gestion.model.Model"
                      select="nova.gestion.mappers.ModelMapper.getModel"/>
 
-        <association column="id_machine" property="maintenances" javaType="nova.gestion.model.Maintenance"
-                     select="nova.gestion.mappers.MaintenanceMapper.getMaintenancesByMachine"/>
+      <!--  <association column="??????" property="maintenances" javaType="nova.gestion.model.Maintenance"
+                     select="nova.gestion.mappers.MaintenanceMapper.getMaintenancesByMachine"/> -->
     </resultMap>
 
     <select id="getMachine" parameterType="int" resultMap="MachineMap">
@@ -34,6 +34,10 @@
         SELECT * FROM `nova_gestion`.`machine`;
     </select>
 
+    <insert id="insertMachine" parameterType="nova.gestion.model.Machine" keyProperty="idMachine" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`machine`(id_model, name , serial_number, acquisition_date)
+        VALUES (#{model.idModel}, #{name}, #{serialNumber}, #{acquisitionDate});
+    </insert>
 
 
 </mapper>
