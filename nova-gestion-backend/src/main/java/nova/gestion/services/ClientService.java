@@ -73,13 +73,14 @@ public class ClientService {
 
 
     @Transactional
-    public void deleteClient(ClientPost client) {
+    public void deleteClient(Integer idClient) {
 
-        Client loadClient = clientMapper.getClient(client.getIdClient());
+        Client loadClient = clientMapper.getClient(idClient);
 
         if (loadClient == null)
             throw new RessourceNotFound("Invalid idClient");
 
-        clientMapper.deleteClient(loadClient);
+        clientMapper.deleteClient(idClient);
     }
+    
 }

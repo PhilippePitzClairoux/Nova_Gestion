@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public interface GradeMapper {
 
     Grade getGrade(int code);
-    ArrayList<Grade> getAllGrads();
 
+    ArrayList<Grade> getAllGrades();
 }
