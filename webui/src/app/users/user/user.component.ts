@@ -100,4 +100,30 @@ export class UserComponent implements OnInit {
     updateUser.typeUser.name = this.fg.controls.userType.value.name;
     return updateUser;
   }
+
+  public nameValid(): boolean {
+    return !this.fg.controls.name.hasError('required');
+  }
+
+  public surnameValid(): boolean {
+    return !this.fg.controls.surname.hasError('required');
+  }
+
+  public typeUserValid(): boolean {
+    return !this.fg.controls.userType.hasError('required');
+  }
+
+  public emailValid(): boolean {
+    return !this.fg.controls.email.hasError('required');
+  }
+
+  public passwordValid(): boolean {
+    return !this.fg.controls.password.hasError('required');
+  }
+
+  public passwordConfirmationValid(): boolean {
+    return !this.fg.controls.passwordConfirmation.hasError('required');
+  }
+
+
 }
