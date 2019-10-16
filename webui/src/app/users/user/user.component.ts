@@ -20,6 +20,8 @@ export class UserComponent implements OnInit {
   public adding: boolean;
   public editing: boolean;
 
+  public validForm = true;
+
   public fg: FormGroup;
 
   @Output() addUser = new EventEmitter<any>();
@@ -50,12 +52,19 @@ export class UserComponent implements OnInit {
   }
 
   public onAdd(): void {
+    if (this.fg.invalid) {
+      this.validForm = false;
+      return;
+    }
     const user = this.createUserFromForm();
     this.userService.createUser(user);
     this.dialogRef.closeAll();
   }
 
   public onEdit(): void {
+    if (this.fg.invalid) {
+      return;
+    }
     const user = this.updateUserFromForm(this.user);
     this.userService.updateUser(user);
     this.dialogRef.closeAll();
