@@ -72,6 +72,7 @@ export class BlankComponent implements OnInit {
   private getGrades() {
     this.gradeService.getAll().subscribe(grades => {
       this.grades = grades;
+      console.log(grades);
       this.getCoolantHoleTypes();
     });
   }

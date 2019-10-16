@@ -50,7 +50,7 @@ public class BlankController {
         blankService.updateBlank(blank);
     }
 
-    @DeleteMapping("/v1/blank/{idBlank}/")
+    @DeleteMapping("/v1/blank/{idBlank}")
     public void deleteBlank(@PathVariable @Validated Integer idBlank) {
         blankService.deleteBlank(idBlank);
     }
