@@ -1,0 +1,87 @@
+input {
+  height: 30px;
+  border: #d8d8dd solid 1px;
+  font-size: 15px;
+  width: 90%;
+}
+
+.btn-edit,
+.btn-delete {
+  height: 20px;
+  width: 35px;
+  background: none;
+  border: none;
+  color: #c0c0c0;
+}
+
+.btn-edit:hover {
+  color: #2370b8;
+}
+
+.btn-delete:hover {
+  color: #ff3823;
+}
+
+.header-content,
+.search-add,
+.table-header-content,
+.table-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-text,
+.search-add-content,
+.table-header,
+.table-row,
+.table-row-no-hover {
+  display: flex;
+  width: 90%;
+}
+
+.table-item {
+  width: 33%;
+}
+
+.search-add {
+  margin: 20px 0;
+}
+
+.search-content {
+  width: 75%;
+}
+
+.search {
+  width: 90%;
+  height: 30px;
+  font-size: 15px;
+}
+
+.add-user-button {
+  width: 25%;
+}
+
+.btn-add-user {
+  width: 90%;
+  height: 30px;
+}
+
+.table-header {
+  background-color: none;
+  color: #2370b8;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.table-row, .table-row-no-hover {
+  background-color: none;
+  color: #000000;
+  padding: 10px;
+  border: #f1f1f6 solid 1px;
+  font-size: 15px;
+}
+
+.table-row:hover {
+  background-color: rgb(35, 112, 184, 0.25);
+}
