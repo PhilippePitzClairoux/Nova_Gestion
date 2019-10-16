@@ -74,7 +74,6 @@ export class UserComponent implements OnInit {
 
   private setUserType(): void {
     const userType = this.userTypesList.find(t => t.idTypeUser === this.user.typeUser.idTypeUser);
-    console.log(userType);
     this.fg.controls.userType.setValue(userType);
   }
 

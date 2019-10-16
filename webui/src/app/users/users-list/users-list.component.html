@@ -25,16 +25,16 @@
     <mat-cell *matCellDef="let row"> {{row.email | truncate}} </mat-cell>
   </ng-container>
   <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">TYPE</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.typeUser.name | truncate}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="controls">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
-        <mat-cell *matCellDef="let row" class="controls">
-          <mat-icon class="btn-edit" (click)="onEdit(row.idUser)">edit</mat-icon>
-          <mat-icon class="btn-delete" (click)="onDelete(row.idUser)">delete</mat-icon>
-        </mat-cell>
-      </ng-container>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">TYPE</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.typeUser.name | truncate}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="controls">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+    <mat-cell *matCellDef="let row" class="controls">
+      <mat-icon class="btn-edit" (click)="onEdit(row.idUser)">edit</mat-icon>
+      <mat-icon class="btn-delete" (click)="onDelete(row.idUser)">delete</mat-icon>
+    </mat-cell>
+  </ng-container>
   <mat-header-row *matHeaderRowDef="['name', 'email', 'type', 'controls']"></mat-header-row>
   <mat-row class="table-row" *matRowDef="let row; columns: ['name', 'email', 'type', 'controls'];">
   </mat-row>
