@@ -16,9 +16,12 @@ GET localhost:8080/v1/tools
 GET localhost:8080/v1/blanks
 
 ###
-GET localhost:8080/v1/typeusers
+GET localhost:8080/v1/usertypes
 ###
 GET localhost:8080/v1/grades
+###
+GET localhost:8080/v1/coolantholetypes
+
 
 ###
 POST localhost:8080/v1/user
