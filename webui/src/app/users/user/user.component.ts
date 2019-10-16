@@ -20,8 +20,6 @@ export class UserComponent implements OnInit {
   public adding: boolean;
   public editing: boolean;
 
-  public validForm = true;
-
   public fg: FormGroup;
 
   @Output() addUser = new EventEmitter<any>();
@@ -53,7 +51,7 @@ export class UserComponent implements OnInit {
 
   public onAdd(): void {
     if (this.fg.invalid) {
-      this.validForm = false;
+      this.validateAllFields(this.fg);
       return;
     }
     const user = this.createUserFromForm();
@@ -63,6 +61,7 @@ export class UserComponent implements OnInit {
 
   public onEdit(): void {
     if (this.fg.invalid) {
+      this.validateAllFields(this.fg);
       return;
     }
     const user = this.updateUserFromForm(this.user);
@@ -134,5 +133,14 @@ export class UserComponent implements OnInit {
     return !this.fg.controls.passwordConfirmation.hasError('required');
   }
 
-
+  private validateAllFields(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control);
+      }
+    });
+  }
 }
