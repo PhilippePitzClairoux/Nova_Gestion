@@ -46,7 +46,7 @@
     <update id="updateBlank" parameterType="nova.gestion.model.Blank">
         UPDATE `nova_gestion`.`blank` SET
                                     <if test="grade != null">code_grade = #{grade.code},</if>
-                                         id_coolant_hole = #{coolantHole.idCoolantHole},
+                                     <if test="coolantHole != null">    id_coolant_hole = #{coolantHole.idCoolantHole},</if>
                                      <if test="name != null">name = #{name},</if>
                                     <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
                                     <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>

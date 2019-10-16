@@ -37,12 +37,11 @@ public class BlankController {
     }
 
     @PostMapping("/v1/blank")
-    public Map<String, Integer> createBlank(@JsonView(BlankPost.Views.Insert.class)
-                                           @RequestBody @Validated BlankPost blank) {
+    public Map<String, Integer> createBlank(@RequestBody @Validated Blank blank) {
 
-        Integer id = blankService.createBlank(blank.getIdCoolantHole(),blank.getCodeGrade(),blank.getName(), blank.getStockQuantity(), blank.getMinimumQuantity(), blank.getDiameter(), blank.getLength());
+        Integer id = blankService.createBlank(blank);
 
-        return Map.of("id", id);
+        return Map.of("idBlank", id);
     }
 
     @PutMapping("/v1/blank")

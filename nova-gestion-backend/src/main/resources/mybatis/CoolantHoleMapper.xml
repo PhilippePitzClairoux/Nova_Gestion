@@ -26,13 +26,23 @@
         WHERE id_coolant_hole = #{idCoolantHole};
     </select>
 
+    <select id="getLastIdInserted" resultMap="CoolantHole">
+
+    </select>
     <update id="updateCoolantHole" parameterType="nova.gestion.model.CoolantHole">
-         UPDATE `nova_gestion`.coolant_hole  SET
-                    <if test="quantity != null">quantity = #{quantity},</if>
+        UPDATE `nova_gestion`.coolant_hole  SET
+                  <if test="quantity != null">quantity = #{quantity},</if>
                     <if test="diameter != null"> diameter = #{diameter},</if>
                     <if test="typeCoolantHole != null"> id_type_coolant_hole = #{typeCoolantHole.idTypeCoolantHole}</if>
                     WHERE id_coolant_hole = #{idCoolantHole};
     </update>
+
+    <insert id="insertCoolantHole" parameterType="nova.gestion.model.CoolantHole" useGeneratedKeys="true" keyProperty="idCoolantHole">
+        INSERT INTO `nova_gestion`.coolant_hole(id_type_coolant_hole, quantity, diameter)
+        VALUE
+        (#{typeCoolantHole.idTypeCoolantHole}, #{quantity}, #{diameter});
+    </insert>
+
 
 
 
