@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthentificationModule } from './authentification/authentification.module';
+// import { AuthentificationModule } from './authentification/authentification.module';
 import {InventoryModule} from './inventory/inventory.module';
 import { UsersModule } from './users/users.module';
 import { SharedModule } from './shared/shared.module';
@@ -25,7 +25,7 @@ import {SidebarComponent} from './navigation/sidebar/sidebar.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AuthentificationModule,
+    // AuthentificationModule,
     UsersModule,
     SharedModule,
     InventoryModule,
