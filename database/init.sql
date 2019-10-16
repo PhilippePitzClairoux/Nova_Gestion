@@ -39,7 +39,7 @@ CREATE TABLE model(
 );
 
 CREATE TABLE machine(
-    id_machine VARCHAR(255) NOT NULL PRIMARY KEY,
+    id_machine BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_model BIGINT NOT NULL,
     name VARCHAR(255),
     serial_number VARCHAR(255),
@@ -49,7 +49,7 @@ CREATE TABLE machine(
 
 CREATE TABLE maintenance(
     id_maintenance BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_machine VARCHAR(255) NOT NULL,
+    id_machine BIGINT NOT NULL,
     description VARCHAR(255),
     date DATE,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine)
@@ -74,7 +74,7 @@ CREATE TABLE tool(
 
 CREATE TABLE program(
     id_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_machine VARCHAR(255) NOT NULL,
+    id_machine BIGINT NOT NULL,
     id_tool BIGINT,
     name VARCHAR(255),
     file VARCHAR(255),
