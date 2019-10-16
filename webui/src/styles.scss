@@ -7,8 +7,27 @@
   padding: 0px !important;
 }
 
-@import "~@angular/material/theming";
+@font-face {
+  font-family: Roboto Medium;
+  src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
+}
 
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+@import '~@angular/material/theming';
 @include mat-core();
 
 $primary: (
@@ -17,54 +36,24 @@ $primary: (
     500: white
   )
 );
+
 $accent: (
   500: #f1f1f6,
   contrast: (
     500: 444444
   )
 );
+
 $danger: (
   500: #ff3823,
   contrast: (
     500: #333
   )
 );
+
 $webui-primary: mat-palette($primary);
 $webui-accent: mat-palette($accent);
-
 $webui-warn: mat-palette($danger);
-
 $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
-
-@font-face {
-  font-family: Roboto;
-  src: url("assets/fonts/Roboto-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Roboto Bold;
-  src: url("assets/fonts/Roboto-Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Roboto Medium;
-  src: url("assets/fonts/Roboto-Medium.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Montserrat;
-  src: url("assets/fonts/Montserrat-Regular.ttf") format("truetype");
-}
-
-body,
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
