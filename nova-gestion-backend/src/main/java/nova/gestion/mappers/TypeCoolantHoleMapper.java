@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public interface TypeCoolantHoleMapper {
 
     TypeCoolantHole getTypeCoolantHole(int idTypeCoolantHole);
-    ArrayList<TypeCoolantHole> getAllTypeCoolantHole();
+    ArrayList<TypeCoolantHole> getAllCoolantHoleTypes();
 }

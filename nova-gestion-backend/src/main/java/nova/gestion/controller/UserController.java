@@ -57,7 +57,7 @@ public class UserController {
     @PostMapping("/v1/user")
     public Map<String, Integer> createUser(@RequestBody @Validated User user) {
 
-        return Map.of("id", userService.createUser(user));
+        return Map.of("idUser", userService.createUser(user));
     }
 
     @PutMapping("/v1/user")
@@ -65,10 +65,9 @@ public class UserController {
         userService.updateUser(user);
     }
 
-    @DeleteMapping("/v1/user")
-    public void deleteUser(@JsonView(UserPost.Views.Delete.class)
-                           @RequestBody @Validated UserPost user) {
-        userService.deleteUser(user);
+    @DeleteMapping("/v1/user/{idUser}/")
+    public void deleteUser(@PathVariable @Validated Integer idUser) {
+        userService.deleteUser(idUser);
     }
 
 }
