@@ -15,7 +15,7 @@
         WHERE code = #{code};
     </select>
 
-    <select id="getAllGrads" resultMap="GradeMap">
+    <select id="getAllGrades" resultMap="GradeMap">
         SELECT * FROM `nova_gestion`.`grade`;
     </select>
 </mapper>
