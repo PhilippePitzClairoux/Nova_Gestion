@@ -103,14 +103,14 @@ public class BlankService {
     }
 
     @Transactional
-    public void deleteBlank(BlankPost blank) {
+    public void deleteBlank(Integer idBlank) {
 
-        Blank loadBlank = blankMapper.getBlank(blank.getIdBlank());
+        Blank loadBlank = blankMapper.getBlank(idBlank);
 
         if (loadBlank == null)
             throw new RessourceNotFound("Invalid idBlank");
 
-        blankMapper.deleteBlank(loadBlank);
+        blankMapper.deleteBlank(idBlank);
     }
 
 }

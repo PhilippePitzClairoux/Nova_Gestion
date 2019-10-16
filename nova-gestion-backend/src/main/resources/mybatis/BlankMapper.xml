@@ -55,7 +55,7 @@
                                      WHERE id_blank = #{idBlank};
     </update>
 
-    <delete id="deleteBlank" parameterType="nova.gestion.model.Blank">
+    <delete id="deleteBlank" parameterType="int">
         DELETE FROM `nova_gestion`.`blank` WHERE `nova_gestion`.`blank`.id_blank = #{idBlank};
     </delete>
 

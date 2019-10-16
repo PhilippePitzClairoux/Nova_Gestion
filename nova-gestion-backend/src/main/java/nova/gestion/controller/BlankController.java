@@ -50,9 +50,8 @@ public class BlankController {
         blankService.updateBlank(blank);
     }
 
-    @DeleteMapping("/v1/blank")
-    public void deleteBlank(@JsonView(BlankPost.Views.Delete.class)
-                           @RequestBody @Validated BlankPost blank) {
-        blankService.deleteBlank(blank);
+    @DeleteMapping("/v1/blank/{idBlank}/")
+    public void deleteBlank(@PathVariable @Validated Integer idBlank) {
+        blankService.deleteBlank(idBlank);
     }
 }
