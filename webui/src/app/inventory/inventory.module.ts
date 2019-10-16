@@ -44,7 +44,8 @@ import { BlankComponent } from './blank/blank/blank.component';
     MatSelectModule,
   ],
   entryComponents: [
-    ToolComponent
+    ToolComponent,
+    BlankComponent
   ]
 })
 export class InventoryModule {
