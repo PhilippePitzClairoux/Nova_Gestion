@@ -11,31 +11,31 @@
   <div class="table-content">
     <div class="table-row-no-hover">
       <div class="table-item">
-        <input type="text" placeholder="Nom">
+        <input type="text" placeholder="Nom" [(ngModel)]="name" [disabled]="inEdit">
       </div>
       <div class="table-item">
-        <input type="text" placeholder="Numéro de téléphone">
+        <input type="text" placeholder="Numéro de téléphone" [(ngModel)]="phoneNumber" [disabled]="inEdit">
       </div>
       <div class="table-item">
-        <app-button (clicked)="onEdit(1)" [label]="'Ajouter'" [style]="'primary'"></app-button>
+        <app-button (clicked)="onAdd()" [label]="'Ajouter'" [style]="'primary'"></app-button>
       </div>
     </div>
   </div>
 
   <div *ngFor="let client of clients">
-    <div *ngIf="selectedIndex !== client.id" class="table-content">
+    <div *ngIf="selectedIndex !== client.idClient" class="table-content">
       <div class="table-row">
         <div class="table-item">{{client.name}}</div>
         <div class="table-item">{{client.phoneNumber}}</div>
         <div class="table-item">
-          <button class="btn-edit" (click)="onEdit(client.id)" title="Modifier">
-
+          <button class="btn-edit" (click)="onEdit(client.idClient)" title="Modifier" [disabled]="inEdit">
+            x
           </button>
-          <button class="btn-delete" (click)="onDelete(client.id)" title="Supprimer">
-
+          <button class="btn-delete" (click)="onDelete(client.idClient)" title="Supprimer" [disabled]="inEdit">
+            x
           </button>
         </div>
       </div>
     </div>
-    <app-edit-client *ngIf="selectedIndex == client.id" [client]="client" (done)="onDoneEdit()" (cancel)=(onCancelEdit())></app-edit-client>
+    <app-edit-client *ngIf="selectedIndex == client.idClient" [client]="client" (done)="onDoneEdit(client)" (cancel)=(onCancelEdit())></app-edit-client>
   </div>

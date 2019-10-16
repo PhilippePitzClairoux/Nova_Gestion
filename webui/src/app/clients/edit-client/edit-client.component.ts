@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Client } from './../../models/client';
 
 @Component({
   selector: 'app-edit-client',
@@ -6,6 +7,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./edit-client.component.scss']
 })
 export class EditClientComponent implements OnInit {
+
+  public name: string = '';
+  public phoneNumber: string = '';
 
   @Input () client: any;
 
@@ -15,10 +19,15 @@ export class EditClientComponent implements OnInit {
   constructor() { }
 
   public ngOnInit(): void {
+    this.name = this.client.name;
+    this.phoneNumber = this.client.phoneNumber;
   }
 
   public onDone(): void {
-    this.done.emit();
+    const client = this.client;
+    client.name = this.name;
+    client.phoneNumber = this.phoneNumber;
+    this.done.emit(client);
   }
 
   public onCancel(): void {

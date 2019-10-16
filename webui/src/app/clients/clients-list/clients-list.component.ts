@@ -1,4 +1,7 @@
+import { ClientService } from './../../services/client.service';
+import { Client } from './../../models/client';
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clients-list',
@@ -8,20 +11,28 @@ import { Component, OnInit } from '@angular/core';
 export class ClientsListComponent implements OnInit {
 
   public selectedIndex = 0;
+  public inEdit: boolean = false;
+  public name: string = '';
+  public phoneNumber: string = '';
 
-  public clients = [
-    { id: 1, name: 'allo', phoneNumber: '18191231234' },
-    { id: 2, name: 'ça', phoneNumber: '18191231234' },
-    { id: 3, name: 'va', phoneNumber: '18191231234' },
-    { id: 4, name: 'bye', phoneNumber: '18191231234' }
-  ];
+  public clients: Client[] = [];
 
-  constructor() { }
+  constructor(private clientService: ClientService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.clientService.getAll().subscribe();
+    this.clientService.clientsList$().pipe(tap(result => this.clients = result)).subscribe();
+  }
+
+  public onAdd(): void {
+    const client = new Client();
+    client.name = this.name;
+    client.phoneNumber = this.phoneNumber;
+    this.clientService.createClient(client);
   }
 
   public onEdit(id: number): void {
+    this.inEdit = true;
     this.selectedIndex = id;
   }
 
@@ -29,12 +40,14 @@ export class ClientsListComponent implements OnInit {
     alert(id);
   }
 
-  public onDoneEdit(): void {
-    // TODO MAKE UPDATE
+  public onDoneEdit(client: Client): void {
+    this.clientService.updateClient(client);
+    this.inEdit = false;
     this.selectedIndex = 0;
   }
 
   public onCancelEdit(): void {
+    this.inEdit = false;
     this.selectedIndex = 0;
   }
 

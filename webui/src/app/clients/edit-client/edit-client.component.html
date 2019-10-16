@@ -1,14 +1,14 @@
 
 <div class="table-content">
   <div class="table-row">
-    <input class="table-item" [value]="client.name">
-    <input class="table-item" [value]="client.phoneNumber">
+    <input class="table-item" [(ngModel)]="name">
+    <input class="table-item" [(ngModel)]="phoneNumber">
     <div class="table-item">
-      <button class="btn-done" (click)="onDone()" title="Modifier">
-
+      <button class="btn-done" (click)="onDone()" title="Sauvegarder">
+        x
       </button>
-      <button class="btn-cancel" (click)="onCancel()" title="Supprimer">
-
+      <button class="btn-cancel" (click)="onCancel()" title="Annuler">
+        x
       </button>
     </div>
   </div>
