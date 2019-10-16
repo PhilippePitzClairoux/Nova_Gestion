@@ -4,10 +4,14 @@ label {
   font-size: 12px;
 }
 
-input, select {
-  height: 30px;
-  border: #d8d8dd solid 1px;
-  font-size: 15px;
+.block {
+  display: block;
+  margin-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .container {
@@ -15,19 +19,22 @@ input, select {
 }
 
 .dialog-header {
-  background-color: #2370b8;
-  color: white;
-  font-size: 20px;
-  text-align: center;
-  width: 100%;
-  padding: 10px 0px;
-  vertical-align: middle;
+  background: #2370b8;
+  margin: -24px -24px 24px;
+  padding: 0 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  font-weight: bold;
 }
 
 .input-container {
   border: #ebebeb solid 1px;
   padding: 10px;
-  padding-top: 0px;
+  padding-top: 0;
   margin-bottom: 10px;
 }
 .input-100 {
@@ -36,14 +43,10 @@ input, select {
   width: 100%;
 }
 
-.input-50 {
-  width: 45%;
-}
-
-.input-50 input {
-  width: 100%;
-}
-
 .buttons {
   float: right;
+}
+
+.btn-space {
+  margin-left: 20px;
 }

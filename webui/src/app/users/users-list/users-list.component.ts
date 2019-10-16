@@ -1,6 +1,6 @@
 import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
 
 import { tap } from 'rxjs/operators';
 
@@ -20,6 +20,8 @@ export class UsersListComponent implements OnInit {
   public filteredUsersList: User[] = [];
   public users: User[] = [];
   public userTypesList: TypeUser[] = [];
+
+  dataSource: MatTableDataSource<User>;
 
   // tslint:disable-next-line: no-inferrable-types
   public research: string = '';
@@ -42,7 +44,6 @@ export class UsersListComponent implements OnInit {
 
     // Defining mat dialogs config and passing my user
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = {
       user: newUser,
       userTypesList: this.userTypesList,
@@ -58,7 +59,6 @@ export class UsersListComponent implements OnInit {
 
     // Defining mat dialogs config and passing my user
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.panelClass = 'custom-dialog-container';
     dialogConfig.data = {
       user: this.users.find(t => t.idUser === id),
       userTypesList: this.userTypesList,
@@ -93,5 +93,10 @@ export class UsersListComponent implements OnInit {
     } else {
       this.filteredUsersList = this.users;
     }
+  }
+
+  public clearSearch(): void {
+    this.research = '';
+    this.filteringUserList();
   }
 }
