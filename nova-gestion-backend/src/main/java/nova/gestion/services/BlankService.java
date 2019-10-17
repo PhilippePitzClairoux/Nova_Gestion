@@ -59,7 +59,7 @@ public class BlankService {
         if (blank.getGrade() == null)
             throw new InvalidRequest("Missing Grade");
 
-        if (blank.getName() == null || blank.getStockQuantity() < 0 || blank.getMinimumQuantity() < 0 || blank.getDiameter() < 0 || blank.getLength() < 0 )
+        if (blank.getName() == null || blank.getDiameter() < 0 || blank.getLength() < 0 )
             throw new InvalidRequest("Missing Blank parameters");
 
         if (blank.getCoolantHole() != null)
