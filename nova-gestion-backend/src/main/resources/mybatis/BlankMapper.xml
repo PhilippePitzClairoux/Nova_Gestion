@@ -18,8 +18,8 @@
         <result column="name" javaType="string" property="name"/>
         <result column="stock_quantity" javaType="int" property="stockQuantity"/>
         <result column="minimum_quantity" javaType="int" property="minimumQuantity"/>
-        <result column="diameter" javaType="double" property="diameter"/>
-        <result column="length" javaType="double" property="length"/>
+        <result column="diameter" javaType="string" property="diameter"/>
+        <result column="length" javaType="string" property="length"/>
 
         <association column="code_grade" property="grade" javaType="nova.gestion.model.Grade"
                      select="nova.gestion.mappers.GradeMapper.getGrade"/>

@@ -35,10 +35,10 @@ public class BlankPost {
     private int minimumQuantity;
 
     @JsonView({Views.Update.class, Views.Insert.class})
-    private double diameter;
+    private String diameter;
 
     @JsonView({Views.Update.class, Views.Insert.class})
-    private double length;
+    private String length;
 }
 
 

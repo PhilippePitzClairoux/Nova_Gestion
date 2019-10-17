@@ -26,8 +26,8 @@ CREATE TABLE blank(
     name VARCHAR(255),
     stock_quantity INTEGER,
     minimum_quantity INTEGER,
-    diameter DECIMAL,
-    length DECIMAL,
+    diameter VARCHAR(10),
+    length VARCHAR(10),
     CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code),
     CONSTRAINT FOREIGN KEY(id_coolant_hole) REFERENCES coolant_hole(id_coolant_hole)
 );
