@@ -1,6 +1,6 @@
 import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 import { tap } from 'rxjs/operators';
 
@@ -17,32 +17,42 @@ import { Employee } from '../../models/employee.model';
 })
 export class UsersListComponent implements OnInit {
 
-  public filteredUsersList: User[] = [];
   public users: User[] = [];
   public userTypesList: TypeUser[] = [];
 
   dataSource: MatTableDataSource<User>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  // tslint:disable-next-line: no-inferrable-types
-  public research: string = '';
+  searchField = '';
 
-  constructor(private userService: UsersService, public dialog: MatDialog) { }
+  constructor(private userService: UsersService,
+              public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.userService.getAllUsers();
-    this.userService.usersList$().pipe(tap(result => this.users = result)).subscribe(() => this.filteredUsersList = this.users);
+    this.userService.usersList$().pipe(tap(result => this.users = result)).subscribe(() => {
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.filterPredicate = (data, filter: string)  => {
+        const accumulator = (currentTerm, key) => {
+          return key === 'typeUser' ? currentTerm + data.typeUser.name : currentTerm + data[key] ||
+          key === 'employee' ? currentTerm + data.employee.surname + data.employee.name : currentTerm + data[key];
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      };
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
     this.userService.getAllUserTypes();
     this.userService.userTypesList$().pipe(tap(result => this.userTypesList = result)).subscribe();
   }
 
   public onAdd() {
-
-    // Creating a user not undefined
     const newUser: User = new User();
-    // newUser.typeUser = new TypeUser();
     newUser.employee = new Employee();
 
-    // Defining mat dialogs config and passing my user
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       user: newUser,
@@ -51,13 +61,11 @@ export class UsersListComponent implements OnInit {
       edit: false
     };
 
-    // Opening the mat dialog component
     this.dialog.open(UserComponent, dialogConfig);
   }
 
   public onEdit(id: number): void {
 
-    // Defining mat dialogs config and passing my user
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       user: this.users.find(t => t.idUser === id),
@@ -66,7 +74,6 @@ export class UsersListComponent implements OnInit {
       edit: true
     };
 
-    // Opening the mat dialog component
     this.dialog.open(UserComponent, dialogConfig);
   }
 
@@ -82,21 +89,14 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  public filteringUserList(): void {
-    if (this.research !== '') {
-      this.filteredUsersList = this.users.filter(t => {
-        return t.employee.name.toLocaleLowerCase().includes(this.research.toLocaleLowerCase()) ||
-          t.employee.surname.toLocaleLowerCase().includes(this.research.toLocaleLowerCase()) ||
-          t.email.toLocaleLowerCase().includes(this.research.toLocaleLowerCase()) ||
-          t.typeUser.name.toLocaleLowerCase().includes(this.research.toLocaleLowerCase());
-      });
-    } else {
-      this.filteredUsersList = this.users;
-    }
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   public clearSearch(): void {
-    this.research = '';
-    this.filteringUserList();
+    this.searchField = '';
+    this.applyFilter('');
   }
 }

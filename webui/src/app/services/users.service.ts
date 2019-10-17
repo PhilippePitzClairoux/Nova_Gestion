@@ -33,16 +33,14 @@ export class UsersService {
     this.http.get<User[]>('/v1/users').subscribe(result => {
       this.usersList = result;
       this.usersListSubject.next(this.usersList);
-      console.log('UserService -> getAllUser() : [SUCCESS]');
     });
   }
 
   public createUser(user: User): void {
     this.http.post<User>('/v1/user', user, this.httpOptions).subscribe(result => {
-      user.idUser = result.idUser; // TODO backend changer id pour idUser dans la response
+      user.idUser = result.idUser;
       this.usersList = [...this.usersList, user];
       this.usersListSubject.next(this.usersList);
-      console.log('UserService -> CreateUser() : [SUCCESS]');
     });
   }
 
@@ -51,7 +49,6 @@ export class UsersService {
       const index = this.usersList.findIndex(t => t.idUser === user.idUser);
       this.usersList[index] = user;
       this.usersListSubject.next(this.usersList);
-      console.log('UserService -> Update() : [SUCCESS]');
     });
   }
 
@@ -59,7 +56,6 @@ export class UsersService {
     this.http.delete<User>('/v1/user/' + id.toString() + '/').subscribe(() => {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
-      console.log('UserService -> DeleteUser() : [SUCCESS]');
     });
   }
 
@@ -67,7 +63,6 @@ export class UsersService {
     this.http.get<TypeUser[]>('/v1/usertypes').subscribe(result => {
       this.userTypesList = result;
       this.userTypesListSubject.next(this.userTypesList);
-      console.log('UserService -> GetAllUserTypes() : [SUCCESS]');
     });
   }
 }

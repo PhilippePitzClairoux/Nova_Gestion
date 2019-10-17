@@ -9,7 +9,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatTableModule,
-  MatSelectModule
+  MatSelectModule, MatSortModule, MatPaginatorModule
 } from '@angular/material';
 
 import { UsersRoutingModule } from './users-routing.module';
@@ -32,7 +32,9 @@ import { UserComponent } from './user/user.component';
     MatTableModule,
     MatSelectModule,
     SharedModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class UsersModule { }
