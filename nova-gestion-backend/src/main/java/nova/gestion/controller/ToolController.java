@@ -31,7 +31,7 @@ public class ToolController {
         return toolService.getListOfAllTools();
     }
 
-    @GetMapping("/v1/tool/{idTool}/")
+    @GetMapping("/v1/tool/{idTool}")
     public Tool getTool(@PathVariable @Validated Integer idTool) {
         return toolService.getTool(idTool);
     }
