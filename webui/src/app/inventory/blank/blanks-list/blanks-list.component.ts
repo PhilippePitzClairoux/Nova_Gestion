@@ -73,7 +73,6 @@ export class BlanksListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         this.saveBlank(result, selected);
       }
     });
