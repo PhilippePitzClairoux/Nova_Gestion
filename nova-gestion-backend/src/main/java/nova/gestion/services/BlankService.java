@@ -81,10 +81,10 @@ public class BlankService {
         if (blank.getIdBlank() ==0 || verifiedBlank == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (blank.getName() == null && blank.getStockQuantity() == 0 && blank.getMinimumQuantity() == 0 && blank.getDiameter() == 0 && blank.getLength() == 0 && blank.getGrade() == null )
+        if (blank.getName() == null && blank.getMinimumQuantity() == 0 && blank.getDiameter() == 0 && blank.getLength() == 0 && blank.getGrade() == null )
             throw new InvalidRequest("Missing information");
 
-        if (blank.getName() != null || blank.getStockQuantity() >= 0 || blank.getMinimumQuantity() >= 0 || blank.getDiameter() >= 0 || blank.getLength() >= 0 || blank.getGrade() != null || blank.getCoolantHole() != null)
+        if (blank.getName() != null || blank.getMinimumQuantity() >= 0 || blank.getDiameter() >= 0 || blank.getLength() >= 0 || blank.getGrade() != null || blank.getCoolantHole() != null)
             blankMapper.updateBlank(blank);
 
         if (blank.getCoolantHole() != null){
