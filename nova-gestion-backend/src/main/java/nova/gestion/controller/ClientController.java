@@ -42,7 +42,7 @@ public class ClientController {
 
         Integer id = clientService.createClient(client.getName(), client.getPhoneNumber());
 
-        return Map.of("id", id);
+        return Map.of("idClient", id);
     }
     
     @PutMapping("/v1/client")
