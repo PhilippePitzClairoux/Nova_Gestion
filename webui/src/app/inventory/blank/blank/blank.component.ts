@@ -37,13 +37,12 @@ export class BlankComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.blankForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.max(254)]),
-      stockQuantity: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      minimumQuantity: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      diameter: new FormControl('', Validators.required),
-      length: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, Validators.maxLength(254)]),
+      stockQuantity: new FormControl('', Validators.required),
+      minimumQuantity: new FormControl('', Validators.required),
+      diameter: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      length: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       grade: new FormControl('', Validators.required),
       coolantHoleType: new FormControl(''),
       holeDiameter: new FormControl(''),
@@ -99,7 +98,6 @@ export class BlankComponent implements OnInit {
   private getGrades() {
     this.gradeService.getAll().subscribe(grades => {
       this.grades = grades;
-      console.log(grades);
       this.getCoolantHoleTypes();
     });
   }
@@ -107,7 +105,6 @@ export class BlankComponent implements OnInit {
   private getCoolantHoleTypes() {
     this.coTypeService.getAll().subscribe(types => {
       this.types = types;
-      console.log(types);
       this.setValues();
     });
   }

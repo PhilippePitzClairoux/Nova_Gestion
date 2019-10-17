@@ -26,7 +26,7 @@ export class ToolComponent implements OnInit {
 
   ngOnInit(): void {
     this.toolForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.max(254)]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(254)]),
       stockQuantity: new FormControl('', Validators.required),
       minimumQuantity: new FormControl('', Validators.required),
       client: new FormControl('', Validators.required),

@@ -4,6 +4,6 @@ export class CoolantHole {
   idCoolantHole: number;
   name: string;
   quantity: number;
-  diameter: number;
+  diameter: string;
   typeCoolantHole: CoolantHoleType;
 }

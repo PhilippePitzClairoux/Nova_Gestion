@@ -11,7 +11,7 @@
             Un diamètre est requis.
           </mat-error>
           <mat-error
-            *ngIf="!blankForm.controls.diameter.hasError('required') && blankForm.controls.diameter.hasError('maxLength')">
+            *ngIf="blankForm.controls.diameter.hasError('maxLength')">
             Un maximum de 10 caractères est permis.
           </mat-error>
         </mat-form-field>

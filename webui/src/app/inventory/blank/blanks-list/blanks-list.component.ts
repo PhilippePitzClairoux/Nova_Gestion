@@ -29,7 +29,6 @@ export class BlanksListComponent implements OnInit {
   private getBlanks() {
     this.blankService.getAll().subscribe(
       blanks => {
-        console.log(blanks);
         this.dataSource = new MatTableDataSource(blanks);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
