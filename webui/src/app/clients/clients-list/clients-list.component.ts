@@ -1,8 +1,13 @@
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+
+import { tap } from 'rxjs/operators';
+
 import { ClientService } from './../../services/client.service';
 import { Client } from './../../models/client';
-import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-clients-list',
@@ -19,7 +24,7 @@ export class ClientsListComponent implements OnInit {
 
   public clients: Client[] = [];
 
-  constructor(private clientService: ClientService, private fb: FormBuilder) { }
+  constructor(private clientService: ClientService, private fb: FormBuilder, private dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.fgAdd = this.fb.group({
@@ -35,14 +40,15 @@ export class ClientsListComponent implements OnInit {
   }
 
   public onAdd(): void {
-    console.log(this.fgAdd);
     if (!this.fgAdd.invalid) {
       const client = new Client();
       client.name = this.fgAdd.controls.name.value;
       client.phoneNumber = this.fgAdd.controls.phoneNumber.value;
       this.clientService.createClient(client);
       this.fgAdd.controls.name.setValue('');
-      this.fgAdd.controls.phoneNumbre.setValue('');
+      this.fgAdd.controls.name.markAsUntouched();
+      this.fgAdd.controls.phoneNumber.setValue('');
+      this.fgAdd.controls.phoneNumber.markAsUntouched();
     } else {
       this.validateAllFields(this.fgAdd);
     }
@@ -57,7 +63,15 @@ export class ClientsListComponent implements OnInit {
   }
 
   public onDelete(id: number): void {
-    this.clientService.deleteClient(id);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Êtes-vous sûr de vouloir supprimer ce client?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clientService.deleteClient(id);
+      }
+    });
   }
 
   public onDoneEdit(): void {
@@ -73,7 +87,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   public onCancelEdit(): void {
-    this.inEdit = false;
+    this.fgAdd.enable();
     this.selectedIndex = 0;
   }
 
