@@ -47,15 +47,14 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-checkbox class="example-margin" (change)="showCoolantHoleOptions($event)" [color]="'primary'">Coolant holes
-    </mat-checkbox>
+    <mat-checkbox [checked]="hasCoolantHole" (change)="showCoolantHoleOptions($event)" [color]="'primary'">Coolant holes</mat-checkbox>
 
     <div class="coolant-hole" *ngIf="hasCoolantHole">
 
       <div class="quantities">
         <div class="inch">
           <mat-form-field class="dimension">
-            <input matInput placeholder="Nombre de trous" formControlName="holesNumber">
+            <input matInput placeholder="Nombre de trous" formControlName="holesNumber" type="number">
             <mat-error *ngIf="blankForm.controls.holesNumber.hasError('required')">
               Une valeur est requise.
             </mat-error>
