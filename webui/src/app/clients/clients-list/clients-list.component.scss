@@ -1,17 +1,13 @@
-input {
-  height: 30px;
-  border: #d8d8dd solid 1px;
-  font-size: 15px;
-  width: 90%;
-}
-
 .btn-edit,
-.btn-delete {
+.btn-delete,
+.btn-done,
+.btn-cancel {
   height: 20px;
   width: 35px;
   background: none;
   border: none;
   color: #c0c0c0;
+  cursor: pointer;
 }
 
 .btn-edit:hover {
@@ -22,48 +18,36 @@ input {
   color: #ff3823;
 }
 
-.header-content,
-.search-add,
-.table-header-content,
+.btn-done:hover {
+  color: #92d36e;
+}
+
+.btn-cancel:hover {
+  color: #ff3823;
+}
+
 .table-content {
   display: flex;
   justify-content: space-around;
+  margin-top: 50px;
 }
 
-.header-text,
 .search-add-content,
 .table-header,
-.table-row,
-.table-row-no-hover {
+.table-row-no-hover,
+.inputs {
   display: flex;
   width: 90%;
 }
 
 .table-item {
+  display: flex;
   width: 33%;
 }
 
-.search-add {
-  margin: 20px 0;
-}
-
-.search-content {
-  width: 75%;
-}
-
-.search {
-  width: 90%;
-  height: 30px;
-  font-size: 15px;
-}
-
-.add-user-button {
-  width: 25%;
-}
-
-.btn-add-user {
-  width: 90%;
-  height: 30px;
+.table-btn {
+  display: flex;
+  width: 33%;
 }
 
 .table-header {
@@ -72,16 +56,20 @@ input {
   font-weight: bold;
   padding: 10px;
   font-size: 15px;
+  margin-top: 20px;
 }
 
 .table-row, .table-row-no-hover {
   background-color: none;
   color: #000000;
-  padding: 10px;
-  border: #f1f1f6 solid 1px;
-  font-size: 15px;
 }
 
 .table-row:hover {
   background-color: rgb(35, 112, 184, 0.25);
+}
+
+
+.table {
+  margin: 0 auto;
+  width: 90%;
 }

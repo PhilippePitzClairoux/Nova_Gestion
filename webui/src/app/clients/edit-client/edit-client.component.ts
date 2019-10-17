@@ -8,8 +8,8 @@ import { Client } from './../../models/client';
 })
 export class EditClientComponent implements OnInit {
 
-  public name: string = '';
-  public phoneNumber: string = '';
+  public name = '';
+  public phoneNumber = '';
 
   @Input () client: any;
 
