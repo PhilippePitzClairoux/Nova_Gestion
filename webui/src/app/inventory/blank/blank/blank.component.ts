@@ -82,6 +82,8 @@ export class BlankComponent implements OnInit {
 
     if (this.hasCoolantHole) {
       blank.coolantHole = this.createCoolantHole();
+    } else {
+      blank.coolantHole = null;
     }
 
     return blank;
@@ -119,6 +121,7 @@ export class BlankComponent implements OnInit {
       this.blankForm.controls.minimumQuantity.setValue(this.data.minimumQuantity);
       this.setGrade();
       if (this.data.coolantHole) {
+        this.hasCoolantHole = true;
         this.setCoolantHoleType();
         this.blankForm.controls.holesNumber.setValue(this.data.coolantHole.quantity);
         this.blankForm.controls.holeDiameter.setValue(this.data.coolantHole.diameter);
