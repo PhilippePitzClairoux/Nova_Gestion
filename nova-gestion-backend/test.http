@@ -80,6 +80,60 @@ Content-Type: application/json
 }
 
 ###
+POST localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "grade": {
+    "code": 1
+  },
+  "name": "5*5 - kilo",
+  "stockQuantity": 1000,
+  "minimumQuantity": 100,
+  "diameter": 2,
+  "length": 30
+}
+
+###
+POST localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "grade": {
+    "code": 1
+  },
+  "name": "5*5",
+  "stockQuantity": 2,
+  "minimumQuantity": 0,
+  "diameter": 2,
+  "length": 30,
+  "coolantHole": {
+    "typeCoolantHole":{
+      "idTypeCoolantHole": 2
+    }
+  }
+}
+
+###
+PUT localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "idBlank": 5,
+  "grade": {
+    "code": 1
+  },
+  "name": "5*5",
+  "coolantHole": {
+    "idCoolantHole": 8,
+    "diameter": 80,
+    "quantity": 90
+  }
+}
+
+###
+DELETE localhost
+###
 POST localhost:8080/v1/machine
 Content-Type: application/json
 
@@ -111,7 +165,7 @@ PUT localhost:8080/v1/blank
 Content-Type: application/json
 
 {
-  "idBlank": 3,
+  "idBlank": 7,
   "name": "1/5 * 5",
   "stockQuantity": 10,
   "minimumQuantity":10,
@@ -124,7 +178,7 @@ Content-Type: application/json
   "coolantHole": {
     "idCoolantHole": 2,
     "quantity": 40,
-    "diameter": 0,
+    "diameter": 4000,
     "TypeCoolantHole": {
       "idTypeCoolantHole": 1,
       "name": "Droit"

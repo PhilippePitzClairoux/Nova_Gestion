@@ -43,16 +43,27 @@
         VALUES (#{grade.code}, #{coolantHole.idCoolantHole}, #{name}, #{stockQuantity}, #{minimumQuantity}, #{diameter}, #{length});
     </insert>
 
-    <update id="updateBlank" parameterType="nova.gestion.model.Blank">
+   <!-- <update id="updateBlank" parameterType="nova.gestion.model.Blank">
         UPDATE `nova_gestion`.`blank` SET
                                     <if test="grade != null">code_grade = #{grade.code},</if>
-                                         id_coolant_hole = #{coolantHole.idCoolantHole},
+                                      id_coolant_hole = #{coolantHole.idCoolantHole},
                                      <if test="name != null">name = #{name},</if>
                                     <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
                                     <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
                                     <if test="diameter != 0">diameter = #{diameter},</if>
                                     <if test="length != 0">length = #{length}</if>
                                      WHERE id_blank = #{idBlank};
+    </update>-->
+    <update id="updateBlank" parameterType="nova.gestion.model.Blank">
+        UPDATE `nova_gestion`.`blank` SET
+        <if test="name != null">name = #{name},</if>
+        <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
+        <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
+        <if test="diameter != 0">diameter = #{diameter},</if>
+        <if test="length != 0">length = #{length},</if>
+        <if test="grade != null">code_grade = #{grade.code},</if>
+        id_coolant_hole = #{coolantHole.idCoolantHole}
+        WHERE id_blank = #{idBlank};
     </update>
 
     <delete id="deleteBlank" parameterType="int">

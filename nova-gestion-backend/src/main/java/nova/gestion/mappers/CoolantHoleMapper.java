@@ -11,4 +11,6 @@ public interface CoolantHoleMapper {
     CoolantHole getCoolantHole(int idCoolantHole);
 
     void updateCoolantHole(CoolantHole coolantHole);
+
+    void insertCoolantHole(CoolantHole coolantHole);
 }
