@@ -58,11 +58,3 @@ $webui-warn: mat-palette($danger);
 $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
-
-html, body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-}
