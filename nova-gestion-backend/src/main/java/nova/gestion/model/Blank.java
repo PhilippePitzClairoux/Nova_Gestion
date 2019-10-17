@@ -12,12 +12,12 @@ public class Blank {
     private String name;
     private int stockQuantity;
     private int minimumQuantity;
-    private double diameter;
-    private double length;
+    private String diameter;
+    private String length;
     private Grade grade;
     private CoolantHole coolantHole;
 
-    public Blank(int idBlank, String name, int stockQuantity, int minimumQuantity, double diameter, double length) {
+    public Blank(int idBlank, String name, int stockQuantity, int minimumQuantity, String diameter, String length) {
         this.idBlank = idBlank;
         this.name = name;
         this.stockQuantity = stockQuantity;
@@ -27,7 +27,7 @@ public class Blank {
     }
 
     @JsonCreator
-    public Blank(int idBlank, String name, int stockQuantity,int minimumQuantity, double diameter, double length, Grade grade, CoolantHole coolantHole) {
+    public Blank(int idBlank, String name, int stockQuantity, int minimumQuantity, String diameter, String length, Grade grade, CoolantHole coolantHole) {
         this.idBlank = idBlank;
         this.name = name;
         this.stockQuantity = stockQuantity;
@@ -37,7 +37,4 @@ public class Blank {
         this.grade = grade;
         this.coolantHole = coolantHole;
     }
-
-
 }
-

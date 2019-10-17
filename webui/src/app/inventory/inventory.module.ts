@@ -5,7 +5,7 @@ import {SharedModule} from '../shared/shared.module';
 import {InventoryRoutingModule} from './inventory-routing.module';
 import {ToolsListComponent} from './tools/tools-list/tools-list.component';
 import {
-  MatButtonModule, MatDialogModule,
+  MatButtonModule, MatCheckboxModule, MatDialogModule,
   MatIconModule,
   MatInputModule, MatOptionModule,
   MatPaginatorModule, MatSelectModule,
@@ -42,6 +42,7 @@ import { BlankComponent } from './blank/blank/blank.component';
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    MatCheckboxModule,
   ],
   entryComponents: [
     ToolComponent,

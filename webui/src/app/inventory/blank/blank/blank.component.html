@@ -1,42 +1,114 @@
-<h1 mat-dialog-title class="title" *ngIf="data">Modifier un outil</h1>
-<h1 mat-dialog-title class="title" *ngIf="!data">Ajouter un outil</h1>
+<h1 mat-dialog-title class="title" *ngIf="data">Modifier une tige</h1>
+<h1 mat-dialog-title class="title" *ngIf="!data">Ajouter une tige</h1>
 
-<form mat-dialog-content class="content" [formGroup]="blankForm">
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Nom" formControlName="name">
-    <mat-error *ngIf="blankForm.controls.name.hasError('required')">
-      Un nom est requis.
-    </mat-error>
-  </mat-form-field>
+<form mat-dialog-content [formGroup]="blankForm">
+  <div class="content">
+    <div class="quantities">
+      <div class="inch">
+        <mat-form-field class="dimension">
+          <input matInput placeholder="Diamètre" formControlName="diameter">
+          <mat-error *ngIf="blankForm.controls.diameter.hasError('required')">
+            Un diamètre est requis.
+          </mat-error>
+        </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Grade</mat-label>
-    <mat-select formControlName="grade">
-      <mat-option *ngFor="let grade of grades" [value]="grade">
-        {{grade.description}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="blankForm.controls.grade.hasError('required')">
-      Un client est requis.
-    </mat-error>
-  </mat-form-field>
+        <span>pouce(s)</span>
+      </div>
 
-  <div class="quantities">
-    <mat-form-field class="mid">
-      <input matInput placeholder="Quantité en stock" type="number" formControlName="stockQuantity">
-      <mat-error *ngIf="blankForm.controls.stockQuantity.hasError('required')">
-        Une quantité est requise.
+      <div class="inch">
+        <mat-form-field class="dimension">
+          <input matInput placeholder="Longueur" formControlName="length">
+          <mat-error *ngIf="blankForm.controls.length.hasError('required')">
+            Une longueur est requise.
+          </mat-error>
+        </mat-form-field>
+
+        <span>pouce(s)</span>
+      </div>
+    </div>
+
+    <mat-form-field class="full-width">
+      <mat-label>Grade</mat-label>
+      <mat-select formControlName="grade">
+        <mat-option *ngFor="let grade of grades" [value]="grade">
+          {{grade.description}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="blankForm.controls.grade.hasError('required')">
+        Un grade est requis.
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="mid">
-      <input matInput placeholder="Quantité minimum" type="number" formControlName="minimumQuantity">
-      <mat-error *ngIf="blankForm.controls.minimumQuantity.hasError('required')">
-        Une quantité est requise.
+
+    <mat-checkbox class="example-margin" (change)="showCoolantHoleOptions($event)" [color]="'primary'">Coolant holes
+    </mat-checkbox>
+
+    <div class="coolant-hole" *ngIf="hasCoolantHole">
+
+      <div class="quantities">
+        <div class="inch">
+          <mat-form-field class="dimension">
+            <input matInput placeholder="Nombre de trous" formControlName="diameter">
+            <mat-error *ngIf="blankForm.controls.holesNumber.hasError('required')">
+              Une valeur est requise.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="inch">
+          <mat-form-field class="dimension">
+            <input matInput placeholder="Longueur" formControlName="length">
+            <mat-error *ngIf="blankForm.controls.holeDiameter.hasError('required')">
+              Une valeur est requisee.
+            </mat-error>
+          </mat-form-field>
+
+          <span>pouce(s)</span>
+        </div>
+      </div>
+
+      <mat-form-field class="full-width">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="coolantHoleType">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="blankForm.controls.coolantHoleType.hasError('required')">
+          Un type de coolant hole est requis.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="content">
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Nom" formControlName="name">
+      <mat-error *ngIf="blankForm.controls.name.hasError('required')">
+        Un nom est requis.
       </mat-error>
     </mat-form-field>
+
+    <div class="quantities">
+      <mat-form-field class="mid">
+        <input matInput placeholder="Quantité en stock" type="number" formControlName="stockQuantity">
+        <mat-error *ngIf="blankForm.controls.stockQuantity.hasError('required')">
+          Une quantité est requise.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mid">
+        <input matInput placeholder="Quantité minimum" type="number" formControlName="minimumQuantity">
+        <mat-error *ngIf="blankForm.controls.minimumQuantity.hasError('required')">
+          Une quantité est requise.
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
 
 </form>
+
 <div mat-dialog-actions class="controls">
   <app-button [style]="'secondary'" [label]="'Annuler'" (click)="onNoClick()"></app-button>
   <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="close()"></app-button>

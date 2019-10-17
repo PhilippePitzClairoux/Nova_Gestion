@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatCheckboxChange, MatDialogRef} from '@angular/material';
 import {Blank} from '../../../models/blank';
 import {CoolantHoleTypeService} from '../../../services/coolant-hole-type.service';
 import {GradeService} from '../../../services/grade.service';
@@ -17,6 +17,7 @@ export class BlankComponent implements OnInit {
   grades: Grade[] = [];
   types: CoolantHoleType[] = [];
   blankForm: FormGroup;
+  hasCoolantHole = false;
 
   constructor(
     public dialogRef: MatDialogRef<BlankComponent>,
@@ -37,7 +38,9 @@ export class BlankComponent implements OnInit {
       diameter: new FormControl('', Validators.required),
       length: new FormControl('', Validators.required),
       grade: new FormControl('', Validators.required),
-      coolantHoleType: new FormControl('', Validators.required),
+      coolantHoleType: new FormControl(''),
+      holeDiameter: new FormControl(''),
+      holesNumber: new FormControl('')
     });
     this.getGrades();
   }
@@ -111,5 +114,19 @@ export class BlankComponent implements OnInit {
         this.validateAllFields(control);
       }
     });
+  }
+
+  showCoolantHoleOptions($event: MatCheckboxChange) {
+    this.hasCoolantHole = !this.hasCoolantHole;
+
+    if (this.hasCoolantHole) {
+      this.blankForm.controls.holesNumber.setValidators([Validators.required]);
+      this.blankForm.controls.holeDiameter.setValidators([Validators.required]);
+      this.blankForm.controls.coolantHoleType.setValidators([Validators.required]);
+    } else {
+      this.blankForm.controls.holesNumber.clearValidators();
+      this.blankForm.controls.holeDiameter.clearValidators();
+      this.blankForm.controls.coolantHoleType.clearValidators();
+    }
   }
 }

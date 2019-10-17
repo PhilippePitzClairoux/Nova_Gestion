@@ -51,12 +51,12 @@ public class BlankService {
     }
 
     @Transactional
-    public Integer createBlank(Integer idCoolantHole, Integer codeGrade, String name, int stockQuantity, int minimumQuantity, double diameter, double length) {
+    public Integer createBlank(Integer idCoolantHole, Integer codeGrade, String name, int stockQuantity, int minimumQuantity, String diameter, String length) {
 
-        if (idCoolantHole == null || codeGrade == null || name == null || stockQuantity == 0 || minimumQuantity == 0 || diameter == 0 || length == 0)
+        if (idCoolantHole == null || codeGrade == null || name == null || stockQuantity == 0 || minimumQuantity == 0 || diameter == null || length == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (name.isEmpty() || idCoolantHole == 0  || codeGrade == 0 || stockQuantity == 0 || minimumQuantity == 0 || diameter == 0 || length == 0)
+        if (name.isEmpty() || idCoolantHole == 0  || codeGrade == 0 || stockQuantity == 0 || minimumQuantity == 0 || diameter.isEmpty() || length.isEmpty())
             throw new InvalidRequest("Invalid parameters");
 
         Grade grade = gradeMapper.getGrade(codeGrade);
@@ -82,10 +82,10 @@ public class BlankService {
         if (blank.getIdBlank() ==0 || verifiedBlank == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (blank.getName() == null && blank.getStockQuantity() == 0 && blank.getMinimumQuantity() == 0 && blank.getDiameter() == 0 && blank.getLength() == 0 && blank.getGrade() == null && blank.getCoolantHole() == null)
+        if (blank.getName() == null && blank.getStockQuantity() == 0 && blank.getMinimumQuantity() == 0 && blank.getDiameter() == null && blank.getLength() == null && blank.getGrade() == null && blank.getCoolantHole() == null)
             throw new InvalidRequest("Missing information");
 
-        if (blank.getName() != null && blank.getStockQuantity() >= 0 && blank.getMinimumQuantity() >= 0 && blank.getDiameter() >= 0 && blank.getLength() >= 0 && blank.getGrade() != null && blank.getCoolantHole() != null)
+        if (blank.getName() != null && blank.getStockQuantity() >= 0 && blank.getMinimumQuantity() >= 0 && blank.getDiameter() != null && blank.getLength() != null && blank.getGrade() != null && blank.getCoolantHole() != null)
             blankMapper.updateBlank(blank);
 
         if (blank.getCoolantHole() != null){
