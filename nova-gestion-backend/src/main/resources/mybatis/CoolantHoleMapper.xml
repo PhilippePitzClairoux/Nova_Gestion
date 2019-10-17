@@ -26,9 +26,6 @@
         WHERE id_coolant_hole = #{idCoolantHole};
     </select>
 
-    <select id="getLastIdInserted" resultMap="CoolantHole">
-
-    </select>
     <update id="updateCoolantHole" parameterType="nova.gestion.model.CoolantHole">
         UPDATE `nova_gestion`.coolant_hole  SET
                   <if test="quantity != null">quantity = #{quantity},</if>
