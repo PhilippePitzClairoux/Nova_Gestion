@@ -59,7 +59,7 @@ public class BlankService {
         if (blank.getGrade() == null)
             throw new InvalidRequest("Missing Grade");
 
-        if (blank.getName() == null || blank.getStockQuantity() < 0 || blank.getMinimumQuantity() < 0 || blank.getDiameter() == null || blank.getLength() == null )
+        if (blank.getName() == null || blank.getDiameter() < 0 || blank.getLength() < 0 )
             throw new InvalidRequest("Missing Blank parameters");
 
         if (blank.getCoolantHole() != null)
@@ -81,10 +81,10 @@ public class BlankService {
         if (blank.getIdBlank() ==0 || verifiedBlank == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (blank.getName() == null && blank.getMinimumQuantity() == 0 && blank.getDiameter() == null && blank.getLength() == null && blank.getGrade() == null )
+        if (blank.getName() == null && blank.getDiameter() == 0 && blank.getLength() == 0 && blank.getGrade() == null )
             throw new InvalidRequest("Missing information");
 
-        if (blank.getName() != null || blank.getMinimumQuantity() >= 0 || blank.getDiameter() != null || blank.getLength() != null || blank.getGrade() != null || blank.getCoolantHole() != null)
+        if (blank.getName() != null || blank.getDiameter() >= 0 || blank.getLength() >= 0 || blank.getGrade() != null || blank.getCoolantHole() != null)
             blankMapper.updateBlank(blank);
 
         if (blank.getCoolantHole() != null){
@@ -92,7 +92,7 @@ public class BlankService {
                 if (blank.getCoolantHole().getDiameter() >= 0)
                     verifiedBlank.getCoolantHole().setDiameter(blank.getCoolantHole().getDiameter());
 
-                if (blank.getCoolantHole().getQuantity() >= 0)
+                if (blank.getCoolantHole().getQuantity() != verifiedBlank.getCoolantHole().getQuantity())
                     verifiedBlank.getCoolantHole().setQuantity(blank.getCoolantHole().getQuantity());
 
                 if (blank.getCoolantHole().getTypeCoolantHole() != null)
