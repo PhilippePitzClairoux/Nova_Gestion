@@ -1,5 +1,5 @@
 target/
 .idea/
 
-projet.iml
+*.iml
 application.yml

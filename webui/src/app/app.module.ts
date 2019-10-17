@@ -1,12 +1,19 @@
-import {SharedModule} from './shared/shared.module';
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {AppComponent} from './app.component';
-import {SidebarComponent} from './navigation/sidebar/sidebar.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppRoutingModule} from './app-routing.module';
-import {InventoryModule} from './inventory/inventory.module';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+// import { AuthentificationModule } from './authentification/authentification.module';
+import {InventoryModule} from './inventory/inventory.module';
+import { UsersModule } from './users/users.module';
+import { SharedModule } from './shared/shared.module';
+import { UserComponent } from './users/user/user.component';
+import {SidebarComponent} from './navigation/sidebar/sidebar.component';
+
 
 @NgModule({
   declarations: [
@@ -15,15 +22,21 @@ import {MatIconModule} from '@angular/material';
   ],
   imports: [
     BrowserModule,
-    SharedModule,
-    AppRoutingModule,
-    SharedModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    // AuthentificationModule,
+    UsersModule,
+    SharedModule,
     InventoryModule,
-    MatIconModule
+    MatIconModule,
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    UserComponent
+  ]
 })
 export class AppModule {
 }
