@@ -31,7 +31,7 @@
                         WHERE id_client = #{idClient};
     </update>
 
-    <delete id="deleteClient" parameterType="nova.gestion.model.Client">
+    <delete id="deleteClient" parameterType="int">
         DELETE FROM `nova_gestion`.`client` WHERE `nova_gestion`.`client`.id_client = #{idClient};
     </delete>
 </mapper>

@@ -60,7 +60,6 @@ export class ToolsListComponent implements OnInit {
 
   deleteTool(id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
       data: 'Êtes-vous sûr de vouloir supprimer cet outil?'
     });
 

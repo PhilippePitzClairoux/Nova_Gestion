@@ -1,0 +1,84 @@
+.content-wrapper {
+  padding: 20px;
+}
+
+.btn-edit,
+.btn-delete {
+  height: 20px;
+  width: 35px;
+  background: none;
+  border: none;
+  color: #c0c0c0;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  color: #2370b8;
+  transition: 0.2s all ease;
+}
+
+.btn-delete:hover {
+  color: #ff3823;
+  transition: 0.2s all ease;
+}
+
+.top {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.top app-button {
+  margin-right: 40px;
+}
+
+.table {
+  margin: 0 auto;
+}
+
+.controls {
+  max-width: 10%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.search-content {
+  width: 75%;
+}
+
+.search {
+  width: 80%;
+}
+
+.btn-add-user {
+  width: 90%;
+  height: 30px;
+}
+
+.table-header {
+  text-transform: uppercase;
+  color: #2370b8;
+  font-weight: bold;
+}
+
+.table-row {
+  background-color: transparent;
+  color: #000000;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .btn-edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .btn-delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}

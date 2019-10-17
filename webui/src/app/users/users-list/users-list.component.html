@@ -1,0 +1,50 @@
+<app-header [title]="'Gestion des comptes utilisateur'"></app-header>
+
+<div class="content-wrapper">
+  <div class="top">
+    <mat-form-field class="search-content">
+      <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
+             (keyup)="applyFilter($event.target.value)">
+      <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <app-button (clicked)="onAdd()" [label]="'Créer un utilisateur'" [style]="'primary'"></app-button>
+  </div>
+
+  <div class="mat-elevation-z0">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">NOM</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.employee.name + ' ' + row.employee.surname | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">COURRIEL</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.email | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">TYPE</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.typeUser.name | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="controls">
+          <mat-icon class="btn-edit" (click)="onEdit(row.idUser)">edit</mat-icon>
+          <mat-icon class="btn-delete" (click)="onDelete(row.idUser)">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'email', 'type', 'controls']" class="header"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'email', 'type', 'controls'];">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  </div>
+
+</div>
