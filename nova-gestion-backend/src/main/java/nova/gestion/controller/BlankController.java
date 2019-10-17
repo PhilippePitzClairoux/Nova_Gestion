@@ -39,7 +39,7 @@ public class BlankController {
     @PostMapping("/v1/blank")
     public Map<String, Integer> createBlank(@JsonView(BlankPost.Views.Insert.class)
                                            @RequestBody @Validated BlankPost blank) {
-
+        System.out.println(blank);
         Integer id = blankService.createBlank(blank.getIdCoolantHole(),blank.getCodeGrade(),blank.getName(), blank.getStockQuantity(), blank.getMinimumQuantity(), blank.getDiameter(), blank.getLength());
 
         return Map.of("id", id);

@@ -6,6 +6,7 @@ import {CoolantHoleTypeService} from '../../../services/coolant-hole-type.servic
 import {GradeService} from '../../../services/grade.service';
 import {Grade} from '../../../models/grade';
 import {CoolantHoleType} from '../../../models/coolant-hole-type';
+import {CoolantHole} from '../../../models/coolant-hole';
 
 @Component({
   selector: 'app-blank',
@@ -13,6 +14,11 @@ import {CoolantHoleType} from '../../../models/coolant-hole-type';
   styleUrls: ['./blank.component.scss']
 })
 export class BlankComponent implements OnInit {
+
+  diameter = '';
+  length = '';
+  grade = '';
+  coolantHole = '';
 
   grades: Grade[] = [];
   types: CoolantHoleType[] = [];
@@ -31,10 +37,11 @@ export class BlankComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     this.blankForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.max(254)]),
-      stockQuantity: new FormControl('', Validators.required),
-      minimumQuantity: new FormControl('', Validators.required),
+      stockQuantity: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      minimumQuantity: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       diameter: new FormControl('', Validators.required),
       length: new FormControl('', Validators.required),
       grade: new FormControl('', Validators.required),
@@ -43,6 +50,7 @@ export class BlankComponent implements OnInit {
       holesNumber: new FormControl('')
     });
     this.getGrades();
+    this.inputChanges();
   }
 
   close() {
@@ -61,15 +69,31 @@ export class BlankComponent implements OnInit {
 
   private createBlank(blank: Blank): Blank {
     const controls = this.blankForm.controls;
+
     if (this.data) {
       blank.idBlank = this.data.idBlank;
     }
+
     blank.name = controls.name.value;
     blank.stockQuantity = controls.stockQuantity.value;
     blank.minimumQuantity = controls.minimumQuantity.value;
+    blank.length = controls.length.value;
+    blank.diameter = controls.diameter.value;
     blank.grade = controls.grade.value;
-    blank.coolantHole = controls.coolantHole.value;
+
+    if (this.hasCoolantHole) {
+      blank.coolantHole = this.createCoolantHole();
+    }
+
     return blank;
+  }
+
+  private createCoolantHole(): CoolantHole {
+    const co = new CoolantHole();
+    co.typeCoolantHole = this.blankForm.controls.coolantHoleType.value;
+    co.quantity = this.blankForm.controls.holesNumber.value;
+    co.diameter = this.blankForm.controls.holeDiameter.value;
+    return co;
   }
 
   private getGrades() {
@@ -93,6 +117,15 @@ export class BlankComponent implements OnInit {
       this.blankForm.controls.name.setValue(this.data.name);
       this.blankForm.controls.stockQuantity.setValue(this.data.stockQuantity);
       this.blankForm.controls.minimumQuantity.setValue(this.data.minimumQuantity);
+      this.blankForm.controls.diameter.setValue(this.data.diameter);
+      this.blankForm.controls.length.setValue(this.data.length);
+      this.blankForm.controls.minimumQuantity.setValue(this.data.minimumQuantity);
+      this.setGrade();
+      if (this.data.coolantHole) {
+        this.setCoolantHoleType();
+        this.blankForm.controls.holesNumber.setValue(this.data.coolantHole.quantity);
+        this.blankForm.controls.holeDiameter.setValue(this.data.coolantHole.diameter);
+      }
     }
   }
 
@@ -102,8 +135,8 @@ export class BlankComponent implements OnInit {
   }
 
   private setCoolantHoleType() {
-    const type = this.types.filter(x => x.idTypeCoolantHole === this.data.coolantHole.type.idTypeCoolantHole)[0];
-    this.blankForm.controls.client.setValue(type);
+    const type = this.types.filter(x => x.idTypeCoolantHole === this.data.coolantHole.typeCoolantHole.idTypeCoolantHole)[0];
+    this.blankForm.controls.coolantHoleType.setValue(type);
   }
 
   private validateAllFields(formGroup: FormGroup) {
@@ -121,13 +154,39 @@ export class BlankComponent implements OnInit {
     this.hasCoolantHole = !this.hasCoolantHole;
 
     if (this.hasCoolantHole) {
+      this.coolantHole = 'CT';
       this.blankForm.controls.holesNumber.setValidators([Validators.required]);
       this.blankForm.controls.holeDiameter.setValidators([Validators.required]);
       this.blankForm.controls.coolantHoleType.setValidators([Validators.required]);
     } else {
+      this.coolantHole = '';
       this.blankForm.controls.holesNumber.clearValidators();
       this.blankForm.controls.holeDiameter.clearValidators();
       this.blankForm.controls.coolantHoleType.clearValidators();
     }
+    this.updateName();
+  }
+
+  private inputChanges() {
+    this.blankForm.controls.diameter.valueChanges
+      .subscribe(term => {
+        this.diameter = term;
+        this.updateName();
+      });
+    this.blankForm.controls.length.valueChanges
+      .subscribe(term => {
+        this.length = term;
+        this.updateName();
+      });
+    this.blankForm.controls.grade.valueChanges
+      .subscribe(term => {
+        this.grade = term.description;
+        this.updateName();
+      });
+  }
+
+  private updateName() {
+    const name = this.diameter + ' x ' + this.length + ' - ' + this.grade + this.coolantHole;
+    this.blankForm.controls.name.setValue(name);
   }
 }

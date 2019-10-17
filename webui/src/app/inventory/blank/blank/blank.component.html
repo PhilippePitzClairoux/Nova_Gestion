@@ -10,6 +10,10 @@
           <mat-error *ngIf="blankForm.controls.diameter.hasError('required')">
             Un diamètre est requis.
           </mat-error>
+          <mat-error
+            *ngIf="!blankForm.controls.diameter.hasError('required') && blankForm.controls.diameter.hasError('maxLength')">
+            Un maximum de 10 caractères est permis.
+          </mat-error>
         </mat-form-field>
 
         <span>pouce(s)</span>
@@ -20,6 +24,10 @@
           <input matInput placeholder="Longueur" formControlName="length">
           <mat-error *ngIf="blankForm.controls.length.hasError('required')">
             Une longueur est requise.
+          </mat-error>
+          <mat-error
+            *ngIf="!blankForm.controls.diameter.hasError('required') && blankForm.controls.diameter.hasError('maxLength')">
+            Un maximum de 10 caractères est permis.
           </mat-error>
         </mat-form-field>
 
@@ -47,7 +55,7 @@
       <div class="quantities">
         <div class="inch">
           <mat-form-field class="dimension">
-            <input matInput placeholder="Nombre de trous" formControlName="diameter">
+            <input matInput placeholder="Nombre de trous" formControlName="holesNumber">
             <mat-error *ngIf="blankForm.controls.holesNumber.hasError('required')">
               Une valeur est requise.
             </mat-error>
@@ -56,7 +64,7 @@
 
         <div class="inch">
           <mat-form-field class="dimension">
-            <input matInput placeholder="Longueur" formControlName="length">
+            <input matInput placeholder="Diamètre" formControlName="holeDiameter">
             <mat-error *ngIf="blankForm.controls.holeDiameter.hasError('required')">
               Une valeur est requise.
             </mat-error>
