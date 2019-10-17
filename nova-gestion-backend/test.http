@@ -7,6 +7,9 @@ GET localhost:8080/v1/client/1/
 GET localhost:8080/v1/blank/2/
 
 ###
+GET localhost:8080/v1/machine/1/
+
+###
 GET localhost:8080/v1/users
 ###
 GET localhost:8080/v1/clients
@@ -14,11 +17,16 @@ GET localhost:8080/v1/clients
 GET localhost:8080/v1/tools
 ###
 GET localhost:8080/v1/blanks
+###
+GET localhost:8080/v1/machines
 
 ###
-GET localhost:8080/v1/typeusers
+GET localhost:8080/v1/usertypes
 ###
 GET localhost:8080/v1/grades
+###
+GET localhost:8080/v1/coolantholetypes
+
 
 ###
 POST localhost:8080/v1/user
@@ -71,6 +79,18 @@ Content-Type: application/json
   }
 }
 
+###
+POST localhost:8080/v1/machine
+Content-Type: application/json
+
+{
+  "name": "MachineXYZ",
+  "serialNumber": "AAA-125",
+  "acquisitionDate": "2019-01-01",
+  "model": {
+    "name": "ModelABC"
+  }
+}
 
 ###
 PUT localhost:8080/v1/user
@@ -130,6 +150,21 @@ Content-Type: application/json
   "minimumQuantity": "20"
 }
 
+###
+PUT localhost:8080/v1/machine
+Content-Type: application/json
+
+{
+  "idMachine": 4,
+  "name": "MachineXYZ",
+  "serialNumber": "AAA-125-000",
+  "acquisitionDate": "2019-01-01",
+  "model": {
+    "idModel": 10,
+    "name": "ModelXYZ"
+  }
+
+}
 
 ###
 DELETE  localhost:8080/v1/tool
@@ -138,6 +173,9 @@ Content-Type: application/json
 {
   "idTool":6
 }
+
+###
+DELETE localhost:8080/v1/machine/4/
 
 ###
 DELETE localhost:8080/v1/user/5/
