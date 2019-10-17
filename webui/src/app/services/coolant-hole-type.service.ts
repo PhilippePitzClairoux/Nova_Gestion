@@ -14,6 +14,6 @@ export class CoolantHoleTypeService {
   }
 
   getAll(): Observable<CoolantHoleType[]> {
-    return this.http.get<CoolantHoleType[]>(this.api + 'clients');
+    return this.http.get<CoolantHoleType[]>(this.api + 'coolantholetypes');
   }
 }

@@ -83,6 +83,7 @@ export class BlankComponent implements OnInit {
   private getCoolantHoleTypes() {
     this.coTypeService.getAll().subscribe(types => {
       this.types = types;
+      console.log(types);
       this.setValues();
     });
   }
