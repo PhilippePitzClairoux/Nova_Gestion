@@ -15,8 +15,8 @@ import {
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToolComponent} from './tools/tool/tool.component';
-import { BlanksListComponent } from './blank/blanks-list/blanks-list.component';
-import { BlankComponent } from './blank/blank/blank.component';
+import {BlanksListComponent} from './blank/blanks-list/blanks-list.component';
+import {BlankComponent} from './blank/blank/blank.component';
 
 @NgModule({
   declarations: [
