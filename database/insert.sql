@@ -111,17 +111,17 @@ VALUES ('S6-MILL 1/4', 20, 10, 4);
 INSERT INTO program (id_machine, id_tool, name)
 VALUES (1, 1, 'E-500-8F-R070-DE');
 
-INSERT INTO program (id_machine, name)
-VALUES (1, 'S4-0500-R030');
+INSERT INTO program (id_machine, id_client, name)
+VALUES (1, 1, 'S4-0500-R030');
 
 INSERT INTO program (id_machine, name)
 VALUES (2, 'S6-0250-R010');
 
-INSERT INTO program (id_machine, name)
-VALUES (2, 'S4-0500-R020');
+INSERT INTO program (id_machine, id_client, name)
+VALUES (2, 1, 'S4-0500-R020');
 
-INSERT INTO program (id_machine, name)
-VALUES (3, 'PB-3677BALL2919AFF');
+INSERT INTO program (id_machine, id_client, name)
+VALUES (3, 2, 'PB-3677BALL2919AFF');
 
 INSERT INTO task_type (description)
 VALUES ('Nettoyage/Préparation');
