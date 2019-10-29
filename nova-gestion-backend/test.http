@@ -30,7 +30,20 @@ GET localhost:8080/v1/grades
 ###
 GET localhost:8080/v1/coolantholetypes
 
+###
+POST localhost:8080/v1/program
+Content-Type: application/json
 
+{
+  "name": "nom de test",
+  "file": "..path/dossier/fichier.exe",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+  "idTool": 2
+  }
+}
 ###
 POST localhost:8080/v1/user
 Content-Type: application/json

@@ -37,4 +37,8 @@
         SELECT * FROM `nova_gestion`.`program`;
     </select>
 
+    <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, name, file)
+        VALUES (#{machine.idMachine}, #{tool.idTool}, #{name}, #{file});
+    </insert>
 </mapper>

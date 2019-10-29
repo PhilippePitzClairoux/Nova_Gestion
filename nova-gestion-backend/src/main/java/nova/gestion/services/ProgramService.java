@@ -1,5 +1,6 @@
 package nova.gestion.services;
 
+import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.ProgramMapper;
 import nova.gestion.model.Program;
@@ -38,6 +39,23 @@ public class ProgramService {
             throw new RessourceNotFound("program does not exist");
 
         return program;
+    }
+
+    @Transactional
+    public Integer createProgram(Program program) {
+
+        if (program == null)
+            throw new InvalidRequest("Missing parameters");
+
+        if (program.getMachine() == null)
+            throw new InvalidRequest("Missing machine");
+
+        if (program.getName() == null || program.getFile() == null)
+            throw new InvalidRequest("Missing program parameters");
+
+        programMapper.insertProgram(program);
+
+        return program.getIdProgram();
     }
 
 }
