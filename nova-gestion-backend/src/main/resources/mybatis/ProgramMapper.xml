@@ -41,4 +41,14 @@
         INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, name, file)
         VALUES (#{machine.idMachine}, #{tool.idTool}, #{name}, #{file});
     </insert>
+
+    <update id="updateProgram" parameterType="nova.gestion.model.Program">
+        UPDATE `nova_gestion`.`program` SET
+        <if test="machine != null">id_machine = #{machine.idMachine},</if>
+        <if test="tool != null"> id_tool = #{tool.idTool},</if>
+        <if test="name != null"> name = #{name},</if>
+        <if test="file != null"> file = #{file}</if>
+        WHERE id_program = #{idProgram};
+    </update>
+
 </mapper>

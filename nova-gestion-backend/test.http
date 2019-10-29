@@ -163,6 +163,21 @@ Content-Type: application/json
 }
 
 ###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 6,
+  "name": "RPG-AK47",
+  "file": "..path/dossier/fichier.zip",
+  "machine": {
+    "idMachine": 1
+  },
+  "tool": {
+    "idTool": 1
+  }
+}
+###
 PUT localhost:8080/v1/user
 Content-Type: application/json
 
@@ -174,7 +189,6 @@ Content-Type: application/json
     "idTypeUser": 2,
     "name": "test"
   }
-
 }
 ###
 PUT localhost:8080/v1/blank

@@ -58,4 +58,18 @@ public class ProgramService {
         return program.getIdProgram();
     }
 
+    @Transactional
+    public void updateProgram(Program program) {
+
+        Program verifiedProgram = programMapper.getProgram(program.getIdProgram());
+
+        if (program.getIdProgram() == 0 || verifiedProgram == null)
+            throw new InvalidRequest("Missing parameters");
+
+        if (program.getName() == null || program.getFile() == null || program.getMachine() == null)
+            throw new InvalidRequest("Missing information");
+
+        if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null)
+            programMapper.updateProgram(program);
+    }
 }

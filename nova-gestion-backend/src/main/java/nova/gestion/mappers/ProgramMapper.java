@@ -15,4 +15,6 @@ public interface ProgramMapper {
     ArrayList<Program> getAllPrograms();
 
     void insertProgram(Program program);
+
+    void updateProgram(Program program);
 }
