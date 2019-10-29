@@ -17,4 +17,7 @@ public interface ProgramMapper {
     void insertProgram(Program program);
 
     void updateProgram(Program program);
+
+    void deleteProgram(int idProgram);
+
 }

@@ -270,3 +270,6 @@ DELETE localhost:8080/v1/blank/2/
 ###
 DELETE localhost:8080/v1/client/2/
 ###
+DELETE localhost:8080/v1/program/6/
+
+###

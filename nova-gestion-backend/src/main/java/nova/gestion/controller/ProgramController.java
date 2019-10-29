@@ -45,5 +45,9 @@ public class ProgramController {
         programService.updateProgram(program);
     }
 
+    @DeleteMapping("/v1/program/{idProgram}/")
+    public void deleteProgram(@PathVariable @Validated Integer idProgram) {
+        programService.deleteProgram(idProgram);
+    }
 
 }

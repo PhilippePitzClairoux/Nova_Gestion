@@ -51,4 +51,8 @@
         WHERE id_program = #{idProgram};
     </update>
 
+    <delete id="deleteProgram" parameterType="int">
+        DELETE FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+    </delete>
+
 </mapper>

@@ -72,4 +72,15 @@ public class ProgramService {
         if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null)
             programMapper.updateProgram(program);
     }
+
+    @Transactional
+    public void deleteProgram(Integer idProgram) {
+
+        Program loadProgram = programMapper.getProgram(idProgram);
+
+        if (loadProgram == null)
+            throw new RessourceNotFound("Invalid idProgram");
+
+        programMapper.deleteProgram(idProgram);
+    }
 }
