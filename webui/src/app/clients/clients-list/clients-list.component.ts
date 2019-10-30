@@ -24,6 +24,8 @@ export class ClientsListComponent implements OnInit {
 
   public clients: Client[] = [];
 
+  public searchField = '';
+
   constructor(private clientService: ClientService, private fb: FormBuilder, private dialog: MatDialog) { }
 
   public ngOnInit(): void {

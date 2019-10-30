@@ -1,5 +1,15 @@
 <app-header [title]="'Gestion des clients'"></app-header>
 
+<div class="top">
+  <mat-form-field class="search-content">
+    <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
+      (keyup)="applyFilter($event.target.value)">
+    <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
 <div class="table-content">
   <div [formGroup]="fgAdd" class="table-row-no-hover">
     <mat-form-field class="table-item">
