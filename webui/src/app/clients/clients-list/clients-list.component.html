@@ -2,9 +2,9 @@
 
 <div class="top">
   <mat-form-field class="search-content">
-    <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
+    <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField">
+    <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()"
       (keyup)="applyFilter($event.target.value)">
-    <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -14,13 +14,13 @@
   <div [formGroup]="fgAdd" class="table-row-no-hover">
     <mat-form-field class="table-item">
       <input matInput id="name" name="name" type="text" class="inputs" formControlName="name" placeholder="Nom">
-      <mat-error *ngIf="fgAdd.controls.name.hasError('required')">
+      <mat-error *ngIf="!nameValid()">
         Nom requis.
       </mat-error>
     </mat-form-field>
     <mat-form-field class="table-item">
       <input matInput type="text" class="inputs" formControlName="phoneNumber" placeholder="Numéro de téléphone">
-      <mat-error *ngIf="fgAdd.controls.phoneNumber.hasError('required')">
+      <mat-error *ngIf="!phoneValid()">
         Numéro de téléphone requis.
       </mat-error>
     </mat-form-field>
@@ -40,7 +40,7 @@
       <div *ngIf="row.idClient === selectedIndex">
         <mat-form-field class="table-item">
           <input matInput type="text" class="inputs" formControlName="newName" placeholder="Nom">
-          <mat-error *ngIf="fgEdit.controls.newName.hasError('required')">
+          <mat-error *ngIf="!editNameValid()">
             Nom requis.
           </mat-error>
         </mat-form-field>
@@ -54,7 +54,7 @@
       <div *ngIf="row.idClient === selectedIndex">
         <mat-form-field class="table-item">
           <input matInput type="text" class="inputs" formControlName="newPhoneNumber" placeholder="Numéro de téléphone">
-          <mat-error *ngIf="fgEdit.controls.newPhoneNumber.hasError('required')">
+          <mat-error *ngIf="!editPhoneValid()">
             Numéro de téléphone requis.
           </mat-error>
         </mat-form-field>
@@ -79,3 +79,4 @@
   <mat-row class="table-row" *matRowDef="let row; columns: ['name', 'phoneNumber', 'controls'];">
   </mat-row>
 </mat-table>
+<mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>

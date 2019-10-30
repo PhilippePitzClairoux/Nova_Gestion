@@ -26,8 +26,7 @@ export class UsersListComponent implements OnInit {
 
   searchField = '';
 
-  constructor(private userService: UsersService,
-              public dialog: MatDialog) { }
+  constructor(private userService: UsersService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.userService.getAllUsers();

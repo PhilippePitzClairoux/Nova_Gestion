@@ -1,7 +1,7 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 import { tap } from 'rxjs/operators';
 
@@ -15,6 +15,10 @@ import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/
   styleUrls: ['./clients-list.component.scss']
 })
 export class ClientsListComponent implements OnInit {
+
+  dataSource: MatTableDataSource<Client>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   public selectedIndex = 0;
   public inEdit = true;
@@ -38,7 +42,20 @@ export class ClientsListComponent implements OnInit {
       newPhoneNumber: new FormControl('', Validators.required)
     });
     this.clientService.getAll().subscribe();
-    this.clientService.clientsList$().pipe(tap(result => this.clients = result)).subscribe();
+    this.clientService.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
+      this.dataSource = new MatTableDataSource(this.clients);
+      this.dataSource.filterPredicate = (data, filter: string)  => {
+        const accumulator = (currentTerm, key) => {
+          return key === 'name' ? currentTerm + data.name : currentTerm + data[key] ||
+          key === 'phoneNumber' ? currentTerm + data.phoneNumber : currentTerm + data[key];
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      };
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   public onAdd(): void {
@@ -104,4 +121,30 @@ export class ClientsListComponent implements OnInit {
     });
   }
 
+  public applyFilter(filterValue: string): void {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  public clearSearch(): void {
+    this.searchField = '';
+    this.applyFilter('');
+  }
+
+  public nameValid(): boolean {
+    return !this.fgAdd.controls.name.hasError('required');
+  }
+
+  public phoneValid(): boolean {
+    return !this.fgAdd.controls.phoneNumber.hasError('required');
+  }
+
+  public editNameValid(): boolean {
+    return !this.fgEdit.controls.newName.hasError('required');
+  }
+
+  public editPhoneValid() {
+    return !this.fgEdit.controls.newPhoneNumber.hasError('required');
+  }
 }
