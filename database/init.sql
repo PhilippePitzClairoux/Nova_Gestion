@@ -76,15 +76,12 @@ CREATE TABLE program(
     id_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_machine BIGINT NOT NULL,
     id_tool BIGINT,
-	id_client BIGINT,
 	id_blank BIGINT,
     name VARCHAR(255),
     file VARCHAR(255),
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
-    CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
-
 );
 
 CREATE TABLE task_type(
