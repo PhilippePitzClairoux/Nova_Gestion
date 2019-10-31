@@ -24,6 +24,7 @@
                      select="nova.gestion.mappers.BlankMapper.getBlank"/>
     </resultMap>
 
+
     <select id="getProgram" parameterType="int" resultMap="ProgramMap">
         SELECT *
         FROM `nova_gestion`.`program`
