@@ -1,3 +1,4 @@
+import { ProgramsModule } from './programs/programs.module';
 import {BrowserModule} from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +28,7 @@ import {SidebarComponent} from './navigation/sidebar/sidebar.component';
     BrowserAnimationsModule,
     // AuthentificationModule,
     UsersModule,
+    ProgramsModule,
     SharedModule,
     InventoryModule,
     MatIconModule,
