@@ -4,19 +4,21 @@ import {MachinesRoutingModule} from './machines-routing.module';
 import {MachinesListComponent} from './machines-list/machines-list.component';
 import {SharedModule} from '../shared/shared.module';
 import {
-  MatButtonModule,
+  MatButtonModule, MatDatepickerModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule,
-  MatPaginatorModule,
+  MatInputModule, MatNativeDateModule, MatOptionModule,
+  MatPaginatorModule, MatSelectModule,
   MatSortModule,
   MatTableModule
 } from '@angular/material';
 import {FormsModule} from '@angular/forms';
+import {MachineComponent} from './machine/machine.component';
 
 @NgModule({
   declarations: [
-    MachinesListComponent
+    MachinesListComponent,
+    MachineComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,14 @@ import {FormsModule} from '@angular/forms';
     MatIconModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    MatDatepickerModule
   ]
 })
 export class MachinesModule {

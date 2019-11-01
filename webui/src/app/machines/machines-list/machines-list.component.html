@@ -36,7 +36,7 @@
       <ng-container matColumnDef="controls">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
         <mat-cell *matCellDef="let row" class="controls">
-          <mat-icon class="edit" (click)="seeMachine(row)">edit</mat-icon>
+          <mat-icon class="edit" (click)="seeMachine(row.idMachine)">edit</mat-icon>
           <mat-icon class="delete" (click)="deleteMachine(row.idMachine)">delete</mat-icon>
         </mat-cell>
       </ng-container>

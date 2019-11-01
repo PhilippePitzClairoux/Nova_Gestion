@@ -27,7 +27,7 @@ public class MachineController {
         return machineService.getAllMachines();
     }
 
-    @GetMapping("/v1/machine/{idMachine}/")
+    @GetMapping("/v1/machine/{idMachine}")
     public Machine getMachine(@PathVariable @Validated Integer idMachine) {
         return machineService.getMachine(idMachine);
     }

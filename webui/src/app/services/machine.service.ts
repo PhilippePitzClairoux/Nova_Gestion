@@ -25,4 +25,12 @@ export class MachineService {
   delete(id: number): Observable<any> {
     return this.http.delete<any>(this.api + 'machine/' + id);
   }
+
+  getOne(id: number): Observable<Machine> {
+    return this.http.get<Machine>(this.api + 'machine/' + id);
+  }
+
+  update(newMachine: Machine): Observable<any> {
+    return this.http.put(this.api + 'machine', newMachine, this.httpOptions);
+  }
 }
