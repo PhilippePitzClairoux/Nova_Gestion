@@ -5,6 +5,8 @@ import {MachineService} from '../../services/machine.service';
 import {Machine} from '../../models/machine';
 import {NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Model} from '../../models/model';
 
 @Component({
   selector: 'app-machines-list',
@@ -19,6 +21,7 @@ export class MachinesListComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  machineForm: FormGroup;
 
   constructor(public dialog: MatDialog,
               private machineService: MachineService,
@@ -32,6 +35,7 @@ export class MachinesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initializeForm();
     this.getMachines();
   }
 
@@ -39,6 +43,15 @@ export class MachinesListComponent implements OnInit, OnDestroy {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
+  }
+
+  private initializeForm() {
+    this.machineForm = new FormGroup({
+      serialNumber: new FormControl('', Validators.maxLength(254)),
+      name: new FormControl('', [Validators.required, Validators.maxLength(254)]),
+      acquisitionDate: new FormControl('', Validators.required),
+      model: new FormControl('', [Validators.required, Validators.maxLength(254)]),
+    });
   }
 
   private getMachines() {
@@ -90,5 +103,45 @@ export class MachinesListComponent implements OnInit, OnDestroy {
 
   seeMachine(id: number) {
     this.router.navigate(['machine', id]);
+  }
+
+  add() {
+    const newMachine = new Machine();
+    if (this.machineForm.valid) {
+      if (this.machineForm.dirty) {
+        this.createMachine(newMachine);
+        this.save(newMachine);
+      }
+    } else {
+      this.validateAllFields(this.machineForm);
+    }
+  }
+
+  private createMachine(newMachine: Machine) {
+    const controls = this.machineForm.controls;
+
+    newMachine.name = controls.name.value;
+    newMachine.acquisitionDate = controls.acquisitionDate.value;
+    newMachine.serialNumber = controls.serialNumber.value;
+    newMachine.model = new Model();
+    newMachine.model.name = controls.model.value;
+    newMachine.model.company = 'Walter';
+  }
+
+  private validateAllFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control);
+      }
+    });
+  }
+
+  private save(newMachine: Machine) {
+    this.machineService.add(newMachine).subscribe(res => {
+      this.getMachines();
+    });
   }
 }

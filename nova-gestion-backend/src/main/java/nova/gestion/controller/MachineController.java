@@ -43,7 +43,7 @@ public class MachineController {
         machineService.updateMachine(machine);
     }
 
-    @DeleteMapping("/v1/machine/{idMachine}/")
+    @DeleteMapping("/v1/machine/{idMachine}")
     public void deleteMachine(@PathVariable @Validated Integer idMachine) {
         machineService.deleteMachine(idMachine);
     }

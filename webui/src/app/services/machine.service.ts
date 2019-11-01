@@ -33,4 +33,8 @@ export class MachineService {
   update(newMachine: Machine): Observable<any> {
     return this.http.put(this.api + 'machine', newMachine, this.httpOptions);
   }
+
+  add(newMachine: Machine): Observable<any> {
+    return this.http.post(this.api + 'machine', newMachine, this.httpOptions);
+  }
 }
