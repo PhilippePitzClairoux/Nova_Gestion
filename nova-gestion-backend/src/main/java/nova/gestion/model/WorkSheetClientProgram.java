@@ -1,5 +1,6 @@
 package nova.gestion.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

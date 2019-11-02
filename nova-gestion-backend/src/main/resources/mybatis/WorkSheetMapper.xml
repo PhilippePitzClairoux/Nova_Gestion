@@ -6,46 +6,25 @@
 
     <resultMap id="WorkSheetMapper" type="nova.gestion.model.WorkSheet">
         <constructor>
-            <arg name="idUser" column="id_user"/>
-            <arg name="email" column="email"/>
-            <arg name="password" column="password"/>
+            <arg name="idWorkSheet" column="id_work_sheet"/>
+            <arg name="quantity" column="quantity"/>
+            <arg name="dateCreation" column="date_creation"/>
+            <arg name="dueDate" column="due_date"/>
+            <arg name="orderNumber" column="order_number"/>
         </constructor>
-        <id column="id_user" javaType="int" property="idUser"/>
-        <result column="email" javaType="string" property="email"/>
-        <result column="password" javaType="string" property="password"/>
+        <id column="id_work_sheet" javaType="int" property="idWorkSheet"/>
+        <result column="quantity" javaType="int" property="quantity"/>
+        <result column="date_creation" javaType="date" property="dateCreation"/>
+        <result column="due_date" javaType="date" property="dueDate"/>
+        <result column="order_number" javaType="string" property="orderNumber"/>
 
-        <association column="id_user_type" property="typeUser" javaType="nova.gestion.model.TypeUser"
-                     select="nova.gestion.mappers.TypeUserMapper.getTypeUser"/>
+        <association column="id_status" property="status" javaType="nova.gestion.model.Status"
+                     select="nova.gestion.mappers.StatusMapper.getStatus"/>
 
-        <association column="id_employee" property="employee" javaType="nova.gestion.model.Employee"
-                     select="nova.gestion.mappers.EmployeeMapper.getEmployee"/>
     </resultMap>
 
-    <select id="getUser" parameterType="int" resultMap="UserMap">
-        SELECT *
-        FROM `nova_gestion`.`user`
-        WHERE `nova_gestion`.`user`.id_user = #{idUser};
-    </select>
 
-    <select id="getAllUsers" resultMap="UserMap">
-        SELECT * FROM `nova_gestion`.`user`;
-    </select>
 
-    <insert id="insertUser" parameterType="nova.gestion.model.User" keyProperty="idUser" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.`user`(id_user_type, id_employee, email, password)
-        VALUES (#{typeUser.idTypeUser}, #{employee.idEmployee}, #{email}, #{password});
-    </insert>
 
-    <update id="updateUser" parameterType="nova.gestion.model.User">
-        UPDATE `nova_gestion`.`user` SET
-        <if test="password != null">password = #{password},</if>
-        <if test="email != null"> email = #{email},</if>
-        <if test="typeUser != null"> id_user_type = #{typeUser.idTypeUser}</if>
-        WHERE id_user = #{idUser};
-    </update>
-
-    <delete id="deleteUser" parameterType="int">
-        DELETE FROM `nova_gestion`.`user` WHERE `nova_gestion`.`user`.id_user = #{idUser};
-    </delete>
 
 </mapper>
