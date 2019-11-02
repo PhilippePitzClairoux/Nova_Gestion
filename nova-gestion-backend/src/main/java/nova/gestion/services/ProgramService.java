@@ -69,7 +69,7 @@ public class ProgramService {
         if (program.getName() == null || program.getFile() == null || program.getMachine() == null)
             throw new InvalidRequest("Missing information");
 
-        if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null != || program.getBlank() != null)
+        if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
             programMapper.updateProgram(program);
     }
 
