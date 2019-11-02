@@ -2,9 +2,8 @@
 
 <div class="top">
   <mat-form-field class="search-content">
-    <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField">
-    <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()"
-      (keyup)="applyFilter($event.target.value)">
+    <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField" (keyup)="applyFilter($event.target.value)">
+    <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
