@@ -7,17 +7,20 @@ import lombok.Data;
 @Data
 public class WorkSheetClientProgram {
     private int idTaWorkSheetClientProgram;
+    private int idWorkSheet;
     private Program program;
     private Client client;
 
-    public WorkSheetClientProgram(int idTaWorkSheetClientProgram)
+    public WorkSheetClientProgram(int idTaWorkSheetClientProgram, int idWorkSheet)
     {
         this.idTaWorkSheetClientProgram = idTaWorkSheetClientProgram;
+        this.idWorkSheet = idWorkSheet;
     }
 
     @JsonCreator
-    public WorkSheetClientProgram(int idTaWorkSheetClientProgram, Program program, Client client) {
+    public WorkSheetClientProgram(int idTaWorkSheetClientProgram, int idWorkSheet, Program program, Client client) {
         this.idTaWorkSheetClientProgram = idTaWorkSheetClientProgram;
+        this.idWorkSheet = idWorkSheet;
         this.program = program;
         this.client = client;
     }

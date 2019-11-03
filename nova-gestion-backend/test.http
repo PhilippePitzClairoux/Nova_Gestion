@@ -42,8 +42,29 @@ Content-Type: application/json
   },
   "tool": {
   "idTool": 2
+  },
+  "blank": {
+    "idBlank":1
   }
 }
+###
+POST localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "name": "nom de test avec client",
+  "file": "..path/dossier/fichier.zip",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+    "idTool": 2
+  },
+  "client": {
+    "idClient": 2
+  }
+}
+
 ###
 POST localhost:8080/v1/user
 Content-Type: application/json
@@ -270,6 +291,6 @@ DELETE localhost:8080/v1/blank/2/
 ###
 DELETE localhost:8080/v1/client/2/
 ###
-DELETE localhost:8080/v1/program/6/
+DELETE localhost:8080/v1/program/15/
 
 ###

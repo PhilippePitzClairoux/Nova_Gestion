@@ -3,6 +3,7 @@ package nova.gestion.services;
 import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.ProgramMapper;
+import nova.gestion.mappers.WorkSheetClientProgramMapper;
 import nova.gestion.model.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +15,12 @@ import java.util.ArrayList;
 public class ProgramService {
 
     private final ProgramMapper programMapper;
+    private final WorkSheetClientProgramMapper workSheetClientProgramMapper;
 
     @Autowired
-    public ProgramService(ProgramMapper programMapper) {
+    public ProgramService(ProgramMapper programMapper, WorkSheetClientProgramMapper workSheetClientProgramMapper) {
         this.programMapper = programMapper;
+        this.workSheetClientProgramMapper = workSheetClientProgramMapper;
     }
 
     @Transactional
@@ -54,6 +57,8 @@ public class ProgramService {
             throw new InvalidRequest("Missing program parameters");
 
         programMapper.insertProgram(program);
+        if (program.getClient() != null)
+            workSheetClientProgramMapper.insertProgramClient(program, program.getClient());
 
         return program.getIdProgram();
     }

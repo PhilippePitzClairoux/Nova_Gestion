@@ -7,14 +7,17 @@
     <resultMap id="WorkSheetClientProgramMap" type="nova.gestion.model.WorkSheetClientProgram">
         <constructor>
             <arg name="idTaWorkSheetClientProgram" column="id_ta_work_sheet_client_program"/>
+            <arg name="idWorkSheet" column="id_work_sheet"/>
         </constructor>
         <id column="idTaWorkSheetClientProgram" javaType="int" property="id_ta_work_sheet_client_program"/>
+        <result column="id_work_sheet" javaType="int" property="idWorkSheet"/>
 
         <association column="id_program" property="program" javaType="nova.gestion.model.Program"
                      select="nova.gestion.mappers.ProgramMapper.getProgram"/>
 
         <association column="id_client" property="client" javaType="nova.gestion.model.Client"
                      select="nova.gestion.mappers.ClientMapper.getClient"/>
+
     </resultMap>
 
     <select id="getWorkSheetClientProgram" parameterType="int" resultMap="WorkSheetClientProgramMap">
@@ -24,7 +27,7 @@
     </select>
 
 
-    <insert id="insertWorkSheetClientProgram" parameterType="nova.gestion.model.WorkSheetClientProgram" keyProperty="idTaWorkSheetClientProgram" useGeneratedKeys="true">
+    <insert id="insertProgramClient">
         INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_client)
         VALUES (#{program.idProgram}, #{client.idClient});
     </insert>

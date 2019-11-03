@@ -12,6 +12,7 @@ public class Program {
     private Machine machine;
     private Tool tool;
     private Blank blank;
+    private Client client;
 
     public Program(int idProgram, String name, String file)
     {
@@ -21,13 +22,14 @@ public class Program {
     }
 
     @JsonCreator
-    public Program(int idProgram, String name, String file, Machine machine, Tool tool, Blank blank) {
+    public Program(int idProgram, String name, String file, Machine machine, Tool tool, Blank blank, Client client) {
         this.idProgram = idProgram;
         this.name = name;
         this.file = file;
         this.machine = machine;
         this.tool = tool;
         this.blank = blank;
+        this.client = client;
     }
 
 }

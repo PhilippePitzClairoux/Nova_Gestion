@@ -36,8 +36,8 @@
     </select>
 
     <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank,  name, file)
-        VALUES (#{machine.idMachine}, #{tool.idTool}, #{name}, #{file});
+        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name, file)
+        VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name}, #{file});
     </insert>
 
     <update id="updateProgram" parameterType="nova.gestion.model.Program">
