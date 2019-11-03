@@ -16,4 +16,5 @@ public interface WorkSheetClientProgramMapper {
 
     void insertProgramClient(@Param("program")Program program, @Param("client")Client client);
 
+    void updateProgramClient(@Param("program")Program program, @Param("client")Client client);
 }

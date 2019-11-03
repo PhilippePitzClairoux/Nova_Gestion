@@ -76,6 +76,12 @@ public class ProgramService {
 
         if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
             programMapper.updateProgram(program);
+        if (program.getClient() != null)
+            workSheetClientProgramMapper.updateProgramClient(program, program.getClient());
+
+        System.out.println(verifiedProgram);
+
+        System.out.println(program);
     }
 
     @Transactional

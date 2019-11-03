@@ -22,6 +22,7 @@
 
         <association column="id_blank" property="blank" javaType="nova.gestion.model.Blank"
                      select="nova.gestion.mappers.BlankMapper.getBlank"/>
+
     </resultMap>
 
 
