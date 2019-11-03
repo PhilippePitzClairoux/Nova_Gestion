@@ -10,6 +10,7 @@ import nova.gestion.model.TypeUser;
 import nova.gestion.model.User;
 import nova.gestion.model.post.UserPost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +71,10 @@ public class UserService {
 
         if (user.getTypeUser().getIdTypeUser() == 0)
             throw new InvalidRequest("Missing idTypeUser");
+
+        //hash new password
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+
         employeeMapper.insertEmployee(user.getEmployee());
         userMapper.insertUser(user);
 
@@ -85,6 +90,10 @@ public class UserService {
 
         if (user.getPassword() == null && user.getEmail() == null && user.getTypeUser() == null && user.getEmployee() == null)
             throw new InvalidRequest("Missing information");
+
+        //hash new password
+        if (user.getPassword() != null)
+            user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 
         if (user.getEmail() != null || user.getPassword() != null || user.getTypeUser() != null)
             userMapper.updateUser(user);

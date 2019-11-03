@@ -8,3 +8,6 @@ services:
             - MYSQL_ROOT_PASSWORD=test123
         ports:
             - "3307:3306"
+
+    build_ldap:
+        image: osixia/openldap
