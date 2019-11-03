@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         User user = userMapper.getUserByEmail(username);
 
         System.out.println(userTypePermissionMapper.getUserTypePermissions(user.getTypeUser().getIdTypeUser()));
-        System.out.println(BCrypt.hashpw("test", BCrypt.gensalt()));
+
         if (user.getPassword() != null && BCrypt.checkpw(password, user.getPassword())) {
             //create token
             return new UsernamePasswordAuthenticationToken(
