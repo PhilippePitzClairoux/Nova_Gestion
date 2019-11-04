@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+
+import { Program } from './../../models/program.model';
 
 @Component({
   selector: 'app-programs-list',
@@ -6,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./programs-list.component.scss']
 })
 export class ProgramsListComponent implements OnInit {
+
+  dataSource: MatTableDataSource<Program>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor() { }
 
