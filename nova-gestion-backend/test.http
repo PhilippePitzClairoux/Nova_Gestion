@@ -5,10 +5,13 @@ GET localhost:8080/v1/tool/1/
 GET localhost:8080/v1/client/1/
 ###
 GET localhost:8080/v1/blank/2/
-
 ###
 GET localhost:8080/v1/machine/1/
+###
+GET localhost:8080/v1/program/6/
 
+###
+GET localhost:8080/v1/programs
 ###
 GET localhost:8080/v1/users
 ###
@@ -19,7 +22,8 @@ GET localhost:8080/v1/tools
 GET localhost:8080/v1/blanks
 ###
 GET localhost:8080/v1/machines
-
+###
+GET localhost:8080/v1/status/1/
 ###
 GET localhost:8080/v1/usertypes
 ###
@@ -27,6 +31,49 @@ GET localhost:8080/v1/grades
 ###
 GET localhost:8080/v1/coolantholetypes
 
+###
+POST localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "name": "nom de test",
+  "file": "..path/dossier/fichier.exe",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+  "idTool": 2
+  },
+  "blank": {
+    "idBlank":1
+  }
+}
+###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 8,
+  "name": "test sans client",
+  "file": "..path/dossier/fichier.html",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+    "idTool": 2
+  },
+  "blank": {
+    "idBlank": 1
+  }
+}
+###
+POST localhost:8080/v1/workSheetClientProgram
+Content-Type: application/json
+
+{
+    "idProgram": 2,
+    "idClient": 2
+}
 
 ###
 POST localhost:8080/v1/user
@@ -147,6 +194,24 @@ Content-Type: application/json
 }
 
 ###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 7,
+  "machine": {
+    "idMachine": 3
+  },
+  "name": "PB-000",
+  "file": "fichier.exe",
+  "blank": {
+    "idBlank": 2
+  },
+  "client": {
+    "idClient": 1
+  }
+}
+###
 PUT localhost:8080/v1/user
 Content-Type: application/json
 
@@ -158,7 +223,6 @@ Content-Type: application/json
     "idTypeUser": 2,
     "name": "test"
   }
-
 }
 ###
 PUT localhost:8080/v1/blank
@@ -239,4 +303,7 @@ DELETE localhost:8080/v1/blank/2/
 
 ###
 DELETE localhost:8080/v1/client/2/
+###
+DELETE localhost:8080/v1/workSheetClientProgram/5/2/
+
 ###
