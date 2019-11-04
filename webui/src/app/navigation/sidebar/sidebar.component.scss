@@ -53,6 +53,10 @@
   text-shadow: 0 0 6px rgb(255,255,255);
 }
 
+.active {
+  background: #2370b8;
+}
+
 .logout {
   align-self: center;
   display: flex;
@@ -66,7 +70,7 @@
   border-radius: 4px;
   text-align: center;
   padding: 10px 20px;
-  background: #444;
+  background: #999;
   text-decoration: none;
   color: #2370b8;
   font-weight: 700;
