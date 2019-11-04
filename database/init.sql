@@ -82,6 +82,7 @@ CREATE TABLE program(
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
+
 );
 
 CREATE TABLE task_type(
@@ -150,9 +151,9 @@ CREATE TABLE task(
 
 CREATE TABLE ta_work_sheet_client_program(
     id_ta_work_sheet_client_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_program BIGINT NOT NULL,
-    id_work_sheet BIGINT NOT NULL,
-    id_client BIGINT NOT NULL,
+    id_program BIGINT,
+    id_work_sheet BIGINT,
+    id_client BIGINT,
     CONSTRAINT FOREIGN KEY(id_program) REFERENCES program(id_program),
     CONSTRAINT FOREIGN KEY(id_work_sheet) REFERENCES work_sheet(id_work_sheet),
     CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client)
