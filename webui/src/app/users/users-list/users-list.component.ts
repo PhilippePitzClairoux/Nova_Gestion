@@ -26,8 +26,7 @@ export class UsersListComponent implements OnInit {
 
   searchField = '';
 
-  constructor(private userService: UsersService,
-              public dialog: MatDialog) { }
+  constructor(private userService: UsersService, public dialog: MatDialog) { }
 
   public ngOnInit(): void {
     this.userService.getAllUsers();
@@ -36,7 +35,8 @@ export class UsersListComponent implements OnInit {
       this.dataSource.filterPredicate = (data, filter: string)  => {
         const accumulator = (currentTerm, key) => {
           return key === 'typeUser' ? currentTerm + data.typeUser.name : currentTerm + data[key] ||
-          key === 'employee' ? currentTerm + data.employee.surname + data.employee.name : currentTerm + data[key];
+          key === 'employee' ? currentTerm + data.employee.surname + data.employee.name : currentTerm + data[key] ||
+          key === 'email' ? currentTerm + data.email : currentTerm + data[key];
         };
         const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
         const transformedFilter = filter.trim().toLowerCase();
