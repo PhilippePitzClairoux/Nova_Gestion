@@ -85,6 +85,16 @@ public class ProgramService {
     }
 
     @Transactional
+    public Integer createProgramClient(WorkSheetClientProgram workSheetClientProgram ){
+
+        if (workSheetClientProgram.getIdProgram() == 0 || workSheetClientProgram.getIdClient() == 0)
+            throw new InvalidRequest("Missing parameters");
+
+        workSheetClientProgramMapper.insertProgramClient(workSheetClientProgram.getIdProgram(),workSheetClientProgram.getIdClient());
+        return workSheetClientProgram.getIdTaWorkSheetClientProgram();
+    }
+
+    @Transactional
     public void updateProgram(Program program) {
 
         Program verifiedProgram = programMapper.getProgram(program.getIdProgram());

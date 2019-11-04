@@ -27,7 +27,7 @@
 
     <insert id="insertProgramClient">
         INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_client)
-        VALUES (#{program.idProgram}, #{client.idClient});
+        VALUES (#{idProgram}, #{idClient});
     </insert>
 
     <update id="updateProgramClient">

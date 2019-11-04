@@ -52,17 +52,22 @@ POST localhost:8080/v1/program
 Content-Type: application/json
 
 {
-  "name": "nom de test avec client",
+  "name": "test sans client",
   "file": "..path/dossier/fichier.zip",
   "machine": {
     "idMachine": 2
   },
   "tool": {
     "idTool": 2
-  },
-  "client": {
-    "idClient": 2
   }
+}
+###
+POST localhost:8080/v1/workSheetClientProgram
+Content-Type: application/json
+
+{
+    "idProgram": 2,
+    "idClient": 2
 }
 
 ###

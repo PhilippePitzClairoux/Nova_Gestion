@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class WorkSheetClientProgram {
     private int idTaWorkSheetClientProgram;
     private int idWorkSheet;

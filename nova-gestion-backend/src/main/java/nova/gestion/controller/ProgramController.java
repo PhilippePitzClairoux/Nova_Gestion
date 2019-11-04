@@ -2,8 +2,10 @@ package nova.gestion.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import nova.gestion.model.Client;
 import nova.gestion.model.Program;
 import nova.gestion.model.User;
+import nova.gestion.model.WorkSheetClientProgram;
 import nova.gestion.services.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -38,6 +40,14 @@ public class ProgramController {
     public Map<String, Integer> createProgram(@RequestBody @Validated Program program) {
 
         return Map.of("idProgram", programService.createProgram(program));
+    }
+
+    @PostMapping("/v1/workSheetClientProgram")
+    public Map<String, Integer> createProgramClient(@RequestBody @Validated WorkSheetClientProgram workSheetClientProgram) {
+
+        Integer id = programService.createProgramClient(workSheetClientProgram);
+      //  int id = programService.createProgramClient(program,client);
+        return Map.of("idTaWorkSheetClientProgram", id);
     }
 
     @PutMapping("/v1/program")
