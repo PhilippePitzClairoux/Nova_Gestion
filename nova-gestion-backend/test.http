@@ -22,7 +22,8 @@ GET localhost:8080/v1/tools
 GET localhost:8080/v1/blanks
 ###
 GET localhost:8080/v1/machines
-
+###
+GET localhost:8080/v1/status/1/
 ###
 GET localhost:8080/v1/usertypes
 ###
