@@ -14,10 +14,9 @@ import java.util.Date;
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(InvalidRequest.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Error> customHandler(Exception ex, WebRequest request) {
-        System.out.println(request);
-        System.out.println(ex.toString());
+
         return new ResponseEntity<Error> (Error.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST.value())
                 .exception(ex.getMessage())
