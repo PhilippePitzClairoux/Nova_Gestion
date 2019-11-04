@@ -25,7 +25,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-          auth.authenticationProvider(customAuthenticationProvider);
+        auth.authenticationProvider(customAuthenticationProvider);
 //        auth.inMemoryAuthentication()
 //                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("USER")
 //                .and()
@@ -36,12 +36,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/homepage.html",true)
-                .failureUrl("/login.html?error=true");
-        http.csrf().disable();
+        http.csrf().disable()
+                .formLogin()
+                    .loginPage("/login.html")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/homepage.html", true)
+                    .failureUrl("/login.html?error=true")
+                .and()
+                    .logout()
+                    .logoutUrl("/logout")
+                .   deleteCookies("JSESSIONID");
+        ;
     }
 
 //    @Override

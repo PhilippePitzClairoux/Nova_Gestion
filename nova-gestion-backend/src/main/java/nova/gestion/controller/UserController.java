@@ -1,9 +1,8 @@
 package nova.gestion.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import nova.gestion.model.User;
-import nova.gestion.model.post.UserPost;
 import nova.gestion.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

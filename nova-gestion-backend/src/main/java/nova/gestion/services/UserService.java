@@ -10,6 +10,8 @@ import nova.gestion.model.TypeUser;
 import nova.gestion.model.User;
 import nova.gestion.model.post.UserPost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,7 @@ public class UserService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public ArrayList<User> getListOfAllUsers() {
         ArrayList<User> users = userMapper.getAllUsers();
 
@@ -41,6 +44,7 @@ public class UserService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('OK')")
     public User getUser(Integer idUser) {
 
         User user = userMapper.getUser(idUser);
@@ -52,6 +56,7 @@ public class UserService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public Integer createUser(User user) {
 
         if (user == null)
@@ -82,6 +87,7 @@ public class UserService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void updateUser(User user) {
         User verifiedUser = userMapper.getUser(user.getIdUser());
 
@@ -110,6 +116,7 @@ public class UserService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void deleteUser(Integer idUser) {
 
         User loadUser = userMapper.getUser(idUser);

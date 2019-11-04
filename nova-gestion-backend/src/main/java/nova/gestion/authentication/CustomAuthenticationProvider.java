@@ -5,24 +5,30 @@ import nova.gestion.authentication.mappers.UserTypePermissionMapper;
 import nova.gestion.mappers.UserMapper;
 import nova.gestion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
 
 
-@Component
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserMapper userMapper;
-    private final UserTypePermissionMapper userTypePermissionMapper;
 
     @Autowired
-    public CustomAuthenticationProvider(UserMapper userMapper, UserTypePermissionMapper userTypePermissionMapper) {
+    public CustomAuthenticationProvider(UserMapper userMapper) {
         this.userMapper = userMapper;
-        this.userTypePermissionMapper = userTypePermissionMapper;
     }
 
     @Override
@@ -33,12 +39,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         User user = userMapper.getUserByEmail(username);
 
-        System.out.println(userTypePermissionMapper.getUserTypePermissions(user.getTypeUser().getIdTypeUser()));
-
         if (user.getPassword() != null && BCrypt.checkpw(password, user.getPassword())) {
             //create token
             return new UsernamePasswordAuthenticationToken(
-                    username, password, null /* permissions here*/);
+                    username,
+                    password,
+                    List.of(new SimpleGrantedAuthority("ROLE_" + user.getTypeUser().getName()),
+                    new SimpleGrantedAuthority("ROLE_OK")));
 
         } else {
             return null;
