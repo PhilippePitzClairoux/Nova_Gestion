@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {WorksheetService} from '../../services/worksheet.service';
 
 @Component({
   selector: 'app-worksheets-list',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./worksheets-list.component.scss']
 })
 export class WorksheetsListComponent implements OnInit {
+  private worksheets: any;
 
-  constructor() { }
+  constructor(private worksheetService: WorksheetService) { }
 
   ngOnInit() {
+    this.worksheetService.getAll().subscribe(res => {
+      this.worksheets = res;
+    });
   }
 
 }

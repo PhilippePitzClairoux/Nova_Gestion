@@ -1,4 +1,3 @@
-import { ProgramsModule } from './programs/programs.module';
 import { ClientsModule } from './clients/clients.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
@@ -31,7 +30,6 @@ import {WorksheetsModule} from './worksheets/worksheets.module';
     BrowserAnimationsModule,
     // AuthentificationModule,
     UsersModule,
-    ProgramsModule,
     SharedModule,
     InventoryModule,
     ClientsModule,
