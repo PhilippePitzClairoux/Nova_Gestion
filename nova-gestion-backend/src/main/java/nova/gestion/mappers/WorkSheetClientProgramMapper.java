@@ -17,8 +17,10 @@ public interface WorkSheetClientProgramMapper {
     WorkSheetClientProgram getWorkSheetClientProgram(int idWorkSheetClientProgram);
 
     void insertProgramClient(@Param("idProgram")int idProgram, @Param("idClient")int idClient);
-   // void updateProgramClient();
 
     ArrayList<WorkSheetClientProgram> getClientsByProgram(int idProgram);
+
+    void deleteProgramClient(@Param("idProgram")int idProgram, @Param("idClient")int idClient);
+
 
 }

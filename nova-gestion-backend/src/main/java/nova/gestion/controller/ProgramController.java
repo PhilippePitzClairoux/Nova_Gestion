@@ -46,7 +46,6 @@ public class ProgramController {
     public Map<String, Integer> createProgramClient(@RequestBody @Validated WorkSheetClientProgram workSheetClientProgram) {
 
         Integer id = programService.createProgramClient(workSheetClientProgram);
-      //  int id = programService.createProgramClient(program,client);
         return Map.of("idTaWorkSheetClientProgram", id);
     }
 
@@ -58,6 +57,11 @@ public class ProgramController {
     @DeleteMapping("/v1/program/{idProgram}/")
     public void deleteProgram(@PathVariable @Validated Integer idProgram) {
         programService.deleteProgram(idProgram);
+    }
+
+    @DeleteMapping("/v1/workSheetClientProgram/{idProgram}/{idClient}/")
+    public void deleteProgram(@PathVariable @Validated Integer idProgram, @PathVariable @Validated Integer idClient) {
+        programService.deleteProgramClient(idProgram, idClient);
     }
 
 }

@@ -41,4 +41,8 @@
         SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program`
         WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram};
     </select>
+
+    <delete id="deleteProgramClient">
+        DELETE FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram} AND `nova_gestion`.`ta_work_sheet_client_program`.id_client = #{idClient};
+     </delete>
 </mapper>

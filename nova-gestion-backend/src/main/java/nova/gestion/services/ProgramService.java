@@ -108,9 +108,6 @@ public class ProgramService {
         if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
             programMapper.updateProgram(program);
 
-        System.out.println(verifiedProgram);
-
-        System.out.println(program);
     }
 
     @Transactional
@@ -122,5 +119,14 @@ public class ProgramService {
             throw new RessourceNotFound("Invalid idProgram");
 
         programMapper.deleteProgram(idProgram);
+    }
+
+    @Transactional
+    public void deleteProgramClient(Integer idProgram, Integer idClient) {
+
+        if (idProgram == null || idClient == null)
+            throw new RessourceNotFound("Invalid idProgram or idClient");
+
+        workSheetClientProgramMapper.deleteProgramClient(idProgram,idClient);
     }
 }
