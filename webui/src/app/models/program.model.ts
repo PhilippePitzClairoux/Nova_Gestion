@@ -5,7 +5,7 @@ import { Blank } from './blank';
 
 export class Program {
   public idProgram?: number;
-  public nom: string;
+  public name: string;
   public machine: Machine;
   public file: string;
   public blank: Blank;

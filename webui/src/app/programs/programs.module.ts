@@ -1,6 +1,15 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule, MatIconModule, MatPaginatorModule } from '@angular/material';
+import {
+  MatTableModule,
+  MatIconModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatButtonModule
+} from '@angular/material';
 
 import { SharedModule } from './../shared/shared.module';
 import { ProgramsRoutingModule } from './programs-routing.module';
@@ -12,7 +21,12 @@ import { ProgramComponent } from './program/program.component';
   declarations: [ProgramsListComponent, ProgramComponent],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
