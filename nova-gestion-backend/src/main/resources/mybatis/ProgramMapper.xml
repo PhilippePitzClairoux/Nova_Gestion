@@ -23,6 +23,8 @@
         <association column="id_blank" property="blank" javaType="nova.gestion.model.Blank"
                      select="nova.gestion.mappers.BlankMapper.getBlank"/>
 
+       <!-- <collection column="id_program" property="clients" javaType="ArrayList"
+                    select="nova.gestion.mappers.WorkSheetClientProgramMapper.getProgramsByClient"/> -->
     </resultMap>
 
 

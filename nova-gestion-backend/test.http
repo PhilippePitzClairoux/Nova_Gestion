@@ -8,7 +8,7 @@ GET localhost:8080/v1/blank/2/
 ###
 GET localhost:8080/v1/machine/1/
 ###
-GET localhost:8080/v1/program/7/
+GET localhost:8080/v1/program/6/
 
 ###
 GET localhost:8080/v1/programs

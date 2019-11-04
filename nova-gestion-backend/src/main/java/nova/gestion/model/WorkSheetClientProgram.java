@@ -8,10 +8,10 @@ import lombok.Data;
 public class WorkSheetClientProgram {
     private int idTaWorkSheetClientProgram;
     private int idWorkSheet;
-    private Program program;
-    private Client client;
+    private int idProgram;
+    private int idClient;
 
-    public WorkSheetClientProgram(int idTaWorkSheetClientProgram, int idWorkSheet)
+   /* public WorkSheetClientProgram(int idTaWorkSheetClientProgram, int idWorkSheet)
     {
         this.idTaWorkSheetClientProgram = idTaWorkSheetClientProgram;
         this.idWorkSheet = idWorkSheet;
@@ -23,5 +23,5 @@ public class WorkSheetClientProgram {
         this.idWorkSheet = idWorkSheet;
         this.program = program;
         this.client = client;
-    }
+    }*/
 }

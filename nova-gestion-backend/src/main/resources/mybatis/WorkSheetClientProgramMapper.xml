@@ -5,18 +5,17 @@
 <mapper namespace="nova.gestion.mappers.WorkSheetClientProgramMapper">
 
     <resultMap id="WorkSheetClientProgramMap" type="nova.gestion.model.WorkSheetClientProgram">
-        <constructor>
-            <arg name="idTaWorkSheetClientProgram" column="id_ta_work_sheet_client_program"/>
-            <arg name="idWorkSheet" column="id_work_sheet"/>
-        </constructor>
+
         <id column="idTaWorkSheetClientProgram" javaType="int" property="id_ta_work_sheet_client_program"/>
         <result column="id_work_sheet" javaType="int" property="idWorkSheet"/>
+        <result column="id_program" javaType="int" property="idProgram"/>
+        <result column="id_client" javaType="int" property="idClient"/>
 
-        <association column="id_program" property="program" javaType="nova.gestion.model.Program"
+     <!--   <association column="id_program" property="program" javaType="nova.gestion.model.Program"
                      select="nova.gestion.mappers.ProgramMapper.getProgram"/>
 
         <association column="id_client" property="client" javaType="nova.gestion.model.Client"
-                     select="nova.gestion.mappers.ClientMapper.getClient"/>
+                     select="nova.gestion.mappers.ClientMapper.getClient"/> -->
 
     </resultMap>
 
@@ -38,4 +37,8 @@
         WHERE id_program = #{program.idProgram} AND id_client = #{client.idClient} ;
     </update>
 
+    <select id="getClientsByProgram" parameterType="int" resultMap="WorkSheetClientProgramMap">
+        SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program`
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram};
+    </select>
 </mapper>

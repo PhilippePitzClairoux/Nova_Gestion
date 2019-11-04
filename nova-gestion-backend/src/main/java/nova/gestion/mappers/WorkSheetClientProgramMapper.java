@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Mapper
 @Repository
 public interface WorkSheetClientProgramMapper {
@@ -17,4 +19,7 @@ public interface WorkSheetClientProgramMapper {
     void insertProgramClient(@Param("program")Program program, @Param("client")Client client);
 
     void updateProgramClient(@Param("program")Program program, @Param("client")Client client);
+
+    ArrayList<WorkSheetClientProgram> getClientsByProgram(int idProgram);
+
 }

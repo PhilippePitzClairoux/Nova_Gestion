@@ -2,9 +2,12 @@ package nova.gestion.services;
 
 import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
+import nova.gestion.mappers.ClientMapper;
 import nova.gestion.mappers.ProgramMapper;
 import nova.gestion.mappers.WorkSheetClientProgramMapper;
+import nova.gestion.model.Client;
 import nova.gestion.model.Program;
+import nova.gestion.model.WorkSheetClientProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +19,13 @@ public class ProgramService {
 
     private final ProgramMapper programMapper;
     private final WorkSheetClientProgramMapper workSheetClientProgramMapper;
+    private final ClientMapper clientMapper;
 
     @Autowired
-    public ProgramService(ProgramMapper programMapper, WorkSheetClientProgramMapper workSheetClientProgramMapper) {
+    public ProgramService(ProgramMapper programMapper, WorkSheetClientProgramMapper workSheetClientProgramMapper, ClientMapper clientMapper) {
         this.programMapper = programMapper;
         this.workSheetClientProgramMapper = workSheetClientProgramMapper;
+        this.clientMapper = clientMapper;
     }
 
     @Transactional
@@ -29,8 +34,13 @@ public class ProgramService {
 
         if (programs == null)
             throw new RessourceNotFound("No programs available");
+        ArrayList<Program> programsReturn = new ArrayList<>();
 
-        return programs;
+        for (int i = 0; i < programs.size(); i++){
+           programsReturn.add(setClientsInProgram(programs.get(i)));
+        }
+
+        return programsReturn;
     }
 
     @Transactional
@@ -41,9 +51,22 @@ public class ProgramService {
         if (program == null || idProgram == 0)
             throw new RessourceNotFound("program does not exist");
 
-        return program;
+        Program programReturn = setClientsInProgram(program);
+
+        return programReturn;
     }
 
+    private Program setClientsInProgram(Program program){
+        ArrayList<WorkSheetClientProgram> workSheetClientPrograms = workSheetClientProgramMapper.getClientsByProgram(program.getIdProgram());
+        ArrayList<Client> clients = new ArrayList<>();
+
+        for (int i = 0; i < workSheetClientPrograms.size(); i++ ) {
+            Client client = clientMapper.getClient(workSheetClientPrograms.get(i).getIdClient()) ;
+            clients.add(client);
+        }
+        program.setClients(clients);
+        return program;
+    }
     @Transactional
     public Integer createProgram(Program program) {
 
@@ -57,8 +80,6 @@ public class ProgramService {
             throw new InvalidRequest("Missing program parameters");
 
         programMapper.insertProgram(program);
-        if (program.getClient() != null)
-            workSheetClientProgramMapper.insertProgramClient(program, program.getClient());
 
         return program.getIdProgram();
     }
@@ -76,8 +97,6 @@ public class ProgramService {
 
         if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
             programMapper.updateProgram(program);
-        if (program.getClient() != null)
-            workSheetClientProgramMapper.updateProgramClient(program, program.getClient());
 
         System.out.println(verifiedProgram);
 
