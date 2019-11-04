@@ -30,6 +30,7 @@ import {MachinesModule} from './machines/machines.module';
     BrowserAnimationsModule,
     // AuthentificationModule,
     UsersModule,
+    ProgramsModule,
     SharedModule,
     InventoryModule,
     ClientsModule,
