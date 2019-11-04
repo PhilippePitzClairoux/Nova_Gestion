@@ -15,6 +15,7 @@ import {SharedModule} from './shared/shared.module';
 import {UserComponent} from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {MachinesModule} from './machines/machines.module';
+import {WorksheetsModule} from './worksheets/worksheets.module';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {MachinesModule} from './machines/machines.module';
     AppRoutingModule,
     MatIconModule,
     AppRoutingModule,
-    MachinesModule
+    MachinesModule,
+    WorksheetsModule
   ],
   providers: [],
   bootstrap: [

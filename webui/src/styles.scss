@@ -58,13 +58,6 @@ $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
 
-
-mat-form-field {
-  font-size: 16px !important;
-  line-height: 20px !important;
-  font-weight: 400 !important;
-}
-
 mat-header-cell {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
