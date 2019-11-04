@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
       name: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
       userType: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
       passwordConfirmation: new FormControl('', Validators.required)
     });
@@ -122,7 +122,7 @@ export class UserComponent implements OnInit {
   }
 
   public emailValid(): boolean {
-    return !this.fg.controls.email.hasError('required');
+    return !this.fg.controls.email.hasError('required') && !this.fg.controls.email.hasError('email');
   }
 
   public passwordValid(): boolean {

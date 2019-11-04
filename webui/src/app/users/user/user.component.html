@@ -35,7 +35,7 @@
       <mat-form-field class="block">
         <input matInput id="email" name="email" class="input-100" placeholder="Courriel" formControlName="email">
         <mat-error *ngIf="!emailValid()">
-          Un courriel est requis.
+          Un courriel est requis, ou le courriel entré est invalide.
         </mat-error>
       </mat-form-field>
       <mat-form-field class="block">
