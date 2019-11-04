@@ -1,0 +1,71 @@
+.page-wrapper {
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  padding: 30px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  width: 95%;
+}
+
+.header {
+  color: #2370b8;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.controls {
+  max-width: 10%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.controls mat-icon {
+  color: #c0c0c0;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.add-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.add {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.column {
+  width: calc(90% / 4);
+}
+
+.input {
+  padding-right: 10px;
+  box-sizing: border-box;
+}
