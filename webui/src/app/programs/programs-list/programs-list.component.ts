@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 
 import { tap } from 'rxjs/operators';
 
+import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
 import { ClientService } from './../../services/client.service';
 import { ProgramService } from './../../services/program.service';
 import { MachineService } from './../../services/machine.service';
-
 import { Program } from './../../models/program.model';
 import { Machine } from './../../models/machine';
 import { Client } from './../../models/client';
@@ -29,7 +29,10 @@ export class ProgramsListComponent implements OnInit {
 
   public searchField = '';
 
-  constructor(private programService: ProgramService, private clientService: ClientService, private machineService: MachineService) { }
+  constructor(private programService: ProgramService,
+              private clientService: ClientService,
+              private machineService: MachineService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.programService.getAllProgram();
@@ -50,6 +53,22 @@ export class ProgramsListComponent implements OnInit {
     });
     this.clientService.getAll().subscribe(result => this.clients = result);
     this.machineService.getAll().subscribe(result => this.machines = result);
+  }
+
+  public onEdit(id: number): void {
+
+  }
+
+  public onDelete(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Êtes-vous sûr de vouloir supprimer ce programme?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.programService.deleteProgram(id);
+      }
+    });
   }
 
   public applyFilter(filterValue: string): void {
