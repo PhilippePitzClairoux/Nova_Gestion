@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.WorkSheetMapper">
+
+    <resultMap id="WorkSheetMapper" type="nova.gestion.model.WorkSheet">
+        <constructor>
+            <arg name="idWorkSheet" column="id_work_sheet"/>
+            <arg name="quantity" column="quantity"/>
+            <arg name="dateCreation" column="date_creation"/>
+            <arg name="dueDate" column="due_date"/>
+            <arg name="orderNumber" column="order_number"/>
+        </constructor>
+        <id column="id_work_sheet" javaType="int" property="idWorkSheet"/>
+        <result column="quantity" javaType="int" property="quantity"/>
+        <result column="date_creation" javaType="date" property="dateCreation"/>
+        <result column="due_date" javaType="date" property="dueDate"/>
+        <result column="order_number" javaType="string" property="orderNumber"/>
+
+        <association column="id_status" property="status" javaType="nova.gestion.model.Status"
+                     select="nova.gestion.mappers.StatusMapper.getStatus"/>
+
+    </resultMap>
+
+
+
+
+
+</mapper>

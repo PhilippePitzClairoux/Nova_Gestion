@@ -8,7 +8,7 @@ GET localhost:8080/v1/blank/2/
 ###
 GET localhost:8080/v1/machine/1/
 ###
-GET localhost:8080/v1/program/9/
+GET localhost:8080/v1/program/6/
 
 ###
 GET localhost:8080/v1/programs
@@ -22,7 +22,8 @@ GET localhost:8080/v1/tools
 GET localhost:8080/v1/blanks
 ###
 GET localhost:8080/v1/machines
-
+###
+GET localhost:8080/v1/status/1/
 ###
 GET localhost:8080/v1/usertypes
 ###
@@ -42,8 +43,38 @@ Content-Type: application/json
   },
   "tool": {
   "idTool": 2
+  },
+  "blank": {
+    "idBlank":1
   }
 }
+###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 8,
+  "name": "test sans client",
+  "file": "..path/dossier/fichier.html",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+    "idTool": 2
+  },
+  "blank": {
+    "idBlank": 1
+  }
+}
+###
+POST localhost:8080/v1/workSheetClientProgram
+Content-Type: application/json
+
+{
+    "idProgram": 2,
+    "idClient": 2
+}
+
 ###
 POST localhost:8080/v1/user
 Content-Type: application/json
@@ -167,14 +198,17 @@ PUT localhost:8080/v1/program
 Content-Type: application/json
 
 {
-  "idProgram": 6,
-  "name": "RPG-AK47",
-  "file": "..path/dossier/fichier.zip",
+  "idProgram": 7,
   "machine": {
-    "idMachine": 1
+    "idMachine": 3
   },
-  "tool": {
-    "idTool": 1
+  "name": "PB-000",
+  "file": "fichier.exe",
+  "blank": {
+    "idBlank": 2
+  },
+  "client": {
+    "idClient": 1
   }
 }
 ###
@@ -270,6 +304,6 @@ DELETE localhost:8080/v1/blank/2/
 ###
 DELETE localhost:8080/v1/client/2/
 ###
-DELETE localhost:8080/v1/program/6/
+DELETE localhost:8080/v1/workSheetClientProgram/2/2/
 
 ###
