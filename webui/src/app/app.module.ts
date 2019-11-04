@@ -1,3 +1,4 @@
+import { ProgramsModule } from './programs/programs.module';
 import { ClientsModule } from './clients/clients.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
@@ -32,12 +33,11 @@ import {MachinesModule} from './machines/machines.module';
     SharedModule,
     InventoryModule,
     ClientsModule,
+    MachinesModule,
+    ProgramsModule,
     MatIconModule,
     SharedModule,
     AppRoutingModule,
-    MatIconModule,
-    AppRoutingModule,
-    MachinesModule
   ],
   providers: [],
   bootstrap: [
@@ -47,5 +47,4 @@ import {MachinesModule} from './machines/machines.module';
     UserComponent
   ]
 })
-export class AppModule {
-}
+export class AppModule { }
