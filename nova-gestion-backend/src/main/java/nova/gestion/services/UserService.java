@@ -44,7 +44,7 @@ public class UserService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('OK')")
+    @PreAuthorize("hasRole('LOGGED_IN')")
     public User getUser(Integer idUser) {
 
         User user = userMapper.getUser(idUser);
