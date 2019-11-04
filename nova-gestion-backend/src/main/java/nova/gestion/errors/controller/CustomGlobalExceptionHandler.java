@@ -1,6 +1,6 @@
 package nova.gestion.errors.controller;
 
-import nova.gestion.errors.exceptions.InvalidRequest;
+
 import nova.gestion.errors.model.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Error> customHandler(Exception ex, WebRequest request) {
-
         return new ResponseEntity<Error> (Error.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST.value())
                 .exception(ex.getMessage())
