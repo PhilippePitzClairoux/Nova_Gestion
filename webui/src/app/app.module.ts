@@ -1,3 +1,4 @@
+import { ClientsModule } from './clients/clients.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,7 +20,7 @@ import {MachinesModule} from './machines/machines.module';
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +31,10 @@ import {MachinesModule} from './machines/machines.module';
     UsersModule,
     SharedModule,
     InventoryModule,
+    ClientsModule,
+    MatIconModule,
+    SharedModule,
+    AppRoutingModule,
     MatIconModule,
     AppRoutingModule,
     MachinesModule
