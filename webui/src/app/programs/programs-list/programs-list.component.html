@@ -11,7 +11,7 @@
     <div class="search-select-group" [formGroup]="fg">
       <mat-form-field class="search-select">
         <mat-label>Client</mat-label>
-        <mat-select formControlName="client">
+        <mat-select formControlName="client" (selectionChange)="applyFilter()">
           <mat-option *ngFor="let client of clients" [value]="client">
             {{client.name}}
           </mat-option>

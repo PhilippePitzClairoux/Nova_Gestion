@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 import { tap } from 'rxjs/operators';
 
@@ -10,8 +11,6 @@ import { MachineService } from './../../services/machine.service';
 import { Program } from './../../models/program.model';
 import { Machine } from './../../models/machine';
 import { Client } from './../../models/client';
-import { $ } from 'protractor';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-programs-list',
@@ -32,10 +31,10 @@ export class ProgramsListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private programService: ProgramService,
-    private clientService: ClientService,
-    private machineService: MachineService,
-    private fb: FormBuilder,
-    private dialog: MatDialog) { }
+              private clientService: ClientService,
+              private machineService: MachineService,
+              private fb: FormBuilder,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.fg = this.fb.group({
@@ -70,11 +69,18 @@ export class ProgramsListComponent implements OnInit {
 
   public applyFilter(): void {
     const filteredList = this.programs.filter(t => {
-      console.log(t.clients);
-      return (this.fg.controls.machine.value === '' || t.machine.name === this.fg.controls.machine.value.name ? true : false) &&
-        (this.fg.controls.client.value === '' ||
-        t.clients.find(client => client.name === this.fg.controls.client.value.name) !== undefined) &&
-        (t.name.toLocaleLowerCase().trim().includes(this.searchField.toLocaleLowerCase().trim()));
+      if (t.tool === null) {
+        return (this.fg.controls.machine.value === '' || t.machine.name === this.fg.controls.machine.value.name ? true : false) &&
+          (this.fg.controls.client.value === '' ||
+            t.clients.find(client => client.name === this.fg.controls.client.value.name) !== undefined) &&
+          t.name.toLocaleLowerCase().trim().includes(this.searchField.toLocaleLowerCase().trim());
+      } else {
+        return (this.fg.controls.machine.value === '' || t.machine.name === this.fg.controls.machine.value.name ? true : false) &&
+          (this.fg.controls.client.value === '' ||
+            t.clients.find(client => client.name === this.fg.controls.client.value.name) !== undefined) &&
+          (t.name.toLocaleLowerCase().trim().includes(this.searchField.toLocaleLowerCase().trim()) ||
+            t.tool.name.toLocaleLowerCase().trim().includes(this.searchField.toLocaleLowerCase().trim()));
+      }
     });
     this.dataSource = new MatTableDataSource(filteredList);
   }
