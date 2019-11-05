@@ -4,6 +4,10 @@ GET localhost:8080/v1/tool/1/
 ###
 GET localhost:8080/v1/client/1/
 ###
+GET localhost:8080/v1/workSheet/3/1/2/
+###
+GET localhost:8080/v1/workSheets
+###
 GET localhost:8080/v1/blank/2/
 ###
 GET localhost:8080/v1/machine/1/
@@ -36,7 +40,7 @@ POST localhost:8080/v1/program
 Content-Type: application/json
 
 {
-  "name": "nom de test",
+  "name": "nom du dernier test",
   "file": "..path/dossier/fichier.exe",
   "machine": {
     "idMachine": 2
@@ -71,8 +75,8 @@ POST localhost:8080/v1/workSheetClientProgram
 Content-Type: application/json
 
 {
-    "idProgram": 2,
-    "idClient": 2
+    "idProgram": 10,
+    "idClient": 4
 }
 
 ###
@@ -124,6 +128,42 @@ Content-Type: application/json
     "name": "A7 Integration",
     "phoneNumber": "4503056218"
   }
+}
+
+###
+POST localhost:8080/v1/workSheet
+Content-Type: application/json
+
+{
+  "status": {
+     "idStatus": 3
+  },
+  "quantity": 200,
+  "dueDate": "2021-02-02",
+  "orderNumber": "123-456",
+  "client": {
+     "idClient": 2
+  },
+  "program": {
+     "idProgram": 1}
+}
+###
+PUT localhost:8080/v1/workSheet
+Content-Type: application/json
+
+{
+  "idWorkSheet": 3,
+  "status": {
+    "idStatus": 4
+  },
+  "quantity": 200,
+  "dueDate": "2021-02-29",
+  "orderNumber": "123-456",
+  "client": {
+    "idClient": 3
+  },
+  "program": {
+    "idProgram": 2}
 }
 
 ###
