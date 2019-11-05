@@ -14,11 +14,11 @@ import java.util.ArrayList;
 @Repository
 public interface WorkSheetClientProgramMapper {
 
-    WorkSheetClientProgram getWorkSheetClientProgram(@Param("idWorkSheet")int idWorkSheet, @Param("idProgram")int idProgram, @Param("idClient")int idClient);
+    WorkSheetClientProgram getWorkSheetClientProgram(@Param("idWorkSheet")int idWorkSheet);
 
     void insertWorkSheetClientProgram(@Param("idWorkSheet")int idWorkSheet, @Param("idProgram")int idProgram, @Param("idClient")int idClient);
 
-    void updateWorkSheetClientProgram(@Param("idTaWorkSheetClientProgram")int idTaWorkSheetClientProgram, @Param("idProgram")int idProgram, @Param("idClient")int idClient);
+    void updateWorkSheetClientProgram(@Param("idWorkSheet")int idWorkSheet, @Param("idProgram")int idProgram, @Param("idClient")int idClient);
 
     ArrayList<WorkSheetClientProgram> getAllWorkSheetClientPrograms();
 
