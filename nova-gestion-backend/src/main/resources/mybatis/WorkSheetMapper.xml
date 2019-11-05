@@ -37,4 +37,12 @@
         VALUES (#{status.idStatus}, #{quantity}, #{dateCreation}, #{dueDate}, #{orderNumber});
     </insert>
 
+    <update id="updateWorkSheet" parameterType="nova.gestion.model.WorkSheet">
+        UPDATE `nova_gestion`.`work_sheet` SET
+        <if test="status != null">id_status = #{status.idStatus},</if>
+        <if test="quantity >=0"> quantity = #{quantity},</if>
+        <if test="dueDate != null"> due_date = #{dueDate},</if>
+        <if test="orderNumber != null"> order_number = #{orderNumber}</if>
+        WHERE id_work_sheet = #{idWorkSheet};
+    </update>
 </mapper>

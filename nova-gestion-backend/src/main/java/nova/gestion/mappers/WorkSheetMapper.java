@@ -16,5 +16,5 @@ public interface WorkSheetMapper {
 
     void insertWorkSheet(WorkSheet workSheet);
 
-
+    void updateWorkSheet(WorkSheet workSheet);
 }

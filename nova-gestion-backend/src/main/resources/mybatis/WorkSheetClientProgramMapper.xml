@@ -51,4 +51,10 @@
         INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_work_sheet, id_client)
         VALUES (#{idProgram}, #{idWorkSheet}, #{idClient});
     </insert>
+    <update id="updateWorkSheetClientProgram">
+        UPDATE `nova_gestion`.`ta_work_sheet_client_program` SET
+            id_program = #{idProgram},
+            id_client = #{idClient}
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_ta_work_sheet_client_program = #{idTaWorkSheetClientProgram};
+    </update>
 </mapper>

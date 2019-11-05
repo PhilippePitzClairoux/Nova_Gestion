@@ -107,4 +107,20 @@ public class WorkSheetService {
         return workSheet.getIdWorkSheet();
     }
 
+    @Transactional
+    public void updateWorkSheet(WorkSheet workSheet){
+
+        WorkSheet verifiedWorkSheet = workSheetMapper.getWorkSheet(workSheet.getIdWorkSheet());
+
+        if (verifiedWorkSheet == null || workSheet.getIdWorkSheet() == 0 )
+            throw new InvalidRequest("Missing parameters");
+
+        if (workSheet.getOrderNumber() == null || workSheet.getClient() == null || workSheet.getProgram() == null || workSheet.getStatus() == null || workSheet.getDueDate() == null)
+            throw new InvalidRequest("Missing information");
+
+        if (workSheet.getOrderNumber() != null || workSheet.getClient() != null || workSheet.getProgram() != null || workSheet.getStatus() != null || workSheet.getDueDate() != null){
+            workSheetMapper.updateWorkSheet(workSheet);
+        }
+    }
+
 }

@@ -4,7 +4,7 @@ GET localhost:8080/v1/tool/1/
 ###
 GET localhost:8080/v1/client/1/
 ###
-GET localhost:8080/v1/workSheet/1/1/1/
+GET localhost:8080/v1/workSheet/3/1/2/
 ###
 GET localhost:8080/v1/workSheets
 ###
@@ -147,6 +147,25 @@ Content-Type: application/json
   "program": {
      "idProgram": 1}
 }
+###
+PUT localhost:8080/v1/workSheet
+Content-Type: application/json
+
+{
+  "idWorkSheet": 3,
+  "status": {
+    "idStatus": 4
+  },
+  "quantity": 200,
+  "dueDate": "2021-02-29",
+  "orderNumber": "123-456",
+  "client": {
+    "idClient": 3
+  },
+  "program": {
+    "idProgram": 2}
+}
+
 ###
 POST localhost:8080/v1/blank
 Content-Type: application/json

@@ -40,6 +40,10 @@ public class WorkSheetController {
         return Map.of("idWorkSheet", workSheetService.createWorkSheet(workSheet));
     }
 
+    @PutMapping("/v1/workSheet")
+    public void updateWorkSheet(@RequestBody @Validated WorkSheet workSheet) {
+        workSheetService.updateWorkSheet(workSheet);
+    }
 
 }
 
