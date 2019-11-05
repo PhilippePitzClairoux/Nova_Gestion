@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
@@ -34,7 +35,8 @@ export class ProgramsListComponent implements OnInit {
               private clientService: ClientService,
               private machineService: MachineService,
               private fb: FormBuilder,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
     this.fg = this.fb.group({
@@ -51,8 +53,12 @@ export class ProgramsListComponent implements OnInit {
     this.machineService.getAll().subscribe(result => this.machines = result);
   }
 
-  public onEdit(id: number): void {
+  public onAdd(): void {
+    this.router.navigate(['programs', 0]);
+  }
 
+  public onEdit(id: number): void {
+    this.router.navigate(['programs', id]);
   }
 
   public onDelete(id: number): void {
