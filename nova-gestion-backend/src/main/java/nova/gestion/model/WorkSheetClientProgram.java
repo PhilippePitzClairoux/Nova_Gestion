@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class WorkSheetClientProgram {
-    private int idTaWorkSheetClientProgram;
-    private int idWorkSheet;
-    private int idProgram;
-    private int idClient;
+    private Integer idTaWorkSheetClientProgram;
+    private Integer idWorkSheet;
+    private Integer idProgram;
+    private Integer idClient;
 
    /* public WorkSheetClientProgram(int idTaWorkSheetClientProgram, int idWorkSheet)
     {
