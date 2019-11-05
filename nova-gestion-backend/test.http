@@ -75,8 +75,8 @@ POST localhost:8080/v1/workSheetClientProgram
 Content-Type: application/json
 
 {
-    "idProgram": 2,
-    "idClient": 2
+    "idProgram": 10,
+    "idClient": 4
 }
 
 ###

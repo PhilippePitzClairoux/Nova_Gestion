@@ -46,7 +46,7 @@ public class ProgramController {
     public Map<String, Integer> createProgramClient(@RequestBody @Validated WorkSheetClientProgram workSheetClientProgram) {
 
         Integer id = programService.createProgramClient(workSheetClientProgram);
-        return Map.of("idTaWorkSheetClientProgram", id);
+        return Map.of("idTaWorkSheetClientProgram", 0);
     }
 
     @PutMapping("/v1/program")
