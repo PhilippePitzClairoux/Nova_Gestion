@@ -17,6 +17,10 @@ export class WorksheetService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.http.get<any[]>(this.api + 'worksheets');
+    return this.http.get<any[]>(this.api + 'workSheets');
+  }
+
+  getOne(id: any) {
+    return this.http.get<any>(this.api + 'worksheet');
   }
 }

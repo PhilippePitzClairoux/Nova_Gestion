@@ -1,0 +1,39 @@
+<app-header *ngIf="id" [title]="'Gestion de la feuille de travail ' + worksheet?.idWorkSheet"></app-header>
+<app-header *ngIf="!id" [title]="'Création d\'une feuille de travail'"></app-header>
+
+<div class="page-wrapper">
+
+  <form [formGroup]="worksheetForm">
+    <mat-form-field class="mid">
+      <input matInput placeholder="Numéro de commande" formControlName="orderNumber">
+      <mat-error
+        *ngIf="worksheetForm.controls.orderNumber.hasError('maxLength')">
+        Un maximum de 254 caractères est permis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mid">
+      <mat-label>Client</mat-label>
+      <mat-select formControlName="client">
+        <mat-option *ngFor="let client of clients" [value]="client">
+          {{client.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <mat-label>Programme</mat-label>
+      <mat-select formControlName="program">
+        <mat-option *ngFor="let program of programs" [value]="program">
+          {{program.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Quantité à faire" type="number" formControlName="quantity">
+    </mat-form-field>
+
+  </form>
+</div>
