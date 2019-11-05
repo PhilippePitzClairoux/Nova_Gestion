@@ -14,7 +14,9 @@ import java.util.ArrayList;
 @Repository
 public interface WorkSheetClientProgramMapper {
 
-    WorkSheetClientProgram getWorkSheetClientProgram(int idWorkSheetClientProgram);
+    WorkSheetClientProgram getWorkSheetClientProgram(@Param("idWorkSheet")int idWorkSheet, @Param("idProgram")int idProgram, @Param("idClient")int idClient);
+
+    ArrayList<WorkSheetClientProgram> getAllWorkSheetClientPrograms();
 
     void insertProgramClient(@Param("idProgram")int idProgram, @Param("idClient")int idClient);
 

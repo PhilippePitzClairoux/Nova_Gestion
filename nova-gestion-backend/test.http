@@ -4,6 +4,10 @@ GET localhost:8080/v1/tool/1/
 ###
 GET localhost:8080/v1/client/1/
 ###
+GET localhost:8080/v1/workSheet/1/1/1/
+###
+GET localhost:8080/v1/workSheets
+###
 GET localhost:8080/v1/blank/2/
 ###
 GET localhost:8080/v1/machine/1/
@@ -36,7 +40,7 @@ POST localhost:8080/v1/program
 Content-Type: application/json
 
 {
-  "name": "nom de test",
+  "name": "nom du dernier test",
   "file": "..path/dossier/fichier.exe",
   "machine": {
     "idMachine": 2
