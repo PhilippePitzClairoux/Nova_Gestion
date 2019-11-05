@@ -3,27 +3,29 @@
   <div class="research-container">
     <mat-form-field class="search-content">
       <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
-        (keyup)="applyFilter($event.target.value)">
+        (keyup)="applyFilter()">
       <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <mat-form-field>
-      <mat-select>
+    <div class="search-select-group" [formGroup]="fg">
+      <mat-form-field class="search-select">
         <mat-label>Client</mat-label>
-        <mat-option *ngFor="let client of clients" [value]="client">
-          {{client.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-select>
+        <mat-select formControlName="client">
+          <mat-option *ngFor="let client of clients" [value]="client">
+            {{client.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="search-select">
         <mat-label>Machine</mat-label>
-        <mat-option *ngFor="let machine of machines" [value]="machine">
-          {{machine.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-select formControlName="machine" (selectionChange)="applyFilter()">
+          <mat-option id="test" *ngFor="let machine of machines" [value]="machine">
+            {{machine.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <app-button [label]="'Ajouter un programme'" [style]="'primary'"></app-button>
   </div>
 

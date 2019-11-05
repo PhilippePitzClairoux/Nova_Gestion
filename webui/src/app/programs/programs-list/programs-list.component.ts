@@ -10,6 +10,8 @@ import { MachineService } from './../../services/machine.service';
 import { Program } from './../../models/program.model';
 import { Machine } from './../../models/machine';
 import { Client } from './../../models/client';
+import { $ } from 'protractor';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-programs-list',
@@ -19,35 +21,30 @@ import { Client } from './../../models/client';
 export class ProgramsListComponent implements OnInit {
 
   private programs: Program[] = [];
-
   public clients: Client[] = [];
   public machines: Machine[] = [];
+  public searchField = '';
 
-  dataSource: MatTableDataSource<Program>;
+  public fg: FormGroup;
+
+  public dataSource: MatTableDataSource<Program>;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  public searchField = '';
-
   constructor(private programService: ProgramService,
-              private clientService: ClientService,
-              private machineService: MachineService,
-              private dialog: MatDialog) { }
+    private clientService: ClientService,
+    private machineService: MachineService,
+    private fb: FormBuilder,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.fg = this.fb.group({
+      client: new FormControl(''),
+      machine: new FormControl(''),
+    });
     this.programService.getAllProgram();
     this.programService.programsList$().pipe(tap(result => this.programs = result)).subscribe(() => {
       this.dataSource = new MatTableDataSource(this.programs);
-      this.dataSource.filterPredicate = (data, filter: string) => {
-        const accumulator = (currentTerm, key) => {
-          return key === 'name' ? currentTerm + data.name : currentTerm + data[key] ||
-            key === 'machine' ? currentTerm + data.machine.name : currentTerm + data[key] ||
-              key === 'tool' ? currentTerm + data.tool.name : currentTerm + data[key];
-        };
-        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-        const transformedFilter = filter.trim().toLowerCase();
-        return dataStr.indexOf(transformedFilter) !== -1;
-      };
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -71,14 +68,19 @@ export class ProgramsListComponent implements OnInit {
     });
   }
 
-  public applyFilter(filterValue: string): void {
-    filterValue = filterValue.trim();
-    filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+  public applyFilter(): void {
+    const filteredList = this.programs.filter(t => {
+      console.log(t.clients);
+      return (this.fg.controls.machine.value === '' || t.machine.name === this.fg.controls.machine.value.name ? true : false) &&
+        (this.fg.controls.client.value === '' ||
+        t.clients.find(client => client.name === this.fg.controls.client.value.name) !== undefined) &&
+        (t.name.toLocaleLowerCase().trim().includes(this.searchField.toLocaleLowerCase().trim()));
+    });
+    this.dataSource = new MatTableDataSource(filteredList);
   }
 
   public clearSearch(): void {
     this.searchField = '';
-    this.applyFilter('');
+    this.dataSource = new MatTableDataSource(this.programs);
   }
 }
