@@ -38,7 +38,7 @@
 
     <select id="getWorkSheetClientProgram" resultMap="WorkSheetClientProgramMap">
         SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program`
-        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram} AND `nova_gestion`.`ta_work_sheet_client_program`.id_client = #{idClient} AND `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
     </select>
     <select id="getAllWorkSheetClientPrograms" resultMap="WorkSheetClientProgramMap">
         SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE id_work_sheet IS NOT NULL ;
@@ -55,6 +55,6 @@
         UPDATE `nova_gestion`.`ta_work_sheet_client_program` SET
             id_program = #{idProgram},
             id_client = #{idClient}
-        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_ta_work_sheet_client_program = #{idTaWorkSheetClientProgram};
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
     </update>
 </mapper>

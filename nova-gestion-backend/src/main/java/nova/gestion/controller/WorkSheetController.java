@@ -24,9 +24,9 @@ public class WorkSheetController {
         this.workSheetService = workSheetService;
     }
 
-    @GetMapping("/v1/workSheet/{idWorkSheet}/{idProgram}/{idClient}/")
-    public WorkSheet getWorkSheet(@PathVariable @Validated Integer idWorkSheet, @PathVariable @Validated Integer idProgram,@PathVariable @Validated Integer idClient) {
-        return  workSheetService.getWorkSheet(idWorkSheet, idProgram, idClient);
+    @GetMapping("/v1/workSheet/{idWorkSheet}/")
+    public WorkSheet getWorkSheet(@PathVariable @Validated Integer idWorkSheet) {
+        return  workSheetService.getWorkSheet(idWorkSheet);
     }
 
     @GetMapping("/v1/workSheets")
