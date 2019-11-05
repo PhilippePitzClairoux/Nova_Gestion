@@ -131,6 +131,23 @@ Content-Type: application/json
 }
 
 ###
+POST localhost:8080/v1/workSheet
+Content-Type: application/json
+
+{
+  "status": {
+     "idStatus": 3
+  },
+  "quantity": 200,
+  "dueDate": "2021-02-02",
+  "orderNumber": "123-456",
+  "client": {
+     "idClient": 2
+  },
+  "program": {
+     "idProgram": 1}
+}
+###
 POST localhost:8080/v1/blank
 Content-Type: application/json
 

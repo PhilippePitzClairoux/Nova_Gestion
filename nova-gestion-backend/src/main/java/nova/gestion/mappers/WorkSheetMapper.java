@@ -14,4 +14,7 @@ public interface WorkSheetMapper {
 
     ArrayList<WorkSheet> getAllWorkSheets();
 
+    void insertWorkSheet(WorkSheet workSheet);
+
+
 }

@@ -8,12 +8,10 @@ import nova.gestion.services.WorkSheetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,4 +33,13 @@ public class WorkSheetController {
     public ArrayList<WorkSheet> getAllWorkSheets() throws JsonProcessingException {
         return workSheetService.getAllWorkSheets();
     }
+
+    @PostMapping("/v1/workSheet")
+    public Map<String, Integer> createWorkSheet(@RequestBody @Validated WorkSheet workSheet) {
+
+        return Map.of("idWorkSheet", workSheetService.createWorkSheet(workSheet));
+    }
+
+
 }
+

@@ -32,4 +32,9 @@
         SELECT * FROM `nova_gestion`.`work_sheet`;
     </select>
 
+    <insert id="insertWorkSheet" parameterType="nova.gestion.model.WorkSheet" keyProperty="idWorkSheet" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`work_sheet`(id_status, quantity, date_creation, due_date, order_number)
+        VALUES (#{status.idStatus}, #{quantity}, #{dateCreation}, #{dueDate}, #{orderNumber});
+    </insert>
+
 </mapper>

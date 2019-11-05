@@ -1,5 +1,6 @@
 package nova.gestion.services;
 
+import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.ClientMapper;
 import nova.gestion.mappers.ProgramMapper;
@@ -13,7 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class WorkSheetService {
@@ -36,8 +42,6 @@ public class WorkSheetService {
         ArrayList<WorkSheet> workSheets = new ArrayList<>();
         ArrayList<WorkSheetClientProgram> workSheetClientPrograms = workSheetClientProgramMapper.getAllWorkSheetClientPrograms();
 
-        System.out.println("*******workSheetClientPrograms : "+workSheetClientPrograms);
-
         for (int i = 0; i < workSheetClientPrograms.size(); i++){
             WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheetClientPrograms.get(i).getIdWorkSheet());
 
@@ -58,7 +62,6 @@ public class WorkSheetService {
         return  workSheet;
     }
 
-
     private WorkSheet setClientProgramWorkSheet(WorkSheet workSheet, Integer idProgram, Integer idClient){
         WorkSheetClientProgram workSheetClientProgram = workSheetClientProgramMapper.getWorkSheetClientProgram(workSheet.getIdWorkSheet(), idProgram, idClient);
         Client client = clientMapper.getClient(workSheetClientProgram.getIdClient());
@@ -69,4 +72,39 @@ public class WorkSheetService {
 
         return workSheet;
     }
+
+    @Transactional
+    public Integer createWorkSheet(WorkSheet workSheet) {
+
+        if (workSheet == null)
+            throw new InvalidRequest("Missing parameters");
+
+        if (workSheet.getProgram() == null)
+            throw new InvalidRequest("Missing program");
+        if (workSheet.getClient() == null)
+            throw new InvalidRequest("Missing client");
+        if (workSheet.getStatus() == null)
+            throw new InvalidRequest("Missing status");
+
+        if (workSheet.getDueDate() == null || workSheet.getOrderNumber() == null)
+            throw new InvalidRequest("Missing program parameters");
+
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        String strDate = dateFormat.format(date);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            Date today = sdf1.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+        workSheet.setDateCreation(sqlStartDate);
+
+        workSheetMapper.insertWorkSheet(workSheet);
+        workSheetClientProgramMapper.insertWorkSheetClientProgram(workSheet.getIdWorkSheet(),workSheet.getProgram().getIdProgram(),workSheet.getClient().getIdClient());
+
+        return workSheet.getIdWorkSheet();
+    }
+
 }
