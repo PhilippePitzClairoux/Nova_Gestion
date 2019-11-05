@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: test123
-    url: "jdbc:mariadb://localhost:3307/nova_gestion"
+    url: "jdbc:mariadb://localhost:3307"
 
 
 
@@ -10,4 +10,3 @@ mybatis:
   mapper-locations: classpath*:/mybatis/*
   configuration:
     map-underscore-to-camel-case: true
-

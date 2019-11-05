@@ -135,7 +135,7 @@ PUT localhost:8080/v1/blank
 Content-Type: application/json
 
 {
-  "idBlank": 5,
+  "idBlank": 1,
   "grade": {
     "code": 1
   },
@@ -143,7 +143,10 @@ Content-Type: application/json
   "coolantHole": {
     "idCoolantHole": 8,
     "diameter": 80,
-    "quantity": 90
+    "quantity": 90,
+    "typeCoolantHole": {
+      "idTypeCoolantHole" : 1
+    }
   }
 }
 

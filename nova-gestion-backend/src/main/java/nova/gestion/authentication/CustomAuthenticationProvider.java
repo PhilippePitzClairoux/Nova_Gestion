@@ -1,7 +1,6 @@
 package nova.gestion.authentication;
 
 
-import nova.gestion.authentication.mappers.UserTypePermissionMapper;
 import nova.gestion.mappers.UserMapper;
 import nova.gestion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import java.util.Collections;
 import java.util.List;
 
 
