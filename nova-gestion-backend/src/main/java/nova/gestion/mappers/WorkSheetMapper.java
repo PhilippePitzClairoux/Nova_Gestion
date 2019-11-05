@@ -13,5 +13,4 @@ public interface WorkSheetMapper {
     WorkSheet getWorkSheet(int idWorkSheet);
 
     ArrayList<WorkSheet> getAllWorkSheets();
-
 }
