@@ -39,8 +39,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .logoutUrl("/logout")
-                .   deleteCookies("JSESSIONID");
-        ;
+                .deleteCookies("JSESSIONID");
+
     }
 
 //    @Override
