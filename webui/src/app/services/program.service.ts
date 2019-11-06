@@ -1,7 +1,9 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Program } from './../models/program.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { Program } from './../models/program.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,10 @@ export class ProgramService {
     });
   }
 
+  public getProgramById(id: number): Observable<Program> {
+    return this.http.get<Program>('/v1/program/' + id.toString() + '/');
+  }
+
   public createProgram(program: Program): void {
     this.http.post<Program>('/v1/program', program, this.httpOptions).subscribe(result => {
       program.idProgram = result.idProgram;
@@ -47,5 +53,13 @@ export class ProgramService {
       this.programsList = this.programsList.filter(t => t.idProgram !== id);
       this.programsListSubject.next(this.programsList);
     });
+  }
+
+  public addClientToProgram(idProg: number, idCli: number): Observable<any> {
+    return this.http.post<Program>('/v1/workSheetClientProgram', {idProgram: idProg, idClient: idCli}, this.httpOptions);
+  }
+
+  public deleteClientOfProgram(idProgram: number, idClient: number): Observable<any> {
+    return this.http.delete<Program>('/v1/workSheetClientProgram/' + idProgram.toString() + '/' + idClient.toString() + '/');
   }
 }
