@@ -45,4 +45,8 @@
         <if test="orderNumber != null"> order_number = #{orderNumber}</if>
         WHERE id_work_sheet = #{idWorkSheet};
     </update>
+
+    <delete id="deleteWorkSheet" parameterType="int">
+        DELETE FROM `nova_gestion`.`work_sheet` WHERE `nova_gestion`.`work_sheet`.id_work_sheet = #{idWorkSheet};
+    </delete>
 </mapper>

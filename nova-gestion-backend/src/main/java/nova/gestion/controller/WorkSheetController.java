@@ -45,5 +45,10 @@ public class WorkSheetController {
         workSheetService.updateWorkSheet(workSheet);
     }
 
+    @DeleteMapping("/v1/workSheet/{idWorkSheet}/")
+    public void deleteWorkSheet(@PathVariable @Validated Integer idWorkSheet) {
+         workSheetService.deleteWorkSheet(idWorkSheet);;
+    }
+
 }
 
