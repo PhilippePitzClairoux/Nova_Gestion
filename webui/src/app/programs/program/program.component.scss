@@ -1,18 +1,19 @@
 .page-area {
   width: 90%;
   margin: 0 auto;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
 }
 
 .form-area {
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.side-area {
-  width: 25%;
+.btn-save {
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
 }
@@ -28,6 +29,14 @@
 
 .input {
   width: 75%;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.client-container {
+  margin-top: 20px;
 }
 
 .client-list {

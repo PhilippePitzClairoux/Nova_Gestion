@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -43,9 +43,9 @@ export class ProgramComponent implements OnInit {
   public programSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public program$: Observable<Client[]>;
 
-  constructor(private router: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
-    private toolService: ToolService, private blankService: BlankService,
-    private machineService: MachineService, private clientService: ClientService) { }
+  constructor(private route: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
+              private toolService: ToolService, private blankService: BlankService, private nav: Router,
+              private machineService: MachineService, private clientService: ClientService) { }
 
   public ngOnInit(): void {
     this.program$ = this.programSubject.asObservable();
@@ -60,7 +60,12 @@ export class ProgramComponent implements OnInit {
 
   public addClient() {
     this.programService.addClientToProgram(this.program.idProgram, this.clientFg.controls.client.value.idClient).subscribe(result => {
-      this.program.clients = [...this.program.clients, this.clientFg.controls.client.value];
+      if (this.program.clients === undefined) {
+        this.program.clients = [];
+        this.program.clients = [...this.program.clients, this.clientFg.controls.client.value];
+      } else {
+        this.program.clients = [...this.program.clients, this.clientFg.controls.client.value];
+      }
       this.programSubject.next(this.program.clients);
     });
   }
@@ -72,14 +77,55 @@ export class ProgramComponent implements OnInit {
     });
   }
 
+  public onReturn(): void {
+    this.nav.navigate(['programs']);
+  }
+
+  public onCreate(): void {
+    const program = new Program();
+    program.name = this.fg.controls.name.value;
+    program.file = this.fg.controls.file.value;
+    if (this.fg.controls.machine.value !== '') {
+      program.machine = this.fg.controls.machine.value;
+    }
+    if (this.fg.controls.tool.value !== '') {
+      program.tool = this.fg.controls.tool.value;
+    }
+    if (this.fg.controls.blank.value !== '') {
+      program.blank = this.fg.controls.blank.value;
+    }
+    this.programService.createProgram(program).subscribe(result => {
+      this.addingProgram = false;
+      this.pageTitle = 'Modifier un programme';
+      this.program.idProgram = result.idProgram;
+    });
+  }
+
+  public onSave(): void {
+    const program = new Program();
+    program.idProgram = this.program.idProgram;
+    program.name = this.fg.controls.name.value;
+    program.file = this.fg.controls.file.value;
+    if (this.fg.controls.machine.value !== '') {
+      program.machine = this.fg.controls.machine.value;
+    }
+    if (this.fg.controls.tool.value !== '') {
+      program.tool = this.fg.controls.tool.value;
+    }
+    if (this.fg.controls.blank.value !== '') {
+      program.blank = this.fg.controls.blank.value;
+    }
+    this.programService.updateProgram(program);
+  }
+
 
   private initFgEmpty(): void {
     this.fg = this.fb.group({
-      name: (this.fcName = new FormControl('')),
+      name: (this.fcName = new FormControl('', Validators.required)),
       file: (this.fcProgramme = new FormControl('')),
-      tool: (this.fcTool = new FormControl('', Validators.required)),
-      blank: (this.fcBlank = new FormControl('', Validators.required)),
-      machine: (this.fcMachine = new FormControl('', Validators.required))
+      tool: (this.fcTool = new FormControl('')),
+      blank: (this.fcBlank = new FormControl('')),
+      machine: (this.fcMachine = new FormControl(''))
     });
   }
 
@@ -91,7 +137,7 @@ export class ProgramComponent implements OnInit {
   }
 
   private initPage(): void {
-    const programId = +this.router.snapshot.paramMap.get('id');
+    const programId = +this.route.snapshot.paramMap.get('id');
     if (programId === 0) {
       this.pageTitle = 'Ajouter un programme';
       this.addingProgram = true;
@@ -104,7 +150,9 @@ export class ProgramComponent implements OnInit {
         if (this.program.file !== null) {
           this.fg.controls.file.setValue(this.program.file);
         }
-        this.fg.controls.tool.setValue(this.tools.find(t => t.idTool === this.program.tool.idTool));
+        if (this.program.tool !== null) {
+          this.fg.controls.tool.setValue(this.tools.find(t => t.idTool === this.program.tool.idTool));
+        }
         if (this.program.blank !== null) {
           this.fg.controls.blank.setValue(this.blanks.find(t => t.idBlank === this.program.blank.idBlank));
         }

@@ -4,7 +4,7 @@
 
   <div class="form-area">
     <div [formGroup]="fg">
-      <mat-form-field class="input">
+      <mat-form-field class="full-width-input">
         <input matInput placeholder="Nom" formControlName="name">
       </mat-form-field>
 
@@ -16,7 +16,7 @@
       </div>
 
       <div class="input-btn">
-        <mat-form-field class="input">
+        <mat-form-field class="full-width-input">
           <mat-label>Outil</mat-label>
           <mat-select formControlName="tool">
             <mat-option *ngFor="let tool of tools" [value]="tool">
@@ -24,11 +24,11 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <app-button [label]="'Créer un outil'" [style]="'primary'"></app-button>
+        <!-- <app-button [label]="'Créer un outil'" [style]="'primary'"></app-button> -->
       </div>
 
       <div class="input-btn">
-        <mat-form-field class="input">
+        <mat-form-field class="full-width-input">
           <mat-label>Tige de carbure</mat-label>
           <mat-select formControlName="blank">
             <mat-option *ngFor="let blank of blanks" [value]="blank">
@@ -36,10 +36,10 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <app-button [label]="'Créer une tige'" [style]="'primary'"></app-button>
+        <!-- <app-button [label]="'Créer une tige'" [style]="'primary'"></app-button> -->
       </div>
 
-      <mat-form-field class="input">
+      <mat-form-field class="full-width-input">
         <mat-label>Machine</mat-label>
         <mat-select formControlName="machine">
           <mat-option *ngFor="let machine of machines" [value]="machine">
@@ -51,7 +51,7 @@
     </div>
 
     <div *ngIf="addingProgram">
-      <app-button [label]="'Créer le program'" [style]="'primary'"></app-button>
+      <app-button [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()"></app-button>
     </div>
 
     <div *ngIf="!addingProgram" [formGroup]="clientFg">
@@ -67,7 +67,7 @@
         <app-button class="btn" [label]="'Ajouter un client'" [style]="'primary'" (clicked)="addClient()"></app-button>
       </div>
 
-      <div>
+      <div class="client-container">
         <div class="client-list" *ngFor="let client of program$ | async">
           <div>{{client.name}}</div>
           <mat-icon class="btn-delete" (click)="deleteClient(client.idClient)">delete</mat-icon>
@@ -75,10 +75,10 @@
       </div>
     </div>
 
-  </div>
+    <div class="btn-save" *ngIf="!addingProgram">
+      <app-button [label]="'Retour'" [style]="'secondary'" (clicked)="onReturn()"></app-button>
+      <app-button class="space-btn" [label]="'Sauvegarder'" [style]="'primary'" (clicked)="onSave()"></app-button>
+    </div>
 
-  <div class="side-area" *ngIf="!addingProgram">
-    <app-button [label]="'Retour'" [style]="'secondary'"></app-button>
-    <app-button class="space-btn" [label]="'Sauvegarder'" [style]="'primary'"></app-button>
   </div>
 </div>

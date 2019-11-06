@@ -1,9 +1,11 @@
+import { tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Program } from './../models/program.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class ProgramService {
   private programsList: Program[] = [];
   private programsListSubject: BehaviorSubject<Program[]> = new BehaviorSubject<Program[]>([]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   public programsList$(): Observable<Program[]> {
     return this.programsListSubject.asObservable();
@@ -32,12 +34,13 @@ export class ProgramService {
     return this.http.get<Program>('/v1/program/' + id.toString() + '/');
   }
 
-  public createProgram(program: Program): void {
-    this.http.post<Program>('/v1/program', program, this.httpOptions).subscribe(result => {
+  public createProgram(program: Program): Observable<Program> {
+    return this.http.post<Program>('/v1/program', program, this.httpOptions).pipe(tap(result => {
       program.idProgram = result.idProgram;
       this.programsList = [...this.programsList, program];
       this.programsListSubject.next(this.programsList);
-    });
+      this.router.navigate(['programs', result.idProgram]);
+    }));
   }
 
   public updateProgram(program: Program): void {
@@ -45,6 +48,7 @@ export class ProgramService {
       const index = this.programsList.findIndex(t => t.idProgram === program.idProgram);
       this.programsList[index] = program;
       this.programsListSubject.next(this.programsList);
+      this.router.navigate(['programs']);
     });
   }
 
@@ -56,7 +60,7 @@ export class ProgramService {
   }
 
   public addClientToProgram(idProg: number, idCli: number): Observable<any> {
-    return this.http.post<Program>('/v1/workSheetClientProgram', {idProgram: idProg, idClient: idCli}, this.httpOptions);
+    return this.http.post<Program>('/v1/workSheetClientProgram', { idProgram: idProg, idClient: idCli }, this.httpOptions);
   }
 
   public deleteClientOfProgram(idProgram: number, idClient: number): Observable<any> {

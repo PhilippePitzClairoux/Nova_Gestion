@@ -50,7 +50,7 @@ public class ProgramController {
     }
 
     @PutMapping("/v1/program")
-    public void updateProgram(@RequestBody @Valid Program program) {
+    public void updateProgram(@RequestBody @Validated Program program) {
         programService.updateProgram(program);
     }
 
