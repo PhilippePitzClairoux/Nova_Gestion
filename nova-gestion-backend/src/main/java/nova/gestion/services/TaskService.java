@@ -5,7 +5,6 @@ import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.TaskMapper;
 import nova.gestion.mappers.TaskTypeMapper;
 import nova.gestion.model.Task;
-import nova.gestion.model.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,7 @@ public class TaskService {
     }
 
     @Transactional
-    ArrayList<Task> getTasks(int idWorkSheet) {
+    public ArrayList<Task> getTasks(int idWorkSheet) {
         ArrayList<Task> values = taskMapper.getTaskByWorkSheetId(idWorkSheet);
 
         if (values.isEmpty())
@@ -35,7 +34,7 @@ public class TaskService {
     }
 
     @Transactional
-    int insertTask(Task task) {
+    public int insertTask(Task task) {
         if (task == null)
             throw new InvalidRequest("Missing parameters");
 
@@ -58,7 +57,7 @@ public class TaskService {
     }
 
     @Transactional
-    void updateTask(Task task) {
+    public void updateTask(Task task) {
         Task verifiedTask = taskMapper.getTask(task.getIdTask());
 
         if (task.getIdTask() == 0 || verifiedTask == null)
@@ -75,8 +74,7 @@ public class TaskService {
     }
 
     @Transactional
-    void deleteTask(int idTask) {
-
+    public void deleteTask(int idTask) {
         if (taskMapper.getTask(idTask) == null)
             throw new RessourceNotFound("Invalid idTask");
 
