@@ -4,7 +4,7 @@ import {WorksheetsListComponent} from './worksheets-list/worksheets-list.compone
 import {WorksheetsRoutingModule} from './worksheets-routing.module';
 import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule,
+  MatButtonModule, MatDatepickerModule,
   MatIconModule,
   MatInputModule,
   MatOptionModule,
@@ -33,7 +33,8 @@ import { WorksheetComponent } from './worksheet/worksheet.component';
     MatIconModule,
     MatButtonModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ]
 })
 export class WorksheetsModule {

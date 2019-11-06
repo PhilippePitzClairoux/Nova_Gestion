@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import * as config from '../../assets/config/config.json';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Worksheet} from '../models/worksheet';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,18 @@ export class WorksheetService {
     })
   };
 
-  constructor(private http: HttpClient) { }
-
-  getAll(): Observable<any> {
-    return this.http.get<any[]>(this.api + 'workSheets');
+  constructor(private http: HttpClient) {
   }
 
-  getOne(id: any) {
-    return this.http.get<any>(this.api + 'worksheet');
+  getAll(): Observable<Worksheet[]> {
+    return this.http.get<Worksheet[]>(this.api + 'workSheets');
+  }
+
+  getOne(id: any): Observable<Worksheet> {
+    return this.http.get<Worksheet>(this.api + 'worksheet');
+  }
+
+  update(newWorksheet: any): Observable<any> {
+    return this.http.put(this.api + 'workSheet', newWorksheet, this.httpOptions);
   }
 }
