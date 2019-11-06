@@ -124,4 +124,15 @@ public class WorkSheetService {
         }
     }
 
+    @Transactional
+    public void deleteWorkSheet(Integer idWorkSheet) {
+        WorkSheet loadWorkSheet = workSheetMapper.getWorkSheet(idWorkSheet);
+
+        if (loadWorkSheet == null)
+            throw new RessourceNotFound("Invalid idWorkSheet");
+
+        workSheetClientProgramMapper.deleteWorkSheetClientProgram(idWorkSheet);
+        workSheetMapper.deleteWorkSheet(idWorkSheet);
+    }
+
 }

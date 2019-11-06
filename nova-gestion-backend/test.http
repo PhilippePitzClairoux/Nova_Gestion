@@ -4,7 +4,7 @@ GET localhost:8080/v1/tool/1/
 ###
 GET localhost:8080/v1/client/1/
 ###
-GET localhost:8080/v1/workSheet/3/
+GET localhost:8080/v1/workSheet/5/
 ###
 GET localhost:8080/v1/workSheets
 ###
@@ -346,6 +346,9 @@ DELETE localhost:8080/v1/blank/2/
 ###
 DELETE localhost:8080/v1/client/2/
 ###
-DELETE localhost:8080/v1/workSheetClientProgram/2/2/
+DELETE localhost:8080/v1/workSheetClientProgram/1/4/
+
+###
+DELETE localhost:8080/v1/workSheet/5/
 
 ###

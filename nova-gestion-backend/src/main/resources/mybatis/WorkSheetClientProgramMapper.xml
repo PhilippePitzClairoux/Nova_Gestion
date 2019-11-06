@@ -57,4 +57,8 @@
             id_client = #{idClient}
         WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
     </update>
+
+    <delete id="deleteWorkSheetClientProgram" parameterType="int">
+        DELETE FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </delete>
 </mapper>
