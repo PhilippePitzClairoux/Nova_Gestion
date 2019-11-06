@@ -19,12 +19,6 @@
 
     </resultMap>
 
-    <select id="getWorkSheetClientProgram" parameterType="int" resultMap="WorkSheetClientProgramMap">
-        SELECT id_program, id_client
-        FROM `nova_gestion`.`ta_work_sheet_client_program`
-        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_ta_work_sheet_client_program = #{idTaWorkSheetClientProgram};
-    </select>
-
     <insert id="insertProgramClient">
         INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_client)
         VALUES (#{idProgram}, #{idClient});
@@ -42,7 +36,29 @@
         WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram};
     </select>
 
+    <select id="getWorkSheetClientProgram" resultMap="WorkSheetClientProgramMap">
+        SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program`
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </select>
+    <select id="getAllWorkSheetClientPrograms" resultMap="WorkSheetClientProgramMap">
+        SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE id_work_sheet IS NOT NULL ;
+    </select>
     <delete id="deleteProgramClient">
         DELETE FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram} AND `nova_gestion`.`ta_work_sheet_client_program`.id_client = #{idClient};
      </delete>
+
+    <insert id="insertWorkSheetClientProgram">
+        INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_work_sheet, id_client)
+        VALUES (#{idProgram}, #{idWorkSheet}, #{idClient});
+    </insert>
+    <update id="updateWorkSheetClientProgram">
+        UPDATE `nova_gestion`.`ta_work_sheet_client_program` SET
+            id_program = #{idProgram},
+            id_client = #{idClient}
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </update>
+
+    <delete id="deleteWorkSheetClientProgram" parameterType="int">
+        DELETE FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </delete>
 </mapper>
