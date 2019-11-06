@@ -6,6 +6,9 @@
     <div [formGroup]="fg">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Nom" formControlName="name">
+        <mat-error *ngIf="fcName.invalid">
+          Un nom de programme est requis.
+        </mat-error>
       </mat-form-field>
 
       <div class="input-btn">
@@ -46,11 +49,14 @@
             {{machine.name}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="fcName.invalid">
+            Une machine est requise.
+          </mat-error>
       </mat-form-field>
 
     </div>
 
-    <div *ngIf="addingProgram">
+    <div class="btn-save" *ngIf="addingProgram">
       <app-button [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()"></app-button>
     </div>
 

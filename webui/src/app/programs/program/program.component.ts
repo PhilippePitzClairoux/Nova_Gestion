@@ -62,10 +62,8 @@ export class ProgramComponent implements OnInit {
     this.programService.addClientToProgram(this.program.idProgram, this.clientFg.controls.client.value.idClient).subscribe(result => {
       if (this.program.clients === undefined) {
         this.program.clients = [];
-        this.program.clients = [...this.program.clients, this.clientFg.controls.client.value];
-      } else {
-        this.program.clients = [...this.program.clients, this.clientFg.controls.client.value];
       }
+      this.program.clients = [...this.program.clients, this.clientFg.controls.client.value];
       this.programSubject.next(this.program.clients);
     });
   }
@@ -82,6 +80,10 @@ export class ProgramComponent implements OnInit {
   }
 
   public onCreate(): void {
+    if (this.fg.invalid) {
+      this.validateAllFields(this.fg);
+      return;
+    }
     const program = new Program();
     program.name = this.fg.controls.name.value;
     program.file = this.fg.controls.file.value;
@@ -102,6 +104,10 @@ export class ProgramComponent implements OnInit {
   }
 
   public onSave(): void {
+    if (this.fg.invalid) {
+      this.validateAllFields(this.fg);
+      return;
+    }
     const program = new Program();
     program.idProgram = this.program.idProgram;
     program.name = this.fg.controls.name.value;
@@ -121,11 +127,11 @@ export class ProgramComponent implements OnInit {
 
   private initFgEmpty(): void {
     this.fg = this.fb.group({
-      name: (this.fcName = new FormControl('', Validators.required)),
+      name: (this.fcName = new FormControl('', [Validators.required, Validators.minLength(1)])),
       file: (this.fcProgramme = new FormControl('')),
       tool: (this.fcTool = new FormControl('')),
       blank: (this.fcBlank = new FormControl('')),
-      machine: (this.fcMachine = new FormControl(''))
+      machine: (this.fcMachine = new FormControl('', Validators.required))
     });
   }
 
@@ -161,5 +167,16 @@ export class ProgramComponent implements OnInit {
         }
       });
     }
+  }
+
+  private validateAllFields(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control);
+      }
+    });
   }
 }
