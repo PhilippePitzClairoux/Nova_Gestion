@@ -117,7 +117,7 @@
           <mat-cell *matCellDef="let row" class="column">
             <div *ngIf="selectedIndex !== row.idTask">{{row.startTime | date:'h:mm a'}}</div>
             <div *ngIf="selectedIndex === row.idTask">
-              <input [ngxTimepicker]="start" [(ngModel)]="startTime" value="{{row.startTime | date:'h:mm a'}}">
+              <input [ngxTimepicker]="start" value="{{row.startTime | date:'h:mm a'}}" [(ngModel)]="startTime">
               <ngx-material-timepicker #start></ngx-material-timepicker>
             </div>
           </mat-cell>
@@ -129,7 +129,7 @@
           <mat-cell *matCellDef="let row" class="column">
             <div *ngIf="selectedIndex !== row.idTask">{{row.endTime | date:'h:mm a'}}</div>
             <div *ngIf="selectedIndex === row.idTask">
-              <input [ngxTimepicker]="end" [(ngModel)]="endTime" value="{{row.endTime | date:'h:mm a'}}">
+              <input [ngxTimepicker]="end" value="{{row.endTime | date:'h:mm a'}}" [(ngModel)]="endTime">
               <ngx-material-timepicker #end></ngx-material-timepicker>
             </div>
           </mat-cell>

@@ -39,8 +39,8 @@ export class WorksheetComponent implements OnInit {
   dataSource: MatTableDataSource<Task>;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   selectedIndex: number;
-  endTime: string;
-  startTime: string;
+  startTime: any;
+  endTime: any;
 
   constructor(public dialog: MatDialog,
               private route: ActivatedRoute,
@@ -81,15 +81,16 @@ export class WorksheetComponent implements OnInit {
     this.worksheetService.getOne(this.id).subscribe(res => {
       this.worksheet = res;
       this.taskService.getWorksheetTasks(this.worksheet.idWorkSheet).subscribe(tasks => {
-        this.worksheet.tasks = tasks;
-        this.worksheet.tasks.forEach(task => {
-          const start = new Date(task.startTime);
-          const end = new Date(task.endTime);
-          task.duration = end.getTime() - start.getTime();
+          this.worksheet.tasks = tasks;
+          console.log(tasks);
+          this.worksheet.tasks.forEach(task => {
+            const start = new Date(task.startTime);
+            const end = new Date(task.endTime);
+            task.duration = end.getTime() - start.getTime();
+          });
+          this.dataSource = new MatTableDataSource(this.worksheet.tasks);
+          this.dataSource.sort = this.sort;
         });
-        this.dataSource = new MatTableDataSource(this.worksheet.tasks);
-        this.dataSource.sort = this.sort;
-      });
       this.setValues();
     });
   }
@@ -267,6 +268,7 @@ export class WorksheetComponent implements OnInit {
 
   updateTask(task: Task) {
     this.selectedIndex = null;
+    console.log(this.startTime);
     task.endTime = new Date();
     task.startTime = new Date();
 
