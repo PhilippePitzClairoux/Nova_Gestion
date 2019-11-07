@@ -2,8 +2,8 @@ import { Client } from './../models/client';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import * as config from '../../assets/config/config.json';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

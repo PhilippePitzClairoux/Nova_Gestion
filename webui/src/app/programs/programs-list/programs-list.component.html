@@ -1,0 +1,65 @@
+<app-header [title]="'Gestion des programmes'"></app-header>
+<div class="page-container">
+  <div class="research-container">
+    <mat-form-field class="search-content">
+      <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
+        (keyup)="applyFilter()">
+      <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="search-select-group" [formGroup]="fg">
+      <mat-form-field class="search-select">
+        <mat-label>Client</mat-label>
+        <mat-select formControlName="client" (selectionChange)="applyFilter()">
+          <mat-option *ngFor="let client of clients" [value]="client">
+            {{client.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="search-select">
+        <mat-label>Machine</mat-label>
+        <mat-select formControlName="machine" (selectionChange)="applyFilter()">
+          <mat-option id="test" *ngFor="let machine of machines" [value]="machine">
+            {{machine.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <app-button [label]="'Ajouter un programme'" [style]="'primary'" (clicked)="onAdd()"></app-button>
+  </div>
+
+
+  <div class="list-container">
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">NOM</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="machine">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">MACHINE</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.machine.name | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="tool">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">OUTIL</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{(row?.tool?.name || '') | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="controls">
+          <mat-icon class="btn-edit" (click)="onEdit(row.idProgram)">edit</mat-icon>
+          <mat-icon class="btn-delete" (click)="onDelete(row.idProgram)">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'machine', 'tool', 'controls']" class="header"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'machine', 'tool', 'controls'];"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  </div>
+</div>
