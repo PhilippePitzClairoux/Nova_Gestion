@@ -6,6 +6,8 @@ import {Client} from '../../models/client';
 import {ClientService} from '../../services/client.service';
 import {Machine} from '../../models/machine';
 import {Worksheet} from '../../models/worksheet';
+import {Status} from '../../models/status';
+import {StatusService} from '../../services/status.service';
 
 @Component({
   selector: 'app-worksheet',
@@ -18,17 +20,20 @@ export class WorksheetComponent implements OnInit {
   worksheet: Worksheet;
   clients: Client[] = [];
   programs: any[] = [];
+  status: Status[] = [];
 
   constructor(private route: ActivatedRoute,
               private worksheetService: WorksheetService,
               private router: Router,
-              private clientService: ClientService) {
+              private clientService: ClientService,
+              private statusService: StatusService) {
   }
 
   ngOnInit() {
     this.initializeForm();
     this.getClients();
     this.getPrograms();
+    this.getStatus();
     this.route.params.subscribe(params => {
       if (params.id) {
         this.id = params.id;
@@ -61,6 +66,13 @@ export class WorksheetComponent implements OnInit {
   }
 
   private getPrograms() {
+  }
+
+  private getStatus() {
+    this.statusService.getAll().subscribe(status => {
+      this.status = status;
+      console.log(status);
+    });
   }
 
   cancel() {
@@ -99,10 +111,11 @@ export class WorksheetComponent implements OnInit {
     newWorksheet.quantity = controls.quantity.value;
     newWorksheet.dueDate = controls.dueDate.value;
     newWorksheet.dateCreation = new Date();
+    newWorksheet.status = this.status.find(x => x.name === 'En attente');
   }
 
   private update(newWorksheet: Worksheet) {
-    this.worksheetService.update(newWorksheet).subscribe(res => {
+    this.worksheetService.add(newWorksheet).subscribe(res => {
       this.router.navigate(['worksheets']);
     });
   }

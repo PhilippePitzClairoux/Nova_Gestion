@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import * as config from '../../assets/config/config.json';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Worksheet} from '../models/worksheet';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +23,14 @@ export class WorksheetService {
   }
 
   getOne(id: any): Observable<Worksheet> {
-    return this.http.get<Worksheet>(this.api + 'worksheet');
+    return this.http.get<Worksheet>(this.api + 'workSheet');
   }
 
-  update(newWorksheet: any): Observable<any> {
+  update(newWorksheet: Worksheet): Observable<any> {
     return this.http.put(this.api + 'workSheet', newWorksheet, this.httpOptions);
+  }
+
+  add(newWorksheet: Worksheet): Observable<any> {
+    return this.http.post(this.api + 'workSheet', newWorksheet, this.httpOptions);
   }
 }
