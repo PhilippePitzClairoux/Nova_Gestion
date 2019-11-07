@@ -16,7 +16,7 @@
         <result column="start_time" javaType="java.sql.Date" property="startTime"/>
         <result column="end_time" javaType="java.sql.Date" property="endTime"/>
 
-        <association column="id_task_type" property="idTaskType" javaType="nova.gestion.model.TaskType"
+        <association column="id_task_type" property="taskType" javaType="nova.gestion.model.TaskType"
                      select="nova.gestion.mappers.TaskTypeMapper.getTaskTypeById" />
     </resultMap>
 

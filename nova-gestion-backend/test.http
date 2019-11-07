@@ -4,7 +4,7 @@ GET localhost:8080/v1/tool/1/
 ###
 GET localhost:8080/v1/client/1/
 ###
-GET localhost:8080/v1/workSheet/5/
+GET localhost:8080/v1/workSheet/2/
 ###
 GET localhost:8080/v1/workSheets
 ###
@@ -14,8 +14,7 @@ GET localhost:8080/v1/machine/1/
 ###
 GET localhost:8080/v1/program/6/
 
-###
-GET localhost:8080/v1/workSheets
+
 ###
 GET localhost:8080/v1/programs
 ###
@@ -38,11 +37,21 @@ GET localhost:8080/v1/grades
 GET localhost:8080/v1/coolantholetypes
 
 ###
+POST localhost:8080/v1/task
+Content-Type: application/json
+
+{
+  "idWorkSheet": 1,
+  "taskType": {
+    "idTaskType": 2
+  }}
+
+###
 POST localhost:8080/v1/program
 Content-Type: application/json
 
 {
-  "name": "nom du dernier test",
+  "name": "name",
   "file": "..path/dossier/fichier.exe",
   "machine": {
     "idMachine": 2
