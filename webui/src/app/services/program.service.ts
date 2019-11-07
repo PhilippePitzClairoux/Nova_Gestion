@@ -6,11 +6,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Program } from './../models/program.model';
 import { Router } from '@angular/router';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgramService {
+  api = config.apiUrl;
 
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
@@ -24,18 +26,18 @@ export class ProgramService {
   }
 
   public getAllProgram(): void {
-    this.http.get<Program[]>('/v1/programs').subscribe(result => {
+    this.http.get<Program[]>(this.api + 'programs').subscribe(result => {
       this.programsList = result;
       this.programsListSubject.next(this.programsList);
     });
   }
 
   public getProgramById(id: number): Observable<Program> {
-    return this.http.get<Program>('/v1/program/' + id.toString() + '/');
+    return this.http.get<Program>(this.api + 'program/' + id.toString() + '/');
   }
 
   public createProgram(program: Program): Observable<Program> {
-    return this.http.post<Program>('/v1/program', program, this.httpOptions).pipe(tap(result => {
+    return this.http.post<Program>(this.api + 'program', program, this.httpOptions).pipe(tap(result => {
       program.idProgram = result.idProgram;
       this.programsList = [...this.programsList, program];
       this.programsListSubject.next(this.programsList);
@@ -44,7 +46,7 @@ export class ProgramService {
   }
 
   public updateProgram(program: Program): void {
-    this.http.put<Program>('/v1/program', program, this.httpOptions).subscribe(() => {
+    this.http.put<Program>(this.api + 'program', program, this.httpOptions).subscribe(() => {
       const index = this.programsList.findIndex(t => t.idProgram === program.idProgram);
       this.programsList[index] = program;
       this.programsListSubject.next(this.programsList);
@@ -53,17 +55,17 @@ export class ProgramService {
   }
 
   public deleteProgram(id: number): void {
-    this.http.delete<Program>('/v1/program/' + id.toString() + '/').subscribe(() => {
+    this.http.delete<Program>(this.api + 'program/' + id.toString() + '/').subscribe(() => {
       this.programsList = this.programsList.filter(t => t.idProgram !== id);
       this.programsListSubject.next(this.programsList);
     });
   }
 
   public addClientToProgram(idProg: number, idCli: number): Observable<any> {
-    return this.http.post<Program>('/v1/workSheetClientProgram', { idProgram: idProg, idClient: idCli }, this.httpOptions);
+    return this.http.post<Program>(this.api + 'workSheetClientProgram', { idProgram: idProg, idClient: idCli }, this.httpOptions);
   }
 
   public deleteClientOfProgram(idProgram: number, idClient: number): Observable<any> {
-    return this.http.delete<Program>('/v1/workSheetClientProgram/' + idProgram.toString() + '/' + idClient.toString() + '/');
+    return this.http.delete<Program>(this.api + 'workSheetClientProgram/' + idProgram.toString() + '/' + idClient.toString() + '/');
   }
 }
