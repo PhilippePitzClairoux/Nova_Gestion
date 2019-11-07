@@ -3,12 +3,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  api = '/v1/';
+  api = config.apiUrl;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
