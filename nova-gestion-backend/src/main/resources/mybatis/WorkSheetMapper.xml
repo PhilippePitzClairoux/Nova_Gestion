@@ -20,6 +20,10 @@
 
         <association column="id_status" property="status" javaType="nova.gestion.model.Status"
                      select="nova.gestion.mappers.StatusMapper.getStatus"/>
+
+        <collection column="id_work_sheet" property="tasks" javaType="ArrayList"
+                    select="nova.gestion.mappers.TaskMapper.getTaskByWorkSheetId"/>
+
     </resultMap>
 
     <select id="getWorkSheet" parameterType="int" resultMap="WorkSheetMap">
