@@ -1,5 +1,6 @@
 import {Client} from './client';
 import {Status} from './status';
+import {Program} from './program.model';
 
 export class Worksheet {
   public idWorkSheet: number;
@@ -9,5 +10,5 @@ export class Worksheet {
   public dateCreation: Date;
   public client: Client;
   public status: Status;
-  //public program: Program;
+  public program: Program;
 }

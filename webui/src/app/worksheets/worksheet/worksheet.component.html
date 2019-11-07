@@ -21,18 +21,36 @@
               {{client.name}}
             </mat-option>
           </mat-select>
+          <mat-error
+            *ngIf="worksheetForm.controls.client.hasError('required')">
+            Un client est requis.
+          </mat-error>
         </mat-form-field>
       </div>
 
 
       <mat-form-field class="full-width">
         <mat-label>Programme</mat-label>
-        <mat-select formControlName="program">
+        <mat-select formControlName="program" (valueChange)="setInfoProgram($event)">
           <mat-option *ngFor="let program of programs" [value]="program">
             {{program.name}}
           </mat-option>
         </mat-select>
+        <mat-error
+          *ngIf="worksheetForm.controls.program.hasError('required')">
+          Un programme est requis.
+        </mat-error>
       </mat-form-field>
+
+      <div class="two-items">
+        <mat-form-field class="mid">
+          <input matInput placeholder="Machine" formControlName="machine">
+        </mat-form-field>
+
+        <mat-form-field class="mid">
+          <input matInput placeholder="Outil" formControlName="tool">
+        </mat-form-field>
+      </div>
 
       <div class="two-items">
         <mat-form-field class="mid">

@@ -16,6 +16,7 @@ import {UserComponent} from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {MachinesModule} from './machines/machines.module';
 import {WorksheetsModule} from './worksheets/worksheets.module';
+import {ProgramsModule} from './programs/programs.module';
 
 
 @NgModule({

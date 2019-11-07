@@ -22,8 +22,8 @@ export class WorksheetService {
     return this.http.get<Worksheet[]>(this.api + 'workSheets');
   }
 
-  getOne(id: any): Observable<Worksheet> {
-    return this.http.get<Worksheet>(this.api + 'workSheet');
+  getOne(id: number): Observable<Worksheet> {
+    return this.http.get<Worksheet>(this.api + 'workSheet/' + id);
   }
 
   update(newWorksheet: Worksheet): Observable<any> {
@@ -32,5 +32,9 @@ export class WorksheetService {
 
   add(newWorksheet: Worksheet): Observable<any> {
     return this.http.post(this.api + 'workSheet', newWorksheet, this.httpOptions);
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(this.api + 'workSheet/' + id);
   }
 }

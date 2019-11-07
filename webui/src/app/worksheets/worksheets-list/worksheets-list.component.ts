@@ -3,6 +3,7 @@ import {WorksheetService} from '../../services/worksheet.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import {Router} from '@angular/router';
+import {Worksheet} from '../../models/worksheet';
 
 @Component({
   selector: 'app-worksheets-list',
@@ -13,8 +14,8 @@ import {Router} from '@angular/router';
 export class WorksheetsListComponent implements OnInit {
   private worksheets: any;
   searchField = '';
-  displayedColumns = ['id', 'client', 'order', 'dueDate', 'status'];
-  dataSource: MatTableDataSource<any>;
+  displayedColumns = ['idWorkSheet', 'client', 'order', 'dueDate', 'status', 'controls'];
+  dataSource: MatTableDataSource<Worksheet>;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -25,9 +26,24 @@ export class WorksheetsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.worksheetService.getAll().subscribe(res => {
-      this.worksheets = res;
-      console.log(res);
+    this.getWorksheets();
+  }
+
+  private getWorksheets() {
+    this.worksheetService.getAll().subscribe(worksheets => {
+      this.dataSource = new MatTableDataSource(worksheets);
+      this.worksheets = worksheets;
+      this.dataSource.filterPredicate = (data, filter: string) => {
+        const accumulator = (currentTerm, key) => {
+          return key === 'client' ? currentTerm + data.client.name : currentTerm + data[key] ||
+            key === 'status' ? currentTerm + data.status.name : currentTerm + data[key];
+        };
+        const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+        const transformedFilter = filter.trim().toLowerCase();
+        return dataStr.indexOf(transformedFilter) !== -1;
+      };
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -49,7 +65,9 @@ export class WorksheetsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('delete');
+        this.worksheetService.delete(id).subscribe(() => {
+          this.getWorksheets();
+        });
       }
     });
   }
