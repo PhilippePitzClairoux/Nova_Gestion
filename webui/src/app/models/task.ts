@@ -5,4 +5,6 @@ export class Task {
   startTime: Date;
   endTime: Date;
   taskType: TaskType;
+  idWorkSheet: number;
+  duration: number;
 }

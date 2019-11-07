@@ -1,5 +1,6 @@
 package nova.gestion.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class Task {
     private Date startTime;
     private Date endTime;
 
+    @JsonCreator
     public Task(int idTask, int idWorkSheet, Date startTime, Date endTime)
     {
         this.idTask = idTask;

@@ -13,7 +13,9 @@ import {
   MatTableModule
 } from '@angular/material';
 import {SharedModule} from '../shared/shared.module';
-import { WorksheetComponent } from './worksheet/worksheet.component';
+import {WorksheetComponent} from './worksheet/worksheet.component';
+import {NgxTimerModule} from 'ngx-timer';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { WorksheetComponent } from './worksheet/worksheet.component';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    NgxTimerModule,
+    NgxMaterialTimepickerModule
   ]
 })
 export class WorksheetsModule {

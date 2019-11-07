@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WorksheetService} from '../../services/worksheet.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -12,6 +12,10 @@ import {tap} from 'rxjs/operators';
 import {Program} from '../../models/program.model';
 import {TaskType} from '../../models/task-type';
 import {TaskService} from '../../services/task.service';
+import {countUpTimerConfigModel, CountupTimerService, timerTexts} from 'ngx-timer';
+import {Task} from 'src/app/models/task';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
+import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-worksheet',
@@ -27,17 +31,30 @@ export class WorksheetComponent implements OnInit {
   programs: Program[] = [];
   status: Status[] = [];
   taskTypes: TaskType[] = [];
+  timerConfig: countUpTimerConfigModel;
+  task: Task;
+  timerRunning = false;
 
-  constructor(private route: ActivatedRoute,
+  displayedColumns = ['taskType', 'employee', 'start', 'end', 'duration', 'controls'];
+  dataSource: MatTableDataSource<Task>;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  selectedIndex: number;
+  endTime: string;
+  startTime: string;
+
+  constructor(public dialog: MatDialog,
+              private route: ActivatedRoute,
               private worksheetService: WorksheetService,
               private router: Router,
               private clientService: ClientService,
               private programService: ProgramService,
               private taskService: TaskService,
-              private statusService: StatusService) {
+              private statusService: StatusService,
+              private timerService: CountupTimerService) {
   }
 
   ngOnInit() {
+    this.configurationTimer();
     this.initializeForm();
     this.getClients();
     this.getStatus();
@@ -63,6 +80,16 @@ export class WorksheetComponent implements OnInit {
   private getWorksheet() {
     this.worksheetService.getOne(this.id).subscribe(res => {
       this.worksheet = res;
+      this.taskService.getWorksheetTasks(this.worksheet.idWorkSheet).subscribe(tasks => {
+        this.worksheet.tasks = tasks;
+        this.worksheet.tasks.forEach(task => {
+          const start = new Date(task.startTime);
+          const end = new Date(task.endTime);
+          task.duration = end.getTime() - start.getTime();
+        });
+        this.dataSource = new MatTableDataSource(this.worksheet.tasks);
+        this.dataSource.sort = this.sort;
+      });
       this.setValues();
     });
   }
@@ -178,5 +205,75 @@ export class WorksheetComponent implements OnInit {
     this.taskService.getAllTypes().subscribe(types => {
       this.taskTypes = types;
     });
+  }
+
+  start() {
+    this.timerRunning = true;
+    const date = new Date();
+    this.task = new Task();
+    this.task.startTime = date;
+    date.setHours(date.getHours());
+    this.timerService.startTimer(date);
+  }
+
+  private stop() {
+    this.timerRunning = false;
+    this.task.endTime = new Date();
+    this.task.idWorkSheet = this.worksheet.idWorkSheet;
+    this.timerService.stopTimer();
+    this.worksheet.tasks.push(this.task);
+  }
+
+  private configurationTimer() {
+    this.timerConfig = new countUpTimerConfigModel();
+    this.timerConfig.timerClass = 'timer';
+    this.timerConfig.timerTexts = new timerTexts();
+    this.timerConfig.timerTexts.hourText = ':';
+    this.timerConfig.timerTexts.minuteText = ':';
+    this.timerConfig.timerTexts.secondsText = ' ';
+  }
+
+  saveTask() {
+    if (this.taskForm.valid) {
+      if (this.taskForm.dirty) {
+        this.stop();
+        this.task.taskType = this.taskForm.controls.taskType.value;
+        this.taskService.add(this.task).subscribe();
+        this.getWorksheet();
+      }
+    } else {
+      this.validateAllFields(this.taskForm);
+    }
+  }
+
+  deleteTask(idTask: number) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: 'Êtes-vous sûr de vouloir supprimer cette tâche?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskService.delete(idTask).subscribe(res => {
+          this.getWorksheet();
+        });
+      }
+    });
+  }
+
+  editTask(task: Task) {
+    this.selectedIndex = task.idTask;
+    this.endTime = task.endTime.getTime().toString();
+  }
+
+  updateTask(task: Task) {
+    this.selectedIndex = null;
+    task.endTime = new Date();
+    task.startTime = new Date();
+    console.log(this.endTime);
+
+    /*this.taskService.update(task).subscribe(res => {
+      this.getWorksheet();
+    });*/
   }
 }
