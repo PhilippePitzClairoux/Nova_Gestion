@@ -4,14 +4,13 @@ import nova.gestion.model.Task;
 import nova.gestion.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class TaskController {
 
