@@ -7,10 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
-@Controller
+@RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class TaskTypeController {
 
@@ -21,7 +22,7 @@ public class TaskTypeController {
         this.taskTypeService = taskTypeService;
     }
 
-    @GetMapping("/v1/taskTypes")
+    @GetMapping("/v1/tasktypes")
     public ArrayList<TaskType> getTaskTypes() {
         return taskTypeService.getAllTaskTypes();
     }
