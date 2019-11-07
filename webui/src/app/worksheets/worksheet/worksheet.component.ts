@@ -268,7 +268,6 @@ export class WorksheetComponent implements OnInit {
 
   updateTask(task: Task) {
     this.selectedIndex = null;
-    console.log(this.startTime);
     task.endTime = new Date();
     task.startTime = new Date();
 
