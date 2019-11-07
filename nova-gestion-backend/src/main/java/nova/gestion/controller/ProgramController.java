@@ -43,14 +43,14 @@ public class ProgramController {
     }
 
     @PostMapping("/v1/workSheetClientProgram")
-    public Map<String, Integer> createProgramClient(@RequestBody @Validated WorkSheetClientProgram workSheetClientProgram) {
+    public void createProgramClient(@RequestBody @Validated WorkSheetClientProgram workSheetClientProgram) {
 
         Integer id = programService.createProgramClient(workSheetClientProgram);
-        return Map.of("idTaWorkSheetClientProgram", 0);
+        //return Map.of("idTaWorkSheetClientProgram", id);
     }
 
     @PutMapping("/v1/program")
-    public void updateProgram(@RequestBody @Valid Program program) {
+    public void updateProgram(@RequestBody @Validated Program program) {
         programService.updateProgram(program);
     }
 

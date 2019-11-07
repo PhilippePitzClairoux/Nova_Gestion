@@ -9,15 +9,16 @@ import java.sql.Date;
 @AllArgsConstructor
 public class Task {
     private int idTask;
+    private int idWorkSheet;
     private TaskType taskType;
-    private WorkSheet workSheet;
     private Date startTime;
     private Date endTime;
 
-    public Task(int idTask, Date startTime, Date endTime)
+    public Task(int idTask, int idWorkSheet, Date startTime, Date endTime)
     {
         this.idTask = idTask;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.idWorkSheet = idWorkSheet;
     }
 }

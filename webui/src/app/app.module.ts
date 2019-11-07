@@ -33,6 +33,8 @@ import {WorksheetsModule} from './worksheets/worksheets.module';
     SharedModule,
     InventoryModule,
     ClientsModule,
+    MachinesModule,
+    ProgramsModule,
     MatIconModule,
     SharedModule,
     AppRoutingModule,
@@ -49,5 +51,4 @@ import {WorksheetsModule} from './worksheets/worksheets.module';
     UserComponent
   ]
 })
-export class AppModule {
-}
+export class AppModule { }
