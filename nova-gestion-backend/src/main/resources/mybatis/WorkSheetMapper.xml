@@ -20,6 +20,10 @@
 
         <association column="id_status" property="status" javaType="nova.gestion.model.Status"
                      select="nova.gestion.mappers.StatusMapper.getStatus"/>
+
+        <collection column="id_work_sheet" property="tasks" javaType="ArrayList"
+                    select="nova.gestion.mappers.TaskMapper.getTaskByWorkSheetId"/>
+
     </resultMap>
 
     <select id="getWorkSheet" parameterType="int" resultMap="WorkSheetMap">
@@ -45,4 +49,8 @@
         <if test="orderNumber != null"> order_number = #{orderNumber}</if>
         WHERE id_work_sheet = #{idWorkSheet};
     </update>
+
+    <delete id="deleteWorkSheet" parameterType="int">
+        DELETE FROM `nova_gestion`.`work_sheet` WHERE `nova_gestion`.`work_sheet`.id_work_sheet = #{idWorkSheet};
+    </delete>
 </mapper>

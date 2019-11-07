@@ -24,9 +24,9 @@ public class WorkSheetController {
         this.workSheetService = workSheetService;
     }
 
-    @GetMapping("/v1/workSheet/{idWorkSheet}/{idProgram}/{idClient}/")
-    public WorkSheet getWorkSheet(@PathVariable @Validated Integer idWorkSheet, @PathVariable @Validated Integer idProgram,@PathVariable @Validated Integer idClient) {
-        return  workSheetService.getWorkSheet(idWorkSheet, idProgram, idClient);
+    @GetMapping("/v1/workSheet/{idWorkSheet}/")
+    public WorkSheet getWorkSheet(@PathVariable @Validated Integer idWorkSheet) {
+        return  workSheetService.getWorkSheet(idWorkSheet);
     }
 
     @GetMapping("/v1/workSheets")
@@ -43,6 +43,11 @@ public class WorkSheetController {
     @PutMapping("/v1/workSheet")
     public void updateWorkSheet(@RequestBody @Validated WorkSheet workSheet) {
         workSheetService.updateWorkSheet(workSheet);
+    }
+
+    @DeleteMapping("/v1/workSheet/{idWorkSheet}/")
+    public void deleteWorkSheet(@PathVariable @Validated Integer idWorkSheet) {
+         workSheetService.deleteWorkSheet(idWorkSheet);;
     }
 
 }

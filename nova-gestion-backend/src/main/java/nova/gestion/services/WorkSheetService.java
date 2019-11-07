@@ -45,7 +45,7 @@ public class WorkSheetService {
         for (int i = 0; i < workSheetClientPrograms.size(); i++){
             WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheetClientPrograms.get(i).getIdWorkSheet());
 
-            workSheet = setClientProgramWorkSheet(workSheet, workSheetClientPrograms.get(i).getIdProgram(), workSheetClientPrograms.get(i).getIdClient());
+            workSheet = setClientProgramWorkSheet(workSheet);
 
             workSheets.add(workSheet);
         }
@@ -54,16 +54,16 @@ public class WorkSheetService {
     }
 
     @Transactional
-    public WorkSheet getWorkSheet(Integer idWorkSheet, Integer idProgram, Integer idClient){
+    public WorkSheet getWorkSheet(Integer idWorkSheet){
         WorkSheet workSheet = workSheetMapper.getWorkSheet(idWorkSheet);
         if (workSheet == null || idWorkSheet == 0)
             throw new RessourceNotFound("workSheet does not exist");
-        workSheet = setClientProgramWorkSheet(workSheet, idProgram, idClient);
+        workSheet = setClientProgramWorkSheet(workSheet);
         return  workSheet;
     }
 
-    private WorkSheet setClientProgramWorkSheet(WorkSheet workSheet, Integer idProgram, Integer idClient){
-        WorkSheetClientProgram workSheetClientProgram = workSheetClientProgramMapper.getWorkSheetClientProgram(workSheet.getIdWorkSheet(), idProgram, idClient);
+    private WorkSheet setClientProgramWorkSheet(WorkSheet workSheet){
+        WorkSheetClientProgram workSheetClientProgram = workSheetClientProgramMapper.getWorkSheetClientProgram(workSheet.getIdWorkSheet());
         Client client = clientMapper.getClient(workSheetClientProgram.getIdClient());
         Program program = programMapper.getProgram(workSheetClientProgram.getIdProgram());
 
@@ -120,7 +120,19 @@ public class WorkSheetService {
 
         if (workSheet.getOrderNumber() != null || workSheet.getClient() != null || workSheet.getProgram() != null || workSheet.getStatus() != null || workSheet.getDueDate() != null){
             workSheetMapper.updateWorkSheet(workSheet);
+            workSheetClientProgramMapper.updateWorkSheetClientProgram(workSheet.getIdWorkSheet(), workSheet.getProgram().getIdProgram(), workSheet.getClient().getIdClient());
         }
+    }
+
+    @Transactional
+    public void deleteWorkSheet(Integer idWorkSheet) {
+        WorkSheet loadWorkSheet = workSheetMapper.getWorkSheet(idWorkSheet);
+
+        if (loadWorkSheet == null)
+            throw new RessourceNotFound("Invalid idWorkSheet");
+
+        workSheetClientProgramMapper.deleteWorkSheetClientProgram(idWorkSheet);
+        workSheetMapper.deleteWorkSheet(idWorkSheet);
     }
 
 }

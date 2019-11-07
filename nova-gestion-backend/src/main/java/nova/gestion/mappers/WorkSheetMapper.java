@@ -17,4 +17,6 @@ public interface WorkSheetMapper {
     void insertWorkSheet(WorkSheet workSheet);
 
     void updateWorkSheet(WorkSheet workSheet);
+
+    void deleteWorkSheet(int idWorkSheet);
 }

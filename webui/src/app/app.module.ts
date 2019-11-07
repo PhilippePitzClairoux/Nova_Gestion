@@ -34,12 +34,11 @@ import {MachinesModule} from './machines/machines.module';
     SharedModule,
     InventoryModule,
     ClientsModule,
+    MachinesModule,
+    ProgramsModule,
     MatIconModule,
     SharedModule,
     AppRoutingModule,
-    MatIconModule,
-    AppRoutingModule,
-    MachinesModule
   ],
   providers: [],
   bootstrap: [
@@ -49,5 +48,4 @@ import {MachinesModule} from './machines/machines.module';
     UserComponent
   ]
 })
-export class AppModule {
-}
+export class AppModule { }
