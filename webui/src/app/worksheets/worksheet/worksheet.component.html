@@ -71,4 +71,24 @@
       <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="save()" class="right-button"></app-button>
     </div>
   </div>
+
+  <div class="tasks-container">
+    <div class="new-timer">
+      <div class="title">Chronomètre</div>
+      <form class="new-task" [formGroup]="taskForm">
+        <mat-form-field class="mid">
+          <mat-label>Tâche</mat-label>
+          <mat-select formControlName="taskType">
+            <mat-option *ngFor="let taskType of taskTypes" [value]="taskType">
+              {{taskType.description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="taskForm.controls.taskType.hasError('required')">
+            Un type de tâche est requis.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+  </div>
 </div>

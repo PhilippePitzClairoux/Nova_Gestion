@@ -22,7 +22,7 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/v1/task/{idWorkSheet/")
+    @GetMapping("/v1/task/{idWorkSheet}")
     public ArrayList<Task> getTasks(@PathVariable @Validated int idWorkSheet) {
         return taskService.getTasks(idWorkSheet);
     }
@@ -37,7 +37,7 @@ public class TaskController {
         taskService.updateTask(task);
     }
 
-    @DeleteMapping("/v1/task/{idTask}/")
+    @DeleteMapping("/v1/task/{idTask}")
     public void deleteTask(@PathVariable @Validated int idTask) {
         taskService.deleteTask(idTask);
     }

@@ -10,6 +10,8 @@ import {StatusService} from '../../services/status.service';
 import {ProgramService} from '../../services/program.service';
 import {tap} from 'rxjs/operators';
 import {Program} from '../../models/program.model';
+import {TaskType} from '../../models/task-type';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-worksheet',
@@ -19,16 +21,19 @@ import {Program} from '../../models/program.model';
 export class WorksheetComponent implements OnInit {
   private id: any;
   worksheetForm: FormGroup;
+  taskForm: FormGroup;
   worksheet: Worksheet;
   clients: Client[] = [];
   programs: Program[] = [];
   status: Status[] = [];
+  taskTypes: TaskType[] = [];
 
   constructor(private route: ActivatedRoute,
               private worksheetService: WorksheetService,
               private router: Router,
               private clientService: ClientService,
               private programService: ProgramService,
+              private taskService: TaskService,
               private statusService: StatusService) {
   }
 
@@ -36,6 +41,7 @@ export class WorksheetComponent implements OnInit {
     this.initializeForm();
     this.getClients();
     this.getStatus();
+    this.getTaskTypes();
   }
 
   private initializeForm() {
@@ -47,6 +53,10 @@ export class WorksheetComponent implements OnInit {
       program: new FormControl('', Validators.required),
       tool: new FormControl({value: '', disabled: true}),
       machine: new FormControl({value: '', disabled: true}),
+    });
+    this.taskForm = new FormGroup({
+      taskType: new FormControl('', Validators.required),
+      time: new FormControl('')
     });
   }
 
@@ -162,5 +172,11 @@ export class WorksheetComponent implements OnInit {
         this.worksheetForm.controls.tool.setValue(selected.tool.name);
       }
     }
+  }
+
+  private getTaskTypes() {
+    this.taskService.getAllTypes().subscribe(types => {
+      this.taskTypes = types;
+    });
   }
 }
