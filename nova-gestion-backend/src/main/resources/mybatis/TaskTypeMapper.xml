@@ -8,4 +8,8 @@
         SELECT * FROM `nova_gestion`.task_type WHERE id_task_type = #{idTaskType};
     </select>
 
+    <select id="getAllTaskTypes" resultType="nova.gestion.model.TaskType">
+        SELECT * FROM `nova_gestion`.task_type;
+    </select>
+    
 </mapper>
