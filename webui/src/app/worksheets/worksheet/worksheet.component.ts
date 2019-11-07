@@ -263,14 +263,12 @@ export class WorksheetComponent implements OnInit {
 
   editTask(task: Task) {
     this.selectedIndex = task.idTask;
-    this.endTime = task.endTime.getTime().toString();
   }
 
   updateTask(task: Task) {
     this.selectedIndex = null;
     task.endTime = new Date();
     task.startTime = new Date();
-    console.log(this.endTime);
 
     /*this.taskService.update(task).subscribe(res => {
       this.getWorksheet();
