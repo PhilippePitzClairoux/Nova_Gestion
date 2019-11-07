@@ -22,7 +22,7 @@ public class TaskTypeController {
     }
 
     @GetMapping("/v1/taskTypes")
-    public ArrayList<TaskType> getAllTaskTypes() {
+    public ArrayList<TaskType> getTaskTypes() {
         return taskTypeService.getAllTaskTypes();
     }
 
