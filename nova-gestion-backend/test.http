@@ -196,6 +196,29 @@ Content-Type: application/json
 }
 
 ###
+POST localhost:8080/v1/maintenance
+Content-Type: application/json
+
+{
+  "idMachine": 2,
+  "description": "1eremaintenance entrée",
+  "date": "2019-11-11"
+
+}
+###
+PUT localhost:8080/v1/maintenance
+Content-Type: application/json
+
+{
+  "idMaintenance": 7,
+  "idMachine": 1,
+  "description": "1ere maintenance entrée",
+  "date": "2019-11-11"
+
+}
+
+
+###
 POST localhost:8080/v1/blank
 Content-Type: application/json
 
@@ -361,6 +384,6 @@ DELETE localhost:8080/v1/client/2/
 DELETE localhost:8080/v1/workSheetClientProgram/1/4/
 
 ###
-DELETE localhost:8080/v1/workSheet/5/
+DELETE localhost:8080/v1/maintenance/7/
 
 ###
