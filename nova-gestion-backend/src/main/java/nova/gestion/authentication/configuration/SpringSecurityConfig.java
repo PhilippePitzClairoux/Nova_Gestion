@@ -1,6 +1,8 @@
 package nova.gestion.authentication.configuration;
 
 import nova.gestion.authentication.CustomAuthenticationProvider;
+import nova.gestion.authentication.handlers.RestAuthenticationEntryPoint;
+import nova.gestion.authentication.handlers.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 
 @Configuration
@@ -17,10 +20,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    private final SavedRequestAwareAuthenticationSuccessHandler successHandler;
 
     @Autowired
-    public SpringSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
+    public SpringSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider, RestAuthenticationEntryPoint restAuthenticationEntryPoint, SavedRequestAwareAuthenticationSuccessHandler successHandler) {
         this.customAuthenticationProvider = customAuthenticationProvider;
+        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+        this.successHandler = successHandler;
     }
 
     @Override
@@ -30,41 +37,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .formLogin()
-                    .loginPage("/login.html")
-                    .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/homepage.html", true)
-                    .failureUrl("/login.html?error=true")
+        http
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                .deleteCookies("JSESSIONID");
-
+                .authorizeRequests()
+                .antMatchers("/v1/**").authenticated()
+                .and()
+                .formLogin()
+                .successHandler(successHandler)
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+                .and()
+                .logout();
     }
 
-//    @Override
-//    protected void configure(final HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/anonymous*").anonymous()
-//                .antMatchers("/login*").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login.html")
-//                .loginProcessingUrl("/perform_login")
-//                .defaultSuccessUrl("/homepage.html", true)
-//                //.failureUrl("/login.html?error=true")
-////                .failureHandler(authenticationFailureHandler())
-//                .and()
-//                .logout()
-//                .logoutUrl("/perform_logout")
-//                .deleteCookies("JSESSIONID");
-////                .logoutSuccessHandler(logoutSuccessHandler());
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

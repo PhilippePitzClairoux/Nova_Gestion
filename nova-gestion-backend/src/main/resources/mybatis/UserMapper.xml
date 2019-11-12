@@ -49,7 +49,7 @@
     </delete>
     
     <select id="getUserByEmail" parameterType="String" resultMap="UserMap">
-        SELECT * FROM user WHERE user.email = #{username};
+        SELECT * FROM `nova_gestion`.user WHERE user.email = #{username};
     </select>
     
 </mapper>

@@ -127,4 +127,10 @@ public class UserService {
         userMapper.deleteUser(idUser);
     }
 
+    @Transactional
+    @PreAuthorize("hasRole('LOGGED_IN')")
+    public User getUserByEmail(String email) {
+        return userMapper.getUserByEmail(email);
+    }
+
 }
