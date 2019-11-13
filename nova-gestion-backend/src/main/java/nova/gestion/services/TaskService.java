@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 @Service
@@ -44,6 +45,8 @@ public class TaskService {
 
         if (task.getTaskType().getIdTaskType() == 0)
             throw new InvalidRequest("Missing idTaskType");
+
+        System.out.println(task);
 
         //load taskType in order to validate it so we can throw an InvalidRequest if it dosent exist
         task.setTaskType(taskTypeMapper.getTaskTypeById(task.getTaskType().getIdTaskType()));

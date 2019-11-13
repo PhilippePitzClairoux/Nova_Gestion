@@ -13,8 +13,8 @@
         </constructor>
         <id column="id_task" javaType="int" property="idTask"/>
         <result column="id_work_sheet" javaType="int" property="idWorkSheet"/>
-        <result column="start_time" javaType="java.sql.Date" property="startTime"/>
-        <result column="end_time" javaType="java.sql.Date" property="endTime"/>
+        <result column="start_time" javaType="java.sql.Timestamp" property="startTime"/>
+        <result column="end_time" javaType="java.sql.Timestamp" property="endTime"/>
 
         <association column="id_task_type" property="taskType" javaType="nova.gestion.model.TaskType"
                      select="nova.gestion.mappers.TaskTypeMapper.getTaskTypeById" />
