@@ -212,14 +212,14 @@ export class WorksheetComponent implements OnInit {
     this.timerRunning = true;
     const date = new Date();
     this.task = new Task();
-    this.task.startTime = date;
+    this.task.startTime = date.toISOString();
     date.setHours(date.getHours());
     this.timerService.startTimer(date);
   }
 
   private stop() {
     this.timerRunning = false;
-    this.task.endTime = new Date();
+    this.task.endTime = new Date().toISOString();
     this.task.idWorkSheet = this.worksheet.idWorkSheet;
     this.timerService.stopTimer();
     this.worksheet.tasks.push(this.task);
@@ -268,8 +268,8 @@ export class WorksheetComponent implements OnInit {
 
   updateTask(task: Task) {
     this.selectedIndex = null;
-    task.endTime = new Date();
-    task.startTime = new Date();
+    task.endTime = new Date().toISOString();
+    task.startTime = new Date().toISOString();
 
     /*this.taskService.update(task).subscribe(res => {
       this.getWorksheet();

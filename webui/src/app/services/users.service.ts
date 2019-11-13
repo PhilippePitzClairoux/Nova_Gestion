@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
-import { User } from './../Models/user.model';
-import { TypeUser } from '../Models/user-type.model';
+import {User} from '../models/user.model';
+import {TypeUser} from '../models/user-type.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,10 @@ export class UsersService {
   private userTypesList: TypeUser[] = [];
   private userTypesListSubject: BehaviorSubject<TypeUser[]> = new BehaviorSubject<TypeUser[]>([]);
 
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public usersList$(): Observable<User[]> {
     return this.usersListSubject.asObservable();
