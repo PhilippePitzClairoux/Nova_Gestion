@@ -1,11 +1,4 @@
 /* Let us personalize angular matérial dialog */
-.custom-dialog-container .mat-dialog-container {
-  padding: 0px !important;
-}
-
-.mat-dialog-content {
-  padding: 0px !important;
-}
 
 @font-face {
   font-family: Roboto Medium;
@@ -58,13 +51,12 @@ $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
 
-
-mat-form-field {
-  font-size: 16px !important;
-  line-height: 20px !important;
-  font-weight: 400 !important;
+mat-header-cell {
+  font-size: 14px !important;
 }
 
-mat-header-cell {
-  font-size: 16px !important;
+.mat-form-field-disabled .mat-form-field-underline {
+  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #c2c7cc 0 ) !important;
+  background-size: 1px 100% !important;
+  background-repeat: repeat-x !important;
 }

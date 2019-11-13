@@ -1,4 +1,4 @@
-.content-wrapper {
+.page-wrapper {
   padding: 20px;
 }
 
@@ -23,6 +23,17 @@ form {
 
 .full-width {
   width: 100%;
+  margin-bottom: 10px;
+}
+
+.two-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mid {
+  width: 49%;
   margin-bottom: 10px;
 }
 

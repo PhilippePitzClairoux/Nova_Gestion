@@ -1,4 +1,3 @@
-import { ProgramsModule } from './programs/programs.module';
 import { ClientsModule } from './clients/clients.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
@@ -16,6 +15,8 @@ import {SharedModule} from './shared/shared.module';
 import {UserComponent} from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {MachinesModule} from './machines/machines.module';
+import {WorksheetsModule} from './worksheets/worksheets.module';
+import {ProgramsModule} from './programs/programs.module';
 
 
 @NgModule({
@@ -30,7 +31,6 @@ import {MachinesModule} from './machines/machines.module';
     BrowserAnimationsModule,
     // AuthentificationModule,
     UsersModule,
-    ProgramsModule,
     SharedModule,
     InventoryModule,
     ClientsModule,
@@ -39,6 +39,10 @@ import {MachinesModule} from './machines/machines.module';
     MatIconModule,
     SharedModule,
     AppRoutingModule,
+    MatIconModule,
+    AppRoutingModule,
+    MachinesModule,
+    WorksheetsModule
   ],
   providers: [],
   bootstrap: [
