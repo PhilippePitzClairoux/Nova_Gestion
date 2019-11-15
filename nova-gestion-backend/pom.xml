@@ -22,7 +22,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <spring-security.version>5.0.6.RELEASE</spring-security.version>
+        <spring-security.version>5.2.1.RELEASE</spring-security.version>
     </properties>
 
 
