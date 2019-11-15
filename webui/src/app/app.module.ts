@@ -8,7 +8,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-// import { AuthentificationModule } from './authentification/authentification.module';
 import {InventoryModule} from './inventory/inventory.module';
 import {UsersModule} from './users/users.module';
 import {SharedModule} from './shared/shared.module';
@@ -29,7 +28,6 @@ import {ProgramsModule} from './programs/programs.module';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // AuthentificationModule,
     UsersModule,
     SharedModule,
     InventoryModule,
