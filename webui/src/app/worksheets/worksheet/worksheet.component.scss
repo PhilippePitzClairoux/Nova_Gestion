@@ -1,0 +1,42 @@
+.page-wrapper {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  justify-content: space-between;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.two-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mid {
+  width: 49%;
+  margin-bottom: 10px;
+}
+
+.right-button {
+  margin-left: 10px;
+}

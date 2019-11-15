@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.WorkSheetClientProgramMapper">
+
+    <resultMap id="WorkSheetClientProgramMap" type="nova.gestion.model.WorkSheetClientProgram">
+
+        <id column="idTaWorkSheetClientProgram" javaType="int" property="id_ta_work_sheet_client_program"/>
+        <result column="id_work_sheet" javaType="int" property="idWorkSheet"/>
+        <result column="id_program" javaType="int" property="idProgram"/>
+        <result column="id_client" javaType="int" property="idClient"/>
+
+     <!--   <association column="id_program" property="program" javaType="nova.gestion.model.Program"
+                     select="nova.gestion.mappers.ProgramMapper.getProgram"/>
+
+        <association column="id_client" property="client" javaType="nova.gestion.model.Client"
+                     select="nova.gestion.mappers.ClientMapper.getClient"/> -->
+
+    </resultMap>
+
+    <insert id="insertProgramClient">
+        INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_client)
+        VALUES (#{idProgram}, #{idClient});
+    </insert>
+
+    <update id="updateProgramClient">
+        UPDATE `nova_gestion`.`ta_work_sheet_client_program` SET
+        <if test="program != null">id_program = #{program.idProgram},</if>
+        <if test="client != null"> id_client = #{client.idClient}</if>
+        WHERE id_program = #{program.idProgram} AND id_client = #{client.idClient} ;
+    </update>
+
+    <select id="getClientsByProgram" parameterType="int" resultMap="WorkSheetClientProgramMap">
+        SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program`
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram};
+    </select>
+
+    <select id="getWorkSheetClientProgram" resultMap="WorkSheetClientProgramMap">
+        SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program`
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </select>
+    <select id="getAllWorkSheetClientPrograms" resultMap="WorkSheetClientProgramMap">
+        SELECT * FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE id_work_sheet IS NOT NULL ;
+    </select>
+    <delete id="deleteProgramClient">
+        DELETE FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_program = #{idProgram} AND `nova_gestion`.`ta_work_sheet_client_program`.id_client = #{idClient};
+     </delete>
+
+    <insert id="insertWorkSheetClientProgram">
+        INSERT INTO `nova_gestion`.`ta_work_sheet_client_program`(id_program, id_work_sheet, id_client)
+        VALUES (#{idProgram}, #{idWorkSheet}, #{idClient});
+    </insert>
+    <update id="updateWorkSheetClientProgram">
+        UPDATE `nova_gestion`.`ta_work_sheet_client_program` SET
+            id_program = #{idProgram},
+            id_client = #{idClient}
+        WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </update>
+
+    <delete id="deleteWorkSheetClientProgram" parameterType="int">
+        DELETE FROM `nova_gestion`.`ta_work_sheet_client_program` WHERE `nova_gestion`.`ta_work_sheet_client_program`.id_work_sheet = #{idWorkSheet};
+    </delete>
+</mapper>

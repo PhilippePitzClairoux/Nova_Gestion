@@ -4,8 +4,9 @@ spring:
     password: test123
     url: "jdbc:mariadb://localhost:3307"
 
+
+
 mybatis:
   mapper-locations: classpath*:/mybatis/*
   configuration:
-    cache-enabled: true
     map-underscore-to-camel-case: true

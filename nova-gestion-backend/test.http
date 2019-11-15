@@ -1,0 +1,366 @@
+GET localhost:8080/v1/user/6/
+###
+GET localhost:8080/v1/tool/1/
+###
+GET localhost:8080/v1/client/1/
+###
+GET localhost:8080/v1/workSheet/2/
+###
+GET localhost:8080/v1/workSheets
+###
+GET localhost:8080/v1/blank/2/
+###
+GET localhost:8080/v1/machine/1/
+###
+GET localhost:8080/v1/program/6/
+
+
+###
+GET localhost:8080/v1/programs
+###
+GET localhost:8080/v1/users
+###
+GET localhost:8080/v1/clients
+###
+GET localhost:8080/v1/tools
+###
+GET localhost:8080/v1/blanks
+###
+GET localhost:8080/v1/machines
+###
+GET localhost:8080/v1/status/1/
+###
+GET localhost:8080/v1/usertypes
+###
+GET localhost:8080/v1/grades
+###
+GET localhost:8080/v1/coolantholetypes
+###
+GET localhost:8080/v1/tasktypes
+
+
+###
+POST localhost:8080/v1/task
+Content-Type: application/json
+
+{
+  "idWorkSheet": 1,
+  "taskType": {
+    "idTaskType": 2
+  }}
+
+###
+POST localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "name": "name",
+  "file": "..path/dossier/fichier.exe",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+  "idTool": 2
+  },
+  "blank": {
+    "idBlank":1
+  }
+}
+###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 8,
+  "name": "test sans client",
+  "file": "..path/dossier/fichier.html",
+  "machine": {
+    "idMachine": 2
+  },
+  "tool": {
+    "idTool": 2
+  },
+  "blank": {
+    "idBlank": 1
+  }
+}
+###
+POST localhost:8080/v1/workSheetClientProgram
+Content-Type: application/json
+
+{
+    "idProgram": 10,
+    "idClient": 4
+}
+
+###
+POST localhost:8080/v1/user
+Content-Type: application/json
+
+{
+  "email": "test@hehe.com",
+  "password": "hehexd123123",
+  "typeUser": {
+    "idTypeUser": 2
+  },
+  "employee": {
+    "name": "test",
+    "surname": "test123"
+  }
+}
+###
+POST localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "codeGrade": 1,
+  "idCoolantHole": 1,
+  "name": "1/5 * 5 - Mill ",
+  "stockQuantity": 100,
+  "minimumQuantity": 100,
+  "diameter": 2,
+  "length": 5
+}
+###
+POST localhost:8080/v1/client
+Content-Type: application/json
+
+{
+  "name": "Bombardier",
+  "phoneNumber": "8198199874"
+}
+###
+POST localhost:8080/v1/tool
+Content-Type: application/json
+
+{
+  "name": "Cordoba",
+  "stockQuantity": 1000,
+  "minimumQuantity": 100,
+  "client": {
+    "idClient": 1,
+    "name": "A7 Integration",
+    "phoneNumber": "4503056218"
+  }
+}
+
+###
+POST localhost:8080/v1/workSheet
+Content-Type: application/json
+
+{
+  "status": {
+     "idStatus": 3
+  },
+  "quantity": 200,
+  "dueDate": "2021-02-02",
+  "orderNumber": "999999999",
+  "client": {
+     "idClient": 2
+  },
+  "program": {
+     "idProgram": 4}
+}
+###
+PUT localhost:8080/v1/workSheet
+Content-Type: application/json
+
+{
+  "idWorkSheet": 5,
+  "status": {
+    "idStatus": 4
+  },
+  "quantity": 200,
+  "dueDate": "2021-02-29",
+  "orderNumber": "0",
+  "client": {
+    "idClient": 1
+  },
+  "program": {
+    "idProgram": 1}
+}
+
+###
+POST localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "grade": {
+    "code": 1
+  },
+  "name": "5*5 - kilo",
+  "stockQuantity": 1000,
+  "minimumQuantity": 100,
+  "diameter": 2,
+  "length": 30
+}
+
+###
+POST localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "grade": {
+    "code": 1
+  },
+  "name": "5*5",
+  "stockQuantity": 2,
+  "minimumQuantity": 0,
+  "diameter": 2,
+  "length": 30,
+  "coolantHole": {
+    "typeCoolantHole":{
+      "idTypeCoolantHole": 2
+    }
+  }
+}
+
+###
+PUT localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "idBlank": 5,
+  "grade": {
+    "code": 1
+  },
+  "name": "5*5",
+  "coolantHole": {
+    "idCoolantHole": 8,
+    "diameter": 80,
+    "quantity": 90
+  }
+}
+
+###
+DELETE localhost
+###
+POST localhost:8080/v1/machine
+Content-Type: application/json
+
+{
+  "name": "MachineXYZ",
+  "serialNumber": "AAA-125",
+  "acquisitionDate": "2019-01-01",
+  "model": {
+    "name": "ModelABC"
+  }
+}
+
+###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 7,
+  "machine": {
+    "idMachine": 3
+  },
+  "name": "PB-000",
+  "file": "fichier.exe",
+  "blank": {
+    "idBlank": 2
+  },
+  "client": {
+    "idClient": 1
+  }
+}
+###
+PUT localhost:8080/v1/user
+Content-Type: application/json
+
+{
+  "idUser": 6,
+  "email": "test@hehe.ca",
+  "password": "hehexd123123",
+  "typeUser": {
+    "idTypeUser": 2,
+    "name": "test"
+  }
+}
+###
+PUT localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "idBlank": 7,
+  "name": "1/5 * 5",
+  "stockQuantity": 10,
+  "minimumQuantity":10,
+  "diameter": 20,
+  "length": 50,
+  "grade": {
+    "code": 2,
+    "name": "K01"
+  },
+  "coolantHole": {
+    "idCoolantHole": 2,
+    "quantity": 40,
+    "diameter": 4000,
+    "TypeCoolantHole": {
+      "idTypeCoolantHole": 1,
+      "name": "Droit"
+    }
+  }
+}
+
+###
+PUT localhost:8080/v1/client
+Content-Type: application/json
+
+{
+  "idClient":5,
+  "name":"AK47",
+  "phoneNumber":"8778799887"
+}
+###
+PUT localhost:8080/v1/tool
+Content-Type: application/json
+
+{
+  "idTool":6,
+  "minimumQuantity": "20"
+}
+
+###
+PUT localhost:8080/v1/machine
+Content-Type: application/json
+
+{
+  "idMachine": 4,
+  "name": "MachineXYZ",
+  "serialNumber": "AAA-125-000",
+  "acquisitionDate": "2019-01-01",
+  "model": {
+    "idModel": 10,
+    "name": "ModelXYZ"
+  }
+
+}
+
+###
+DELETE  localhost:8080/v1/tool
+Content-Type: application/json
+
+{
+  "idTool":6
+}
+
+###
+DELETE localhost:8080/v1/machine/4/
+
+###
+DELETE localhost:8080/v1/user/5/
+
+###
+DELETE localhost:8080/v1/blank/2/
+
+###
+DELETE localhost:8080/v1/client/2/
+###
+DELETE localhost:8080/v1/workSheetClientProgram/1/4/
+
+###
+DELETE localhost:8080/v1/workSheet/5/
+
+###

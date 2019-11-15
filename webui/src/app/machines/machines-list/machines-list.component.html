@@ -1,0 +1,96 @@
+<app-header [title]="'Gestion des machines'"></app-header>
+<div class="page-wrapper">
+  <div class="top">
+    <mat-form-field class="search">
+      <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
+             (keyup)="applyFilter($event.target.value)">
+      <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <form class="add-form" [formGroup]="machineForm">
+    <mat-form-field class="column input">
+      <input matInput placeholder="Numéro de série" formControlName="serialNumber">
+      <mat-error
+        *ngIf="machineForm.controls.serialNumber.hasError('maxLength')">
+        Un maximum de 254 caractères est permis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="column input">
+      <input matInput placeholder="Nom" formControlName="name">
+      <mat-error *ngIf="machineForm.controls.name.hasError('required')">
+        Un nom est requis.
+      </mat-error>
+      <mat-error
+        *ngIf="!machineForm.controls.name.hasError('required') && machineForm.controls.name.hasError('maxLength')">
+        Un maximum de 254 caractères est permis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="column input">
+      <input matInput placeholder="Modèle" formControlName="model">
+      <mat-error *ngIf="machineForm.controls.model.hasError('required')">
+        Un modèle est requis.
+      </mat-error>
+      <mat-error
+        *ngIf="!machineForm.controls.model.hasError('required') && machineForm.controls.model.hasError('maxLength')">
+        Un maximum de 254 caractères est permis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="column input">
+      <input matInput placeholder="Date d'acquisition" formControlName="acquisitionDate" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="machineForm.controls.acquisitionDate.hasError('required')">
+        Une date d'acquisition est requise.
+      </mat-error>
+    </mat-form-field>
+    <div class="add">
+      <app-button [label]="'Ajouter'" [style]="'primary'" (click)="add()"></app-button>
+    </div>
+  </form>
+
+  <div class="mat-elevation-z0">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="serialNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">NUMÉRO DE SÉRIE</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> {{row.serialNumber | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">NOM</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> {{row.name | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">MODÈLE</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> {{row.model.name | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="acquisitionDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header">DATE D'ACQUISITION</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> {{row.acquisitionDate | date:'dd/MM/yyyy'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="controls">
+          <mat-icon class="edit" (click)="seeMachine(row.idMachine)">edit</mat-icon>
+          <mat-icon class="delete" (click)="deleteMachine(row.idMachine)">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="header"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  </div>
+</div>

@@ -1,79 +1,62 @@
-.menu {
-  background-color: #000000 !important;
-  color: white !important;
+/* Let us personalize angular matérial dialog */
+
+@font-face {
+  font-family: Roboto Medium;
+  src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
 }
 
-.btn-menu {
-  border: none;
-  background-color: #000000 !important;
-  color: white !important;
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Regular.ttf') format('truetype');
 }
 
-.btn-menu:hover {
-  background-color: #2370b8 !important;
-}
-
-.header {
-  background-color: #444444 !important;
-  color: white !important;
-}
-
-.title {
-  background-color: #213343 !important;
-  color: white !important;
-}
-
-.table-header {
-  background-color: none !important;
-  color: #2370b8 !important;
-}
-
-.table-row {
-  background-color: none !important;
-  color: #000000 !important;
-}
-
-.table-row:hover {
-  background-color: rgb(35,112,184,0.25) !important;
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 
 @import '~@angular/material/theming';
-
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
 $primary: (
   500: #2370b8,
   contrast: (
-    500: white,
+    500: white
   )
 );
+
 $accent: (
   500: #f1f1f6,
   contrast: (
-    500: 444444,
+    500: 444444
   )
 );
+
 $danger: (
   500: #ff3823,
   contrast: (
-    500: #333,
+    500: #333
   )
 );
+
 $webui-primary: mat-palette($primary);
 $webui-accent: mat-palette($accent);
-
-// The warn palette is optional (defaults to red).
 $webui-warn: mat-palette($danger);
-
-// Create the theme object (a Sass map containing all of the palettes).
 $webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
 
 @include angular-material-theme($webui-theme);
 
-/* You can add global styles to this file, and also import other style files */
+mat-header-cell {
+  font-size: 14px !important;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-form-field-disabled .mat-form-field-underline {
+  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #c2c7cc 0 ) !important;
+  background-size: 1px 100% !important;
+  background-repeat: repeat-x !important;
+}

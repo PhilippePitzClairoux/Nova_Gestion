@@ -1,0 +1,69 @@
+.page-area {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.form-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-save {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.space-btn {
+  margin-left: 20px;
+}
+
+.input-btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  width: 75%;
+}
+
+.full-width-input {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.client-container {
+  margin-top: 20px;
+}
+
+.client-list {
+  border: #ccc solid 1px;
+  font-size: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.client-list:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .btn-delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.btn-delete {
+  height: 20px;
+  width: 35px;
+  background: none;
+  border: none;
+  color: #c0c0c0;
+  cursor: pointer;
+}

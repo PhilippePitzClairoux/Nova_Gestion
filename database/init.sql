@@ -15,19 +15,19 @@ CREATE TABLE coolant_hole(
 );
 
 CREATE TABLE grade(
-    code VARCHAR(63) NOT NULL PRIMARY KEY,
+    code BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     description VARCHAR(255)
 );
 
 CREATE TABLE blank(
     id_blank BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    code_grade VARCHAR(63) NOT NULL,
+    code_grade BIGINT NOT NULL,
     id_coolant_hole BIGINT,
     name VARCHAR(255),
     stock_quantity INTEGER,
     minimum_quantity INTEGER,
-    diameter DECIMAL,
-    length DECIMAL,
+    diameter VARCHAR(10),
+    length VARCHAR(10),
     CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code),
     CONSTRAINT FOREIGN KEY(id_coolant_hole) REFERENCES coolant_hole(id_coolant_hole)
 );
@@ -42,7 +42,7 @@ CREATE TABLE machine(
     id_machine BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_model BIGINT NOT NULL,
     name VARCHAR(255),
-    serial_number INTEGER,
+    serial_number VARCHAR(255),
     acquisition_date DATE,
     CONSTRAINT FOREIGN KEY(id_model) REFERENCES model(id_model)
 );
@@ -55,27 +55,34 @@ CREATE TABLE maintenance(
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine)
 );
 
+CREATE TABLE client(
+    id_client BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    phone_number VARCHAR(25)
+);
+
 CREATE TABLE tool(
     id_tool BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
     stock_quantity INTEGER,
-    minimum_quantity INTEGER
+    minimum_quantity INTEGER,
+	id_client BIGINT NOT NULL,
+    CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client)
+
 );
 
-CREATE TABLE client(
-    id_client BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255),
-    phone_number INTEGER
-);
 
 CREATE TABLE program(
     id_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_machine BIGINT NOT NULL,
     id_tool BIGINT,
-    name INTEGER,
+	id_blank BIGINT,
+    name VARCHAR(255),
     file VARCHAR(255),
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
-    CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool)
+    CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
+    CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
+
 );
 
 CREATE TABLE task_type(
@@ -115,11 +122,11 @@ CREATE TABLE ta_user_type_permission(
 CREATE TABLE user(
     id_user BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_user_type BIGINT NOT NULL,
-    id_employe BIGINT,
+    id_employee BIGINT,
     email VARCHAR(255),
     password VARCHAR(255),
     CONSTRAINT FOREIGN KEY(id_user_type) REFERENCES type_user(id_type_user),
-    CONSTRAINT FOREIGN KEY(id_employe) REFERENCES employee(id_employee)
+    CONSTRAINT FOREIGN KEY(id_employee) REFERENCES employee(id_employee)
 );
 
 CREATE TABLE work_sheet(
@@ -144,9 +151,9 @@ CREATE TABLE task(
 
 CREATE TABLE ta_work_sheet_client_program(
     id_ta_work_sheet_client_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_program BIGINT NOT NULL,
-    id_work_sheet BIGINT NOT NULL,
-    id_client BIGINT NOT NULL,
+    id_program BIGINT,
+    id_work_sheet BIGINT,
+    id_client BIGINT,
     CONSTRAINT FOREIGN KEY(id_program) REFERENCES program(id_program),
     CONSTRAINT FOREIGN KEY(id_work_sheet) REFERENCES work_sheet(id_work_sheet),
     CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client)

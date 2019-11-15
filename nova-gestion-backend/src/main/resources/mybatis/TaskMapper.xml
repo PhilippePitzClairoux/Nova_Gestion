@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.TaskMapper">
+
+    <resultMap id="TaskMap" type="nova.gestion.model.Task">
+        <constructor>
+            <idArg name="idTask" column="id_task"/>
+            <arg name="idWorkSheet" column="id_work_sheet"/>
+            <arg name="startTime" column="start_time"/>
+            <arg name="endTime" column="end_time"/>
+        </constructor>
+        <id column="id_task" javaType="int" property="idTask"/>
+        <result column="id_work_sheet" javaType="int" property="idWorkSheet"/>
+        <result column="start_time" javaType="java.sql.Date" property="startTime"/>
+        <result column="end_time" javaType="java.sql.Date" property="endTime"/>
+
+        <association column="id_task_type" property="taskType" javaType="nova.gestion.model.TaskType"
+                     select="nova.gestion.mappers.TaskTypeMapper.getTaskTypeById" />
+    </resultMap>
+
+    <select id="getTaskByWorkSheetId" parameterType="int" resultMap="TaskMap">
+        SELECT * FROM `nova_gestion`.task WHERE id_work_sheet = #{idWorkSheet};
+    </select>
+
+    <select id="getTask" parameterType="int" resultMap="TaskMap">
+        SELECT * FROM `nova_gestion`.task WHERE id_task = #{idTask};
+    </select>
+
+    <insert id="insertNewTask" parameterType="nova.gestion.model.Task" useGeneratedKeys="true" keyProperty="idTask">
+        INSERT INTO `nova_gestion`.task(id_task_type, id_work_sheet, start_time, end_time)
+        VALUES (#{taskType.idTaskType}, #{idWorkSheet}, #{startTime}, #{endTime})
+    </insert>
+
+    <update id="updateTask" parameterType="nova.gestion.model.Task">
+        UPDATE `nova_gestion`.task SET
+            <if test="idWorkSheet != 0">id_work_sheet = #{idWorkSheet},</if>
+            <if test="taskType != null">id_task_type = #{taskType.idTaskType},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime}</if>
+        WHERE task.id_task = #{idTask};
+    </update>
+
+    <delete id="deleteTask" parameterType="int">
+        DELETE FROM `nova_gestion`.task WHERE task.id_task = #{idTask};
+    </delete>
+    
+</mapper>

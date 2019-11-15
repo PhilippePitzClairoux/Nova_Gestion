@@ -1,0 +1,54 @@
+<app-header [title]="'Gestion de la machine ' + machine?.name"></app-header>
+
+<div class="content-wrapper">
+
+  <div class="form">
+    <form [formGroup]="machineForm">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Numéro de série" formControlName="serialNumber">
+        <mat-error
+          *ngIf="machineForm.controls.serialNumber.hasError('maxLength')">
+          Un maximum de 254 caractères est permis.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Nom" formControlName="name">
+        <mat-error *ngIf="machineForm.controls.name.hasError('required')">
+          Un nom est requis.
+        </mat-error>
+        <mat-error
+          *ngIf="!machineForm.controls.name.hasError('required') && machineForm.controls.name.hasError('maxLength')">
+          Un maximum de 254 caractères est permis.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Modèle" formControlName="model">
+        <mat-error *ngIf="machineForm.controls.model.hasError('required')">
+          Un modèle est requis.
+        </mat-error>
+        <mat-error
+          *ngIf="!machineForm.controls.model.hasError('required') && machineForm.controls.model.hasError('maxLength')">
+          Un maximum de 254 caractères est permis.
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Date d'acquisition" formControlName="acquisitionDate" [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="machineForm.controls.acquisitionDate.hasError('required')">
+          Une date d'acquisition est requise.
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <div class="controls">
+      <app-button [style]="'secondary'" [label]="'Annuler'" (click)="cancel()"></app-button>
+      <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="save()" class="right-button"></app-button>
+    </div>
+  </div>
+
+</div>

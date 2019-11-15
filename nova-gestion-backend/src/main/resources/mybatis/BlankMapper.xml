@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.BlankMapper">
+
+    <resultMap id="BlankMap" type="nova.gestion.model.Blank">
+        <constructor>
+            <arg name="idBlank" column="id_blank"/>
+            <arg name="name" column="name"/>
+            <arg name="stockQuantity" column="stock_quantity"/>
+            <arg name="minimumQuantity" column="minimum_quantity"/>
+            <arg name="diameter" column="diameter"/>
+            <arg name="length" column="length"/>
+        </constructor>
+
+        <id column="id_blank" javaType="int" property="idBlank"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="stock_quantity" javaType="int" property="stockQuantity"/>
+        <result column="minimum_quantity" javaType="int" property="minimumQuantity"/>
+        <result column="diameter" javaType="string" property="diameter"/>
+        <result column="length" javaType="string" property="length"/>
+
+        <association column="code_grade" property="grade" javaType="nova.gestion.model.Grade"
+                     select="nova.gestion.mappers.GradeMapper.getGrade"/>
+
+        <association column="id_coolant_hole" property="coolantHole" javaType="nova.gestion.model.CoolantHole"
+                     select="nova.gestion.mappers.CoolantHoleMapper.getCoolantHole"/>
+    </resultMap>
+
+    <select id="getBlank" parameterType="int" resultMap="BlankMap">
+        SELECT *
+        FROM `nova_gestion`.`blank`
+        WHERE `nova_gestion`.`blank`.id_blank = #{idBlank};
+    </select>
+
+    <select id="getAllBlanks" resultMap="BlankMap">
+        SELECT * FROM `nova_gestion`.`blank`;
+    </select>
+
+    <insert id="insertBlank" parameterType="nova.gestion.model.Blank" keyProperty="idBlank" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`blank`(code_grade, id_coolant_hole, name, stock_quantity, minimum_quantity, diameter, length)
+        VALUES (#{grade.code}, #{coolantHole.idCoolantHole}, #{name}, #{stockQuantity}, #{minimumQuantity}, #{diameter}, #{length});
+    </insert>
+
+   <!-- <update id="updateBlank" parameterType="nova.gestion.model.Blank">
+        UPDATE `nova_gestion`.`blank` SET
+                                    <if test="grade != null">code_grade = #{grade.code},</if>
+                                      id_coolant_hole = #{coolantHole.idCoolantHole},
+                                     <if test="name != null">name = #{name},</if>
+                                    <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
+                                    <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
+                                    <if test="diameter != 0">diameter = #{diameter},</if>
+                                    <if test="length != 0">length = #{length}</if>
+                                     WHERE id_blank = #{idBlank};
+    </update>-->
+    <update id="updateBlank" parameterType="nova.gestion.model.Blank">
+        UPDATE `nova_gestion`.`blank` SET
+        <if test="name != null">name = #{name},</if>
+        <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
+        <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
+        <if test="diameter != 0">diameter = #{diameter},</if>
+        <if test="length != 0">length = #{length},</if>
+        <if test="grade != null">code_grade = #{grade.code},</if>
+        id_coolant_hole = #{coolantHole.idCoolantHole}
+        WHERE id_blank = #{idBlank};
+    </update>
+
+    <delete id="deleteBlank" parameterType="int">
+        DELETE FROM `nova_gestion`.`blank` WHERE `nova_gestion`.`blank`.id_blank = #{idBlank};
+    </delete>
+
+
+</mapper>
