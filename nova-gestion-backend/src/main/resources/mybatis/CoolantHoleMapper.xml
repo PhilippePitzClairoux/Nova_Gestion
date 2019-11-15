@@ -28,7 +28,7 @@
 
     <update id="updateCoolantHole" parameterType="nova.gestion.model.CoolantHole">
         UPDATE `nova_gestion`.coolant_hole  SET
-                  <if test="quantity != null">quantity = #{quantity},</if>
+                    <if test="quantity != null">quantity = #{quantity},</if>
                     <if test="diameter != null"> diameter = #{diameter},</if>
                     <if test="typeCoolantHole != null"> id_type_coolant_hole = #{typeCoolantHole.idTypeCoolantHole}</if>
                     WHERE id_coolant_hole = #{idCoolantHole};

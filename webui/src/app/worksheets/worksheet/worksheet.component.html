@@ -1,0 +1,74 @@
+<app-header *ngIf="id" [title]="'Gestion de la feuille de travail ' + worksheet?.idWorkSheet"></app-header>
+<app-header *ngIf="!id" [title]="'Création d\'une feuille de travail'"></app-header>
+
+<div class="page-wrapper">
+  <div class="form">
+    <form [formGroup]="worksheetForm">
+
+      <div class="two-items">
+        <mat-form-field class="mid">
+          <input matInput placeholder="Numéro de commande" formControlName="orderNumber">
+          <mat-error
+            *ngIf="worksheetForm.controls.orderNumber.hasError('maxLength')">
+            Un maximum de 254 caractères est permis.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mid">
+          <mat-label>Client</mat-label>
+          <mat-select formControlName="client">
+            <mat-option *ngFor="let client of clients" [value]="client">
+              {{client.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="worksheetForm.controls.client.hasError('required')">
+            Un client est requis.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <mat-form-field class="full-width">
+        <mat-label>Programme</mat-label>
+        <mat-select formControlName="program" (valueChange)="setInfoProgram($event)">
+          <mat-option *ngFor="let program of programs" [value]="program">
+            {{program.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="worksheetForm.controls.program.hasError('required')">
+          Un programme est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="two-items">
+        <mat-form-field class="mid">
+          <input matInput placeholder="Machine" formControlName="machine">
+        </mat-form-field>
+
+        <mat-form-field class="mid">
+          <input matInput placeholder="Outil" formControlName="tool">
+        </mat-form-field>
+      </div>
+
+      <div class="two-items">
+        <mat-form-field class="mid">
+          <input matInput placeholder="Quantité à faire" type="number" formControlName="quantity">
+        </mat-form-field>
+
+        <mat-form-field class="mid">
+          <input matInput placeholder="Date due" formControlName="dueDate" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+    </form>
+
+    <div class="controls">
+      <app-button [style]="'secondary'" [label]="'Annuler'" (click)="cancel()"></app-button>
+      <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="save()" class="right-button"></app-button>
+    </div>
+  </div>
+</div>

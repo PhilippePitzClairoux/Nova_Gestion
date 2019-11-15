@@ -15,6 +15,8 @@ import {SharedModule} from './shared/shared.module';
 import {UserComponent} from './users/user/user.component';
 import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {MachinesModule} from './machines/machines.module';
+import {WorksheetsModule} from './worksheets/worksheets.module';
+import {ProgramsModule} from './programs/programs.module';
 
 
 @NgModule({
@@ -32,12 +34,15 @@ import {MachinesModule} from './machines/machines.module';
     SharedModule,
     InventoryModule,
     ClientsModule,
+    MachinesModule,
+    ProgramsModule,
     MatIconModule,
     SharedModule,
     AppRoutingModule,
     MatIconModule,
     AppRoutingModule,
-    MachinesModule
+    MachinesModule,
+    WorksheetsModule
   ],
   providers: [],
   bootstrap: [
@@ -47,5 +52,4 @@ import {MachinesModule} from './machines/machines.module';
     UserComponent
   ]
 })
-export class AppModule {
-}
+export class AppModule { }

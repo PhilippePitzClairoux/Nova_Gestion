@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import { MachineService } from '../../services/machine.service';
-import { Machine } from '../../models/machine';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Model } from '../../models/model';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
+import {MachineService} from '../../services/machine.service';
+import {Machine} from '../../models/machine';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Model} from '../../models/model';
 
 @Component({
   selector: 'app-machines-list',
@@ -19,11 +19,14 @@ export class MachinesListComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<Machine>;
   mySubscription: Subscription;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   machineForm: FormGroup;
 
-  constructor(public dialog: MatDialog, private machineService: MachineService, private router: Router) { }
+  constructor(public dialog: MatDialog,
+              private machineService: MachineService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.initializeForm();
@@ -123,7 +126,7 @@ export class MachinesListComponent implements OnInit, OnDestroy {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }

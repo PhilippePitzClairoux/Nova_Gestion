@@ -20,12 +20,13 @@
         <association column="id_tool" property="tool" javaType="nova.gestion.model.Tool"
                      select="nova.gestion.mappers.ToolMapper.getTool"/>
 
-        <association column="id_client" property="client" javaType="nova.gestion.model.Client"
-                     select="nova.gestion.mappers.ClientMapper.getClient"/>
-
         <association column="id_blank" property="blank" javaType="nova.gestion.model.Blank"
                      select="nova.gestion.mappers.BlankMapper.getBlank"/>
+
+       <!-- <collection column="id_program" property="clients" javaType="ArrayList"
+                    select="nova.gestion.mappers.WorkSheetClientProgramMapper.getProgramsByClient"/> -->
     </resultMap>
+
 
     <select id="getProgram" parameterType="int" resultMap="ProgramMap">
         SELECT *
@@ -38,14 +39,15 @@
     </select>
 
     <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, name, file)
-        VALUES (#{machine.idMachine}, #{tool.idTool}, #{name}, #{file});
+        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name, file)
+        VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name}, #{file});
     </insert>
 
     <update id="updateProgram" parameterType="nova.gestion.model.Program">
         UPDATE `nova_gestion`.`program` SET
         <if test="machine != null">id_machine = #{machine.idMachine},</if>
         <if test="tool != null"> id_tool = #{tool.idTool},</if>
+        <if test="blank != null"> id_blank = #{blank.idBlank},</if>
         <if test="name != null"> name = #{name},</if>
         <if test="file != null"> file = #{file}</if>
         WHERE id_program = #{idProgram};

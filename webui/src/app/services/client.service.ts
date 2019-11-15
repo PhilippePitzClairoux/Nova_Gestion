@@ -2,8 +2,8 @@ import { Client } from './../models/client';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, BehaviorSubject} from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import * as config from '../../assets/config/config.json';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,6 @@ export class ClientService {
     return this.http.get<Client[]>(this.api + 'clients').pipe(tap(result => {
       this.clientsList = result;
       this.clientsListSubject.next(this.clientsList);
-      console.log('ClientService -> GetAll() : [SUCCESS]');
     }));
   }
 
@@ -39,7 +38,6 @@ export class ClientService {
       client.idClient = result.idClient;
       this.clientsList = [...this.clientsList, client];
       this.clientsListSubject.next(this.clientsList);
-      console.log('ClientService -> CreateUser() : [SUCCESS]');
     });
   }
 
@@ -49,7 +47,6 @@ export class ClientService {
       this.clientsList[index] = client;
       this.clientsList = [...this.clientsList];
       this.clientsListSubject.next(this.clientsList);
-      console.log('ClientService -> UpdateClient() : [SUCCESS]');
     });
   }
 
@@ -57,7 +54,6 @@ export class ClientService {
     this.http.delete<Client>(this.api + 'client/' + id.toString() + '/').subscribe(() => {
       this.clientsList = this.clientsList.filter(t => t.idClient !== id);
       this.clientsListSubject.next(this.clientsList);
-      console.log('ClientService -> DeleteClient() : [SUCCESS]');
     });
   }
 }

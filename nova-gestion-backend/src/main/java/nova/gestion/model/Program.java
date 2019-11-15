@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 public class Program {
     private int idProgram;
@@ -11,8 +13,8 @@ public class Program {
     private String file;
     private Machine machine;
     private Tool tool;
-    private Client client;
     private Blank blank;
+    private ArrayList<Client> clients;
 
     public Program(int idProgram, String name, String file)
     {
@@ -22,14 +24,14 @@ public class Program {
     }
 
     @JsonCreator
-    public Program(int idProgram, String name, String file, Machine machine, Tool tool, Client client, Blank blank) {
+    public Program(int idProgram, String name, String file, Machine machine, Tool tool, Blank blank, ArrayList<Client> clients) {
         this.idProgram = idProgram;
         this.name = name;
         this.file = file;
         this.machine = machine;
         this.tool = tool;
-        this.client = client;
         this.blank = blank;
+        this.clients = clients;
     }
 
 }
