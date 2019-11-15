@@ -1,4 +1,3 @@
-import { ClientsModule } from './clients/clients.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -16,6 +15,8 @@ import {SidebarComponent} from './navigation/sidebar/sidebar.component';
 import {MachinesModule} from './machines/machines.module';
 import {WorksheetsModule} from './worksheets/worksheets.module';
 import {ProgramsModule} from './programs/programs.module';
+import { AuthentificationModule } from './authentification/authentification.module';
+import { ClientsModule } from './clients/clients.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {ProgramsModule} from './programs/programs.module';
     BrowserAnimationsModule,
     UsersModule,
     SharedModule,
+    AuthentificationModule,
     InventoryModule,
     ClientsModule,
     MachinesModule,
