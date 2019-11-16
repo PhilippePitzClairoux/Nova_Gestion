@@ -6,7 +6,7 @@
     <div class="inputs">
       <input class="username" type="text" placeholder="Adresse courriel">
       <input class="password" type="text" placeholder="Mot de passe">
-      <button class="btn" mat-raised-button color="primary" (click)="loginUser()">Connexion</button>
+      <app-button class="btn-right" [label]="'Connexion'" [style]="'primary'" (clicked)="loginUser()">Connexion</app-button>
     </div>
   </mat-card>
 </div>

@@ -1,6 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+import { AuthentificationService } from './../../services/authentification.service';
+
 @Component({
   selector: 'app-authentification',
   templateUrl: './authentification.component.html',
@@ -8,12 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthentificationComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authentificationService: AuthentificationService) { }
 
   public ngOnInit(): void { }
 
   public loginUser(): void {
-    this.router.navigate(['clients']);
+    this.authentificationService.connect('admin@gmail.com', 'test').subscribe(() => {
+      this.router.navigate(['clients']);
+    });
   }
 
 }
