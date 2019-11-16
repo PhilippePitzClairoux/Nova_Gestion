@@ -36,8 +36,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        if (username == null || password == null)
-            throw new InvalidRequest("No username and/or password");
+        if (username.isEmpty() || password.isEmpty())
+            return null;
 
         User user = userMapper.getUserByEmail(username);
 
