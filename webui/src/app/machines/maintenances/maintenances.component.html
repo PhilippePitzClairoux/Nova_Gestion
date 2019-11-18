@@ -2,20 +2,19 @@
 
   <mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="serialNumber">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">DESCRIPTION</mat-header-cell>
-      <mat-cell *matCellDef="let row" class="column"> {{row.description | truncate}} </mat-cell>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="description header">DESCRIPTION</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="description"> {{row.description | truncate}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">DATE</mat-header-cell>
-      <mat-cell *matCellDef="let row" class="column"> {{row.date | truncate}} </mat-cell>
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="date header">DATE</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="date"> {{row.date | date:'dd-MM-yyyy'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="controls">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
       <mat-cell *matCellDef="let row" class="controls">
-        <mat-icon class="edit" (click)="editMaintenance(row.idMaintenance)">edit</mat-icon>
         <mat-icon class="delete" (click)="deleteMaintenance(row.idMaintenance)">delete</mat-icon>
       </mat-cell>
     </ng-container>

@@ -1,7 +1,9 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Maintenance} from '../../models/maintenance';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
+import {MaintenanceService} from '../../services/maintenance.service';
 
 @Component({
   selector: 'app-maintenances',
@@ -9,7 +11,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   styleUrls: ['./maintenances.component.scss']
 })
 export class MaintenancesComponent implements OnInit {
-  private maintenancesSubjet = new BehaviorSubject<Maintenance[]>([]);
+  private maintenancesSubject = new BehaviorSubject<Maintenance[]>([]);
   displayedColumns = ['description', 'date', 'controls'];
   dataSource: MatTableDataSource<Maintenance>;
 
@@ -17,17 +19,18 @@ export class MaintenancesComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   @Input() set maintenances(value: Maintenance[]) {
-    this.maintenancesSubjet.next(value);
+    this.maintenancesSubject.next(value);
   }
 
   get maintenances() {
-    return this.maintenancesSubjet.getValue();
+    return this.maintenancesSubject.getValue();
   }
 
-  constructor() { }
+  constructor(public dialog: MatDialog,
+              private maintenanceService: MaintenanceService) { }
 
   ngOnInit() {
-    this.maintenancesSubjet.subscribe(data => {
+    this.maintenancesSubject.subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -35,10 +38,17 @@ export class MaintenancesComponent implements OnInit {
   }
 
   deleteMaintenance(idMaintenance: number) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: 'Êtes-vous sûr de vouloir supprimer cette maintenance?'
+    });
 
-  }
-
-  editMaintenance(idMaintenance: number) {
-
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.maintenanceService.delete(idMaintenance).subscribe(res => {
+          console.log(res);
+        });
+      }
+    });
   }
 }

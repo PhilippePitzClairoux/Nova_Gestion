@@ -3,8 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Machine} from '../../models/machine';
 import {MachineService} from '../../services/machine.service';
-import {StatusService} from '../../services/status.service';
-import {Status} from '../../models/status';
 
 @Component({
   selector: 'app-machine',
@@ -33,6 +31,7 @@ export class MachineComponent implements OnInit {
     this.machineService.getOne(this.id).subscribe(res => {
       this.machine = res;
       this.setValues();
+      console.log(this.machine);
     });
   }
 

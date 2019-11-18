@@ -1,18 +1,18 @@
-GET localhost:8080/v1/user/6/
+GET localhost:8080/v1/user/6
 ###
-GET localhost:8080/v1/tool/1/
+GET localhost:8080/v1/tool/1
 ###
-GET localhost:8080/v1/client/1/
+GET localhost:8080/v1/client/1
 ###
-GET localhost:8080/v1/workSheet/2/
+GET localhost:8080/v1/workSheet/2
 ###
 GET localhost:8080/v1/workSheets
 ###
-GET localhost:8080/v1/blank/2/
+GET localhost:8080/v1/blank/2
 ###
-GET localhost:8080/v1/machine/1/
+GET localhost:8080/v1/machine/1
 ###
-GET localhost:8080/v1/program/6/
+GET localhost:8080/v1/program/6
 
 
 ###
@@ -373,20 +373,20 @@ Content-Type: application/json
 }
 
 ###
-DELETE localhost:8080/v1/machine/4/
+DELETE localhost:8080/v1/machine/4
 
 ###
 DELETE localhost:8080/v1/user/5/
 
 ###
-DELETE localhost:8080/v1/blank/2/
+DELETE localhost:8080/v1/blank/2
 
 ###
 DELETE localhost:8080/v1/client/2/
 ###
-DELETE localhost:8080/v1/workSheetClientProgram/1/4/
+DELETE localhost:8080/v1/workSheetClientProgram/1/4
 
 ###
-DELETE localhost:8080/v1/maintenance/7/
+DELETE localhost:8080/v1/maintenance/7
 
 ###

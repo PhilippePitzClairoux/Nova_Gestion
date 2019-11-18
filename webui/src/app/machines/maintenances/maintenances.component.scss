@@ -1,0 +1,35 @@
+.header {
+  color: #2370b8;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.controls {
+  max-width: 10%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.controls mat-icon {
+  color: #c0c0c0;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.date {
+  max-width: 30%;
+}
+
+.description {
+  max-width: 60%;
+}

@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import * as config from '../../assets/config/config.json';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Blank} from '../models/blank';
 import {Maintenance} from '../models/maintenance';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +23,14 @@ export class MaintenanceService {
   }
 
   update(maintenance: Maintenance): Observable<any> {
-    return this.http.put(this.api + 'maintenances', maintenance, this.httpOptions);
+    return this.http.put(this.api + 'maintenance', maintenance, this.httpOptions);
   }
 
   add(maintenance: Maintenance): Observable<any> {
-    return this.http.post<any>(this.api + 'maintenances', maintenance, this.httpOptions);
+    return this.http.post<any>(this.api + 'maintenance', maintenance, this.httpOptions);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete<any>(this.api + 'maintenances/' + id);
+    return this.http.delete<any>(this.api + 'maintenance/' + id);
   }
 }

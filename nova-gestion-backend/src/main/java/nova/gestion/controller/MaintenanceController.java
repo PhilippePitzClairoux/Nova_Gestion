@@ -29,7 +29,7 @@ public class MaintenanceController {
         maintenanceService.updateMaintenance(maintenance);
     }
 
-    @DeleteMapping("/v1/maintenance/{idMaintenance}/")
+    @DeleteMapping("/v1/maintenance/{idMaintenance}")
     public void deleteMaintenance(@PathVariable @Validated int idMaintenance) {
         maintenanceService.deleteMaintenance(idMaintenance);
     }
