@@ -44,7 +44,6 @@ public class UserService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('LOGGED_IN')")
     public User getUser(Integer idUser) {
 
         User user = userMapper.getUser(idUser);
@@ -128,7 +127,6 @@ public class UserService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('LOGGED_IN')")
     public User getUserByEmail(String email) {
         return userMapper.getUserByEmail(email);
     }
