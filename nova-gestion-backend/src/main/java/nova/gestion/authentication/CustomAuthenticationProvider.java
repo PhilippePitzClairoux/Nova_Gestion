@@ -1,6 +1,7 @@
 package nova.gestion.authentication;
 
 
+import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.mappers.UserMapper;
 import nova.gestion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
+
+        if (username.isEmpty() || password.isEmpty())
+            return null;
 
         User user = userMapper.getUserByEmail(username);
 

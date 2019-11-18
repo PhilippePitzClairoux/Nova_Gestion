@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 public class Error {
     private Date timestamp;
-    private Integer httpStatus;
-    private String errorMessage;
-    private String exception;
+    private String message;
+    private String path;
 }
