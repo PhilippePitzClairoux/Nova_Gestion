@@ -33,6 +33,4 @@ public class MaintenanceController {
     public void deleteMaintenance(@PathVariable @Validated int idMaintenance) {
         maintenanceService.deleteMaintenance(idMaintenance);
     }
-
-
 }

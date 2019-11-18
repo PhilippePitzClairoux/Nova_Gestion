@@ -18,10 +18,6 @@ export class MaintenanceService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.api + 'blanks');
-  }
-
   update(maintenance: Maintenance): Observable<any> {
     return this.http.put(this.api + 'maintenance', maintenance, this.httpOptions);
   }

@@ -31,7 +31,6 @@ export class MachineComponent implements OnInit {
     this.machineService.getOne(this.id).subscribe(res => {
       this.machine = res;
       this.setValues();
-      console.log(this.machine);
     });
   }
 

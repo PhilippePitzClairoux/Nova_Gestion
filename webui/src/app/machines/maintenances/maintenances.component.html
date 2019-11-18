@@ -1,3 +1,30 @@
+<form class="add-form" [formGroup]="maintenanceForm">
+  <mat-form-field class="description-input input">
+    <input matInput placeholder="Numéro de série" formControlName="description">
+    <mat-error
+      *ngIf="maintenanceForm.controls.description.hasError('required')">
+      Une description est requise.
+    </mat-error>
+    <mat-error
+      *ngIf="!maintenanceForm.controls.description.hasError('required') && maintenanceForm.controls.description.hasError('maxLength')">
+      Un maximum de 254 caractères est permis.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="date-input input">
+    <input matInput placeholder="Date" formControlName="date" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="maintenanceForm.controls.date.hasError('required')">
+      Une date est requise.
+    </mat-error>
+  </mat-form-field>
+
+  <div class="controls">
+    <app-button [label]="'Ajouter'" [style]="'primary'" (click)="add()"></app-button>
+  </div>
+</form>
+
 <div class="mat-elevation-z0">
 
   <mat-table [dataSource]="dataSource" matSort>

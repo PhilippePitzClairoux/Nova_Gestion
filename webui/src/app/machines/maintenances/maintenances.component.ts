@@ -4,6 +4,7 @@ import {Maintenance} from '../../models/maintenance';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import {MaintenanceService} from '../../services/maintenance.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-maintenances',
@@ -14,10 +15,12 @@ export class MaintenancesComponent implements OnInit {
   private maintenancesSubject = new BehaviorSubject<Maintenance[]>([]);
   displayedColumns = ['description', 'date', 'controls'];
   dataSource: MatTableDataSource<Maintenance>;
+  maintenanceForm: FormGroup;
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
+  @Input() idMachine: number;
   @Input() set maintenances(value: Maintenance[]) {
     this.maintenancesSubject.next(value);
   }
@@ -30,10 +33,16 @@ export class MaintenancesComponent implements OnInit {
               private maintenanceService: MaintenanceService) { }
 
   ngOnInit() {
+    this.initializeForm();
     this.maintenancesSubject.subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.setDataSource(data);
+    });
+  }
+
+  private initializeForm() {
+    this.maintenanceForm = new FormGroup({
+      date: new FormControl('', Validators.required),
+      description: new FormControl('', [Validators.required, Validators.maxLength(254)]),
     });
   }
 
@@ -46,9 +55,53 @@ export class MaintenancesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.maintenanceService.delete(idMaintenance).subscribe(res => {
-          console.log(res);
+          const index = this.maintenances.findIndex(order => order.idMaintenance === idMaintenance);
+          this.maintenances.splice(index, 1);
+          this.setDataSource(this.maintenances);
         });
       }
     });
+  }
+
+  add() {
+    const newMaintenance = new Maintenance();
+    if (this.maintenanceForm.valid) {
+      if (this.maintenanceForm.dirty) {
+        this.createMaintenance(newMaintenance);
+        this.save(newMaintenance);
+      }
+    } else {
+      this.validateAllFields(this.maintenanceForm);
+    }
+  }
+
+  private validateAllFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({onlySelf: true});
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control);
+      }
+    });
+  }
+
+  private save(maintenance: Maintenance) {
+    this.maintenanceService.add(maintenance).subscribe(res => {
+      this.maintenances.push(maintenance);
+      this.setDataSource(this.maintenances);
+    });
+  }
+
+  private createMaintenance(newMaintenance: Maintenance) {
+    const controls = this.maintenanceForm.controls;
+    newMaintenance.description = controls.description.value;
+    newMaintenance.date = controls.date.value;
+  }
+
+  private setDataSource(maintenances: Maintenance[]) {
+    this.dataSource = new MatTableDataSource(maintenances);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 }
