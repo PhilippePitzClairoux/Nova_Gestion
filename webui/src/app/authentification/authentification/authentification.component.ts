@@ -15,7 +15,7 @@ export class AuthentificationComponent implements OnInit {
   public ngOnInit(): void { }
 
   public loginUser(): void {
-    this.authentificationService.connect('admin@gmail.com', 'test').subscribe(() => {
+    this.authentificationService.connect('outilleur@gmail.com', 'test').subscribe(() => {
       this.router.navigate(['clients']);
     });
   }

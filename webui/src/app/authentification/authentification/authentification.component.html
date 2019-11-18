@@ -3,10 +3,22 @@
     <div class="logo">
       <img src="../../../assets/images/logo/affut-mill.png" alt="">
     </div>
-    <div class="inputs">
-      <input class="username" type="text" placeholder="Adresse courriel">
-      <input class="password" type="text" placeholder="Mot de passe">
-      <app-button class="btn-right" [label]="'Connexion'" [style]="'primary'" (clicked)="loginUser()">Connexion</app-button>
+    <mat-form-field class="input">
+      <input matInput id="email" name="email" type="text" placeholder="Courriel">
+      <mat-error *ngIf="">
+        Courriel requis.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input">
+      <input matInput id="password" name="password" type="password" placeholder="Mot de Passe">
+      <mat-error *ngIf="">
+        Mot de passe requis.
+      </mat-error>
+    </mat-form-field>
+    <div class="btn-right">
+      <app-button [label]="'Connexion'" [style]="'primary'" (clicked)="loginUser()">
+        Connexion
+      </app-button>
     </div>
   </mat-card>
 </div>

@@ -14,7 +14,6 @@ export class AuthentificationService {
 
   public connect(email: string, pass: string): Observable<any> {
     const x = 'username=' + email + '&password=' + pass;
-    console.log(x);
     return this.http.post('/login', x, this.httpOptions);
   }
 
