@@ -7,13 +7,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AuthentificationService {
 
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) };
 
   constructor(private http: HttpClient) {
   }
 
   public connect(email: string, pass: string): Observable<any> {
-    return this.http.post('/login', { username: email, password: pass }, this.httpOptions);
+    const x = 'username=' + email + '&password=' + pass;
+    console.log(x);
+    return this.http.post('/login', x, this.httpOptions);
+  }
+
+  public logout(): Observable<any> {
+    return this.http.post('/logout', this.httpOptions);
   }
 
 }
