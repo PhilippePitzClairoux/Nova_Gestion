@@ -27,19 +27,19 @@ mat-row:hover {
 }
 
 .date {
-  max-width: 30%;
+  min-width: 30%;
 }
 
 .description {
-  max-width: 60%;
+  min-width: 60%;
 }
 
 .date-input {
-  width: 30%;
+  width: calc(30% - 10px);
 }
 
 .description-input {
-  width: 60%;
+  width: calc(60% - 10px);
 }
 
 .input {
@@ -53,6 +53,7 @@ mat-row:hover {
   align-items: center;
   padding: 0 24px;
   box-sizing: border-box;
+  margin-top: 10px;
 }
 
 .add {
