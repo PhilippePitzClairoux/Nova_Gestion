@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Machine} from '../../models/machine';
 import {MachineService} from '../../services/machine.service';
+import {StatusService} from '../../services/status.service';
+import {Status} from '../../models/status';
 
 @Component({
   selector: 'app-machine',
