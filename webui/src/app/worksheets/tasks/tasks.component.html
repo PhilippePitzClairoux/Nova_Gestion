@@ -1,0 +1,84 @@
+<div class="tasks-container" *ngIf="idWorkSheet">
+  <div class="new-timer">
+    <div class="title">Chronomètre</div>
+
+    <form class="new-task" [formGroup]="taskForm">
+
+      <mat-form-field class="mid">
+        <mat-label>Tâche</mat-label>
+        <mat-select formControlName="taskType">
+          <mat-option *ngFor="let taskType of taskTypes" [value]="taskType">
+            {{taskType.description}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="taskForm.controls.taskType.hasError('required')">
+          Un type de tâche est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <countup-timer [countUpTimerConfig]="timerConfig"></countup-timer>
+
+      <app-button *ngIf="!timerRunning" [style]="'primary'" [label]="'Commencer'" (click)="start()"></app-button>
+      <app-button *ngIf="timerRunning" [style]="'primary'" [label]="'Arrêter'" (click)="saveTask()"></app-button>
+    </form>
+
+  </div>
+
+  <div class="mat-elevation-z0">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="taskType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">TÂCHE</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> {{row.taskType.description | truncate}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="employee">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">EMPLOYÉ</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> RR</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="start">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="column header"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column">
+          <div *ngIf="selectedIndex !== row.idTask">{{row.startTime | date:'h:mm a'}}</div>
+          <div *ngIf="selectedIndex === row.idTask">
+            <input [ngxTimepicker]="start" value="{{row.startTime | date:'h:mm a'}}">
+            <ngx-material-timepicker #start></ngx-material-timepicker>
+          </div>
+        </mat-cell>
+
+      </ng-container>
+
+      <ng-container matColumnDef="end">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column">
+          <div *ngIf="selectedIndex !== row.idTask">{{row.endTime | date:'h:mm a'}}</div>
+          <div *ngIf="selectedIndex === row.idTask">
+            <input [ngxTimepicker]="end" value="{{row.endTime | date:'h:mm a'}}">
+            <ngx-material-timepicker #end></ngx-material-timepicker>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="duration">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="column"> {{row.duration}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="controls">
+          <mat-icon class="edit" *ngIf="selectedIndex !== row.idTask" (click)="editTask(row)">edit</mat-icon>
+          <mat-icon class="edit" *ngIf="selectedIndex === row.idTask" (click)="updateTask(row)">save</mat-icon>
+          <mat-icon class="delete" (click)="deleteTask(row.idTask)">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" class="header"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+  </div>
+
+</div>
