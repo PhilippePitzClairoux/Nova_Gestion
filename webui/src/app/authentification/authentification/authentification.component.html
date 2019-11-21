@@ -5,13 +5,13 @@
     </div>
     <mat-form-field class="input">
       <input matInput id="email" name="email" type="text" placeholder="Courriel" formControlName="email">
-      <mat-error *ngIf="">
+      <mat-error *ngIf="!fcEmail.valid">
         Courriel requis.
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input">
       <input matInput id="password" name="password" type="password" placeholder="Mot de Passe" formControlName="password">
-      <mat-error *ngIf="">
+      <mat-error *ngIf="!fcPassword.valid">
         Mot de passe requis.
       </mat-error>
     </mat-form-field>

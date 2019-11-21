@@ -24,9 +24,10 @@ export class SidebarComponent implements OnInit {
   }
 
   public logout(): void {
-    this.authentificationService.logout().subscribe(() => {
-      this.router.navigate(['authentification']);
-    });
+    // TODO MAKE IT WORK
+    // this.authentificationService.logout().subscribe(() => {
+    //   this.router.navigate(['authentification']);
+    // });
   }
 
 }
