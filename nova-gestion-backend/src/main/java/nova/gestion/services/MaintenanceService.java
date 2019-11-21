@@ -1,0 +1,54 @@
+package nova.gestion.services;
+
+import nova.gestion.errors.exceptions.InvalidRequest;
+import nova.gestion.errors.exceptions.RessourceNotFound;
+import nova.gestion.mappers.MaintenanceMapper;
+import nova.gestion.model.Maintenance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class MaintenanceService {
+
+    private final MaintenanceMapper maintenanceMapper;
+
+    @Autowired
+    public MaintenanceService(MaintenanceMapper maintenanceMapper) {
+        this.maintenanceMapper = maintenanceMapper;
+    }
+
+    @Transactional
+    public int insertMaintenance(Maintenance maintenance) {
+        if (maintenance == null)
+            throw new InvalidRequest("Missing parameters");
+
+        if (maintenance.getIdMachine() == 0 || maintenance.getDescription() == null || maintenance.getDate() == null)
+            throw new InvalidRequest("Missing parameters");
+
+        maintenanceMapper.insertMaintenance(maintenance);
+
+        return maintenance.getIdMaintenance();
+    }
+
+    @Transactional
+    public void updateMaintenance(Maintenance maintenance) {
+        Maintenance verifiedMaintenance = maintenanceMapper.getMaintenance(maintenance.getIdMaintenance());
+
+        if (maintenance.getIdMaintenance() == 0 || verifiedMaintenance == null)
+            throw new InvalidRequest("Missing IdMaintenance");
+
+        if (maintenance.getIdMachine() == 0 || maintenance.getDescription() == null || maintenance.getDate() == null)
+            throw new InvalidRequest("Missing information for update");
+        maintenanceMapper.updateMaintenance(maintenance);
+    }
+
+    @Transactional
+    public void deleteMaintenance(int idMaintenance) {
+        if (maintenanceMapper.getMaintenance(idMaintenance) == null)
+            throw new RessourceNotFound("Invalid idMaintenance");
+
+        maintenanceMapper.deleteMaintenance(idMaintenance);
+    }
+
+}
