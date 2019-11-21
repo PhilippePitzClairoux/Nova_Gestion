@@ -29,7 +29,7 @@
       <i class="material-icons md-18">laptop</i>
       Machines
     </a>
-    <a routerLink="users" title="Utilisateurs" routerLinkActive="active">
+    <a *ngIf="userType === 'Admin'" routerLink="users" title="Utilisateurs" routerLinkActive="active">
       <i class="material-icons md-18">person</i>
       Utilisateurs
     </a>
@@ -39,6 +39,6 @@
     </a>
   </div>
   <div class="logout">
-    <a routerLink="" title="Déconnexion" (click)="logout()">Déconnexion</a>
+    <a title="Déconnexion" (click)="logout()">Déconnexion</a>
   </div>
 </div>

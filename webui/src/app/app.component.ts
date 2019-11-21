@@ -8,8 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  public authentification: boolean;
+  constructor(public router: Router) { }
 
-  constructor(public router: Router) {
+  public getClass(): string {
+    if (this.router.url === '/authentification') {
+      return 'page-content';
+    } else {
+      return 'page-content-menu';
+    }
   }
+
 }

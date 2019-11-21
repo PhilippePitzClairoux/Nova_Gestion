@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
@@ -10,6 +11,7 @@ import { SharedModule } from './../shared/shared.module';
   declarations: [AuthentificationComponent],
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     MatCardModule,
     MatFormFieldModule,

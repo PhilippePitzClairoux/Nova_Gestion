@@ -1,16 +1,16 @@
 <div class="background">
-  <mat-card class="login-container">
+  <mat-card [formGroup]="fg" class="login-container">
     <div class="logo">
       <img src="../../../assets/images/logo/affut-mill.png" alt="">
     </div>
     <mat-form-field class="input">
-      <input matInput id="email" name="email" type="text" placeholder="Courriel">
+      <input matInput id="email" name="email" type="text" placeholder="Courriel" formControlName="email">
       <mat-error *ngIf="">
         Courriel requis.
       </mat-error>
     </mat-form-field>
     <mat-form-field class="input">
-      <input matInput id="password" name="password" type="password" placeholder="Mot de Passe">
+      <input matInput id="password" name="password" type="password" placeholder="Mot de Passe" formControlName="password">
       <mat-error *ngIf="">
         Mot de passe requis.
       </mat-error>

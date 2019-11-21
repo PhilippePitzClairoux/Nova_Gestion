@@ -1,6 +1,7 @@
 import { AuthentificationService } from './../../services/authentification.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,10 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private router: Router, private authentificationService: AuthentificationService) {
-  }
+  public userType = '';
+
+  constructor(private router: Router, private authentificationService: AuthentificationService) { }
 
   public ngOnInit(): void {
+    if (this.router.url !== '/authentification' && this.router.url !== '/') {
+      this.authentificationService.getUserType();
+    }
+    this.authentificationService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   public logout(): void {
