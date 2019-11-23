@@ -5,6 +5,8 @@ import {MatIconModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
+import { ToastrModule } from 'ngx-toastr';
+
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {InventoryModule} from './inventory/inventory.module';
