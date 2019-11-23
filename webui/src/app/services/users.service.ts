@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { catchError, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -20,7 +21,7 @@ export class UsersService {
 
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   public usersList$(): Observable<User[]> {
     return this.usersListSubject.asObservable();
@@ -31,7 +32,7 @@ export class UsersService {
   }
 
   public getAllUsers(): void {
-    this.http.get<User[]>('/v1/users').pipe(retry(1), catchError(this.handleError)).subscribe(result => {
+    this.http.get<User[]>('/v1/users').pipe(catchError(this.handleError)).subscribe(result => {
       this.usersList = result;
       this.usersListSubject.next(this.usersList);
     });
@@ -81,6 +82,7 @@ export class UsersService {
     } else {
       // All other errors
     }
+    this.toastr.error('a', 'A');
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
