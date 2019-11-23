@@ -1,7 +1,8 @@
+import { catchError, retry } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 import { User } from './../models/user.model';
 import { TypeUser } from '../models/user-type.model';
@@ -30,7 +31,7 @@ export class UsersService {
   }
 
   public getAllUsers(): void {
-    this.http.get<User[]>('/v1/users').subscribe(result => {
+    this.http.get<User[]>('/v1/users').pipe(retry(1), catchError(this.handleError)).subscribe(result => {
       this.usersList = result;
       this.usersListSubject.next(this.usersList);
     });
@@ -64,5 +65,23 @@ export class UsersService {
       this.userTypesList = result;
       this.userTypesListSubject.next(this.userTypesList);
     });
+  }
+
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    if (error.status === 403) {
+      // not autorized
+    } else {
+      // All other errors
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 }
