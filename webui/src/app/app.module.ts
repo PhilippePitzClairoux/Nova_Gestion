@@ -31,7 +31,7 @@ import { AppErrorHandler } from './Error/app-error-handler.injector';
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 3000,
+      timeOut: 5000,
       extendedTimeOut: 2000,
       positionClass: 'toast-top-center',
       preventDuplicates: true,
