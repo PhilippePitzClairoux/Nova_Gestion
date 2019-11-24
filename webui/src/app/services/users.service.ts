@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
@@ -39,30 +39,33 @@ export class UsersService {
   }
 
   public createUser(user: User): void {
-    this.http.post<User>('/v1/user', user, this.httpOptions).subscribe(result => {
+    this.http.post<User>('/v1/user', user, this.httpOptions).pipe(catchError(this.handleError)).subscribe(result => {
       user.idUser = result.idUser;
       this.usersList = [...this.usersList, user];
       this.usersListSubject.next(this.usersList);
+      this.toastr.success('Un utilisateur a été ajouté.');
     });
   }
 
   public updateUser(user: User): void {
-    this.http.put<User>('/v1/user', user, this.httpOptions).subscribe(() => {
+    this.http.put<User>('/v1/user', user, this.httpOptions).pipe(catchError(this.handleError)).subscribe(() => {
       const index = this.usersList.findIndex(t => t.idUser === user.idUser);
       this.usersList[index] = user;
       this.usersListSubject.next(this.usersList);
+      this.toastr.success('Un utilisateur a été modifier.');
     });
   }
 
   public deleteUser(id: number): void {
-    this.http.delete<User>('/v1/user/' + id.toString() + '/').subscribe(() => {
+    this.http.delete<User>('/v1/user/' + id.toString() + '/').pipe(catchError(this.handleError)).subscribe(() => {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
+      this.toastr.success('Un utilisateur à été supprimer.');
     });
   }
 
   public getAllUserTypes(): void {
-    this.http.get<TypeUser[]>('/v1/usertypes').subscribe(result => {
+    this.http.get<TypeUser[]>('/v1/usertypes').pipe(catchError(this.handleError)).subscribe(result => {
       this.userTypesList = result;
       this.userTypesListSubject.next(this.userTypesList);
     });
