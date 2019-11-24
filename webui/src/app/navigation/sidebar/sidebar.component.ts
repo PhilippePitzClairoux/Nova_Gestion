@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router, private authentificationService: AuthentificationService) { }
 
   public ngOnInit(): void {
-    if (this.router.url !== '/authentification' && this.router.url !== '/') {
+    if (this.router.url !== '/authentification') {
       this.authentificationService.getUserType();
     }
     this.authentificationService.userType$().pipe(tap(result => {

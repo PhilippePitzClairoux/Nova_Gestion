@@ -1,11 +1,12 @@
-import { tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 import { Program } from './../models/program.model';
-import { Router } from '@angular/router';
 import * as config from '../../assets/config/config.json';
 
 @Injectable({
@@ -19,7 +20,7 @@ export class ProgramService {
   private programsList: Program[] = [];
   private programsListSubject: BehaviorSubject<Program[]> = new BehaviorSubject<Program[]>([]);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
   public programsList$(): Observable<Program[]> {
     return this.programsListSubject.asObservable();
@@ -42,6 +43,7 @@ export class ProgramService {
       this.programsList = [...this.programsList, program];
       this.programsListSubject.next(this.programsList);
       this.router.navigate(['programs', result.idProgram]);
+      this.toastr.success(null, 'Programme ajouté');
     }));
   }
 
@@ -51,6 +53,7 @@ export class ProgramService {
       this.programsList[index] = program;
       this.programsListSubject.next(this.programsList);
       this.router.navigate(['programs']);
+      this.toastr.success(null, 'Programme modifié');
     });
   }
 
@@ -58,14 +61,19 @@ export class ProgramService {
     this.http.delete<Program>(this.api + 'program/' + id.toString() + '/').subscribe(() => {
       this.programsList = this.programsList.filter(t => t.idProgram !== id);
       this.programsListSubject.next(this.programsList);
+      this.toastr.success(null, 'Programme suprimé');
     });
   }
 
   public addClientToProgram(idProg: number, idCli: number): Observable<any> {
-    return this.http.post<Program>(this.api + 'workSheetClientProgram', { idProgram: idProg, idClient: idCli }, this.httpOptions);
+    return this.http.post<Program>(this.api + 'workSheetClientProgram', { idProgram: idProg, idClient: idCli }, this.httpOptions).pipe(
+      tap(() => this.toastr.success(null, 'Client ajouté au programme'))
+    );
   }
 
   public deleteClientOfProgram(idProgram: number, idClient: number): Observable<any> {
-    return this.http.delete<Program>(this.api + 'workSheetClientProgram/' + idProgram.toString() + '/' + idClient.toString() + '/');
+    return this.http.delete<Program>(this.api + 'workSheetClientProgram/' + idProgram.toString() + '/' + idClient.toString() + '/').pipe(
+      tap(() => this.toastr.success(null, 'Client supprimé du programme'))
+    );
   }
 }

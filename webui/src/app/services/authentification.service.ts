@@ -35,6 +35,9 @@ export class AuthentificationService {
     this.http.get<UserTypeString>('/v1/usertype').subscribe(result => {
       this.userType = result.UserType;
       this.userTypeSubject.next(this.userType);
+    }, error => {
+      console.error('This error might be because you are not login yet.');
+      console.error(error);
     });
   }
 

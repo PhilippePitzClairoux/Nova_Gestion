@@ -1,8 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Tool} from '../models/tool';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+
 import * as config from '../../assets/config/config.json';
+import { Tool } from '../models/tool';
 
 @Injectable({
   providedIn: 'root'
@@ -15,22 +19,28 @@ export class ToolService {
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
-  getAll(): Observable<Tool[]> {
+  public getAll(): Observable<Tool[]> {
     return this.http.get<Tool[]>(this.api + 'tools');
   }
 
-  update(tool: Tool): Observable<any> {
-    return this.http.put(this.api + 'tool', tool, this.httpOptions);
+  public update(tool: Tool): Observable<any> {
+    return this.http.put(this.api + 'tool', tool, this.httpOptions).pipe(
+      tap(() => this.toastr.success(null, 'Outil modifié'))
+    );
   }
 
-  add(tool: Tool): Observable<any> {
-    return this.http.post<any>(this.api + 'tool', tool, this.httpOptions);
+  public add(tool: Tool): Observable<any> {
+    return this.http.post<any>(this.api + 'tool', tool, this.httpOptions).pipe(
+      tap(() => this.toastr.success(null, 'Outil ajouté'))
+    );
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(this.api + 'tool/' + id);
+  public delete(id: number): Observable<any> {
+    return this.http.delete<any>(this.api + 'tool/' + id).pipe(
+      tap(() => this.toastr.success(null, 'Outil supprimé'))
+    );
   }
 }
