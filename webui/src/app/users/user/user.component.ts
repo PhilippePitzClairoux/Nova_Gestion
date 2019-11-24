@@ -1,4 +1,4 @@
-import { UsersService } from './../../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';

@@ -1,11 +1,11 @@
-import { ToastrService } from 'ngx-toastr';
-import { catchError, retry } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
-import { User } from './../models/user.model';
+import { User } from '../models/user.model';
 import { TypeUser } from '../models/user-type.model';
 
 @Injectable({
@@ -68,7 +68,7 @@ export class UsersService {
     });
   }
 
-  handleError(error) {
+  private handleError(error: any): Observable<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // client-side error
@@ -77,13 +77,6 @@ export class UsersService {
       // server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    if (error.status === 403) {
-      // not autorized
-    } else {
-      // All other errors
-    }
-    this.toastr.error('a', 'A');
-    window.alert(errorMessage);
     return throwError(errorMessage);
   }
 }
