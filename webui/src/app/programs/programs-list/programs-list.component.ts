@@ -32,11 +32,11 @@ export class ProgramsListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private programService: ProgramService,
-              private clientService: ClientService,
-              private machineService: MachineService,
-              private fb: FormBuilder,
-              private dialog: MatDialog,
-              private router: Router) { }
+    private clientService: ClientService,
+    private machineService: MachineService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit() {
     this.fg = this.fb.group({
@@ -94,5 +94,31 @@ export class ProgramsListComponent implements OnInit {
   public clearSearch(): void {
     this.searchField = '';
     this.dataSource = new MatTableDataSource(this.programs);
+  }
+
+  public unselectClient(): void {
+    this.fg.controls.client.setValue('');
+  }
+
+  public unselectMachine(): void {
+    this.fg.controls.machine.setValue('');
+  }
+
+  public canApplyFilterClient(): void {
+    if (this.fg.controls.client.value !== undefined) {
+      this.applyFilter();
+    } else {
+      this.unselectClient();
+      this.applyFilter();
+    }
+  }
+
+  public canApplyFilterMachine(): void {
+    if (this.fg.controls.machine.value !== undefined) {
+      this.applyFilter();
+    } else {
+      this.unselectMachine();
+      this.applyFilter();
+    }
   }
 }

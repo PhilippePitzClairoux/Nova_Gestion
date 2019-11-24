@@ -8,7 +8,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
-  MatButtonModule
+  MatButtonModule,
+  MatAutocompleteModule
 } from '@angular/material';
 
 import { SharedModule } from './../shared/shared.module';
@@ -26,6 +27,7 @@ import { ProgramComponent } from './program/program.component';
     SharedModule,
     MatFormFieldModule,
     MatInputModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
