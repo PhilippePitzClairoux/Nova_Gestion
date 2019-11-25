@@ -9,6 +9,7 @@ import nova.gestion.model.Client;
 import nova.gestion.model.Program;
 import nova.gestion.model.WorkSheetClientProgram;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class ProgramService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')")
     public ArrayList<Program> getAllPrograms() {
         ArrayList<Program> programs = programMapper.getAllPrograms();
 
@@ -44,6 +46,7 @@ public class ProgramService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')")
     public Program getProgram(Integer idProgram) {
 
         Program program = programMapper.getProgram(idProgram);
@@ -68,6 +71,7 @@ public class ProgramService {
         return program;
     }
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createProgram(Program program) {
 
         if (program == null)
@@ -85,6 +89,7 @@ public class ProgramService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createProgramClient(WorkSheetClientProgram workSheetClientProgram ){
 
         if (workSheetClientProgram.getIdProgram() == 0 || workSheetClientProgram.getIdClient() == 0)
@@ -95,6 +100,7 @@ public class ProgramService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void updateProgram(Program program) {
 
         Program verifiedProgram = programMapper.getProgram(program.getIdProgram());
@@ -111,6 +117,7 @@ public class ProgramService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteProgram(Integer idProgram) {
 
         Program loadProgram = programMapper.getProgram(idProgram);
@@ -122,6 +129,7 @@ public class ProgramService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteProgramClient(Integer idProgram, Integer idClient) {
 
         if (idProgram == null || idClient == null)

@@ -11,6 +11,7 @@ import nova.gestion.model.Program;
 import nova.gestion.model.WorkSheet;
 import nova.gestion.model.WorkSheetClientProgram;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,6 +75,7 @@ public class WorkSheetService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createWorkSheet(WorkSheet workSheet) {
 
         if (workSheet == null)
@@ -108,6 +110,7 @@ public class WorkSheetService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void updateWorkSheet(WorkSheet workSheet){
 
         WorkSheet verifiedWorkSheet = workSheetMapper.getWorkSheet(workSheet.getIdWorkSheet());
@@ -125,6 +128,7 @@ public class WorkSheetService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteWorkSheet(Integer idWorkSheet) {
         WorkSheet loadWorkSheet = workSheetMapper.getWorkSheet(idWorkSheet);
 

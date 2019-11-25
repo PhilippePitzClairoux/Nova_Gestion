@@ -6,6 +6,7 @@ import nova.gestion.mappers.ClientMapper;
 import nova.gestion.model.Client;
 import nova.gestion.model.post.ClientPost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,7 @@ public class ClientService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public Integer createClient(String name, String phoneNumber ) {
 
         if (name == null || phoneNumber == null)
@@ -58,6 +60,7 @@ public class ClientService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void updateClient(Client client) {
        Client verifiedClient = clientMapper.getClient(client.getIdClient());
 
@@ -73,6 +76,7 @@ public class ClientService {
 
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void deleteClient(Integer idClient) {
 
         Client loadClient = clientMapper.getClient(idClient);

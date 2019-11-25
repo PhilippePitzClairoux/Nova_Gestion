@@ -8,6 +8,7 @@ import nova.gestion.mappers.CoolantHoleMapper;
 import nova.gestion.mappers.GradeMapper;
 import nova.gestion.model.Blank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class BlankService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public ArrayList<Blank> getListOfAllBlanks() {
         ArrayList<Blank> blanks = blankMapper.getAllBlanks();
 
@@ -38,6 +40,7 @@ public class BlankService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public Blank getBlank(int idBlank) {
 
         Blank blank = blankMapper.getBlank(idBlank);
@@ -48,6 +51,7 @@ public class BlankService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public Integer createBlank(Blank blank) {
 
         if (blank == null)
@@ -71,6 +75,7 @@ public class BlankService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void updateBlank(Blank blank) {
         Blank verifiedBlank = blankMapper.getBlank(blank.getIdBlank());
 
@@ -103,6 +108,7 @@ public class BlankService {
 
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void deleteBlank(Integer idBlank) {
 
         Blank loadBlank = blankMapper.getBlank(idBlank);
