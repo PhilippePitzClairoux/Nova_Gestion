@@ -18,12 +18,12 @@
           <mat-select formControlName="client">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
-                [formControl]="fcClientSearch" placeholder="Rechercher">
+                                     [formControl]="fcClientSearch" placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetClient()">Aucun</mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-              (click)="resetClient()">
+                        (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>
