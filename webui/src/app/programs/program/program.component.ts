@@ -35,17 +35,26 @@ export class ProgramComponent implements OnInit {
   public fg: FormGroup;
   public clientFg: FormGroup;
 
+  public fcClientSearch: FormControl = new FormControl('');
+  public fcMachineSearch: FormControl = new FormControl('');
+  public fcBlankSearch: FormControl = new FormControl('');
+  public fcToolSearch: FormControl = new FormControl('');
+
   public tools: Tool[] = [];
+  public filteredTools: BehaviorSubject<Tool[]> = new BehaviorSubject<Tool[]>([]);
   public blanks: Blank[] = [];
+  public filteredBlanks: BehaviorSubject<Blank[]> = new BehaviorSubject<Blank[]>([]);
   public machines: Machine[] = [];
+  public filteredMachines: BehaviorSubject<Machine[]> = new BehaviorSubject<Machine[]>([]);
   public clients: Client[] = [];
+  public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
 
   public programSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public program$: Observable<Client[]>;
 
   constructor(private route: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
-              private toolService: ToolService, private blankService: BlankService, private nav: Router,
-              private machineService: MachineService, private clientService: ClientService) { }
+    private toolService: ToolService, private blankService: BlankService, private nav: Router,
+    private machineService: MachineService, private clientService: ClientService) { }
 
   public ngOnInit(): void {
     this.program$ = this.programSubject.asObservable();
@@ -59,6 +68,10 @@ export class ProgramComponent implements OnInit {
   }
 
   public addClient() {
+    if (this.clientFg.invalid) {
+      this.validateAllFields(this.clientFg);
+      return;
+    }
     this.programService.addClientToProgram(this.program.idProgram, this.clientFg.controls.client.value.idClient).subscribe(result => {
       if (this.program.clients === undefined) {
         this.program.clients = [];
@@ -136,10 +149,10 @@ export class ProgramComponent implements OnInit {
   }
 
   private getAllLists(): void {
-    this.toolService.getAll().subscribe(result => this.tools = result);
-    this.blankService.getAll().subscribe(result => this.blanks = result);
-    this.machineService.getAll().subscribe(result => this.machines = result);
-    this.clientService.getAll().subscribe(result => this.clients = result);
+    this.toolService.getAll().subscribe(result => { this.tools = result; this.filteredTools.next(result); });
+    this.blankService.getAll().subscribe(result => { this.blanks = result; this.filteredBlanks.next(result); });
+    this.machineService.getAll().subscribe(result => { this.machines = result; this.filteredMachines.next(result); });
+    this.clientService.getAll().subscribe(result => { this.clients = result; this.filteredClients.next(result); });
   }
 
   private initPage(): void {
@@ -178,5 +191,61 @@ export class ProgramComponent implements OnInit {
         this.validateAllFields(control);
       }
     });
+  }
+
+  public filterClient(): void {
+    if (this.fcClientSearch.value === '') {
+      this.filteredClients.next(this.clients);
+    } else {
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(
+        this.fcClientSearch.value.toLocaleLowerCase()
+      )));
+    }
+  }
+
+  public filterMachine(): void {
+    if (this.fcMachineSearch.value === '') {
+      this.filteredMachines.next(this.machines);
+    } else {
+      this.filteredMachines.next(
+        this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachineSearch.value.toLocaleLowerCase()))
+      );
+    }
+  }
+
+  public filterBlank(): void {
+    if (this.fcBlankSearch.value === '') {
+      this.filteredBlanks.next(this.blanks);
+    } else {
+      this.filteredBlanks.next(
+        this.blanks.filter(t => t.name.toLocaleLowerCase().includes(this.fcBlankSearch.value.toLocaleLowerCase()))
+      );
+    }
+  }
+
+  public filterTool(): void {
+    if (this.fcToolSearch.value === '') {
+      this.filteredTools.next(this.tools);
+    } else {
+      this.filteredTools.next(
+        this.tools.filter(t => t.name.toLocaleLowerCase().includes(this.fcToolSearch.value.toLocaleLowerCase()))
+      );
+    }
+  }
+
+  public resetClient(): void {
+    this.filteredClients.next(this.clients);
+  }
+
+  public resetMachine(): void {
+    this.filteredMachines.next(this.machines);
+  }
+
+  public resetBlank(): void {
+    this.filteredBlanks.next(this.blanks);
+  }
+
+  public resetTool(): void {
+    this.filteredTools.next(this.tools);
   }
 }
