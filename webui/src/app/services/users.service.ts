@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
-import { User } from './../models/user.model';
+import { User } from '../models/user.model';
 import { TypeUser } from '../models/user-type.model';
 
 @Injectable({
@@ -19,7 +20,7 @@ export class UsersService {
 
   private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastr: ToastrService) { }
 
   public usersList$(): Observable<User[]> {
     return this.usersListSubject.asObservable();
@@ -41,6 +42,7 @@ export class UsersService {
       user.idUser = result.idUser;
       this.usersList = [...this.usersList, user];
       this.usersListSubject.next(this.usersList);
+      this.toastr.success(null, 'Utilisateur ajouté.');
     });
   }
 
@@ -49,6 +51,7 @@ export class UsersService {
       const index = this.usersList.findIndex(t => t.idUser === user.idUser);
       this.usersList[index] = user;
       this.usersListSubject.next(this.usersList);
+      this.toastr.success(null, 'Utilisateur modifié.');
     });
   }
 
@@ -56,6 +59,7 @@ export class UsersService {
     this.http.delete<User>('/v1/user/' + id.toString() + '/').subscribe(() => {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
+      this.toastr.success(null, 'Utilisateur supprimé.');
     });
   }
 

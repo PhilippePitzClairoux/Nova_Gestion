@@ -1,7 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Worksheet} from '../models/worksheet';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+
+import { Worksheet } from '../models/worksheet';
 import * as config from '../../assets/config/config.json';
 
 @Injectable({
@@ -15,26 +19,32 @@ export class WorksheetService {
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
-  getAll(): Observable<Worksheet[]> {
+  public getAll(): Observable<Worksheet[]> {
     return this.http.get<Worksheet[]>(this.api + 'workSheets');
   }
 
-  getOne(id: number): Observable<Worksheet> {
+  public getOne(id: number): Observable<Worksheet> {
     return this.http.get<Worksheet>(this.api + 'workSheet/' + id);
   }
 
-  update(newWorksheet: Worksheet): Observable<any> {
-    return this.http.put(this.api + 'workSheet', newWorksheet, this.httpOptions);
+  public update(newWorksheet: Worksheet): Observable<any> {
+    return this.http.put(this.api + 'workSheet', newWorksheet, this.httpOptions).pipe(
+      tap(() => this.toastr.success(null, 'Feuille de travail modifiée'))
+    );
   }
 
-  add(newWorksheet: Worksheet): Observable<any> {
-    return this.http.post(this.api + 'workSheet', newWorksheet, this.httpOptions);
+  public add(newWorksheet: Worksheet): Observable<any> {
+    return this.http.post(this.api + 'workSheet', newWorksheet, this.httpOptions).pipe(
+      tap(() => this.toastr.success(null, 'Feuille de travail ajoutée'))
+    );
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete<any>(this.api + 'workSheet/' + id);
+  public delete(id: number): Observable<any> {
+    return this.http.delete<any>(this.api + 'workSheet/' + id).pipe(
+      tap(() => this.toastr.success(null, 'Feuille de travail supprimée'))
+    );
   }
 }
