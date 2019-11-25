@@ -8,8 +8,7 @@
       <div class="two-items">
         <mat-form-field class="mid">
           <input matInput placeholder="Numéro de commande" formControlName="orderNumber">
-          <mat-error
-            *ngIf="worksheetForm.controls.orderNumber.hasError('maxLength')">
+          <mat-error *ngIf="worksheetForm.controls.orderNumber.hasError('maxLength')">
             Un maximum de 254 caractères est permis.
           </mat-error>
         </mat-form-field>
@@ -17,17 +16,22 @@
         <mat-form-field class="mid">
           <mat-label>Client</mat-label>
           <mat-select formControlName="client">
-            <mat-option *ngFor="let client of clients" [value]="client">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
+                [formControl]="fcClientSearch" placeholder="Rechercher">
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option (click)="resetClient()">Aucun</mat-option>
+            <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
+              (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>
-          <mat-error
-            *ngIf="worksheetForm.controls.client.hasError('required')">
+          <mat-error *ngIf="worksheetForm.controls.client.hasError('required')">
             Un client est requis.
           </mat-error>
         </mat-form-field>
       </div>
-
 
       <mat-form-field class="full-width">
         <mat-label>Programme</mat-label>
@@ -36,8 +40,7 @@
             {{program.name}}
           </mat-option>
         </mat-select>
-        <mat-error
-          *ngIf="worksheetForm.controls.program.hasError('required')">
+        <mat-error *ngIf="worksheetForm.controls.program.hasError('required')">
           Un programme est requis.
         </mat-error>
       </mat-form-field>

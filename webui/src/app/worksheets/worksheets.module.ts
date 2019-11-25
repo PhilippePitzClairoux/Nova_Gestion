@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {WorksheetsListComponent} from './worksheets-list/worksheets-list.component';
-import {WorksheetsRoutingModule} from './worksheets-routing.module';
 import {FormsModule} from '@angular/forms';
 import {
   MatButtonModule, MatDatepickerModule,
@@ -10,11 +8,16 @@ import {
   MatOptionModule,
   MatPaginatorModule, MatSelectModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule,
+  MatAutocompleteModule
 } from '@angular/material';
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
+import {WorksheetsListComponent} from './worksheets-list/worksheets-list.component';
+import {WorksheetsRoutingModule} from './worksheets-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import { WorksheetComponent } from './worksheet/worksheet.component';
-
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { WorksheetComponent } from './worksheet/worksheet.component';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class WorksheetsModule {

@@ -29,8 +29,8 @@ export class ProgramsListComponent implements OnInit {
   public searchField = '';
 
   public fg: FormGroup;
-  public fcClient: FormControl = new FormControl('');
-  public fcMachine: FormControl = new FormControl('');
+  public fcClientSearch: FormControl = new FormControl('');
+  public fcMachineSearch: FormControl = new FormControl('');
 
   public dataSource: MatTableDataSource<Program>;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -43,10 +43,10 @@ export class ProgramsListComponent implements OnInit {
               private dialog: MatDialog,
               private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.fg = this.fb.group({
-      client: this.fcClient,
-      machine: this.fcMachine
+      client: this.fcClientSearch,
+      machine: this.fcMachineSearch
     });
     this.programService.getAllProgram();
     this.programService.programsList$().pipe(tap(result => this.programs = result)).subscribe(() => {
@@ -128,18 +128,20 @@ export class ProgramsListComponent implements OnInit {
   }
 
   public filterClient(): void {
-    if (this.fcClient.value === '') {
+    if (this.fcClientSearch.value === '') {
       this.filteredClients.next(this.clients);
     } else {
-      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(this.fcClient.value.toLocaleLowerCase())));
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(
+        this.fcClientSearch.value.toLocaleLowerCase()
+      )));
     }
   }
 
   public filterMachine(): void {
-    if (this.fcMachine.value === '') {
+    if (this.fcMachineSearch.value === '') {
       this.filteredMachines.next(this.machines);
     } else {
-      this.filteredMachines.next(this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachine.value.toLocaleLowerCase())));
+      this.filteredMachines.next(this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachineSearch.value.toLocaleLowerCase())));
     }
   }
 

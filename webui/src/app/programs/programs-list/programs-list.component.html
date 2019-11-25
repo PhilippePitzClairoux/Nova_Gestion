@@ -12,7 +12,7 @@
         <mat-label>Client</mat-label>
         <mat-select formControlName="client" (selectionChange)="canApplyFilterClient()">
           <mat-option>
-            <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()" [formControl]="fcClient" placeholder="Rechercher">
+            <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()" [formControl]="fcClientSearch" placeholder="Rechercher">
             </ngx-mat-select-search>
           </mat-option>
           <mat-option (click)="resetClient()">Aucun</mat-option>
@@ -25,7 +25,7 @@
         <mat-label>Machine</mat-label>
         <mat-select formControlName="machine" (selectionChange)="canApplyFilterMachine()">
           <mat-option>
-            <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetMachine()" (keyup)="filterMachine()" [formControl]="fcMachine" placeholder="Rechercher">
+            <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetMachine()" (keyup)="filterMachine()" [formControl]="fcMachineSearch" placeholder="Rechercher">
             </ngx-mat-select-search>
           </mat-option>
           <mat-option (click)="resetMachine()">Aucune</mat-option>
