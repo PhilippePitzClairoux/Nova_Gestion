@@ -20,7 +20,6 @@ GET localhost:8080/v1/programs
 
 ###
 GET localhost:8080/v1/programs
-Cookie: < .idea/httpRequests/http-client.cookies
 ###
 GET localhost:8080/v1/users
 ###
