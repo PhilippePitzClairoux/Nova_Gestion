@@ -18,7 +18,7 @@
           <mat-select formControlName="client">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
-                [formControl]="fcClientSearch" placeholder="Rechercher">
+                [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetClient()">Aucun</mat-option>

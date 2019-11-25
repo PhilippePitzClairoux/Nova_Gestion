@@ -39,7 +39,7 @@
       <mat-select formControlName="grade">
         <mat-option>
           <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetGrade()" (keyup)="filterGrade()"
-            [formControl]="fcGradeSearch" placeholder="Rechercher">
+            [formControl]="fcGradeSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
           </ngx-mat-select-search>
         </mat-option>
         <mat-option (click)="resetGrade()" *ngFor="let grade of filteredGrades.asObservable() | async" [value]="grade">

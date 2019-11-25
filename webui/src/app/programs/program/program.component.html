@@ -20,47 +20,52 @@
 
       <div class="input-btn">
         <mat-form-field class="full-width-input">
-            <mat-label>Outil</mat-label>
-            <mat-select formControlName="tool">
-              <mat-option>
-                <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetTool()" (keyup)="filterTool()" [formControl]="fcToolSearch" placeholder="Rechercher">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option (click)="resetTool()">Aucun</mat-option>
-              <mat-option *ngFor="let tool of filteredTools.asObservable() | async" [value]="tool" (click)="resetTool()">
-                {{tool.name}}
-              </mat-option>
-            </mat-select>
+          <mat-label>Outil</mat-label>
+          <mat-select formControlName="tool">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                (click)="resetTool()" (keyup)="filterTool()" [formControl]="fcToolSearch" placeholder="Rechercher">
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option (click)="resetTool()">Aucun</mat-option>
+            <mat-option *ngFor="let tool of filteredTools.asObservable() | async" [value]="tool" (click)="resetTool()">
+              {{tool.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
       <div class="input-btn">
         <mat-form-field class="full-width-input">
-            <mat-label>Tige de carbure</mat-label>
-            <mat-select formControlName="blank">
-              <mat-option>
-                <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetBlank()" (keyup)="filterBlank()" [formControl]="fcBlankSearch" placeholder="Rechercher">
-                </ngx-mat-select-search>
-              </mat-option>
-              <mat-option (click)="resetClient()">Aucune</mat-option>
-              <mat-option *ngFor="let blank of filteredBlanks.asObservable() | async" [value]="blank" (click)="resetBlank()">
-                {{blank.name}}
-              </mat-option>
-            </mat-select>
+          <mat-label>Tige de carbure</mat-label>
+          <mat-select formControlName="blank">
+            <mat-option>
+              <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetBlank()" (keyup)="filterBlank()"
+                [formControl]="fcBlankSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option (click)="resetClient()">Aucune</mat-option>
+            <mat-option *ngFor="let blank of filteredBlanks.asObservable() | async" [value]="blank"
+              (click)="resetBlank()">
+              {{blank.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
       <mat-form-field class="full-width-input">
-          <mat-label>Machine</mat-label>
-          <mat-select formControlName="machine">
-            <mat-option>
-              <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetMachine()" (keyup)="filterMachine()" [formControl]="fcMachineSearch" placeholder="Rechercher">
-              </ngx-mat-select-search>
-            </mat-option>
-            <mat-option *ngFor="let machine of filteredMachines.asObservable() | async" [value]="machine" (click)="resetMachine()">
-              {{machine.name}}
-            </mat-option>
-          </mat-select>
+        <mat-label>Machine</mat-label>
+        <mat-select formControlName="machine">
+          <mat-option>
+            <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetMachine()" (keyup)="filterMachine()"
+              [formControl]="fcMachineSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let machine of filteredMachines.asObservable() | async" [value]="machine"
+            (click)="resetMachine()">
+            {{machine.name}}
+          </mat-option>
+        </mat-select>
         <mat-error *ngIf="fcMachine.invalid">
           Une machine est requise.
         </mat-error>
@@ -79,7 +84,7 @@
           <mat-select formControlName="client">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
-                [formControl]="fcClientSearch" placeholder="Rechercher">
+                [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
