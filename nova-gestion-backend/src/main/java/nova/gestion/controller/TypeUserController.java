@@ -23,6 +23,11 @@ public class TypeUserController {
         this.typeUserService = typeUserService;
     }
 
+    /**
+     * GET /v1/usertypes -> retourne la liste des usertypes
+     * @return ArrayList {@link nova.gestion.model.TypeUser}
+     * @throws JsonProcessingException
+     */
     @GetMapping("/v1/usertypes")
     public ArrayList<TypeUser> getAllUserTypes() throws JsonProcessingException {
         return typeUserService.getAllUserTypes();
