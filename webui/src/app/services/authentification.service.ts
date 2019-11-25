@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -15,7 +16,7 @@ export class AuthentificationService {
   public userType = '';
   public userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
   public userType$(): Observable<string> {
@@ -36,7 +37,17 @@ export class AuthentificationService {
       this.userType = result.UserType;
       this.userTypeSubject.next(this.userType);
     }, error => {
-      console.error('This error might be because you are not login yet.');
+      if (error.status === 401) {
+        console.error('This error might be because you need to authenticate yourself.');
+      } else {
+        this.toastr.error(
+          'Un problème est survenu, veuillez contacter l\'administrateur.',
+          'Erreur',
+          {
+            onActivateTick: true
+          }
+        );
+      }
       console.error(error);
     });
   }
