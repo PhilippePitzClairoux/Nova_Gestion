@@ -22,6 +22,11 @@ public class StatusController {
         this.statusService = statusService;
     }
 
+    /**
+     * GET /v1/status -> retourne la liste des status
+     * @return ArrayList {@link nova.gestion.model.Status}
+     * @throws JsonProcessingException
+     */
     @GetMapping("/v1/status")
     public ArrayList<Status> getAllStatus() throws JsonProcessingException {
         return statusService.getAllStatus();
