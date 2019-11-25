@@ -1,9 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Tool} from '../../../models/tool';
-import {Client} from '../../../models/client';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ClientService} from '../../../services/client.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { BehaviorSubject } from 'rxjs';
+
+import { ClientService } from '../../../services/client.service';
+import { Tool } from '../../../models/tool';
+import { Client } from '../../../models/client';
 
 @Component({
   selector: 'app-tool',
@@ -11,8 +14,11 @@ import {ClientService} from '../../../services/client.service';
   styleUrls: ['./tool.component.scss']
 })
 export class ToolComponent implements OnInit {
-  clients: Client[] = [];
-  toolForm: FormGroup;
+  public clients: Client[] = [];
+  public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
+  public toolForm: FormGroup;
+
+  public fcClientSearch: FormControl = new FormControl('');
 
   constructor(
     public dialogRef: MatDialogRef<ToolComponent>,
@@ -63,6 +69,7 @@ export class ToolComponent implements OnInit {
   private getClients() {
     this.clientService.getAll().subscribe(clients => {
       this.clients = clients;
+      this.filteredClients.next(clients);
       this.setValues();
     });
   }
@@ -85,10 +92,24 @@ export class ToolComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({onlySelf: true});
+        control.markAsTouched({ onlySelf: true });
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }
     });
+  }
+
+  public filterClient(): void {
+    if (this.fcClientSearch.value === '') {
+      this.filteredClients.next(this.clients);
+    } else {
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(
+        this.fcClientSearch.value.toLocaleLowerCase()
+      )));
+    }
+  }
+
+  public resetClient(): void {
+    this.filteredClients.next(this.clients);
   }
 }
