@@ -51,7 +51,7 @@ export class UsersService {
       const index = this.usersList.findIndex(t => t.idUser === user.idUser);
       this.usersList[index] = user;
       this.usersListSubject.next(this.usersList);
-      this.toastr.success(null, 'Utilisateur modifié.');
+      this.toastr.success(null, 'Utilisateur modifié');
     });
   }
 
@@ -59,7 +59,7 @@ export class UsersService {
     this.http.delete<User>('/v1/user/' + id.toString() + '/').subscribe(() => {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
-      this.toastr.success(null, 'Utilisateur supprimé.');
+      this.toastr.success(null, 'Utilisateur supprimé');
     });
   }
 

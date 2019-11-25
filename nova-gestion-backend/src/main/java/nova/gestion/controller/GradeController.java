@@ -23,6 +23,11 @@ public class GradeController {
         this.gradeService = gradeService;
     }
 
+    /**
+     * GET /v1/grades -> retourne la liste des grades
+     * @return ArrayList {@link nova.gestion.model.Grade}
+     * @throws JsonProcessingException
+     */
     @GetMapping("/v1/grades")
     public ArrayList<Grade> getAllGrades() throws JsonProcessingException {
         return gradeService.getAllGrades();

@@ -8,16 +8,13 @@ import {
   MatOptionModule,
   MatPaginatorModule, MatSelectModule,
   MatSortModule,
-  MatTableModule,
-  MatAutocompleteModule
+  MatTableModule
 } from '@angular/material';
-
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {WorksheetsListComponent} from './worksheets-list/worksheets-list.component';
 import {WorksheetsRoutingModule} from './worksheets-routing.module';
 import {SharedModule} from '../shared/shared.module';
-import { WorksheetComponent } from './worksheet/worksheet.component';
+import {WorksheetComponent} from './worksheet/worksheet.component';
 
 @NgModule({
   declarations: [

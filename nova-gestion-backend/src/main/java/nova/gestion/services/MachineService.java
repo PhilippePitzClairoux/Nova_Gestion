@@ -7,6 +7,7 @@ import nova.gestion.mappers.MaintenanceMapper;
 import nova.gestion.mappers.ModelMapper;
 import nova.gestion.model.Machine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class MachineService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public ArrayList<Machine> getAllMachines() {
         ArrayList<Machine> machines = machineMapper.getAllMachines();
 
@@ -36,6 +38,7 @@ public class MachineService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')")
     public Machine getMachine(Integer idMachine) {
 
         Machine machine = machineMapper.getMachine(idMachine);
@@ -47,6 +50,7 @@ public class MachineService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public Integer createMachine(Machine machine)
     {
         if (machine == null)
@@ -68,6 +72,7 @@ public class MachineService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void updateMachine(Machine machine){
         Machine verifiedMachine = machineMapper.getMachine(machine.getIdMachine());
 
@@ -89,6 +94,7 @@ public class MachineService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
     public void deleteMachine(Integer idMachine) {
 
         Machine loadMachine = machineMapper.getMachine(idMachine);

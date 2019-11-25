@@ -9,6 +9,7 @@ import nova.gestion.mappers.ToolMapper;
 import nova.gestion.model.Tool;
 import nova.gestion.model.post.ToolPost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class ToolService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public ArrayList<Tool> getListOfAllTools() {
         ArrayList<Tool> tools = toolMapper.getAllTool();
 
@@ -35,6 +37,7 @@ public class ToolService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Tool getTool(Integer idTool) {
 
         Tool tool = toolMapper.getTool(idTool);
@@ -46,6 +49,7 @@ public class ToolService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createTool(Tool tool) {
 
         if (tool == null)
@@ -66,6 +70,7 @@ public class ToolService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void updateTool(Tool tool) {
         Tool verifiedTool = toolMapper.getTool(tool.getIdTool());
 
@@ -82,6 +87,7 @@ public class ToolService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteTool(Integer idTool) {
 
         Tool loadTool = toolMapper.getTool(idTool);

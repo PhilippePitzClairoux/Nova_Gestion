@@ -58,11 +58,21 @@ public class UserController {
         return Map.of("idUser", userService.createUser(user));
     }
 
+    /**
+     * PUT /v1/user
+     * Mis à jour un user dans la BD
+     * @param user
+     */
     @PutMapping("/v1/user")
     public void updateUser(@RequestBody @Validated User user) {
         userService.updateUser(user);
     }
 
+    /**
+     * DELETE /v1/user/{idUser}/
+     * supprime un user de la BD avec l'id spécifié
+     * @param idUser
+     */
     @DeleteMapping("/v1/user/{idUser}/")
     public void deleteUser(@PathVariable @Validated Integer idUser) {
         userService.deleteUser(idUser);

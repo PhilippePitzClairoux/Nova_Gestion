@@ -23,7 +23,7 @@
             </mat-option>
             <mat-option (click)="resetClient()">Aucun</mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-              (click)="resetClient()">
+                        (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>

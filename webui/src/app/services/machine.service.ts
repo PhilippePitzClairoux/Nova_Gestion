@@ -28,7 +28,7 @@ export class MachineService {
 
   public delete(id: number): Observable<any> {
     return this.http.delete<any>(this.api + 'machine/' + id).pipe(
-      tap(() => this.toastr.success('Machine supprimée.'))
+      tap(() => this.toastr.success('Machine supprimée'))
     );
   }
 
