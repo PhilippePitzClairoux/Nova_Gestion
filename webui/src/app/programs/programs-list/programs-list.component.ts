@@ -45,8 +45,8 @@ export class ProgramsListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.fg = this.fb.group({
-      client: this.fcClientSearch,
-      machine: this.fcMachineSearch
+      client: new FormControl(''),
+      machine: new FormControl('')
     });
     this.programService.getAllProgram();
     this.programService.programsList$().pipe(tap(result => this.programs = result)).subscribe(() => {
@@ -141,7 +141,9 @@ export class ProgramsListComponent implements OnInit {
     if (this.fcMachineSearch.value === '') {
       this.filteredMachines.next(this.machines);
     } else {
-      this.filteredMachines.next(this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachineSearch.value.toLocaleLowerCase())));
+      this.filteredMachines.next(
+        this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachineSearch.value.toLocaleLowerCase()))
+      );
     }
   }
 
