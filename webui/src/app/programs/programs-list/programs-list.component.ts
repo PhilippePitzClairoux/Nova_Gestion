@@ -12,6 +12,7 @@ import { MachineService } from './../../services/machine.service';
 import { Program } from './../../models/program.model';
 import { Machine } from './../../models/machine';
 import { Client } from './../../models/client';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-programs-list',
@@ -22,26 +23,30 @@ export class ProgramsListComponent implements OnInit {
 
   private programs: Program[] = [];
   public clients: Client[] = [];
+  public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public machines: Machine[] = [];
+  public filteredMachines: BehaviorSubject<Machine[]> = new BehaviorSubject<Machine[]>([]);
   public searchField = '';
 
   public fg: FormGroup;
+  public fcClient: FormControl = new FormControl('');
+  public fcMachine: FormControl = new FormControl('');
 
   public dataSource: MatTableDataSource<Program>;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private programService: ProgramService,
-    private clientService: ClientService,
-    private machineService: MachineService,
-    private fb: FormBuilder,
-    private dialog: MatDialog,
-    private router: Router) { }
+              private clientService: ClientService,
+              private machineService: MachineService,
+              private fb: FormBuilder,
+              private dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
     this.fg = this.fb.group({
-      client: new FormControl(''),
-      machine: new FormControl(''),
+      client: this.fcClient,
+      machine: this.fcMachine
     });
     this.programService.getAllProgram();
     this.programService.programsList$().pipe(tap(result => this.programs = result)).subscribe(() => {
@@ -49,8 +54,8 @@ export class ProgramsListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    this.clientService.getAll().subscribe(result => this.clients = result);
-    this.machineService.getAll().subscribe(result => this.machines = result);
+    this.clientService.getAll().subscribe(result => { this.clients = result; this.filteredClients.next(result); });
+    this.machineService.getAll().subscribe(result => { this.machines = result; this.filteredMachines.next(result); });
   }
 
   public onAdd(): void {
@@ -120,5 +125,29 @@ export class ProgramsListComponent implements OnInit {
       this.unselectMachine();
       this.applyFilter();
     }
+  }
+
+  public filterClient(): void {
+    if (this.fcClient.value === '') {
+      this.filteredClients.next(this.clients);
+    } else {
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(this.fcClient.value.toLocaleLowerCase())));
+    }
+  }
+
+  public filterMachine(): void {
+    if (this.fcMachine.value === '') {
+      this.filteredMachines.next(this.machines);
+    } else {
+      this.filteredMachines.next(this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachine.value.toLocaleLowerCase())));
+    }
+  }
+
+  public resetClient(): void {
+    this.filteredClients.next(this.clients);
+  }
+
+  public resetMachine(): void {
+    this.filteredMachines.next(this.machines);
   }
 }

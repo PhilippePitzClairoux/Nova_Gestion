@@ -12,6 +12,8 @@ import {
   MatAutocompleteModule
 } from '@angular/material';
 
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 import { SharedModule } from './../shared/shared.module';
 import { ProgramsRoutingModule } from './programs-routing.module';
 import { ProgramsListComponent } from './programs-list/programs-list.component';
@@ -33,7 +35,8 @@ import { ProgramComponent } from './program/program.component';
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
-    ProgramsRoutingModule
+    ProgramsRoutingModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class ProgramsModule { }
