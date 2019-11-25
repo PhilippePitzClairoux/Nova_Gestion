@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { AuthentificationService } from './../../services/authentification.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ export class SidebarComponent implements OnInit {
 
   public userType = '';
 
-  constructor(private router: Router, private authentificationService: AuthentificationService) { }
+  constructor(private router: Router, private authentificationService: AuthentificationService, private toastr: ToastrService) { }
 
   public ngOnInit(): void {
     if (this.router.url !== '/authentification') {
@@ -24,10 +25,10 @@ export class SidebarComponent implements OnInit {
   }
 
   public logout(): void {
-    // TODO MAKE IT WORK
-    // this.authentificationService.logout().subscribe(() => {
-    //   this.router.navigate(['authentification']);
-    // });
+    this.authentificationService.logout().subscribe(() => {
+      this.router.navigate(['authentification']);
+      this.toastr.success(null, 'Déconnexion réussi');
+    });
   }
 
 }
