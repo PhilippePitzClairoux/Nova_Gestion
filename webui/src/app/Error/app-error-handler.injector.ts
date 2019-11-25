@@ -15,7 +15,7 @@ export class AppErrorHandler extends ErrorHandler {
 
   public handleError(error: any): void {
     this.toastrService.error(
-      'Un problème est survenu, veuiller contacter l\'administrateur.',
+      'Un problème est survenu, veuillez contacter l\'administrateur.',
       'Erreur',
       {
         onActivateTick: true
