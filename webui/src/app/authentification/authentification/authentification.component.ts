@@ -35,7 +35,7 @@ export class AuthentificationComponent implements OnInit {
     }
 
     this.authentificationService.connect(this.fcEmail.value, this.fcPassword.value).subscribe(() => {
-      this.router.navigate(['/clients']);
+      this.router.navigate(['/worksheets']);
       // TODO Enter bienvenue+name
       this.toastr.success(null, 'Connexion réussi');
     }, error => {
