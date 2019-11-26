@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.FileProgramMapper">
+    <resultMap id="FileProgramMap" type="nova.gestion.model.FileProgram">
+        <constructor>
+            <idArg name="idTaFileProgram" column="id_ta_file_program"/>
+            <arg name="idProgram" column="id_program"/>
+        </constructor>
+        <id column="id_ta_file_program" property="idTaFileProgram" javaType="Integer"/>
+        <result column="id_program" property="idProgram" javaType="Integer"/>
+        
+        <association property="file" column="id_file" javaType="nova.gestion.model.File"
+                     select="nova.gestion.mappers.FileMapper.selectFile"/>
+    </resultMap>
+
+    <select id="selectFileProgram" parameterType="Integer" resultMap="FileProgramMap">
+        SELECT * FROM `nova_gestion`.ta_file_program WHERE id_ta_file_program = #{idTaFileProgram};
+    </select>
+
+    <select id="selectAllFileProgramByIdProgram" parameterType="Integer" resultMap="FileProgramMap">
+        SELECT * FROM `nova_gestion`.ta_file_program WHERE id_program = #{idProgram};
+    </select>
+
+    <insert id="insertFileProgram" parameterType="nova.gestion.model.FileProgram" keyProperty="id_ta_file_program" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.ta_file_program(id_file, id_program) VALUE (#{fileProgram.idFile}, #{fileProgram.file.fileName})
+    </insert>
+
+    <delete id="deleteFileProgram" parameterType="Integer">
+        DELETE FROM `nova_gestion`.ta_file_program WHERE id_ta_file_program = #{idTaFileProgram};
+    </delete>
+
+</mapper>

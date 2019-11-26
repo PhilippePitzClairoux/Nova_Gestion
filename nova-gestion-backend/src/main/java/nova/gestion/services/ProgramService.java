@@ -80,7 +80,7 @@ public class ProgramService {
         if (program.getMachine() == null)
             throw new InvalidRequest("Missing machine");
 
-        if (program.getName() == null || program.getFile() == null)
+        if (program.getName() == null)
             throw new InvalidRequest("Missing program parameters");
 
         programMapper.insertProgram(program);
@@ -108,10 +108,10 @@ public class ProgramService {
         if (program.getIdProgram() == 0 || verifiedProgram == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (program.getName() == null || program.getFile() == null || program.getMachine() == null)
+        if (program.getName() == null || program.getMachine() == null)
             throw new InvalidRequest("Missing information");
 
-        if (program.getName() != null || program.getFile() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
+        if (program.getName() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
             programMapper.updateProgram(program);
 
     }

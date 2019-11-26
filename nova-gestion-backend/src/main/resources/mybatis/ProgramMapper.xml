@@ -6,9 +6,8 @@
 
     <resultMap id="ProgramMap" type="nova.gestion.model.Program">
         <constructor>
-            <arg name="idProgram" column="id_program"/>
+            <idArg name="idProgram" column="id_program"/>
             <arg name="name" column="name"/>
-            <arg name="file" column="file"/>
         </constructor>
         <id column="id_program" javaType="int" property="idProgram"/>
         <result column="name" javaType="string" property="name"/>
@@ -22,6 +21,9 @@
 
         <association column="id_blank" property="blank" javaType="nova.gestion.model.Blank"
                      select="nova.gestion.mappers.BlankMapper.getBlank"/>
+
+        <association column="id_program" property="filePrograms" javaType="ArrayList"
+                     select="nova.gestion.mappers.FileProgramMapper.selectAllFileProgramByIdProgram"/>
 
        <!-- <collection column="id_program" property="clients" javaType="ArrayList"
                     select="nova.gestion.mappers.WorkSheetClientProgramMapper.getProgramsByClient"/> -->
