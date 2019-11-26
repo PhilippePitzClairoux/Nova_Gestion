@@ -33,7 +33,7 @@ import {AppErrorHandler} from './Error/app-error-handler.injector';
     ToastrModule.forRoot({
       timeOut: 5000,
       extendedTimeOut: 2000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-bottom-center',
       preventDuplicates: true,
       maxOpened: 5,
       autoDismiss: true,
