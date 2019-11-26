@@ -1,7 +1,8 @@
-import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
+import { ToastrService } from 'ngx-toastr';
 
 import { AuthentificationService } from './../../services/authentification.service';
 
@@ -17,7 +18,7 @@ export class AuthentificationComponent implements OnInit {
   public fcPassword: FormControl;
 
   constructor(private router: Router, private authentificationService: AuthentificationService, private fb: FormBuilder,
-    private toastr: ToastrService) {
+              private toastr: ToastrService) {
   }
 
   public ngOnInit(): void {
@@ -34,7 +35,7 @@ export class AuthentificationComponent implements OnInit {
     }
 
     this.authentificationService.connect(this.fcEmail.value, this.fcPassword.value).subscribe(() => {
-      this.router.navigate(['clients']);
+      this.router.navigate(['/clients']);
       // TODO Enter bienvenue+name
       this.toastr.success(null, 'Connexion réussi');
     }, error => {

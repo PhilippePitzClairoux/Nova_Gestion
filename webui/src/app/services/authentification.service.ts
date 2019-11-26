@@ -1,8 +1,10 @@
-import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 import { UserTypeString } from '../models/user-type-string.model';
 
@@ -16,20 +18,36 @@ export class AuthentificationService {
   public userType = '';
   public userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
+  }
+
+  public isAuthenticated(): boolean {
+    if (this.userType === '') {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public userType$(): Observable<string> {
     return this.userTypeSubject.asObservable();
   }
 
+  public getUserTypeString(): string {
+    return this.userType;
+  }
+
   public connect(email: string, pass: string): Observable<any> {
     const x = 'username=' + email + '&password=' + pass;
-    return this.http.post('/login', x, this.httpOptions);
+    return this.http.post('/login', x, this.httpOptions).pipe(tap(() => {
+      this.userType = 'connect';
+    }));
   }
 
   public logout(): Observable<any> {
-    return this.http.post('/logout', this.httpOptions);
+    return this.http.post('/logout', this.httpOptions).pipe(tap(() => {
+      this.userType = '';
+    }));
   }
 
   public getUserType(): void {

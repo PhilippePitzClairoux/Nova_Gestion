@@ -1,8 +1,10 @@
-import { ToastrService } from 'ngx-toastr';
-import { AuthentificationService } from './../../services/authentification.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
 import { tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+
+import { AuthentificationService } from './../../services/authentification.service';
 
 @Component({
   selector: 'app-sidebar',

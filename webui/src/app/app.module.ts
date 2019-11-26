@@ -1,3 +1,4 @@
+import { AuthGuard } from './Guard/auth.guard';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -60,7 +61,8 @@ import {AppErrorHandler} from './Error/app-error-handler.injector';
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler
-    }
+    },
+    AuthGuard
   ],
   bootstrap: [
     AppComponent
