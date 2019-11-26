@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: 'worksheets', component: WorksheetsListComponent, canActivate: [AuthGuard] },
   { path: 'worksheet/:id', component: WorksheetComponent, canActivate: [AuthGuard] },
   { path: 'worksheet', component: WorksheetComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/programs', pathMatch: 'full' },
-  { path: '**', redirectTo: '/programs' }
+  { path: '', redirectTo: '/worksheets', pathMatch: 'full' },
+  { path: '**', redirectTo: '/worksheets' }
 ];
 
 @NgModule({
