@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Grade} from '../models/grade';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+import { Grade } from '../models/grade';
 import * as config from '../../assets/config/config.json';
 
 @Injectable({

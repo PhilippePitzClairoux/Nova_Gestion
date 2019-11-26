@@ -8,6 +8,7 @@ import {ButtonComponent} from './button/button.component';
 import { HeaderComponent } from './header/header.component';
 import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [

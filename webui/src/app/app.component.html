@@ -1,6 +1,8 @@
 <div class="container">
-  <app-sidebar></app-sidebar>
-  <div class="page-content">
+  <div *ngIf="router.url !== '/authentification'">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div [ngClass]="getClass()">
     <router-outlet></router-outlet>
   </div>
 </div>

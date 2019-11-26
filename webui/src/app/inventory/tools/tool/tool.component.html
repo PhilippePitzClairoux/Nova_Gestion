@@ -12,12 +12,18 @@
   <mat-form-field class="full-width">
     <mat-label>Client</mat-label>
     <mat-select formControlName="client">
-      <mat-option *ngFor="let client of clients" [value]="client">
+      <mat-option>
+        <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
+          [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
+        (click)="resetClient()">
         {{client.name}}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="toolForm.controls.client.hasError('required')">
-      Un client est requis.
+    <mat-error *ngIf="toolForm.controls.client.invalid">
+      Vous devez choisir un client.
     </mat-error>
   </mat-form-field>
 

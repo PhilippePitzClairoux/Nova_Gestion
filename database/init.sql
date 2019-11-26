@@ -79,6 +79,7 @@ CREATE TABLE program(
 	id_blank BIGINT,
     name VARCHAR(255),
     file VARCHAR(255),
+	activated boolean default 1,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)

@@ -7,6 +7,7 @@ import {GradeService} from '../../../services/grade.service';
 import {Grade} from '../../../models/grade';
 import {CoolantHoleType} from '../../../models/coolant-hole-type';
 import {CoolantHole} from '../../../models/coolant-hole';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-blank',
@@ -15,15 +16,18 @@ import {CoolantHole} from '../../../models/coolant-hole';
 })
 export class BlankComponent implements OnInit {
 
-  diameter = '';
-  length = '';
-  grade = '';
-  coolantHole = '';
+  public diameter = '';
+  public length = '';
+  public grade = '';
+  public coolantHole = '';
 
-  grades: Grade[] = [];
-  types: CoolantHoleType[] = [];
-  blankForm: FormGroup;
-  hasCoolantHole = false;
+  public grades: Grade[] = [];
+  public filteredGrades: BehaviorSubject<Grade[]> = new BehaviorSubject<Grade[]>([]);
+  public fcGradeSearch: FormControl = new FormControl('');
+
+  public types: CoolantHoleType[] = [];
+  public blankForm: FormGroup;
+  public hasCoolantHole = false;
 
   constructor(
     public dialogRef: MatDialogRef<BlankComponent>,
@@ -100,6 +104,7 @@ export class BlankComponent implements OnInit {
   private getGrades() {
     this.gradeService.getAll().subscribe(grades => {
       this.grades = grades;
+      this.filteredGrades.next(grades);
       this.getCoolantHoleTypes();
     });
   }
@@ -188,5 +193,19 @@ export class BlankComponent implements OnInit {
   private updateName() {
     const name = this.diameter + ' x ' + this.length + ' - ' + this.grade + this.coolantHole;
     this.blankForm.controls.name.setValue(name);
+  }
+
+  public filterGrade(): void {
+    if (this.fcGradeSearch.value === '') {
+      this.filteredGrades.next(this.grades);
+    } else {
+      this.filteredGrades.next(this.grades.filter(t => t.description.toLocaleLowerCase().includes(
+        this.fcGradeSearch.value.toLocaleLowerCase()
+      )));
+    }
+  }
+
+  public resetGrade(): void {
+    this.filteredGrades.next(this.grades);
   }
 }

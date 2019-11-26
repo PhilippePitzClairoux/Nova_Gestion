@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToolComponent} from './tools/tool/tool.component';
 import {BlanksListComponent} from './blank/blanks-list/blanks-list.component';
 import {BlankComponent} from './blank/blank/blank.component';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {BlankComponent} from './blank/blank/blank.component';
     MatOptionModule,
     MatSelectModule,
     MatCheckboxModule,
+    NgxMatSelectSearchModule
   ],
   entryComponents: [
     ToolComponent,
