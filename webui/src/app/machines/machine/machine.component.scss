@@ -3,22 +3,24 @@
 }
 
 .form {
+  margin: 0 auto;
   display: flex;
-  width: 100%;
+  width: 90%;
   justify-content: space-between;
 }
 
 .controls {
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  padding-left: 20px;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
 }
 
 .full-width {
