@@ -60,7 +60,7 @@ public class BlankService {
         if (blank.getGrade() == null)
             throw new InvalidRequest("Missing Grade");
 
-        if (blank.getName() == null || blank.getDiameter() == null || blank.getLength() == null)
+        if (blank.getName() == null || blank.getDiameter() == null || blank.getLength() == null || blank.getCode() == null)
             throw new InvalidRequest("Missing Blank parameters");
 
         if (blank.getCoolantHole() != null) {
@@ -101,7 +101,7 @@ public class BlankService {
             coolantHoleMapper.insertCoolantHole(blank.getCoolantHole());
         }
 
-        if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getGrade() != null || blank.getCoolantHole() != null)
+        if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getCode() != null || blank.getGrade() != null || blank.getCoolantHole() != null)
             blankMapper.updateBlank(blank);
 
     }

@@ -116,13 +116,32 @@ POST localhost:8080/v1/blank
 Content-Type: application/json
 
 {
-  "codeGrade": 1,
+  "grade":{
+  "code": 1
+  },
   "idCoolantHole": 1,
   "name": "1/5 * 5 - Mill ",
   "stockQuantity": 100,
   "minimumQuantity": 100,
   "diameter": 2,
-  "length": 5
+  "length": 5,
+  "code": "CCC"
+}
+###
+PUT localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "idBlank": 3,
+  "grade":{
+  "code": 1
+  },
+  "name": "1/5 * 5 - Mill ",
+  "stockQuantity": 100,
+  "minimumQuantity": 100,
+  "diameter": 2,
+  "length": 50,
+  "code": "FFF"
 }
 ###
 POST localhost:8080/v1/client
@@ -246,9 +265,10 @@ PUT localhost:8080/v1/blank
 Content-Type: application/json
 
 {
-  "idBlank": 1,
+  "idBlank": 3,
   "grade": {
-    "code": 1
+    "code": 2,
+    "name": "K01"
   },
   "name": "5*5",
   "coolantHole": {
@@ -258,7 +278,10 @@ Content-Type: application/json
     "typeCoolantHole": {
       "idTypeCoolantHole" : 1
     }
-  }
+  },
+  "length": 200,
+  "code": "zzz",
+  "diameter": 200
 }
 
 ###
