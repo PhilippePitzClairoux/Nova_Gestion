@@ -7,8 +7,10 @@ import nova.gestion.mappers.FileProgramMapper;
 import nova.gestion.model.File;
 import nova.gestion.model.FileProgram;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class FileProgramService {
 
     private final FileProgramMapper fileProgramMapper;
@@ -42,15 +44,26 @@ public class FileProgramService {
         if (fileProgram == null)
             throw new InvalidRequest("Invalid Request");
 
-        if (fileProgram.getIdTaFileProgram() == null || fileProgram.getIdProgram() == null)
+        if (fileProgram.getFile() == null || fileProgram.getIdProgram() == null)
             throw new InvalidRequest("Invalid Request");
 
+        //Check if the file has been uploaded
         if (fileMapper.selectFile(fileProgram.getFile().getFileName()) == null)
-            fileMapper.insertFile(fileProgram.getFile());
+            throw new InvalidRequest("Invalid Request");
 
         fileProgramMapper.insertFileProgram(fileProgram);
 
         return fileProgram.getIdTaFileProgram();
+    }
+
+    @Transactional
+    public void removeFile(FileProgram fileProgram) {
+        if (fileProgram == null)
+            throw new InvalidRequest("Invalid Request");
+
+        if (fileProgram.getIdTaFileProgram() == null)
+            throw new InvalidRequest("Invalid Request");
+
     }
 
 }

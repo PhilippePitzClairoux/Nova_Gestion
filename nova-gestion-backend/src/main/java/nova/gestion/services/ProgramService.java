@@ -3,11 +3,10 @@ package nova.gestion.services;
 import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.ClientMapper;
+import nova.gestion.mappers.FileMapper;
 import nova.gestion.mappers.ProgramMapper;
 import nova.gestion.mappers.WorkSheetClientProgramMapper;
-import nova.gestion.model.Client;
-import nova.gestion.model.Program;
-import nova.gestion.model.WorkSheetClientProgram;
+import nova.gestion.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -21,12 +20,14 @@ public class ProgramService {
     private final ProgramMapper programMapper;
     private final WorkSheetClientProgramMapper workSheetClientProgramMapper;
     private final ClientMapper clientMapper;
+    private final FileProgramService fileProgramService;
 
     @Autowired
-    public ProgramService(ProgramMapper programMapper, WorkSheetClientProgramMapper workSheetClientProgramMapper, ClientMapper clientMapper) {
+    public ProgramService(ProgramMapper programMapper, WorkSheetClientProgramMapper workSheetClientProgramMapper, ClientMapper clientMapper, FileProgramService fileProgramService) {
         this.programMapper = programMapper;
         this.workSheetClientProgramMapper = workSheetClientProgramMapper;
         this.clientMapper = clientMapper;
+        this.fileProgramService = fileProgramService;
     }
 
     @Transactional
@@ -70,10 +71,10 @@ public class ProgramService {
         program.setClients(clients);
         return program;
     }
+
     @Transactional
     @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createProgram(Program program) {
-
         if (program == null)
             throw new InvalidRequest("Missing parameters");
 
@@ -83,7 +84,16 @@ public class ProgramService {
         if (program.getName() == null)
             throw new InvalidRequest("Missing program parameters");
 
+        if (program.getFilePrograms() == null || program.getFilePrograms().isEmpty())
+            throw new InvalidRequest("Missing FilePrograms");
+
         programMapper.insertProgram(program);
+
+        //Link the file to the program (file must be uploaded first)
+        for (FileProgram fileProgram : program.getFilePrograms()) {
+            fileProgramService.insertFile(new FileProgram(null, fileProgram.getFile(),
+                    program.getIdProgram()));
+        }
 
         return program.getIdProgram();
     }

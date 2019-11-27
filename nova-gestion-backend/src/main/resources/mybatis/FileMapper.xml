@@ -8,8 +8,8 @@
         SELECT * FROM `nova_gestion`.file WHERE file_name = #{fileName};
     </select>
 
-    <insert id="insertFile" parameterType="nova.gestion.model.File" useGeneratedKeys="true" keyProperty="file_name">
-        INSERT INTO `nova_gestion`.file(file_name) VALUE (#{file.fileName})
+    <insert id="insertFile" parameterType="nova.gestion.model.File" useGeneratedKeys="true" keyProperty="fileName">
+        INSERT INTO `nova_gestion`.file(file_name) VALUE (#{fileName})
     </insert>
 
 </mapper>

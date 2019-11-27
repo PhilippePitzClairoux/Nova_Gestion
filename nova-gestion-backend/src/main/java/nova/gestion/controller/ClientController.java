@@ -4,7 +4,6 @@ package nova.gestion.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import nova.gestion.model.Client;
-import nova.gestion.model.post.ClientPost;
 import nova.gestion.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -53,8 +52,8 @@ public class ClientController {
      * @return idClient ajouté
      */
     @PostMapping("/v1/client")
-    public Map<String, Integer> createClient(@JsonView(ClientPost.Views.Insert.class)
-                                           @RequestBody @Validated ClientPost client) {
+    public Map<String, Integer> createClient(
+                                           @RequestBody @Validated Client client) {
 
         Integer id = clientService.createClient(client.getName(), client.getPhoneNumber());
 

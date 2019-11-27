@@ -12,7 +12,7 @@ GET localhost:8080/v1/blank/2/
 ###
 GET localhost:8080/v1/machine/1/
 ###
-GET localhost:8080/v1/program/6/
+GET localhost:8080/v1/program/2/
 
 
 ###
@@ -55,7 +55,6 @@ Content-Type: application/json
 
 {
   "name": "name",
-  "file": "..path/dossier/fichier.exe",
   "machine": {
     "idMachine": 2
   },
@@ -64,7 +63,19 @@ Content-Type: application/json
   },
   "blank": {
     "idBlank":1
-  }
+  },
+  "filePrograms": [
+    {
+      "file": {
+        "fileName": "hehe.txt"
+      }
+    },
+    {
+      "file": {
+        "fileName": "bob.txt"
+      }
+    }
+  ]
 }
 ###
 PUT localhost:8080/v1/program

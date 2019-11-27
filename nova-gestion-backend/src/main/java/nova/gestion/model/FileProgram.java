@@ -10,6 +10,10 @@ public class FileProgram {
     private File file;
     private Integer idProgram;
 
+    public FileProgram(File file) {
+        this.file = file;
+    }
+
     public FileProgram(Integer idTaFileProgram, Integer idProgram) {
         this.idTaFileProgram = idTaFileProgram;
         this.idProgram = idProgram;

@@ -11,7 +11,6 @@
         </constructor>
         <id column="id_program" javaType="int" property="idProgram"/>
         <result column="name" javaType="string" property="name"/>
-        <result column="file" javaType="string" property="file"/>
 
         <association column="id_machine" property="machine" javaType="nova.gestion.model.Machine"
                      select="nova.gestion.mappers.MachineMapper.getMachine"/>
@@ -41,8 +40,8 @@
     </select>
 
     <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name, file)
-        VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name}, #{file});
+        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name)
+        VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name});
     </insert>
 
     <update id="updateProgram" parameterType="nova.gestion.model.Program">
@@ -51,7 +50,6 @@
         <if test="tool != null"> id_tool = #{tool.idTool},</if>
         <if test="blank != null"> id_blank = #{blank.idBlank},</if>
         <if test="name != null"> name = #{name},</if>
-        <if test="file != null"> file = #{file}</if>
         WHERE id_program = #{idProgram};
     </update>
 
