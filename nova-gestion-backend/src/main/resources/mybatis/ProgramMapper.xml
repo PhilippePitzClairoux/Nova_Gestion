@@ -51,8 +51,7 @@
         <if test="machine != null">id_machine = #{machine.idMachine},</if>
         id_tool = #{tool.idTool},
         id_blank = #{blank.idBlank},
-        <if test="name != null"> name = #{name},</if>
-        <if test="file != null"> file = #{file}</if>
+        <if test="name != null"> name = #{name}</if>
         WHERE id_program = #{idProgram};
     </update>
 

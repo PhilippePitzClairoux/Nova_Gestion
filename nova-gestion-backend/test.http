@@ -91,10 +91,19 @@ Content-Type: application/json
 {
   "idProgram": 5,
   "name": "test sans client",
-  "file": "..path/dossier/fichier.html",
   "machine": {
     "idMachine": 3
-  }
+  },
+  "filePrograms": [
+    {
+      "taFileProgram": 2
+    },
+    {
+      "file": {
+        "fileName": "rawr.txt"
+      }
+    }
+  ]
 }
 ###
 POST localhost:8080/v1/workSheetClientProgram

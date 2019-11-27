@@ -134,7 +134,8 @@ public class ProgramService {
                 }
 
                 //add a new file
-                if (fileProgram.getFile() != null && fileProgram.getIdProgram() != null) {
+                if (fileProgram.getFile() != null) {
+                    fileProgram.setIdProgram(program.getIdProgram());
                     fileProgramService.insertFile(fileProgram);
                     return;
                 }
