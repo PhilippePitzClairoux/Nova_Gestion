@@ -54,6 +54,7 @@ public class ProgramController {
      */
     @PostMapping("/v1/program")
     public Map<String, Integer> createProgram(@RequestBody @Validated Program program) {
+        System.out.println(program);
         return Map.of("idProgram", programService.createProgram(program));
     }
 

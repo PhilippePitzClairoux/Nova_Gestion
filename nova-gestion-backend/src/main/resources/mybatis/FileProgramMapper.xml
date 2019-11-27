@@ -23,8 +23,8 @@
         SELECT * FROM `nova_gestion`.ta_file_program WHERE id_program = #{idProgram};
     </select>
 
-    <insert id="insertFileProgram" parameterType="nova.gestion.model.FileProgram" keyProperty="id_ta_file_program" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.ta_file_program(id_file, id_program) VALUE (#{fileProgram.idFile}, #{fileProgram.file.fileName})
+    <insert id="insertFileProgram" parameterType="nova.gestion.model.FileProgram" keyProperty="idTaFileProgram" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.ta_file_program(id_file, id_program) VALUE (#{file.fileName}, #{idProgram})
     </insert>
 
     <delete id="deleteFileProgram" parameterType="Integer">

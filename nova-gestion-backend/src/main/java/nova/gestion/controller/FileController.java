@@ -23,7 +23,7 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @GetMapping(path = "/downloadFile")
+    @GetMapping(path = "/v1/downloadfile")
     public HttpEntity<?> downloadFile(@RequestParam String filename, HttpServletResponse response) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -32,7 +32,7 @@ public class FileController {
         return new HttpEntity<>(fileService.getFile(new File(filename)).getByteArray(), headers);
     }
 
-    @PostMapping("/uploadFile")
+    @PostMapping("/v1/uploadfile")
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
         fileService.insertFile(multipartFile, new File(multipartFile.getOriginalFilename()));
 

@@ -79,12 +79,25 @@ CREATE TABLE program(
     id_tool BIGINT,
 	id_blank BIGINT,
     name VARCHAR(255),
-    file VARCHAR(255),
 	activated boolean default 1,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
 
+);
+
+CREATE TABLE file
+(
+    file_name VARCHAR(255) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE ta_file_program
+(
+    id_ta_file_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_file VARCHAR(255) NOT NULL,
+    id_program BIGINT NOT NULL,
+    CONSTRAINT FOREIGN KEY (id_file) REFERENCES file(file_name),
+    CONSTRAINT FOREIGN KEY (id_program) REFERENCES program(id_program)
 );
 
 CREATE TABLE task_type(
