@@ -22,14 +22,14 @@ CREATE TABLE grade(
 CREATE TABLE blank(
     id_blank BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     code_grade BIGINT NOT NULL,
-    id_coolant_hole BIGINT,
     name VARCHAR(255),
     stock_quantity INTEGER,
     minimum_quantity INTEGER,
     diameter VARCHAR(10),
+	code VARCHAR(20),
     length VARCHAR(10),
-    CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code),
-    CONSTRAINT FOREIGN KEY(id_coolant_hole) REFERENCES coolant_hole(id_coolant_hole)
+	coolant_hole boolean,
+    CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code)
 );
 
 CREATE TABLE model(
@@ -78,12 +78,25 @@ CREATE TABLE program(
     id_tool BIGINT,
 	id_blank BIGINT,
     name VARCHAR(255),
-    file VARCHAR(255),
 	activated boolean default 1,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
 
+);
+
+CREATE TABLE file
+(
+    file_name VARCHAR(255) NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE ta_file_program
+(
+    id_ta_file_program BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_file VARCHAR(255) NOT NULL,
+    id_program BIGINT NOT NULL,
+    CONSTRAINT FOREIGN KEY (id_file) REFERENCES file(file_name),
+    CONSTRAINT FOREIGN KEY (id_program) REFERENCES program(id_program)
 );
 
 CREATE TABLE task_type(

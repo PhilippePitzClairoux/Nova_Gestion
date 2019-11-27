@@ -6,6 +6,7 @@ spring:
 
 
 
+
 mybatis:
   mapper-locations: classpath*:/mybatis/*
   configuration:

@@ -1,8 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
+import { WorksheetsListComponent } from './worksheets/worksheets-list/worksheets-list.component';
+import { WorksheetComponent } from './worksheets/worksheet/worksheet.component';
+import { AuthGuard } from './Guard/auth.guard';
+
 const routes: Routes = [
-  // { path: '', pathMatch: 'full', redirectTo: 'authentification' }
+  { path: 'worksheets', component: WorksheetsListComponent, canActivate: [AuthGuard] },
+  { path: 'worksheet/:id', component: WorksheetComponent, canActivate: [AuthGuard] },
+  { path: 'worksheet', component: WorksheetComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/worksheets', pathMatch: 'full' },
+  { path: '**', redirectTo: '/worksheets' }
 ];
 
 @NgModule({
