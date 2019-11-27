@@ -124,6 +124,24 @@ public class ProgramService {
         if (program.getName() != null || program.getMachine() != null || program.getTool() != null || program.getBlank() != null)
             programMapper.updateProgram(program);
 
+        if (program.getFilePrograms() != null && !program.getFilePrograms().isEmpty()) {
+
+            for (FileProgram fileProgram : program.getFilePrograms()) {
+                //remove a file
+                if (fileProgram.getIdTaFileProgram() != null) {
+                    fileProgramService.removeFile(fileProgram);
+                    return;
+                }
+
+                //add a new file
+                if (fileProgram.getFile() != null && fileProgram.getIdProgram() != null) {
+                    fileProgramService.insertFile(fileProgram);
+                    return;
+                }
+            }
+
+        }
+
     }
 
     @Transactional
