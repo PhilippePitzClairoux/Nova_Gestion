@@ -13,6 +13,7 @@
             <arg name="diameter" column="diameter"/>
             <arg name="length" column="length"/>
             <arg name="code" column="code"/>
+            <arg name="coolantHole" column="coolant_hole"/>
         </constructor>
 
         <id column="id_blank" javaType="int" property="idBlank"/>
@@ -22,12 +23,13 @@
         <result column="diameter" javaType="string" property="diameter"/>
         <result column="length" javaType="string" property="length"/>
         <result column="code" javaType="string" property="code"/>
+        <result column="coolant_hole" javaType="boolean" property="coolantHole"/>
 
         <association column="code_grade" property="grade" javaType="nova.gestion.model.Grade"
                      select="nova.gestion.mappers.GradeMapper.getGrade"/>
 
-        <association column="id_coolant_hole" property="coolantHole" javaType="nova.gestion.model.CoolantHole"
-                     select="nova.gestion.mappers.CoolantHoleMapper.getCoolantHole"/>
+     <!--   <association column="id_coolant_hole" property="coolantHole" javaType="nova.gestion.model.CoolantHole"
+                     select="nova.gestion.mappers.CoolantHoleMapper.getCoolantHole"/>-->
     </resultMap>
 
     <select id="getBlank" parameterType="int" resultMap="BlankMap">
@@ -41,8 +43,8 @@
     </select>
 
     <insert id="insertBlank" parameterType="nova.gestion.model.Blank" keyProperty="idBlank" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.`blank`(code_grade, id_coolant_hole, name, stock_quantity, minimum_quantity, diameter, length, code)
-        VALUES (#{grade.code}, #{coolantHole.idCoolantHole}, #{name}, #{stockQuantity}, #{minimumQuantity}, #{diameter}, #{length}, #{code});
+        INSERT INTO `nova_gestion`.`blank`(code_grade, coolant_hole, name, stock_quantity, minimum_quantity, diameter, length, code)
+        VALUES (#{grade.code}, #{coolantHole}, #{name}, #{stockQuantity}, #{minimumQuantity}, #{diameter}, #{length}, #{code});
     </insert>
 
    <!-- <update id="updateBlank" parameterType="nova.gestion.model.Blank">
@@ -61,12 +63,11 @@
         <if test="name != null">name = #{name},</if>
         <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
         <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
-
         <if test="diameter != 0">diameter = #{diameter},</if>
         <if test="length != 0">length = #{length},</if>
         <if test="code != null">code = #{code},</if>
         <if test="grade != null">code_grade = #{grade.code},</if>
-        id_coolant_hole = #{coolantHole.idCoolantHole}
+        coolant_hole = #{coolantHole}
         WHERE id_blank = #{idBlank};
     </update>
 

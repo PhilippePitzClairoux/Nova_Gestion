@@ -8,7 +8,7 @@ GET localhost:8080/v1/workSheet/2/
 ###
 GET localhost:8080/v1/workSheets
 ###
-GET localhost:8080/v1/blank/2/
+GET localhost:8080/v1/blank/1/
 ###
 GET localhost:8080/v1/machine/1/
 ###
@@ -118,13 +118,13 @@ Content-Type: application/json
   "grade":{
   "code": 1
   },
-  "idCoolantHole": 1,
   "name": "1/5 * 5 - Mill ",
   "stockQuantity": 100,
   "minimumQuantity": 100,
   "diameter": 2,
   "length": 5,
-  "code": "CCC"
+  "code": "CCC",
+  "coolantHole": true
 }
 ###
 PUT localhost:8080/v1/blank
@@ -140,7 +140,8 @@ Content-Type: application/json
   "minimumQuantity": 100,
   "diameter": 2,
   "length": 50,
-  "code": "FFF"
+  "code": "FFF",
+  "coolantHole": false
 }
 ###
 POST localhost:8080/v1/client
