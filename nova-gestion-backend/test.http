@@ -151,11 +151,12 @@ Content-Type: application/json
   "phoneNumber": "8198199874"
 }
 ###
-POST localhost:8080/v1/tool
+PUT localhost:8080/v1/tool
 Content-Type: application/json
 
 {
-  "name": "Cordoba",
+  "idTool": 5,
+  "name": "Co!!!!!!!rdoba",
   "stockQuantity": 1000,
   "minimumQuantity": 100,
   "client": {
