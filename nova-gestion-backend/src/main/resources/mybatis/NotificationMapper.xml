@@ -5,10 +5,14 @@
 <mapper namespace="nova.gestion.mappers.NotificationMapper">
 
     <resultMap id="NotificationMap" type="nova.gestion.model.Notification">
+        <constructor>
+            <idArg name="idNotification" column="id_notification"/>
+            <arg name="viewed" column="viewed"/>
+        </constructor>
         <id property="idNotification" column="id_notification"/>
         <result property="viewed" column="viewed"/>
         
-        <association property="blank" column="blank_id" javaType="nova.gestion.model.Blank"
+        <association property="blank" column="id_blank" javaType="nova.gestion.model.Blank"
                      select="nova.gestion.mappers.BlankMapper.getBlank" />
     </resultMap>
 

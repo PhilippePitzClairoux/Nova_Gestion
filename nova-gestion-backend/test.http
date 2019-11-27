@@ -12,7 +12,7 @@ GET localhost:8080/v1/blank/1/
 ###
 GET localhost:8080/v1/machine/1/
 ###
-GET localhost:8080/v1/program/4/
+GET localhost:8080/v1/program/5/
 
 ###
 GET localhost:8080/v1/workSheets
@@ -465,6 +465,17 @@ Content-Type: application/json
   "machine": {
     "idMachine": 3
   }
+}
+
+###
+GET localhost:8080/v1/notifications
+
+###
+PUT localhost:8080/v1/notification
+Content-Type: application/json
+
+{
+  "idNotification": 8
 }
 
 ###

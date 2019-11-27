@@ -20,12 +20,12 @@ public class NotificationService {
     }
 
     @Transactional
-    ArrayList<Notification> getNotifications() {
+    public ArrayList<Notification> getNotifications() {
         return notificationMapper.getNotViewedNotifications();
     }
 
     @Transactional
-    void updateNotification(Integer idNotification) {
+    public void updateNotification(Integer idNotification) {
 
         if (idNotification == null)
             throw new InvalidRequest("No id passed");
