@@ -1,11 +1,11 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {FormsModule} from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 
-import { AuthentificationRoutingModule } from './authentification-routing.module';
-import { AuthentificationComponent } from './authentification/authentification.component';
-import { SharedModule } from './../shared/shared.module';
+import {AuthentificationRoutingModule} from './authentification-routing.module';
+import {AuthentificationComponent} from './authentification/authentification.component';
+import {SharedModule} from './../shared/shared.module';
 
 @NgModule({
   declarations: [AuthentificationComponent],
@@ -19,4 +19,5 @@ import { SharedModule } from './../shared/shared.module';
     AuthentificationRoutingModule
   ]
 })
-export class AuthentificationModule { }
+export class AuthentificationModule {
+}

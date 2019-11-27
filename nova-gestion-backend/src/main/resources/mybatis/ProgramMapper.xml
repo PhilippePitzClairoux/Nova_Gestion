@@ -6,11 +6,15 @@
 
     <resultMap id="ProgramMap" type="nova.gestion.model.Program">
         <constructor>
-            <idArg name="idProgram" column="id_program"/>
+            <arg name="idProgram" column="id_program"/>
             <arg name="name" column="name"/>
+            <arg name="file" column="file"/>
+            <arg name="activated" column="activated"/>
         </constructor>
         <id column="id_program" javaType="int" property="idProgram"/>
         <result column="name" javaType="string" property="name"/>
+        <result column="file" javaType="string" property="file"/>
+        <result column="activated" javaType="boolean" property="activated"/>
 
         <association column="id_machine" property="machine" javaType="nova.gestion.model.Machine"
                      select="nova.gestion.mappers.MachineMapper.getMachine"/>
@@ -21,9 +25,6 @@
         <association column="id_blank" property="blank" javaType="nova.gestion.model.Blank"
                      select="nova.gestion.mappers.BlankMapper.getBlank"/>
 
-        <association column="id_program" property="filePrograms" javaType="ArrayList"
-                     select="nova.gestion.mappers.FileProgramMapper.selectAllFileProgramByIdProgram"/>
-
        <!-- <collection column="id_program" property="clients" javaType="ArrayList"
                     select="nova.gestion.mappers.WorkSheetClientProgramMapper.getProgramsByClient"/> -->
     </resultMap>
@@ -32,16 +33,16 @@
     <select id="getProgram" parameterType="int" resultMap="ProgramMap">
         SELECT *
         FROM `nova_gestion`.`program`
-        WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+        WHERE `nova_gestion`.`program`.id_program = #{idProgram} AND `nova_gestion`.`program`.activated = 1;
     </select>
 
     <select id="getAllPrograms" resultMap="ProgramMap">
-        SELECT * FROM `nova_gestion`.`program`;
+        SELECT * FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.activated = 1;
     </select>
 
     <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
-        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name)
-        VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name});
+        INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name, file)
+        VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name}, #{file});
     </insert>
 
     <update id="updateProgram" parameterType="nova.gestion.model.Program">
@@ -50,11 +51,13 @@
         <if test="tool != null"> id_tool = #{tool.idTool},</if>
         <if test="blank != null"> id_blank = #{blank.idBlank},</if>
         <if test="name != null"> name = #{name},</if>
+        <if test="file != null"> file = #{file}</if>
         WHERE id_program = #{idProgram};
     </update>
 
     <delete id="deleteProgram" parameterType="int">
-        DELETE FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+        UPDATE `nova_gestion`.`program` SET `activated` = 0 WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+      <!--  DELETE FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.id_program = #{idProgram};-->
     </delete>
 
 </mapper>

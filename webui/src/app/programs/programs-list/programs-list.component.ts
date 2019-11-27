@@ -12,6 +12,7 @@ import { MachineService } from './../../services/machine.service';
 import { Program } from './../../models/program.model';
 import { Machine } from './../../models/machine';
 import { Client } from './../../models/client';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-programs-list',
@@ -22,10 +23,14 @@ export class ProgramsListComponent implements OnInit {
 
   private programs: Program[] = [];
   public clients: Client[] = [];
+  public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public machines: Machine[] = [];
+  public filteredMachines: BehaviorSubject<Machine[]> = new BehaviorSubject<Machine[]>([]);
   public searchField = '';
 
   public fg: FormGroup;
+  public fcClientSearch: FormControl = new FormControl('');
+  public fcMachineSearch: FormControl = new FormControl('');
 
   public dataSource: MatTableDataSource<Program>;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -38,10 +43,10 @@ export class ProgramsListComponent implements OnInit {
               private dialog: MatDialog,
               private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.fg = this.fb.group({
       client: new FormControl(''),
-      machine: new FormControl(''),
+      machine: new FormControl('')
     });
     this.programService.getAllProgram();
     this.programService.programsList$().pipe(tap(result => this.programs = result)).subscribe(() => {
@@ -49,8 +54,8 @@ export class ProgramsListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    this.clientService.getAll().subscribe(result => this.clients = result);
-    this.machineService.getAll().subscribe(result => this.machines = result);
+    this.clientService.getAll().subscribe(result => { this.clients = result; this.filteredClients.next(result); });
+    this.machineService.getAll().subscribe(result => { this.machines = result; this.filteredMachines.next(result); });
   }
 
   public onAdd(): void {
@@ -94,5 +99,59 @@ export class ProgramsListComponent implements OnInit {
   public clearSearch(): void {
     this.searchField = '';
     this.dataSource = new MatTableDataSource(this.programs);
+  }
+
+  public unselectClient(): void {
+    this.fg.controls.client.setValue('');
+  }
+
+  public unselectMachine(): void {
+    this.fg.controls.machine.setValue('');
+  }
+
+  public canApplyFilterClient(): void {
+    if (this.fg.controls.client.value !== undefined) {
+      this.applyFilter();
+    } else {
+      this.unselectClient();
+      this.applyFilter();
+    }
+  }
+
+  public canApplyFilterMachine(): void {
+    if (this.fg.controls.machine.value !== undefined) {
+      this.applyFilter();
+    } else {
+      this.unselectMachine();
+      this.applyFilter();
+    }
+  }
+
+  public filterClient(): void {
+    if (this.fcClientSearch.value === '') {
+      this.filteredClients.next(this.clients);
+    } else {
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(
+        this.fcClientSearch.value.toLocaleLowerCase()
+      )));
+    }
+  }
+
+  public filterMachine(): void {
+    if (this.fcMachineSearch.value === '') {
+      this.filteredMachines.next(this.machines);
+    } else {
+      this.filteredMachines.next(
+        this.machines.filter(t => t.name.toLocaleLowerCase().includes(this.fcMachineSearch.value.toLocaleLowerCase()))
+      );
+    }
+  }
+
+  public resetClient(): void {
+    this.filteredClients.next(this.clients);
+  }
+
+  public resetMachine(): void {
+    this.filteredMachines.next(this.machines);
   }
 }

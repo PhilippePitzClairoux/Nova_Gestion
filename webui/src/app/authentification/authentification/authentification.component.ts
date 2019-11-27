@@ -1,8 +1,8 @@
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
-import { AuthentificationService } from './../../services/authentification.service';
+import {AuthentificationService} from './../../services/authentification.service';
 
 @Component({
   selector: 'app-authentification',
@@ -15,14 +15,15 @@ export class AuthentificationComponent implements OnInit {
   public fcEmail: FormControl;
   public fcPassword: FormControl;
 
-  constructor(private router: Router, private authentificationService: AuthentificationService, private fb: FormBuilder) { }
+  constructor(private router: Router, private authentificationService: AuthentificationService, private fb: FormBuilder) {
+  }
 
   public ngOnInit(): void {
     this.fg = this.fb.group({
       email: (this.fcEmail = new FormControl('', [Validators.required, Validators.email])),
       password: (this.fcPassword = new FormControl('', Validators.required))
     });
-   }
+  }
 
   public loginUser(): void {
     if (this.fg.invalid) {
@@ -39,7 +40,7 @@ export class AuthentificationComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }
