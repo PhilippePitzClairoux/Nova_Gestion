@@ -15,6 +15,7 @@ import {Grade} from '../../../models/grade';
 })
 export class BlankComponent implements OnInit {
 
+  public code = '';
   public diameter = '';
   public length = '';
   public grade = '';
@@ -33,11 +34,11 @@ export class BlankComponent implements OnInit {
     private gradeService: GradeService) {
   }
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.blankForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(254)]),
       code: new FormControl('', Validators.required),
@@ -45,16 +46,13 @@ export class BlankComponent implements OnInit {
       minimumQuantity: new FormControl('', Validators.required),
       diameter: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       length: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      grade: new FormControl('', Validators.required),
-      coolantHoleType: new FormControl(''),
-      holeDiameter: new FormControl(''),
-      holesNumber: new FormControl('')
+      grade: new FormControl('', Validators.required)
     });
     this.getGrades();
     this.inputChanges();
   }
 
-  close() {
+  public close(): void {
     let blank = new Blank();
     if (this.blankForm.valid) {
       if (this.blankForm.dirty) {
@@ -75,6 +73,7 @@ export class BlankComponent implements OnInit {
       blank.idBlank = this.data.idBlank;
     }
 
+    blank.code = controls.code.value;
     blank.name = controls.name.value;
     blank.stockQuantity = controls.stockQuantity.value;
     blank.minimumQuantity = controls.minimumQuantity.value;
@@ -101,6 +100,7 @@ export class BlankComponent implements OnInit {
 
   private setValues(): void {
     if (this.data) {
+      this.blankForm.controls.code.setValue(this.data.code);
       this.blankForm.controls.name.setValue(this.data.name);
       this.blankForm.controls.stockQuantity.setValue(this.data.stockQuantity);
       this.blankForm.controls.minimumQuantity.setValue(this.data.minimumQuantity);
@@ -135,19 +135,18 @@ export class BlankComponent implements OnInit {
 
     if (this.hasCoolantHole) {
       this.coolantHole = 'CT';
-      this.blankForm.controls.holesNumber.setValidators([Validators.required]);
-      this.blankForm.controls.holeDiameter.setValidators([Validators.required]);
-      this.blankForm.controls.coolantHoleType.setValidators([Validators.required]);
     } else {
       this.coolantHole = '';
-      this.blankForm.controls.holesNumber.clearValidators();
-      this.blankForm.controls.holeDiameter.clearValidators();
-      this.blankForm.controls.coolantHoleType.clearValidators();
     }
     this.updateName();
   }
 
-  private inputChanges() {
+  private inputChanges(): void {
+    this.blankForm.controls.code.valueChanges
+      .subscribe(term => {
+        this.code = term;
+        this.updateName();
+      });
     this.blankForm.controls.diameter.valueChanges
       .subscribe(term => {
         this.diameter = term;
@@ -166,7 +165,7 @@ export class BlankComponent implements OnInit {
   }
 
   private updateName() {
-    const name = this.diameter + ' x ' + this.length + ' - ' + this.grade + this.coolantHole;
+    const name = this.code + ' - ' + this.diameter + ' x ' + this.length + ' - ' + this.grade + ' ' + this.coolantHole;
     this.blankForm.controls.name.setValue(name);
   }
 
