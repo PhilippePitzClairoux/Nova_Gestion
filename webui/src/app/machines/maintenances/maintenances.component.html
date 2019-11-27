@@ -1,6 +1,6 @@
 <form class="add-form" [formGroup]="maintenanceForm">
   <mat-form-field class="description-input input">
-    <input matInput placeholder="Numéro de série" formControlName="description">
+    <input matInput placeholder="Description" formControlName="description">
     <mat-error
       *ngIf="maintenanceForm.controls.description.hasError('required')">
       Une description est requise.

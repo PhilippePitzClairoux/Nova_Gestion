@@ -97,6 +97,7 @@ export class MaintenancesComponent implements OnInit {
     const controls = this.maintenanceForm.controls;
     newMaintenance.description = controls.description.value;
     newMaintenance.date = controls.date.value;
+    newMaintenance.idMachine = this.idMachine;
   }
 
   private setDataSource(maintenances: Maintenance[]) {

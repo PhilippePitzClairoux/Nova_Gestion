@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { WorksheetService } from '../../services/worksheet.service';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Client } from '../../models/client';
-import { ClientService } from '../../services/client.service';
-import { Worksheet } from '../../models/worksheet';
-import { Status } from '../../models/status';
-import { StatusService } from '../../services/status.service';
-import { ProgramService } from '../../services/program.service';
-import { tap } from 'rxjs/operators';
-import { Program } from '../../models/program.model';
-import { BehaviorSubject } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {WorksheetService} from '../../services/worksheet.service';
+import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {Client} from '../../models/client';
+import {ClientService} from '../../services/client.service';
+import {Worksheet} from '../../models/worksheet';
+import {Status} from '../../models/status';
+import {StatusService} from '../../services/status.service';
+import {ProgramService} from '../../services/program.service';
+import {tap} from 'rxjs/operators';
+import {Program} from '../../models/program.model';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-worksheet',
@@ -29,12 +29,12 @@ export class WorksheetComponent implements OnInit {
   public fcClientSearch: FormControl = new FormControl('');
 
   constructor(private route: ActivatedRoute,
-    private worksheetService: WorksheetService,
-    private router: Router,
-    private fb: FormBuilder,
-    private clientService: ClientService,
-    private programService: ProgramService,
-    private statusService: StatusService) {
+              private worksheetService: WorksheetService,
+              private router: Router,
+              private fb: FormBuilder,
+              private clientService: ClientService,
+              private programService: ProgramService,
+              private statusService: StatusService) {
   }
 
   public ngOnInit(): void {
@@ -50,8 +50,8 @@ export class WorksheetComponent implements OnInit {
       quantity: new FormControl(''),
       client: new FormControl('', Validators.required),
       program: new FormControl('', Validators.required),
-      tool: new FormControl({ value: '', disabled: true }),
-      machine: new FormControl({ value: '', disabled: true }),
+      tool: new FormControl({value: '', disabled: true}),
+      machine: new FormControl({value: '', disabled: true}),
     });
   }
 
@@ -109,7 +109,7 @@ export class WorksheetComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }
@@ -174,7 +174,8 @@ export class WorksheetComponent implements OnInit {
     if (this.fcClientSearch.value === '') {
       this.filteredClients.next(this.clients);
     } else {
-      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(this.fcClientSearch.value.toLocaleLowerCase())));
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase()
+        .includes(this.fcClientSearch.value.toLocaleLowerCase())));
     }
   }
 

@@ -5,8 +5,9 @@
 }
 
 .controls {
-  max-width: 10%;
+  width: 100%;
   flex-wrap: wrap;
+  display: flex;
   justify-content: flex-end;
 }
 
@@ -27,7 +28,7 @@ mat-row:hover {
 }
 
 .date {
-  min-width: 30%;
+  min-width: 20%;
 }
 
 .description {
@@ -35,29 +36,27 @@ mat-row:hover {
 }
 
 .date-input {
-  width: calc(30% - 10px);
+  width: calc(20% - 10px);
 }
 
 .description-input {
-  width: calc(60% - 10px);
+  min-width: calc(60% - 10px);
+  padding-left: 24px;
 }
 
 .input {
   padding-right: 10px;
-  box-sizing: border-box;
 }
 
 .add-form {
   display: flex;
   width: 100%;
   align-items: center;
-  padding: 0 24px;
-  box-sizing: border-box;
   margin-top: 10px;
 }
 
 .add {
-  width: 10%;
+  width: 20%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
