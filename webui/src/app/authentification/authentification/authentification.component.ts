@@ -1,8 +1,10 @@
-import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Component, OnInit} from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
-import {AuthentificationService} from './../../services/authentification.service';
+import { ToastrService } from 'ngx-toastr';
+
+import { AuthentificationService } from './../../services/authentification.service';
 
 @Component({
   selector: 'app-authentification',
@@ -15,7 +17,8 @@ export class AuthentificationComponent implements OnInit {
   public fcEmail: FormControl;
   public fcPassword: FormControl;
 
-  constructor(private router: Router, private authentificationService: AuthentificationService, private fb: FormBuilder) {
+  constructor(private router: Router, private authentificationService: AuthentificationService, private fb: FormBuilder,
+              private toastr: ToastrService) {
   }
 
   public ngOnInit(): void {
@@ -32,7 +35,22 @@ export class AuthentificationComponent implements OnInit {
     }
 
     this.authentificationService.connect(this.fcEmail.value, this.fcPassword.value).subscribe(() => {
-      this.router.navigate(['clients']);
+      this.router.navigate(['/worksheets']);
+      // TODO Enter bienvenue+name
+      this.toastr.success(null, 'Connexion réussi');
+    }, error => {
+      if (error.status === 401) {
+        this.toastr.error(null, 'Mauvais courriel ou mot de passe');
+      } else {
+        this.toastr.error(
+          'Un problème est survenu, veuillez contacter l\'administrateur.',
+          'Erreur',
+          {
+            onActivateTick: true
+          }
+        );
+      }
+      console.error(error);
     });
   }
 
@@ -40,7 +58,7 @@ export class AuthentificationComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({onlySelf: true});
+        control.markAsTouched({ onlySelf: true });
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }
