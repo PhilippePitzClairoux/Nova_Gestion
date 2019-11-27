@@ -24,11 +24,11 @@ VALUES ('K15');
 INSERT INTO grade (description)
 VALUES ('K60');
 
-INSERT INTO blank (code_grade, name, stock_quantity, minimum_quantity, diameter, length)
-VALUES (2, '1/2 x 3 - K01', 30, 10, '1/2', '3');
+INSERT INTO blank (code_grade, name, stock_quantity, minimum_quantity, diameter, length, code)
+VALUES (2, '1/2 x 3 - K01', 30, 10, '1/2', '3', 'BBB');
 
-INSERT INTO blank (code_grade, id_coolant_hole, name, stock_quantity, minimum_quantity, diameter, length)
-VALUES (4, 1, '1/3 x 2 - K60', 7, 15, '1/3', '2');
+INSERT INTO blank (code_grade, id_coolant_hole, name, stock_quantity, minimum_quantity, diameter, length, code)
+VALUES (4, 1, '1/3 x 2 - K60', 7, 15, '1/3', '2', 'AAA');
 
 INSERT INTO model (name, company)
 VALUES ('Helitronic Essential', 'Walter');
