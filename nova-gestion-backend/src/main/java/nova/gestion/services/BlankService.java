@@ -29,7 +29,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public ArrayList<Blank> getListOfAllBlanks() {
         ArrayList<Blank> blanks = blankMapper.getAllBlanks();
 
@@ -40,7 +40,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public Blank getBlank(int idBlank) {
 
         Blank blank = blankMapper.getBlank(idBlank);
