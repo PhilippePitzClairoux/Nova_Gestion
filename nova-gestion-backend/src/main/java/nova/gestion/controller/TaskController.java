@@ -28,7 +28,7 @@ public class TaskController {
      * @return ArrayList {@link nova.gestion.model.Task}
      *
      */
-    @GetMapping("/v1/task/{idWorkSheet")
+    @GetMapping("/v1/task/{idWorkSheet}")
     public ArrayList<Task> getTasks(@PathVariable @Validated int idWorkSheet) {
         return taskService.getTasks(idWorkSheet);
     }

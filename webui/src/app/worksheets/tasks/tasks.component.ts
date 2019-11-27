@@ -61,16 +61,12 @@ export class TasksComponent implements OnInit, OnDestroy {
     const hour = time[0];
     const minutes = time[1];
     const today = new Date(Date.now());
-    return new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), Number(hour), Number(minutes), 0));
+    return new Date(today.getFullYear(), today.getMonth(), today.getDate(), Number(hour), Number(minutes), 0);
   }
 
   private static getDuration(task: Task) {
-    let start = new Date(task.startTime);
-    start = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate(),
-      start.getUTCHours(), start.getUTCMinutes(), start.getUTCSeconds()));
-    let end = new Date(task.endTime);
-    end = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(),
-      end.getUTCHours(), end.getUTCMinutes(), end.getUTCSeconds()));
+    const start = new Date(task.startTime);
+    const end = new Date(task.endTime);
     const diffMs = end.getTime() - start.getTime();
     const diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
     const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
@@ -78,6 +74,7 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.selectedIndex = null;
     this.tasksSubject.subscribe(data => {
       if (data) {
         data.forEach(task => {
@@ -117,14 +114,14 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.timerRunning = true;
     const date = new Date();
     this.task = new Task();
-    this.task.startTime = date.toUTCString();
+    this.task.startTime = date.toISOString();
     date.setHours(date.getHours());
     this.timerService.startTimer(date);
   }
 
   private stop() {
     this.timerRunning = false;
-    this.task.endTime = new Date().toUTCString();
+    this.task.endTime = new Date().toISOString();
     this.task.idWorkSheet = this.idWorkSheet;
     this.timerService.stopTimer();
     TasksComponent.getDuration(this.task);
@@ -142,12 +139,12 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   saveTask() {
-    if (this.taskForm.valid) {
-      if (this.taskForm.dirty) {
-        this.stop();
-        this.task.taskType = this.taskForm.controls.taskType.value;
-        this.taskService.add(this.task).subscribe();
-      }
+      if (this.taskForm.valid) {
+        if (this.taskForm.dirty) {
+          this.stop();
+          this.task.taskType = this.taskForm.controls.taskType.value;
+          this.taskService.add(this.task).subscribe();
+        }
     } else {
       this.validateAllFields(this.taskForm);
     }
@@ -179,8 +176,10 @@ export class TasksComponent implements OnInit, OnDestroy {
   updateTask(task: Task) {
     this.selectedIndex = null;
 
-    task.startTime = TasksComponent.setTime(this.startTime).toUTCString();
-    task.endTime = TasksComponent.setTime(this.endTime).toUTCString();
+    task.startTime = TasksComponent.setTime(this.startTime).toISOString();
+    task.endTime = TasksComponent.setTime(this.endTime).toISOString();
+    TasksComponent.getDuration(task);
+    console.log(task);
 
     this.taskService.update(task).subscribe(res => {
       console.log(task);
