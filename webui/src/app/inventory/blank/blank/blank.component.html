@@ -3,6 +3,14 @@
 
 <form mat-dialog-content [formGroup]="blankForm">
   <div class="content">
+    <div class="code">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Code" formControlName="code">
+        <mat-error *ngIf="blankForm.controls.code.hasError('required')">
+          Un code est requis.
+        </mat-error>
+      </mat-form-field>
+    </div>
     <div class="quantities">
       <div class="inch">
         <mat-form-field class="dimension">
@@ -54,42 +62,7 @@
     <mat-checkbox [checked]="hasCoolantHole" (change)="showCoolantHoleOptions($event)" [color]="'primary'">Coolant holes
     </mat-checkbox>
 
-    <div class="coolant-hole" *ngIf="hasCoolantHole">
 
-      <div class="quantities">
-        <div class="inch">
-          <mat-form-field class="dimension">
-            <input matInput placeholder="Nombre de trous" formControlName="holesNumber" type="number">
-            <mat-error *ngIf="blankForm.controls.holesNumber.hasError('required')">
-              Une valeur est requise.
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="inch">
-          <mat-form-field class="dimension">
-            <input matInput placeholder="Diamètre" formControlName="holeDiameter">
-            <mat-error *ngIf="blankForm.controls.holeDiameter.hasError('required')">
-              Une valeur est requise.
-            </mat-error>
-          </mat-form-field>
-
-          <span>pouce(s)</span>
-        </div>
-      </div>
-
-      <mat-form-field class="full-width">
-        <mat-label>Type</mat-label>
-        <mat-select formControlName="coolantHoleType">
-          <mat-option *ngFor="let type of types" [value]="type">
-            {{type.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="blankForm.controls.coolantHoleType.hasError('required')">
-          Un type de coolant hole est requis.
-        </mat-error>
-      </mat-form-field>
-    </div>
 
   </div>
 

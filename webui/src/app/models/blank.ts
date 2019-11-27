@@ -1,4 +1,3 @@
-import {CoolantHole} from './coolant-hole';
 import {Grade} from './grade';
 
 export class Blank {
@@ -9,5 +8,5 @@ export class Blank {
   diameter: number;
   length: number;
   grade: Grade;
-  coolantHole: CoolantHole;
+  coolantHole: boolean;
 }

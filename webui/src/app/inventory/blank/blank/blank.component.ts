@@ -1,13 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatCheckboxChange, MatDialogRef} from '@angular/material';
+
+import { BehaviorSubject } from 'rxjs';
+
 import {Blank} from '../../../models/blank';
-import {CoolantHoleTypeService} from '../../../services/coolant-hole-type.service';
 import {GradeService} from '../../../services/grade.service';
 import {Grade} from '../../../models/grade';
-import {CoolantHoleType} from '../../../models/coolant-hole-type';
-import {CoolantHole} from '../../../models/coolant-hole';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-blank',
@@ -25,14 +24,12 @@ export class BlankComponent implements OnInit {
   public filteredGrades: BehaviorSubject<Grade[]> = new BehaviorSubject<Grade[]>([]);
   public fcGradeSearch: FormControl = new FormControl('');
 
-  public types: CoolantHoleType[] = [];
   public blankForm: FormGroup;
   public hasCoolantHole = false;
 
   constructor(
     public dialogRef: MatDialogRef<BlankComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Blank,
-    private coTypeService: CoolantHoleTypeService,
     private gradeService: GradeService) {
   }
 
@@ -43,6 +40,7 @@ export class BlankComponent implements OnInit {
   ngOnInit(): void {
     this.blankForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.maxLength(254)]),
+      code: new FormControl('', Validators.required),
       stockQuantity: new FormControl('', Validators.required),
       minimumQuantity: new FormControl('', Validators.required),
       diameter: new FormControl('', [Validators.required, Validators.maxLength(10)]),
@@ -85,38 +83,23 @@ export class BlankComponent implements OnInit {
     blank.grade = controls.grade.value;
 
     if (this.hasCoolantHole) {
-      blank.coolantHole = this.createCoolantHole();
+      blank.coolantHole = true;
     } else {
-      blank.coolantHole = null;
+      blank.coolantHole = false;
     }
 
     return blank;
   }
 
-  private createCoolantHole(): CoolantHole {
-    const co = new CoolantHole();
-    co.typeCoolantHole = this.blankForm.controls.coolantHoleType.value;
-    co.quantity = this.blankForm.controls.holesNumber.value;
-    co.diameter = this.blankForm.controls.holeDiameter.value;
-    return co;
-  }
-
-  private getGrades() {
+  private getGrades(): void {
     this.gradeService.getAll().subscribe(grades => {
       this.grades = grades;
       this.filteredGrades.next(grades);
-      this.getCoolantHoleTypes();
-    });
-  }
-
-  private getCoolantHoleTypes() {
-    this.coTypeService.getAll().subscribe(types => {
-      this.types = types;
       this.setValues();
     });
   }
 
-  private setValues() {
+  private setValues(): void {
     if (this.data) {
       this.blankForm.controls.name.setValue(this.data.name);
       this.blankForm.controls.stockQuantity.setValue(this.data.stockQuantity);
@@ -127,9 +110,6 @@ export class BlankComponent implements OnInit {
       this.setGrade();
       if (this.data.coolantHole) {
         this.hasCoolantHole = true;
-        this.setCoolantHoleType();
-        this.blankForm.controls.holesNumber.setValue(this.data.coolantHole.quantity);
-        this.blankForm.controls.holeDiameter.setValue(this.data.coolantHole.diameter);
       }
     }
   }
@@ -137,11 +117,6 @@ export class BlankComponent implements OnInit {
   private setGrade() {
     const grade = this.grades.filter(x => x.code === this.data.grade.code)[0];
     this.blankForm.controls.grade.setValue(grade);
-  }
-
-  private setCoolantHoleType() {
-    const type = this.types.filter(x => x.idTypeCoolantHole === this.data.coolantHole.typeCoolantHole.idTypeCoolantHole)[0];
-    this.blankForm.controls.coolantHoleType.setValue(type);
   }
 
   private validateAllFields(formGroup: FormGroup) {
@@ -155,7 +130,7 @@ export class BlankComponent implements OnInit {
     });
   }
 
-  showCoolantHoleOptions($event: MatCheckboxChange) {
+  public showCoolantHoleOptions($event: MatCheckboxChange): void {
     this.hasCoolantHole = !this.hasCoolantHole;
 
     if (this.hasCoolantHole) {
