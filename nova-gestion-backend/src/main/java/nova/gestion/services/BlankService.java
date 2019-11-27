@@ -60,15 +60,9 @@ public class BlankService {
         if (blank.getGrade() == null)
             throw new InvalidRequest("Missing Grade");
 
-        if (blank.getName() == null || blank.getDiameter() == null || blank.getLength() == null || blank.getCode() == null /*|| blank.getCoolantHole() == null*/)
+        if (blank.getName() == null || blank.getDiameter() == null || blank.getLength() == null || blank.getCode() == null )
             throw new InvalidRequest("Missing Blank parameters");
 
-       /* if (blank.getCoolantHole() != null) {
-            if (blank.getCoolantHole().getTypeCoolantHole() == null || blank.getCoolantHole().getQuantity() < 0 || blank.getCoolantHole().getDiameter() < 0)
-                throw new InvalidRequest("Missing CoolantHole parameters");
-            else
-                coolantHoleMapper.insertCoolantHole(blank.getCoolantHole());
-        }*/
         blankMapper.insertBlank(blank);
 
         return blank.getIdBlank();
@@ -82,26 +76,10 @@ public class BlankService {
         if (blank.getIdBlank() == 0 || verifiedBlank == null)
             throw new InvalidRequest("Missing parameters");
 
-        if (blank.getName() == null && blank.getDiameter() == null && blank.getLength() == null && blank.getGrade() == null /*&& blank.getCoolantHole == null*/)
+        if (blank.getName() == null && blank.getDiameter() == null && blank.getLength() == null && blank.getGrade() == null )
             throw new InvalidRequest("Missing information");
 
-    /*    if (blank.getCoolantHole() != null && verifiedBlank.getCoolantHole() != null) {
-            if (blank.getCoolantHole().getDiameter() >= 0)
-                verifiedBlank.getCoolantHole().setDiameter(blank.getCoolantHole().getDiameter());
-
-            if (blank.getCoolantHole().getQuantity() != verifiedBlank.getCoolantHole().getQuantity())
-                verifiedBlank.getCoolantHole().setQuantity(blank.getCoolantHole().getQuantity());
-
-            if (blank.getCoolantHole().getTypeCoolantHole() != null)
-                verifiedBlank.getCoolantHole().setTypeCoolantHole(blank.getCoolantHole().getTypeCoolantHole());
-
-            coolantHoleMapper.updateCoolantHole(verifiedBlank.getCoolantHole());
-            blank.setCoolantHole(verifiedBlank.getCoolantHole());
-        } else {
-            coolantHoleMapper.insertCoolantHole(blank.getCoolantHole());
-        } */
-
-        if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getCode() != null || blank.getGrade() != null /*|| blank.getCoolantHole() != null*/)
+        if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getCode() != null || blank.getGrade() != null )
             blankMapper.updateBlank(blank);
 
     }
