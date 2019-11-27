@@ -20,7 +20,7 @@ public class GradeService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public ArrayList<Grade> getAllGrades() {
         ArrayList<Grade> grades = gradeMapper.getAllGrades();
 

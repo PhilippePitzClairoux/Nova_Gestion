@@ -29,6 +29,7 @@ export class BlankService {
   }
 
   public add(blank: Blank): Observable<any> {
+    console.log(blank);
     return this.http.post<any>(this.api + 'blank', blank, this.httpOptions).pipe(
       tap(() => this.toastr.success(null, 'Tige de carbure ajoutée'))
     );
