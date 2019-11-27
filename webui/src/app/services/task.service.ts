@@ -24,7 +24,6 @@ export class TaskService {
   }
 
   add(task: Task): Observable<any> {
-    console.log(task);
     return this.http.post(this.api + 'task', task, this.httpOptions);
   }
 

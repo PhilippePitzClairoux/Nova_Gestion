@@ -6,5 +6,5 @@ export class Task {
   endTime: string;
   taskType: TaskType;
   idWorkSheet: number;
-  duration: number;
+  duration: string;
 }

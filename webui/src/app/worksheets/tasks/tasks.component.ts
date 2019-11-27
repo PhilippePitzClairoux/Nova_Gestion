@@ -14,22 +14,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit, OnDestroy {
-  taskTypes: TaskType[] = [];
-  taskForm: FormGroup;
-  task: Task;
-
-  timerConfig: countUpTimerConfigModel;
-  timerRunning = false;
-  selectedIndex: number;
-  endTime: any;
-  startTime: any;
-
-  displayedColumns = ['taskType', 'employee', 'start', 'end', 'duration', 'controls'];
-  dataSource: MatTableDataSource<Task>;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-
-  private tasksSubject = new BehaviorSubject<Task[]>([]);
-  @Input() idWorkSheet: number;
 
   @Input() set tasks(value: Task[]) {
     this.tasksSubject.next(value);
@@ -46,14 +30,58 @@ export class TasksComponent implements OnInit, OnDestroy {
   ) {
   }
 
+  taskTypes: TaskType[] = [];
+  taskForm: FormGroup;
+  task: Task;
+
+  timerConfig: countUpTimerConfigModel;
+  timerRunning = false;
+  selectedIndex: number;
+  endTime = '';
+  startTime = '';
+
+  displayedColumns = ['taskType', 'employee', 'start', 'end', 'duration', 'controls'];
+  dataSource: MatTableDataSource<Task>;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  @Input() idWorkSheet: number;
+
+  private static getTime(time: string): string {
+    const temp = new Date(time);
+    const date =  new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(),
+      temp.getUTCHours(), temp.getUTCMinutes(), temp.getUTCSeconds()));
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return hours + ':' + minutes;
+  }
+
+  private static setTime(input: string): Date {
+    const time = input.split(':');
+    const hour = time[0];
+    const minutes = time[1];
+    const today = new Date(Date.now());
+    return new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), Number(hour), Number(minutes), 0));
+  }
+
+  private static getDuration(task: Task) {
+    let start = new Date(task.startTime);
+    start = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate(),
+      start.getUTCHours(), start.getUTCMinutes(), start.getUTCSeconds()));
+    let end = new Date(task.endTime);
+    end = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(),
+      end.getUTCHours(), end.getUTCMinutes(), end.getUTCSeconds()));
+    const diffMs = end.getTime() - start.getTime();
+    const diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+    task.duration = diffHrs + ':' + diffMins;
+  }
+
   ngOnInit(): void {
     this.tasksSubject.subscribe(data => {
-      console.log(data);
       if (data) {
         data.forEach(task => {
-          const start = new Date(task.startTime);
-          const end = new Date(task.endTime);
-          task.duration = end.getTime() - start.getTime();
+          TasksComponent.getDuration(task);
         });
         this.setDataSource(data);
       }
@@ -89,19 +117,17 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.timerRunning = true;
     const date = new Date();
     this.task = new Task();
-    this.task.startTime = date.toISOString();
+    this.task.startTime = date.toUTCString();
     date.setHours(date.getHours());
     this.timerService.startTimer(date);
   }
 
   private stop() {
     this.timerRunning = false;
-    this.task.endTime = new Date().toISOString();
+    this.task.endTime = new Date().toUTCString();
     this.task.idWorkSheet = this.idWorkSheet;
     this.timerService.stopTimer();
-    const start = new Date(this.task.startTime);
-    const end = new Date(this.task.endTime);
-    this.task.duration = end.getTime() - start.getTime();
+    TasksComponent.getDuration(this.task);
     this.tasks.push(this.task);
     this.setDataSource(this.tasks);
   }
@@ -146,16 +172,19 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   editTask(task: Task) {
     this.selectedIndex = task.idTask;
+    this.startTime = TasksComponent.getTime(task.startTime);
+    this.endTime = TasksComponent.getTime(task.endTime);
   }
 
   updateTask(task: Task) {
     this.selectedIndex = null;
-    task.endTime = new Date().toISOString();
-    task.startTime = new Date().toISOString();
 
-    /*this.taskService.update(task).subscribe(res => {
-      this.getWorksheet();
-    });*/
+    task.startTime = TasksComponent.setTime(this.startTime).toUTCString();
+    task.endTime = TasksComponent.setTime(this.endTime).toUTCString();
+
+    this.taskService.update(task).subscribe(res => {
+      console.log(task);
+    });
   }
 
   private validateAllFields(formGroup: FormGroup) {
