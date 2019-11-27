@@ -22,15 +22,14 @@ CREATE TABLE grade(
 CREATE TABLE blank(
     id_blank BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     code_grade BIGINT NOT NULL,
-    id_coolant_hole BIGINT,
     name VARCHAR(255),
     stock_quantity INTEGER,
     minimum_quantity INTEGER,
     diameter VARCHAR(10),
 	code VARCHAR(20),
     length VARCHAR(10),
-    CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code),
-    CONSTRAINT FOREIGN KEY(id_coolant_hole) REFERENCES coolant_hole(id_coolant_hole)
+	coolant_hole boolean,
+    CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code)
 );
 
 CREATE TABLE model(
