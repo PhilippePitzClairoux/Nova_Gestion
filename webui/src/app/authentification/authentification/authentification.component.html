@@ -1,0 +1,24 @@
+<div class="background">
+  <mat-card [formGroup]="fg" class="login-container">
+    <div class="logo">
+      <img src="../../../assets/images/logo/affut-mill.png" alt="">
+    </div>
+    <mat-form-field class="input">
+      <input matInput id="email" name="email" type="text" placeholder="Courriel" formControlName="email">
+      <mat-error *ngIf="!fcEmail.valid">
+        Courriel requis.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="input">
+      <input matInput id="password" name="password" type="password" placeholder="Mot de Passe" formControlName="password">
+      <mat-error *ngIf="!fcPassword.valid">
+        Mot de passe requis.
+      </mat-error>
+    </mat-form-field>
+    <div class="btn-right">
+      <app-button [label]="'Connexion'" [style]="'primary'" (clicked)="loginUser()">
+        Connexion
+      </app-button>
+    </div>
+  </mat-card>
+</div>

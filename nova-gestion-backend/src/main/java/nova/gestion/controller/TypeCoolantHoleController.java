@@ -22,6 +22,11 @@ public class TypeCoolantHoleController {
         this.typeCoolantHoleService = typeCoolantHoleService;
     }
 
+    /**
+     * GET /v1/coolantholetypes -> retourne la liste des coolantholetypes
+     * @return ArrayList {@link nova.gestion.model.TypeCoolantHole}
+     * @throws JsonProcessingException
+     */
     @GetMapping("/v1/coolantholetypes")
     public ArrayList<TypeCoolantHole> getAllCoolantHoleTypes() throws JsonProcessingException {
         return typeCoolantHoleService.getAllCoolantHoleTypes();

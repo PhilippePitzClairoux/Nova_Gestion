@@ -7,6 +7,7 @@ GET localhost:8080/v1/client/1
 GET localhost:8080/v1/workSheet/2
 ###
 GET localhost:8080/v1/workSheets
+
 ###
 GET localhost:8080/v1/blank/2
 ###
@@ -14,6 +15,8 @@ GET localhost:8080/v1/machine/1
 ###
 GET localhost:8080/v1/program/6
 
+###
+GET localhost:8080/v1/programs
 
 ###
 GET localhost:8080/v1/programs
@@ -388,5 +391,23 @@ DELETE localhost:8080/v1/workSheetClientProgram/1/4
 
 ###
 DELETE localhost:8080/v1/maintenance/7
+
+###
+DELETE localhost:8080/v1/program/6/
+
+###
+POST localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin@gmail.com&password=test
+###
+
+POST localhost:8080/logout
+
+###
+POST localhost:8080/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin@gmail.com&password=test
 
 ###

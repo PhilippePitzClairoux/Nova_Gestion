@@ -8,8 +8,11 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
-  MatButtonModule
+  MatButtonModule,
+  MatAutocompleteModule
 } from '@angular/material';
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { SharedModule } from './../shared/shared.module';
 import { ProgramsRoutingModule } from './programs-routing.module';
@@ -26,12 +29,14 @@ import { ProgramComponent } from './program/program.component';
     SharedModule,
     MatFormFieldModule,
     MatInputModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatSelectModule,
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
-    ProgramsRoutingModule
+    ProgramsRoutingModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class ProgramsModule { }

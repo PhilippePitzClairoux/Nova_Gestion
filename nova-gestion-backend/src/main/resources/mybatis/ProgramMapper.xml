@@ -9,10 +9,12 @@
             <arg name="idProgram" column="id_program"/>
             <arg name="name" column="name"/>
             <arg name="file" column="file"/>
+            <arg name="activated" column="activated"/>
         </constructor>
         <id column="id_program" javaType="int" property="idProgram"/>
         <result column="name" javaType="string" property="name"/>
         <result column="file" javaType="string" property="file"/>
+        <result column="activated" javaType="boolean" property="activated"/>
 
         <association column="id_machine" property="machine" javaType="nova.gestion.model.Machine"
                      select="nova.gestion.mappers.MachineMapper.getMachine"/>
@@ -31,11 +33,11 @@
     <select id="getProgram" parameterType="int" resultMap="ProgramMap">
         SELECT *
         FROM `nova_gestion`.`program`
-        WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+        WHERE `nova_gestion`.`program`.id_program = #{idProgram} AND `nova_gestion`.`program`.activated = 1;
     </select>
 
     <select id="getAllPrograms" resultMap="ProgramMap">
-        SELECT * FROM `nova_gestion`.`program`;
+        SELECT * FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.activated = 1;
     </select>
 
     <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
@@ -54,7 +56,8 @@
     </update>
 
     <delete id="deleteProgram" parameterType="int">
-        DELETE FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+        UPDATE `nova_gestion`.`program` SET `activated` = 0 WHERE `nova_gestion`.`program`.id_program = #{idProgram};
+      <!--  DELETE FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.id_program = #{idProgram};-->
     </delete>
 
 </mapper>
