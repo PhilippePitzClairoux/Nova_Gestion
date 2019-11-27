@@ -1,0 +1,52 @@
+<div class="page-wrapper">
+
+  <div class="card">
+    <div class="title">Tiges de carbure en déficit</div>
+    <div class="quantity">{{deficitBlanks?.length}}</div>
+    <div class="item header">
+      <span class="name">Nom</span>
+      <span class="qty">En stock</span>
+      <span class="qty">Minimum</span>
+    </div>
+    <div *ngIf="deficitBlanks.length > 0">
+      <div class="item" *ngFor="let blank of deficitBlanks">
+        <span class="name">{{blank.name}}</span>
+        <span class="qty">{{blank.stockQuantity}}</span>
+        <span class="qty">{{blank.minimumQuantity}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">Outils en déficit</div>
+    <div class="quantity">{{deficitTools?.length}}</div>
+    <div class="item header">
+      <span class="name">Nom</span>
+      <span class="qty">En stock</span>
+      <span class="qty">Minimum</span>
+    </div>
+    <div *ngIf="deficitTools.length > 0">
+      <div class="item" *ngFor="let tool of deficitTools">
+        <span class="name">{{tool.name}}</span>
+        <span class="qty">{{tool.stockQuantity}}</span>
+        <span class="qty">{{tool.minimumQuantity}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="title">Feuilles de travail en retard</div>
+    <div class="quantity">{{lateWorksheets?.length}}</div>
+    <div class="item header">
+      <span>Client</span>
+      <span>Commande</span>
+    </div>
+    <div *ngIf="lateWorksheets.length > 0">
+      <div class="item clickable" *ngFor="let worksheet of lateWorksheets" (click)="navigate('/worksheet/' + worksheet.idWorkSheet)">
+        <span>{{worksheet.client.name}}</span>
+        <span>{{worksheet.orderNumber}}</span>
+      </div>
+    </div>
+  </div>
+
+</div>
