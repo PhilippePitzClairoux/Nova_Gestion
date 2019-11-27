@@ -4,7 +4,6 @@ import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.ClientMapper;
 import nova.gestion.model.Client;
-import nova.gestion.model.post.ClientPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
