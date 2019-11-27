@@ -30,7 +30,7 @@ public class ProgramService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur') or hasRole('Emballeur')")
     public ArrayList<Program> getAllPrograms() {
         ArrayList<Program> programs = programMapper.getAllPrograms();
 
@@ -46,7 +46,7 @@ public class ProgramService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')  or hasRole('Emballeur')")
     public Program getProgram(Integer idProgram) {
 
         Program program = programMapper.getProgram(idProgram);

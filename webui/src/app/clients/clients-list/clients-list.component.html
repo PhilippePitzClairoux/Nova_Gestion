@@ -9,16 +9,16 @@
   </mat-form-field>
 </div>
 
-<div class="table-content">
+<div class="add-inputs">
   <div [formGroup]="fgAdd" class="table-row-no-hover">
-    <mat-form-field class="table-item">
-      <input matInput id="name" name="name" type="text" class="inputs" formControlName="name" placeholder="Nom">
+    <mat-form-field class="add-item">
+      <input matInput id="name" name="name" type="text" formControlName="name" placeholder="Nom">
       <mat-error *ngIf="!nameValid()">
         Nom requis.
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="table-item">
-      <input matInput type="text" class="inputs" formControlName="phoneNumber" placeholder="Numéro de téléphone">
+    <mat-form-field class="add-item">
+      <input matInput type="text" formControlName="phoneNumber" placeholder="Numéro de téléphone">
       <mat-error *ngIf="!phoneValid()">
         Numéro de téléphone requis.
       </mat-error>
@@ -37,7 +37,7 @@
       <mat-cell *matCellDef="let row">
         <div *ngIf="row.idClient !== selectedIndex">{{row.name | truncate}}</div>
         <div *ngIf="row.idClient === selectedIndex">
-          <mat-form-field class="table-item">
+          <mat-form-field class="table-item  space">
             <input matInput type="text" class="inputs" formControlName="newName" placeholder="Nom">
             <mat-error *ngIf="!editNameValid()">
               Nom requis.
@@ -51,7 +51,7 @@
       <mat-cell *matCellDef="let row">
         <div *ngIf="row.idClient !== selectedIndex">{{row.phoneNumber | truncate}}</div>
         <div *ngIf="row.idClient === selectedIndex">
-          <mat-form-field class="table-item">
+          <mat-form-field class="table-item space">
             <input matInput type="text" class="inputs" formControlName="newPhoneNumber"
               placeholder="Numéro de téléphone">
             <mat-error *ngIf="!editPhoneValid()">
@@ -78,5 +78,5 @@
     <mat-row class="table-row" *matRowDef="let row; columns: ['name', 'phoneNumber', 'controls'];">
     </mat-row>
   </mat-table>
-  <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  <mat-paginator class="paginator" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
 </div>

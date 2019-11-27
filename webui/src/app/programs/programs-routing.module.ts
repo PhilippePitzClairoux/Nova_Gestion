@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProgramsListComponent } from './programs-list/programs-list.component';
 import { ProgramComponent } from './program/program.component';
+import { AuthGuard } from '../Guard/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'programs', component: ProgramsListComponent },
-  { path: 'programs/:id', component: ProgramComponent }
+  { path: 'programs', component: ProgramsListComponent, canActivate: [AuthGuard] },
+  { path: 'programs/:id', component: ProgramComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

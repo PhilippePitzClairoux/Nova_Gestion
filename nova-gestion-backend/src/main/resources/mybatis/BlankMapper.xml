@@ -61,6 +61,7 @@
         <if test="name != null">name = #{name},</if>
         <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
         <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
+
         <if test="diameter != 0">diameter = #{diameter},</if>
         <if test="length != 0">length = #{length},</if>
         <if test="code != null">code = #{code},</if>

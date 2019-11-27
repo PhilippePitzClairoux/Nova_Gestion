@@ -29,7 +29,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public ArrayList<Blank> getListOfAllBlanks() {
         ArrayList<Blank> blanks = blankMapper.getAllBlanks();
 
@@ -40,7 +40,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public Blank getBlank(int idBlank) {
 
         Blank blank = blankMapper.getBlank(idBlank);
@@ -51,7 +51,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createBlank(Blank blank) {
 
         if (blank == null)
@@ -75,7 +75,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public void updateBlank(Blank blank) {
         Blank verifiedBlank = blankMapper.getBlank(blank.getIdBlank());
 
@@ -108,7 +108,7 @@ public class BlankService {
 
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteBlank(Integer idBlank) {
 
         Blank loadBlank = blankMapper.getBlank(idBlank);

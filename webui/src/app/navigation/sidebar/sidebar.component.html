@@ -9,7 +9,7 @@
       <i class="material-icons md-18">home</i>
       Accueil
     </a>
-    <a routerLink="programs" title="Programmes" routerLinkActive="active">
+    <a *ngIf="userType === 'Admin' || userType === 'Superviseur'" routerLink="programs" title="Programmes" routerLinkActive="active">
       <i class="material-icons md-18">menu_book</i>
       Programmes
     </a>
@@ -21,11 +21,11 @@
       <i class="material-icons md-18">store</i>
       Inventaire
     </a>
-    <a routerLink="clients" title="Clients" routerLinkActive="active">
+    <a *ngIf="userType === 'Admin' || userType === 'Superviseur'" routerLink="clients" title="Clients" routerLinkActive="active">
       <i class="material-icons md-18">apartment</i>
       Clients
     </a>
-    <a routerLink="machines" title="Machines" routerLinkActive="active">
+    <a *ngIf="userType === 'Admin' || userType === 'Superviseur'" routerLink="machines" title="Machines" routerLinkActive="active">
       <i class="material-icons md-18">laptop</i>
       Machines
     </a>
@@ -33,7 +33,7 @@
       <i class="material-icons md-18">person</i>
       Utilisateurs
     </a>
-    <a routerLink="rapport" title="Rapport" routerLinkActive="active">
+    <a *ngIf="userType === 'Admin'" routerLink="rapport" title="Rapport" routerLinkActive="active">
       <i class="material-icons md-18">show_chart</i>
       Rapport
     </a>
