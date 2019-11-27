@@ -7,7 +7,6 @@ GET localhost:8080/v1/client/1/
 GET localhost:8080/v1/workSheet/2/
 ###
 GET localhost:8080/v1/workSheets
-
 ###
 GET localhost:8080/v1/blank/2/
 ###
@@ -15,6 +14,12 @@ GET localhost:8080/v1/machine/1/
 ###
 GET localhost:8080/v1/program/4/
 
+###
+GET localhost:8080/v1/workSheets
+GET localhost:8080/v1/program/1/
+
+###
+GET localhost:8080/v1/workSheets
 ###
 GET localhost:8080/v1/programs
 
@@ -74,17 +79,11 @@ PUT localhost:8080/v1/program
 Content-Type: application/json
 
 {
-  "idProgram": 8,
+  "idProgram": 5,
   "name": "test sans client",
   "file": "..path/dossier/fichier.html",
   "machine": {
-    "idMachine": 2
-  },
-  "tool": {
-    "idTool": 2
-  },
-  "blank": {
-    "idBlank": 1
+    "idMachine": 3
   }
 }
 ###
@@ -116,13 +115,32 @@ POST localhost:8080/v1/blank
 Content-Type: application/json
 
 {
-  "codeGrade": 1,
+  "grade":{
+  "code": 1
+  },
   "idCoolantHole": 1,
   "name": "1/5 * 5 - Mill ",
   "stockQuantity": 100,
   "minimumQuantity": 100,
   "diameter": 2,
-  "length": 5
+  "length": 5,
+  "code": "CCC"
+}
+###
+PUT localhost:8080/v1/blank
+Content-Type: application/json
+
+{
+  "idBlank": 3,
+  "grade":{
+  "code": 1
+  },
+  "name": "1/5 * 5 - Mill ",
+  "stockQuantity": 100,
+  "minimumQuantity": 100,
+  "diameter": 2,
+  "length": 50,
+  "code": "FFF"
 }
 ###
 POST localhost:8080/v1/client
@@ -246,9 +264,10 @@ PUT localhost:8080/v1/blank
 Content-Type: application/json
 
 {
-  "idBlank": 1,
+  "idBlank": 3,
   "grade": {
-    "code": 1
+    "code": 2,
+    "name": "K01"
   },
   "name": "5*5",
   "coolantHole": {
@@ -258,7 +277,10 @@ Content-Type: application/json
     "typeCoolantHole": {
       "idTypeCoolantHole" : 1
     }
-  }
+  },
+  "length": 200,
+  "code": "zzz",
+  "diameter": 200
 }
 
 ###
@@ -409,5 +431,19 @@ POST localhost:8080/login
 Content-Type: application/x-www-form-urlencoded
 
 username=admin@gmail.com&password=test
+
+###
+###
+PUT localhost:8080/v1/program
+Content-Type: application/json
+
+{
+  "idProgram": 5,
+  "name": "test sans client",
+  "file": "..path/dossier/fichier.html",
+  "machine": {
+    "idMachine": 3
+  }
+}
 
 ###
