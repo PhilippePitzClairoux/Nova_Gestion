@@ -75,7 +75,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public void updateBlank(Blank blank) {
         Blank verifiedBlank = blankMapper.getBlank(blank.getIdBlank());
 
