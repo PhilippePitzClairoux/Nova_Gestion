@@ -1,3 +1,4 @@
+import { AuthGuard } from './Guard/auth.guard';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -32,7 +33,7 @@ import {AppErrorHandler} from './Error/app-error-handler.injector';
     ToastrModule.forRoot({
       timeOut: 5000,
       extendedTimeOut: 2000,
-      positionClass: 'toast-top-center',
+      positionClass: 'toast-bottom-center',
       preventDuplicates: true,
       maxOpened: 5,
       autoDismiss: true,
@@ -60,7 +61,8 @@ import {AppErrorHandler} from './Error/app-error-handler.injector';
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler
-    }
+    },
+    AuthGuard
   ],
   bootstrap: [
     AppComponent

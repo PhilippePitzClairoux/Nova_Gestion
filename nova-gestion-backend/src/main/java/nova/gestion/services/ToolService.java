@@ -22,7 +22,7 @@ public class ToolService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public ArrayList<Tool> getListOfAllTools() {
         ArrayList<Tool> tools = toolMapper.getAllTool();
 
@@ -33,7 +33,7 @@ public class ToolService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public Tool getTool(Integer idTool) {
 
         Tool tool = toolMapper.getTool(idTool);

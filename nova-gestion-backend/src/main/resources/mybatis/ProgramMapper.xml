@@ -48,8 +48,8 @@
     <update id="updateProgram" parameterType="nova.gestion.model.Program">
         UPDATE `nova_gestion`.`program` SET
         <if test="machine != null">id_machine = #{machine.idMachine},</if>
-        <if test="tool != null"> id_tool = #{tool.idTool},</if>
-        <if test="blank != null"> id_blank = #{blank.idBlank},</if>
+        id_tool = #{tool.idTool},
+        id_blank = #{blank.idBlank},
         <if test="name != null"> name = #{name},</if>
         <if test="file != null"> file = #{file}</if>
         WHERE id_program = #{idProgram};

@@ -29,7 +29,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public ArrayList<Blank> getListOfAllBlanks() {
         ArrayList<Blank> blanks = blankMapper.getAllBlanks();
 
@@ -40,7 +40,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public Blank getBlank(int idBlank) {
 
         Blank blank = blankMapper.getBlank(idBlank);
@@ -51,7 +51,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createBlank(Blank blank) {
 
         if (blank == null)
@@ -60,7 +60,7 @@ public class BlankService {
         if (blank.getGrade() == null)
             throw new InvalidRequest("Missing Grade");
 
-        if (blank.getName() == null || blank.getDiameter() == null || blank.getLength() == null)
+        if (blank.getName() == null || blank.getDiameter() == null || blank.getLength() == null || blank.getCode() == null)
             throw new InvalidRequest("Missing Blank parameters");
 
         if (blank.getCoolantHole() != null) {
@@ -75,7 +75,7 @@ public class BlankService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public void updateBlank(Blank blank) {
         Blank verifiedBlank = blankMapper.getBlank(blank.getIdBlank());
 
@@ -101,14 +101,14 @@ public class BlankService {
             coolantHoleMapper.insertCoolantHole(blank.getCoolantHole());
         }
 
-        if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getGrade() != null || blank.getCoolantHole() != null)
+        if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getCode() != null || blank.getGrade() != null || blank.getCoolantHole() != null)
             blankMapper.updateBlank(blank);
 
     }
 
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteBlank(Integer idBlank) {
 
         Blank loadBlank = blankMapper.getBlank(idBlank);

@@ -32,9 +32,6 @@ export class BlanksListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(blanks);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      },
-      err => {
-        console.log(err);
       }
     );
   }
