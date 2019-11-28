@@ -1,13 +1,15 @@
 <div class="top">
   <mat-form-field class="search">
     <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
-           (keyup)="applyFilter($event.target.value)">
+      (keyup)="applyFilter($event.target.value)">
     <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
 
-  <app-button [label]="'Ajouter une tige'" [style]="'primary'" (click)="seeBlank(null)"></app-button>
+  <app-button *ngIf="userType === 'Admin' || userType === 'Superviseur'" [label]="'Ajouter une tige'"
+    [style]="'primary'" (click)="seeBlank(null)">
+  </app-button>
 </div>
 
 <div class="mat-elevation-z0">
@@ -33,13 +35,15 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
       <mat-cell *matCellDef="let row" class="controls">
         <mat-icon class="edit" (click)="seeBlank(row)">edit</mat-icon>
-        <mat-icon class="delete" (click)="deleteBlank(row.idBlank)">delete</mat-icon>
+        <mat-icon *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="delete"
+          (click)="deleteBlank(row.idBlank)">delete
+        </mat-icon>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns" class="header"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
-             [ngClass]="{'shortage': row.minimumQuantity >= row.stockQuantity}">
+      [ngClass]="{'shortage': row.minimumQuantity >= row.stockQuantity}">
     </mat-row>
   </mat-table>
 

@@ -2,14 +2,14 @@
 <h1 mat-dialog-title class="title" *ngIf="!data">Ajouter un outil</h1>
 
 <form mat-dialog-content class="content" [formGroup]="toolForm">
-  <mat-form-field class="full-width">
+  <mat-form-field *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="full-width">
     <input matInput placeholder="Nom" formControlName="name">
     <mat-error *ngIf="toolForm.controls.name.hasError('required')">
       Un nom est requis.
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="full-width">
+  <mat-form-field *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="full-width">
     <mat-label>Client</mat-label>
     <mat-select formControlName="client">
       <mat-option>

@@ -2,7 +2,7 @@
 <h1 mat-dialog-title class="title" *ngIf="!data">Ajouter une tige</h1>
 
 <form mat-dialog-content [formGroup]="blankForm">
-  <div class="content">
+  <div *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="content">
     <div class="code">
       <mat-form-field class="full-width">
         <input matInput placeholder="Code" formControlName="code">
@@ -68,7 +68,7 @@
 
   <div class="content">
 
-    <mat-form-field class="full-width">
+    <mat-form-field *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="full-width">
       <input matInput placeholder="Nom" formControlName="name">
       <mat-error *ngIf="blankForm.controls.name.hasError('required')">
         Un nom est requis.

@@ -4,9 +4,11 @@ import {MAT_DIALOG_DATA, MatCheckboxChange, MatDialogRef} from '@angular/materia
 
 import { BehaviorSubject } from 'rxjs';
 
+import { AuthentificationService } from './../../../services/authentification.service';
 import {Blank} from '../../../models/blank';
 import {GradeService} from '../../../services/grade.service';
 import {Grade} from '../../../models/grade';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blank',
@@ -21,6 +23,8 @@ export class BlankComponent implements OnInit {
   public grade = '';
   public coolantHole = '';
 
+  public userType = '';
+
   public grades: Grade[] = [];
   public filteredGrades: BehaviorSubject<Grade[]> = new BehaviorSubject<Grade[]>([]);
   public fcGradeSearch: FormControl = new FormControl('');
@@ -31,7 +35,8 @@ export class BlankComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<BlankComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Blank,
-    private gradeService: GradeService) {
+    private gradeService: GradeService,
+    private authService: AuthentificationService) {
   }
 
   public onNoClick(): void {
@@ -50,6 +55,12 @@ export class BlankComponent implements OnInit {
     });
     this.getGrades();
     this.inputChanges();
+
+    this.authService.getUserType();
+
+    this.authService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   public close(): void {
