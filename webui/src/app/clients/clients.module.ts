@@ -5,7 +5,15 @@ import {CommonModule} from '@angular/common';
 
 import {ClientsRoutingModule} from './clients-routing.module';
 import {ClientsListComponent} from './clients-list/clients-list.component';
-import {MatFormFieldModule, MatIconModule, MatInputModule, MatTableModule, MatButtonModule, MatPaginatorModule} from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatTableModule,
+  MatButtonModule,
+  MatPaginatorModule,
+  MatSortModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [ClientsListComponent],
@@ -20,7 +28,8 @@ import {MatFormFieldModule, MatIconModule, MatInputModule, MatTableModule, MatBu
     MatPaginatorModule,
     MatButtonModule,
     SharedModule,
-    ClientsRoutingModule
+    ClientsRoutingModule,
+    MatSortModule
   ]
 })
 export class ClientsModule {

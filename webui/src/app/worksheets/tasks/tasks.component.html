@@ -18,8 +18,8 @@
 
       <countup-timer [countUpTimerConfig]="timerConfig"></countup-timer>
 
-      <app-button *ngIf="!timerRunning" [style]="'primary'" [label]="'Commencer'" (click)="start()"></app-button>
-      <app-button *ngIf="timerRunning" [style]="'primary'" [label]="'Arrêter'" (click)="saveTask()"></app-button>
+      <app-button *ngIf="!timerRunning" [style]="'green'" [label]="'Commencer'" (click)="start()"></app-button>
+      <app-button *ngIf="timerRunning" [style]="'red'" [label]="'Arrêter'" (click)="saveTask()"></app-button>
     </form>
 
   </div>
