@@ -29,6 +29,8 @@ for row in result:
     BODY += "\nLa quantitée minimum ({0} restant) est atteinte pour '{1}' (id : {2})".format(notification_data[4],
                                                                                            notification_data[2],
                                                                                            notification_data[0])
+    cursor.execute("UPDATE `nova_gestion`.notification SET viewed = TRUE WHERE id_notification = {}".format(result[0]))
+
 print(BODY)
 try:
     server.sendmail(sender_email, [TO], BODY)
@@ -36,3 +38,7 @@ except:
     print("error sending email!")
 
 server.quit()
+mariadb_connection.commit()
+
+cursor.close()
+mariadb_connection.close()
