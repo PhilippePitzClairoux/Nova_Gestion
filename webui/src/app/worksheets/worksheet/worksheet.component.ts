@@ -52,6 +52,7 @@ export class WorksheetComponent implements OnInit {
       orderNumber: new FormControl('', Validators.maxLength(254)),
       dueDate: new FormControl(''),
       quantity: new FormControl(''),
+      status: new FormControl(''),
       client: new FormControl('', Validators.required),
       program: new FormControl('', Validators.required),
       tool: new FormControl({value: '', disabled: true}),
@@ -92,6 +93,8 @@ export class WorksheetComponent implements OnInit {
   private getStatus(): void {
     this.statusService.getAll().subscribe(status => {
       this.status = status;
+      const s = this.status.filter(x => x.idStatus === 1)[0];
+      this.worksheetForm.controls.status.setValue(s);
     });
   }
 
@@ -132,7 +135,7 @@ export class WorksheetComponent implements OnInit {
     newWorksheet.dueDate = controls.dueDate.value;
     newWorksheet.program = controls.program.value;
     newWorksheet.dateCreation = new Date();
-    newWorksheet.status = this.status.find(x => x.name === 'En attente');
+    newWorksheet.status = controls.status.value;
   }
 
   private updateDatabase(newWorksheet: Worksheet): void {
@@ -153,6 +156,7 @@ export class WorksheetComponent implements OnInit {
     this.worksheetForm.controls.quantity.setValue(this.worksheet.quantity);
     this.setClient();
     this.setProgram();
+    this.setStatus();
   }
 
   public setClient() {
@@ -164,6 +168,11 @@ export class WorksheetComponent implements OnInit {
     const program = this.programs.filter(x => x.idProgram === this.worksheet.program.idProgram)[0];
     this.worksheetForm.controls.program.setValue(program);
     this.setInfoProgram(program);
+  }
+
+  private setStatus() {
+    const status = this.status.filter(x => x.idStatus === this.worksheet.status.idStatus)[0];
+    this.worksheetForm.controls.status.setValue(status);
   }
 
   private setInfoProgram(selected: Program) {
@@ -189,5 +198,4 @@ export class WorksheetComponent implements OnInit {
   public resetClient(): void {
     this.filteredClients.next(this.clients);
   }
-
 }

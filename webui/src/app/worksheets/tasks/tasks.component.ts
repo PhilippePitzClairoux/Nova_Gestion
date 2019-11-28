@@ -7,6 +7,10 @@ import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/conf
 import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {BehaviorSubject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {WorksheetService} from '../../services/worksheet.service';
+import {Worksheet} from '../../models/worksheet';
+import {ToastrService} from 'ngx-toastr';
+import {Status} from '../../models/status';
 
 @Component({
   selector: 'app-tasks',
@@ -24,9 +28,11 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private worksheetService: WorksheetService,
     private taskService: TaskService,
     private timerService: CountupTimerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastr: ToastrService
   ) {
   }
 
@@ -125,8 +131,6 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.task.idWorkSheet = this.idWorkSheet;
     this.timerService.stopTimer();
     TasksComponent.getDuration(this.task);
-    this.tasks.push(this.task);
-    this.setDataSource(this.tasks);
   }
 
   private configurationTimer() {

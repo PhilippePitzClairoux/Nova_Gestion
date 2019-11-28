@@ -67,6 +67,18 @@
         </mat-form-field>
       </div>
 
+      <mat-form-field class="full-width">
+        <mat-label>Statut</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let s of status" [value]="s">
+            {{s.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="worksheetForm.controls.client.hasError('required')">
+          Un client est requis.
+        </mat-error>
+      </mat-form-field>
+
     </form>
 
     <div class="actions">
