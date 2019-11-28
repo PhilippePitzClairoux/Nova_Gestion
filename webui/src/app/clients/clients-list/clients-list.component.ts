@@ -1,13 +1,12 @@
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {MatDialog, MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import {tap} from 'rxjs/operators';
 
-import { tap } from 'rxjs/operators';
-
-import { ClientService } from './../../services/client.service';
-import { Client } from './../../models/client';
-import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
+import {ClientService} from './../../services/client.service';
+import {Client} from './../../models/client';
+import {ConfirmationDialogComponent} from './../../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-clients-list',
@@ -30,7 +29,10 @@ export class ClientsListComponent implements OnInit {
 
   public searchField = '';
 
-  constructor(private clientService: ClientService, private fb: FormBuilder, private dialog: MatDialog) { }
+  constructor(private clientService: ClientService,
+              private fb: FormBuilder,
+              private dialog: MatDialog) {
+  }
 
   public ngOnInit(): void {
     this.fgAdd = this.fb.group({
@@ -44,7 +46,7 @@ export class ClientsListComponent implements OnInit {
     this.clientService.getAll().subscribe();
     this.clientService.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
       this.dataSource = new MatTableDataSource(this.clients);
-      this.dataSource.filterPredicate = (data, filter: string)  => {
+      this.dataSource.filterPredicate = (data, filter: string) => {
         const accumulator = (currentTerm, key) => {
           return key === 'name' ? currentTerm + data.name : currentTerm + data[key] ||
           key === 'phoneNumber' ? currentTerm + data.phoneNumber : currentTerm + data[key];
@@ -114,7 +116,7 @@ export class ClientsListComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }

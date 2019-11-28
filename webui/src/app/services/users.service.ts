@@ -1,16 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ToastrService} from 'ngx-toastr';
 
-import { User } from '../models/user.model';
-import { TypeUser } from '../models/user-type.model';
+import {User} from '../models/user.model';
+import {TypeUser} from '../models/user-type.model';
+import {Employee} from '../models/employee.model';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
+  api = config.apiUrl;
 
   private usersList: User[] = [];
   private usersListSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
@@ -20,7 +23,9 @@ export class UsersService {
 
   private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
-  constructor(private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private http: HttpClient,
+              private toastr: ToastrService) {
+  }
 
   public usersList$(): Observable<User[]> {
     return this.usersListSubject.asObservable();
@@ -42,7 +47,7 @@ export class UsersService {
       user.idUser = result.idUser;
       this.usersList = [...this.usersList, user];
       this.usersListSubject.next(this.usersList);
-      this.toastr.success(null, 'Utilisateur ajouté.');
+      this.toastr.success(null, 'Utilisateur ajouté');
     });
   }
 
@@ -68,5 +73,9 @@ export class UsersService {
       this.userTypesList = result;
       this.userTypesListSubject.next(this.userTypesList);
     });
+  }
+
+  public getEmployee(): Observable<Employee> {
+    return this.http.get<Employee>(this.api + 'employee');
   }
 }

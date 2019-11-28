@@ -65,11 +65,8 @@ export class HomeComponent implements OnInit {
 
   private filterWorksheets(worksheets: Worksheet[]) {
     const today = new Date(Date.now());
-    console.log(today);
-    console.log(worksheets);
     worksheets.forEach(worksheet => {
       const date = new Date(worksheet.dueDate);
-      console.log(date);
       if (date <= today && worksheet.status.idStatus !== 4) {
         this.lateWorksheets.push(worksheet);
       }
