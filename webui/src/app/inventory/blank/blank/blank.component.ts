@@ -69,6 +69,11 @@ export class BlankComponent implements OnInit {
       if (this.blankForm.dirty) {
         this.createBlank(blank);
       } else {
+        if (this.hasCoolantHole) {
+          this.data.coolantHole = true;
+        } else {
+          this.data.coolantHole = false;
+        }
         blank = this.data;
       }
       this.dialogRef.close(blank);
