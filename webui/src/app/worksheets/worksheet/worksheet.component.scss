@@ -10,15 +10,14 @@
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  padding-left: 20px;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-top: 20px;
 }
 
 .worksheet {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
 }
 
 .full-width {

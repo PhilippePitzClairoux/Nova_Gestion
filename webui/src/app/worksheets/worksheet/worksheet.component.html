@@ -23,7 +23,7 @@
             </mat-option>
             <mat-option (click)="resetClient()">Aucun</mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-                        (click)="resetClient()">
+              (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>
@@ -81,11 +81,13 @@
 
     </form>
 
-    <div class="actions">
-      <app-button [style]="'secondary'" [label]="'Annuler'" (click)="cancel()"></app-button>
-      <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="save()" class="right-button"></app-button>
-    </div>
   </div>
 
   <app-tasks [tasks]="worksheet?.tasks" [idWorkSheet]="id"></app-tasks>
+
+  <div class="actions">
+    <app-button [style]="'secondary'" [label]="'retour'" (click)="cancel()"></app-button>
+    <app-button *ngIf="userType === 'Admin' || userType === 'Superviseur'" [style]="'primary'" [label]="'Sauvegarder'"
+      (click)="save()" class="right-button"></app-button>
+  </div>
 </div>

@@ -1,3 +1,4 @@
+import { AuthentificationService } from './../../services/authentification.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WorksheetService} from '../../services/worksheet.service';
@@ -29,6 +30,7 @@ export class WorksheetComponent implements OnInit {
 
   public fcClientSearch: FormControl = new FormControl('');
 
+  public userType = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,13 +40,20 @@ export class WorksheetComponent implements OnInit {
     private clientService: ClientService,
     private taskService: TaskService,
     private programService: ProgramService,
-    private statusService: StatusService) {
+    private statusService: StatusService,
+    private authService: AuthentificationService) {
   }
 
   public ngOnInit(): void {
     this.initializeForm();
     this.getClients();
     this.getStatus();
+
+    this.authService.getUserType();
+
+    this.authService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   private initializeForm() {
@@ -99,7 +108,7 @@ export class WorksheetComponent implements OnInit {
   }
 
   public cancel(): void {
-    this.router.navigate(['worksheets']);
+    this.router.navigate(['/worksheets']);
   }
 
   public save(): void {
@@ -142,6 +151,7 @@ export class WorksheetComponent implements OnInit {
     if (newWorksheet.idWorkSheet) {
       this.worksheetService.update(newWorksheet).subscribe(res => {
         this.getWorksheet();
+        this.router.navigate(['/worksheets']);
       });
     } else {
       this.worksheetService.add(newWorksheet).subscribe(res => {
