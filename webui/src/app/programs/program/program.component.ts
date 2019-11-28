@@ -90,7 +90,7 @@ export class ProgramComponent implements OnInit {
   }
 
   public onReturn(): void {
-    this.nav.navigate(['programs']);
+    this.nav.navigate(['/programs']);
   }
 
   public updateFileValue(files: any): void {
@@ -124,6 +124,9 @@ export class ProgramComponent implements OnInit {
     }
 
     this.programService.addFileToprogram(this.myFile).subscribe(result => {
+
+      this.fcFile.setValue('');
+
       const program = new Program();
       program.name = this.fg.controls.name.value;
       if (this.fg.controls.machine.value !== '') {

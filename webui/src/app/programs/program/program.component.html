@@ -18,7 +18,7 @@
             Un nom de programme est requis.
           </mat-error>
         </mat-form-field>
-        <input type="file" name="file" id="file" hidden (change)="updateFileValue($event.target.files)">
+        <input type="file" name="file" id="file" hidden (change)="updateFileValue($event.target.files)" #fileInput>
         <label class="parcourir" for="file">Parcourir</label>​
       </div>
 
