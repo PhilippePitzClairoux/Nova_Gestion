@@ -143,7 +143,9 @@ export class TasksComponent implements OnInit, OnDestroy {
         if (this.taskForm.dirty) {
           this.stop();
           this.task.taskType = this.taskForm.controls.taskType.value;
-          this.taskService.add(this.task).subscribe();
+          this.taskService.add(this.task).subscribe(data => {
+            this.getTasks();
+          });
         }
     } else {
       this.validateAllFields(this.taskForm);
@@ -159,9 +161,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.delete(idTask).subscribe(res => {
-          const index = this.tasks.findIndex(task => task.idTask === idTask);
-          this.tasks.splice(index, 1);
-          this.setDataSource(this.tasks);
+          this.getTasks();
         });
       }
     });
@@ -179,10 +179,9 @@ export class TasksComponent implements OnInit, OnDestroy {
     task.startTime = TasksComponent.setTime(this.startTime).toISOString();
     task.endTime = TasksComponent.setTime(this.endTime).toISOString();
     TasksComponent.getDuration(task);
-    console.log(task);
 
     this.taskService.update(task).subscribe(res => {
-      console.log(task);
+      this.getTasks();
     });
   }
 
@@ -194,6 +193,15 @@ export class TasksComponent implements OnInit, OnDestroy {
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }
+    });
+  }
+
+  private getTasks() {
+    this.taskService.getWorksheetTasks(this.idWorkSheet).subscribe(tasks => {
+      tasks.forEach(task => {
+        TasksComponent.getDuration(task);
+      });
+      this.setDataSource(tasks);
     });
   }
 }
