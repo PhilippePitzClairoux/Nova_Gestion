@@ -5,6 +5,7 @@ import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.EmployeeMapper;
 import nova.gestion.mappers.TypeUserMapper;
 import nova.gestion.mappers.UserMapper;
+import nova.gestion.model.Employee;
 import nova.gestion.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -125,6 +126,11 @@ public class UserService {
     @Transactional
     public User getUserByEmail(String email) {
         return userMapper.getUserByEmail(email);
+    }
+
+    @Transactional
+    public Employee getEmployeeInformation(String email) {
+        return getUserByEmail(email).getEmployee();
     }
 
 }
