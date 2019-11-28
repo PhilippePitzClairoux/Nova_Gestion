@@ -7,6 +7,10 @@ import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/conf
 import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {BehaviorSubject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {WorksheetService} from '../../services/worksheet.service';
+import {Worksheet} from '../../models/worksheet';
+import {ToastrService} from 'ngx-toastr';
+import {Status} from '../../models/status';
 
 @Component({
   selector: 'app-tasks',
@@ -24,9 +28,11 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private worksheetService: WorksheetService,
     private taskService: TaskService,
     private timerService: CountupTimerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastr: ToastrService
   ) {
   }
 
@@ -125,8 +131,6 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.task.idWorkSheet = this.idWorkSheet;
     this.timerService.stopTimer();
     TasksComponent.getDuration(this.task);
-    this.tasks.push(this.task);
-    this.setDataSource(this.tasks);
   }
 
   private configurationTimer() {
@@ -143,12 +147,25 @@ export class TasksComponent implements OnInit, OnDestroy {
         if (this.taskForm.dirty) {
           this.stop();
           this.task.taskType = this.taskForm.controls.taskType.value;
+          this.setStatus();
           this.taskService.add(this.task).subscribe(data => {
             this.getTasks();
           });
         }
     } else {
       this.validateAllFields(this.taskForm);
+    }
+  }
+
+  private setStatus() {
+    const worksheet = new Worksheet();
+    worksheet.idWorkSheet = this.idWorkSheet;
+    if (this.task.taskType.idTaskType === 4 || this.task.taskType.idTaskType === 3) {
+      worksheet.status = new Status();
+      worksheet.status.idStatus = 2;
+      this.worksheetService.update(worksheet).subscribe(res => {
+        this.toastr.success(null, 'Feuille de travail mise en cours');
+      });
     }
   }
 
@@ -200,6 +217,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.taskService.getWorksheetTasks(this.idWorkSheet).subscribe(tasks => {
       tasks.forEach(task => {
         TasksComponent.getDuration(task);
+        console.log(task);
       });
       this.setDataSource(tasks);
     });
