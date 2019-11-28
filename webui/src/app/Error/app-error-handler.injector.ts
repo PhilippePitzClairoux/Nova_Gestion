@@ -24,10 +24,10 @@ export class AppErrorHandler extends ErrorHandler {
   public handleError(error: any): void {
     if (error.status === 401) {
       this.ngZone.run(() => this.router.navigate(['/authentification']));
-      this.toastrService.error('Veuillez-vous connecter', 'Erreur');
+      this.toastrService.error('Veuillez-vous connecter pour accéder le site', 'Erreur');
     } else if (error.status === 403) {
       this.ngZone.run(() => this.router.navigate(['/home']));
-      this.toastrService.error('Accès Interdit', 'Erreur');
+      this.toastrService.error('Vous n\'avez pas les droits pour exécuter cette action', 'Erreur');
     } else {
       this.toastrService.error(
         'Un problème est survenu, veuillez contacter l\'administrateur.',
