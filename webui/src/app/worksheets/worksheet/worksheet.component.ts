@@ -29,6 +29,7 @@ export class WorksheetComponent implements OnInit {
 
   public fcClientSearch: FormControl = new FormControl('');
 
+
   constructor(
     private route: ActivatedRoute,
     private worksheetService: WorksheetService,
@@ -180,7 +181,8 @@ export class WorksheetComponent implements OnInit {
     if (this.fcClientSearch.value === '') {
       this.filteredClients.next(this.clients);
     } else {
-      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(this.fcClientSearch.value.toLocaleLowerCase())));
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase()
+        .includes(this.fcClientSearch.value.toLocaleLowerCase())));
     }
   }
 
