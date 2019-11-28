@@ -1,46 +1,21 @@
-.page-wrapper {
-  padding: 20px;
+.tasks-container {
+  padding-top: 20px;
 }
 
-.form {
+.new-timer .title {
+  font-size: 14px;
+  color: #2370b8;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.new-timer .new-task {
+  margin-top: 10px;
   display: flex;
   width: 100%;
+  align-items: baseline;
   justify-content: space-between;
 }
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 20px;
-  justify-content: space-between;
-}
-
-.worksheet {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-}
-
-.full-width {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.two-items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.mid {
-  width: 49%;
-  margin-bottom: 10px;
-}
-
-.right-button {
-  margin-left: 10px;
-}
-
 .header {
   color: #2370b8;
   font-weight: bold;
@@ -72,4 +47,9 @@ mat-row:hover {
     color: #ff3823;
     transition: 0.2s all ease;
   }
+}
+
+.mid {
+  width: 49%;
+  margin-bottom: 10px;
 }

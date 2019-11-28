@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class TaskController {
      * @return ArrayList {@link nova.gestion.model.Task}
      *
      */
-    @GetMapping("/v1/task/{idWorkSheet/")
+    @GetMapping("/v1/task/{idWorkSheet}")
     public ArrayList<Task> getTasks(@PathVariable @Validated int idWorkSheet) {
         return taskService.getTasks(idWorkSheet);
     }
@@ -58,7 +59,7 @@ public class TaskController {
      * Supprime un task de la BD avec l'id spécifié
      * @param idTask
      */
-    @DeleteMapping("/v1/task/{idTask}/")
+    @DeleteMapping("/v1/task/{idTask}")
     public void deleteTask(@PathVariable @Validated int idTask) {
         taskService.deleteTask(idTask);
     }

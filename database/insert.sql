@@ -151,13 +151,19 @@ INSERT INTO status (name)
 VALUES ('En attente');
 
 INSERT INTO status (name)
-VALUES ('En cours');
+VALUES ('Affûtage');
+
+INSERT INTO status (name)
+VALUES ('Fabrication');
 
 INSERT INTO status (name)
 VALUES ('Coating');
 
 INSERT INTO status (name)
 VALUES ('Terminé');
+
+INSERT INTO status (name)
+VALUES ('Sous-traitance');
 
 INSERT INTO permission (description)
 VALUES ('Ajout/Modification/Suppression de programmes');

@@ -26,7 +26,7 @@
     </select>
 
     <select id="getAllTool"  resultMap="ToolMap">
-        SELECT * FROM `nova_gestion`.`tool`;
+        SELECT * FROM `nova_gestion`.`tool` WHERE activated = TRUE;
     </select>
 
     <insert id = "insertTool" parameterType = "nova.gestion.model.Tool" keyProperty="idTool" useGeneratedKeys="true">
@@ -43,8 +43,10 @@
                     WHERE id_tool = #{idTool};
     </update>
 
-    <delete id = "deleteTool" parameterType = "nova.gestion.model.Tool">
-        DELETE FROM `nova_gestion`.`tool` WHERE id_tool = #{idTool};
-    </delete>
+    <update id = "deleteTool" parameterType = "nova.gestion.model.Tool">
+        UPDATE `nova_gestion`.`tool`
+        SET activated = FALSE
+        WHERE id_tool = #{idTool};
+    </update>
 
 </mapper>

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { WorksheetService } from '../../services/worksheet.service';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Client } from '../../models/client';
-import { ClientService } from '../../services/client.service';
-import { Worksheet } from '../../models/worksheet';
-import { Status } from '../../models/status';
-import { StatusService } from '../../services/status.service';
-import { ProgramService } from '../../services/program.service';
-import { tap } from 'rxjs/operators';
-import { Program } from '../../models/program.model';
-import { BehaviorSubject } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {WorksheetService} from '../../services/worksheet.service';
+import {FormControl, FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {Client} from '../../models/client';
+import {ClientService} from '../../services/client.service';
+import {Worksheet} from '../../models/worksheet';
+import {Status} from '../../models/status';
+import {StatusService} from '../../services/status.service';
+import {ProgramService} from '../../services/program.service';
+import {tap} from 'rxjs/operators';
+import {Program} from '../../models/program.model';
+import {BehaviorSubject} from 'rxjs';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-worksheet',
@@ -28,11 +29,14 @@ export class WorksheetComponent implements OnInit {
 
   public fcClientSearch: FormControl = new FormControl('');
 
-  constructor(private route: ActivatedRoute,
+
+  constructor(
+    private route: ActivatedRoute,
     private worksheetService: WorksheetService,
     private router: Router,
     private fb: FormBuilder,
     private clientService: ClientService,
+    private taskService: TaskService,
     private programService: ProgramService,
     private statusService: StatusService) {
   }
@@ -48,16 +52,20 @@ export class WorksheetComponent implements OnInit {
       orderNumber: new FormControl('', Validators.maxLength(254)),
       dueDate: new FormControl(''),
       quantity: new FormControl(''),
+      status: new FormControl(''),
       client: new FormControl('', Validators.required),
       program: new FormControl('', Validators.required),
-      tool: new FormControl({ value: '', disabled: true }),
-      machine: new FormControl({ value: '', disabled: true }),
+      tool: new FormControl({value: '', disabled: true}),
+      machine: new FormControl({value: '', disabled: true}),
     });
   }
 
   private getWorksheet(): void {
     this.worksheetService.getOne(this.id).subscribe(res => {
       this.worksheet = res;
+      this.taskService.getWorksheetTasks(this.worksheet.idWorkSheet).subscribe(tasks => {
+        this.worksheet.tasks = tasks;
+      });
       this.setValues();
     });
   }
@@ -85,6 +93,8 @@ export class WorksheetComponent implements OnInit {
   private getStatus(): void {
     this.statusService.getAll().subscribe(status => {
       this.status = status;
+      const s = this.status.filter(x => x.idStatus === 1)[0];
+      this.worksheetForm.controls.status.setValue(s);
     });
   }
 
@@ -109,7 +119,7 @@ export class WorksheetComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }
@@ -125,7 +135,7 @@ export class WorksheetComponent implements OnInit {
     newWorksheet.dueDate = controls.dueDate.value;
     newWorksheet.program = controls.program.value;
     newWorksheet.dateCreation = new Date();
-    newWorksheet.status = this.status.find(x => x.name === 'En attente');
+    newWorksheet.status = controls.status.value;
   }
 
   private updateDatabase(newWorksheet: Worksheet): void {
@@ -146,6 +156,7 @@ export class WorksheetComponent implements OnInit {
     this.worksheetForm.controls.quantity.setValue(this.worksheet.quantity);
     this.setClient();
     this.setProgram();
+    this.setStatus();
   }
 
   public setClient() {
@@ -157,6 +168,11 @@ export class WorksheetComponent implements OnInit {
     const program = this.programs.filter(x => x.idProgram === this.worksheet.program.idProgram)[0];
     this.worksheetForm.controls.program.setValue(program);
     this.setInfoProgram(program);
+  }
+
+  private setStatus() {
+    const status = this.status.filter(x => x.idStatus === this.worksheet.status.idStatus)[0];
+    this.worksheetForm.controls.status.setValue(status);
   }
 
   private setInfoProgram(selected: Program) {
@@ -174,12 +190,12 @@ export class WorksheetComponent implements OnInit {
     if (this.fcClientSearch.value === '') {
       this.filteredClients.next(this.clients);
     } else {
-      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase().includes(this.fcClientSearch.value.toLocaleLowerCase())));
+      this.filteredClients.next(this.clients.filter(t => t.name.toLocaleLowerCase()
+        .includes(this.fcClientSearch.value.toLocaleLowerCase())));
     }
   }
 
   public resetClient(): void {
     this.filteredClients.next(this.clients);
   }
-
 }

@@ -1,0 +1,62 @@
+.header {
+  color: #2370b8;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.controls {
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.controls mat-icon {
+  color: #c0c0c0;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.date {
+  min-width: 20%;
+}
+
+.description {
+  min-width: 60%;
+}
+
+.date-input {
+  width: calc(20% - 10px);
+}
+
+.description-input {
+  min-width: calc(60% - 10px);
+  padding-left: 24px;
+}
+
+.input {
+  padding-right: 10px;
+}
+
+.add-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.add {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+}

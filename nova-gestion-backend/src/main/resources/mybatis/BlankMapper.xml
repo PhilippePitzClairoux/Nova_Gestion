@@ -39,7 +39,7 @@
     </select>
 
     <select id="getAllBlanks" resultMap="BlankMap">
-        SELECT * FROM `nova_gestion`.`blank`;
+        SELECT * FROM `nova_gestion`.`blank` WHERE activated = TRUE;
     </select>
 
     <insert id="insertBlank" parameterType="nova.gestion.model.Blank" keyProperty="idBlank" useGeneratedKeys="true">
@@ -71,9 +71,11 @@
         WHERE id_blank = #{idBlank};
     </update>
 
-    <delete id="deleteBlank" parameterType="int">
-        DELETE FROM `nova_gestion`.`blank` WHERE `nova_gestion`.`blank`.id_blank = #{idBlank};
-    </delete>
+    <update id="deleteBlank" parameterType="int">
+        UPDATE `nova_gestion`.`blank`
+        SET activated = FALSE
+        WHERE `nova_gestion`.`blank`.id_blank = #{idBlank};
+    </update>
 
 
 </mapper>
