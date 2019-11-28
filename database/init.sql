@@ -29,6 +29,7 @@ CREATE TABLE blank(
 	code VARCHAR(20),
     length VARCHAR(10),
 	coolant_hole boolean,
+	activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code)
 );
 
@@ -44,6 +45,7 @@ CREATE TABLE machine(
     name VARCHAR(255),
     serial_number VARCHAR(255),
     acquisition_date DATE,
+    activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_model) REFERENCES model(id_model)
 );
 
@@ -58,7 +60,8 @@ CREATE TABLE maintenance(
 CREATE TABLE client(
     id_client BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
-    phone_number VARCHAR(25)
+    phone_number VARCHAR(25),
+    activated BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE tool(
@@ -67,6 +70,7 @@ CREATE TABLE tool(
     stock_quantity INTEGER,
     minimum_quantity INTEGER,
 	id_client BIGINT NOT NULL,
+	activated BOOLEAN DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client)
 
 );
@@ -78,7 +82,7 @@ CREATE TABLE program(
     id_tool BIGINT,
 	id_blank BIGINT,
     name VARCHAR(255),
-	activated boolean default 1,
+	activated boolean default TRUE,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
@@ -139,6 +143,7 @@ CREATE TABLE user(
     id_employee BIGINT,
     email VARCHAR(255),
     password VARCHAR(255),
+    activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_user_type) REFERENCES type_user(id_type_user),
     CONSTRAINT FOREIGN KEY(id_employee) REFERENCES employee(id_employee)
 );
@@ -150,6 +155,7 @@ CREATE TABLE work_sheet(
     date_creation DATE,
     due_date DATE,
     order_number VARCHAR(255),
+    activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_status) REFERENCES status(id_status)
 );
 
