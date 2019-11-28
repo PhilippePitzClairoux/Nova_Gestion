@@ -8,31 +8,31 @@ cursor = mariadb_connection.cursor()
 TO = 'philippepitz123@gmail.com'
 SUBJECT = 'ALERTE D\'INVENTAIRE'
 
-sender_email = 'CHANGEME@gmail.com'
+sender_email = 'CHANGE_ME@gmail.com'
 sender_password = 'CHANGE_ME'
 
-# server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-# server.login(sender_email, sender_password)
+server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+server.login(sender_email, sender_password)
 
 BODY = '\r\n' \
-       'To: %s' \
-       'From: %s' \
-       'Subject: %s\n'.format(TO, sender_email, SUBJECT)
-
+       'To: {}\n' \
+       'From: {}\n' \
+       'Subject: {}\n'.format(TO, sender_email, SUBJECT)
 
 cursor.execute("SELECT * FROM `nova_gestion`.notification WHERE viewed = FALSE")
 result = cursor.fetchall()
 
 for row in result:
-    cursor.execute("SELECT * FROM `nova_gestion`.blank WHERE id_blank = %s".format(row[0]))
-    notification_data = cursor.fetchall()
-    BODY += "\nLa quantitée minimum ({} restant) est atteinte pour {} (id : {})".format(notification_data[2],
-                                                                                        notification_data[1],
-                                                                                        notification_data[0])
+    cursor.execute("SELECT * FROM `nova_gestion`.blank WHERE id_blank = {}".format(row[0]))
+    notification_data = cursor.fetchall()[0]
+
+    BODY += "\nLa quantitée minimum ({0} restant) est atteinte pour '{1}' (id : {2})".format(notification_data[4],
+                                                                                           notification_data[2],
+                                                                                           notification_data[0])
 print(BODY)
-# try:
-#     server.sendmail(sender_email, [TO], BODY)
-# except:
-#     print("error sending email!")
-#
-# server.quit()
+try:
+    server.sendmail(sender_email, [TO], BODY)
+except:
+    print("error sending email!")
+
+server.quit()
