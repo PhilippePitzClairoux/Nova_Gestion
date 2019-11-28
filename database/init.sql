@@ -44,7 +44,7 @@ CREATE TABLE machine(
     id_model BIGINT NOT NULL,
     name VARCHAR(255),
     serial_number VARCHAR(255),
-    acquisition_date DATE,
+    acquisition_date DATETIME,
     activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_model) REFERENCES model(id_model)
 );
@@ -53,7 +53,7 @@ CREATE TABLE maintenance(
     id_maintenance BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_machine BIGINT NOT NULL,
     description VARCHAR(255),
-    date DATE,
+    date DATETIME,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine)
 );
 
@@ -152,8 +152,8 @@ CREATE TABLE work_sheet(
     id_work_sheet BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_status BIGINT NOT NULL,
     quantity INTEGER,
-    date_creation DATE,
-    due_date DATE,
+    date_creation DATETIME,
+    due_date DATETIME,
     order_number VARCHAR(255),
     activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_status) REFERENCES status(id_status)
@@ -163,8 +163,8 @@ CREATE TABLE task(
     id_task BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_task_type BIGINT NOT NULL,
     id_work_sheet BIGINT NOT NULL,
-    start_time DATE,
-    end_time DATE,
+    start_time DATETIME,
+    end_time DATETIME,
     CONSTRAINT FOREIGN KEY(id_task_type) REFERENCES task_type(id_task_type),
     CONSTRAINT FOREIGN KEY(id_work_sheet) REFERENCES work_sheet(id_work_sheet)
 );
