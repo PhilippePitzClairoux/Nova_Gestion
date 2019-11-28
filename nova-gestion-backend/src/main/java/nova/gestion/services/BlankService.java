@@ -96,6 +96,4 @@ public class BlankService {
 
         blankMapper.deleteBlank(idBlank);
     }
-
 }
-
