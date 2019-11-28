@@ -53,9 +53,11 @@ Content-Type: application/json
 
 {
   "idWorkSheet": 1,
+  "startTime": "2019-11-28T02:18:00.000Z",
   "taskType": {
     "idTaskType": 2
-  }}
+  }
+}
 
 ###
 POST localhost:8080/v1/program
@@ -195,13 +197,14 @@ Content-Type: application/json
      "idStatus": 3
   },
   "quantity": 200,
-  "dueDate": "2021-02-02",
+  "dueDate": "2019-11-28T02:18:00.000Z",
   "orderNumber": "999999999",
   "client": {
      "idClient": 2
   },
   "program": {
-     "idProgram": 4}
+     "idProgram": 1
+  }
 }
 ###
 PUT localhost:8080/v1/workSheet
