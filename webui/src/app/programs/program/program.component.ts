@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { FileProgram } from './../../models/fileProgram.model';
+import { File } from './../../models/File.model';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -25,9 +27,11 @@ export class ProgramComponent implements OnInit {
   public pageTitle: string;
   public addingProgram = false;
   public program = new Program();
+  public myFile: any;
 
   public fcName: FormControl;
   public fcProgramme: FormControl;
+  public fcTheFile: FormControl;
   public fcTool: FormControl;
   public fcBlank: FormControl;
   public fcMachine: FormControl;
@@ -53,8 +57,8 @@ export class ProgramComponent implements OnInit {
   public program$: Observable<Client[]>;
 
   constructor(private route: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
-    private toolService: ToolService, private blankService: BlankService, private nav: Router,
-    private machineService: MachineService, private clientService: ClientService) { }
+              private toolService: ToolService, private blankService: BlankService, private nav: Router,
+              private machineService: MachineService, private clientService: ClientService) { }
 
   public ngOnInit(): void {
     this.program$ = this.programSubject.asObservable();
@@ -92,27 +96,41 @@ export class ProgramComponent implements OnInit {
     this.nav.navigate(['programs']);
   }
 
+  public updateFileValue(files: any): void {
+    this.myFile = files.item(0);
+  }
+
   public onCreate(): void {
     if (this.fg.invalid) {
       this.validateAllFields(this.fg);
       return;
     }
-    const program = new Program();
-    program.name = this.fg.controls.name.value;
-    program.file = this.fg.controls.file.value;
-    if (this.fg.controls.machine.value !== '') {
-      program.machine = this.fg.controls.machine.value;
-    }
-    if (this.fg.controls.tool.value !== '') {
-      program.tool = this.fg.controls.tool.value;
-    }
-    if (this.fg.controls.blank.value !== '') {
-      program.blank = this.fg.controls.blank.value;
-    }
-    this.programService.createProgram(program).subscribe(result => {
-      this.addingProgram = false;
-      this.pageTitle = 'Modifier un programme';
-      this.program.idProgram = result.idProgram;
+
+    this.programService.addFileToprogram(this.myFile).subscribe(result => {
+      const program = new Program();
+      program.name = this.fg.controls.name.value;
+      if (this.fg.controls.machine.value !== '') {
+        program.machine = this.fg.controls.machine.value;
+      }
+      if (this.fg.controls.tool.value !== '') {
+        program.tool = this.fg.controls.tool.value;
+      }
+      if (this.fg.controls.blank.value !== '') {
+        program.blank = this.fg.controls.blank.value;
+      }
+
+      program.filePrograms = [
+        {
+          file: result
+        }
+      ];
+
+      console.log(program);
+      this.programService.createProgram(program).subscribe(prog => {
+        this.addingProgram = false;
+        this.pageTitle = 'Modifier un programme';
+        this.program.idProgram = prog.idProgram;
+      });
     });
   }
 
@@ -124,7 +142,6 @@ export class ProgramComponent implements OnInit {
     const program = new Program();
     program.idProgram = this.program.idProgram;
     program.name = this.fg.controls.name.value;
-    program.file = this.fg.controls.file.value;
     if (this.fg.controls.machine.value !== '') {
       program.machine = this.fg.controls.machine.value;
     }
@@ -142,6 +159,7 @@ export class ProgramComponent implements OnInit {
     this.fg = this.fb.group({
       name: (this.fcName = new FormControl('', [Validators.required, Validators.minLength(1)])),
       file: (this.fcProgramme = new FormControl('')),
+      theFile: (this.fcTheFile = new FormControl('')),
       tool: (this.fcTool = new FormControl('')),
       blank: (this.fcBlank = new FormControl('')),
       machine: (this.fcMachine = new FormControl('', Validators.required))
@@ -166,9 +184,9 @@ export class ProgramComponent implements OnInit {
         this.program = result;
         this.programSubject.next(this.program.clients);
         this.fg.controls.name.setValue(this.program.name);
-        if (this.program.file !== null) {
-          this.fg.controls.file.setValue(this.program.file);
-        }
+        // if (this.program.file !== null) {
+        //   this.fg.controls.file.setValue(this.program.file);
+        // }
         if (this.program.tool !== null) {
           this.fg.controls.tool.setValue(this.tools.find(t => t.idTool === this.program.tool.idTool));
         }

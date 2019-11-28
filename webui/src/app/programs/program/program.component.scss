@@ -67,3 +67,25 @@
   color: #c0c0c0;
   cursor: pointer;
 }
+
+
+.parcourir {
+  font-family: 'Roboto Bold', sans-serif;
+  font-size: 14px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  height: 18px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background: #2370b8;
+}
+
+.parcourir:hover {
+  text-shadow: 0 0 18px rgb(255, 255, 255);
+  -webkit-transition: 0.3s color ease;
+  transition: 0.3s color ease;
+}
+

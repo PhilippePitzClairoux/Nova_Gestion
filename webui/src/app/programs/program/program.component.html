@@ -15,7 +15,9 @@
         <mat-form-field class="input">
           <input matInput placeholder="Programme" formControlName="file">
         </mat-form-field>
-        <app-button [label]="'Parcourir'" [style]="'primary'"></app-button>
+        <input type="file" name="file" id="file" hidden (change)="updateFileValue($event.target.files)">
+        <label class="parcourir" for="file">Parcourir</label>​
+        <!-- <app-button [label]="'Parcourir'" [style]="'primary'"></app-button> -->
       </div>
 
       <div class="input-btn">
@@ -74,8 +76,9 @@
     </div>
 
     <div class="btn-save" *ngIf="addingProgram">
-        <app-button [label]="'Retour'" [style]="'secondary'" (clicked)="onReturn()"></app-button>
-      <app-button class="space-btn" [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()"></app-button>
+      <app-button [label]="'Retour'" [style]="'secondary'" (clicked)="onReturn()"></app-button>
+      <app-button class="space-btn" [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()">
+      </app-button>
     </div>
 
     <div *ngIf="!addingProgram" [formGroup]="clientFg">
