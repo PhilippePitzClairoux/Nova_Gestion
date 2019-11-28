@@ -43,7 +43,6 @@ export class SidebarComponent implements OnInit {
 
   private getEmployee() {
     this.userService.getEmployee().subscribe(employee => {
-      console.log(employee);
       this.employee = employee;
     });
   }
