@@ -3,7 +3,7 @@
 
 <div class="page-wrapper">
   <div class="form">
-    <form [formGroup]="worksheetForm">
+    <form [formGroup]="worksheetForm" class="worksheet">
 
       <div class="two-items">
         <mat-form-field class="mid">
@@ -69,9 +69,11 @@
 
     </form>
 
-    <div class="controls">
+    <div class="actions">
       <app-button [style]="'secondary'" [label]="'Annuler'" (click)="cancel()"></app-button>
       <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="save()" class="right-button"></app-button>
     </div>
   </div>
+
+  <app-tasks [tasks]="worksheet?.tasks" [idWorkSheet]="id"></app-tasks>
 </div>

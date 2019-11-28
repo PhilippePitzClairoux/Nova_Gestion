@@ -11,6 +11,7 @@ import {ProgramService} from '../../services/program.service';
 import {tap} from 'rxjs/operators';
 import {Program} from '../../models/program.model';
 import {BehaviorSubject} from 'rxjs';
+import {TaskService} from '../../services/task.service';
 
 @Component({
   selector: 'app-worksheet',
@@ -28,13 +29,16 @@ export class WorksheetComponent implements OnInit {
 
   public fcClientSearch: FormControl = new FormControl('');
 
-  constructor(private route: ActivatedRoute,
-              private worksheetService: WorksheetService,
-              private router: Router,
-              private fb: FormBuilder,
-              private clientService: ClientService,
-              private programService: ProgramService,
-              private statusService: StatusService) {
+
+  constructor(
+    private route: ActivatedRoute,
+    private worksheetService: WorksheetService,
+    private router: Router,
+    private fb: FormBuilder,
+    private clientService: ClientService,
+    private taskService: TaskService,
+    private programService: ProgramService,
+    private statusService: StatusService) {
   }
 
   public ngOnInit(): void {
@@ -58,6 +62,9 @@ export class WorksheetComponent implements OnInit {
   private getWorksheet(): void {
     this.worksheetService.getOne(this.id).subscribe(res => {
       this.worksheet = res;
+      this.taskService.getWorksheetTasks(this.worksheet.idWorkSheet).subscribe(tasks => {
+        this.worksheet.tasks = tasks;
+      });
       this.setValues();
     });
   }

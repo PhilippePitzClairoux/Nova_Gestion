@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -18,7 +18,7 @@ export class UsersService {
   private userTypesList: TypeUser[] = [];
   private userTypesListSubject: BehaviorSubject<TypeUser[]> = new BehaviorSubject<TypeUser[]>([]);
 
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 
