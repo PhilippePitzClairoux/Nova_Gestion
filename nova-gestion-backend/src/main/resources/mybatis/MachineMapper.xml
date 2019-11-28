@@ -31,7 +31,7 @@
     </select>
 
     <select id="getAllMachines" resultMap="MachineMap">
-        SELECT * FROM `nova_gestion`.`machine`;
+        SELECT * FROM `nova_gestion`.`machine` WHERE activated = TRUE;
     </select>
 
     <insert id="insertMachine" parameterType="nova.gestion.model.Machine" keyProperty="idMachine" useGeneratedKeys="true">
@@ -47,8 +47,10 @@
         WHERE id_machine = #{idMachine};
     </update>
 
-    <delete id="deleteMachine" parameterType="int">
-        DELETE FROM `nova_gestion`.`machine` WHERE `nova_gestion`.`machine`.id_machine = #{idMachine};
-    </delete>
+    <update id="deleteMachine" parameterType="int">
+        UPDATE `nova_gestion`.`machine`
+        SET activated = FALSE
+        WHERE `nova_gestion`.`machine`.id_machine = #{idMachine};
+    </update>
 
 </mapper>
