@@ -2,12 +2,13 @@ package nova.gestion.controller;
 
 import nova.gestion.model.Task;
 import nova.gestion.services.TaskService;
+import nova.gestion.services.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -16,10 +17,12 @@ import java.util.Map;
 public class TaskController {
 
     private final TaskService taskService;
+    private final UserService userService;
 
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, UserService userService) {
         this.taskService = taskService;
+        this.userService = userService;
     }
 
     /**
@@ -40,7 +43,9 @@ public class TaskController {
      * @return idTask ajoutée
      */
     @PostMapping("/v1/task")
-    public Map<String, Integer> insertTask(@RequestBody @Validated Task task) {
+    public Map<String, Integer> insertTask(@RequestBody @Validated Task task, Authentication authentication) {
+        task.setUser(userService.getUserByEmail(authentication.getName()));
+        System.out.println(task);
         return Map.of("idTask", taskService.insertTask(task));
     }
 

@@ -18,6 +18,10 @@
 
         <association column="id_task_type" property="taskType" javaType="nova.gestion.model.TaskType"
                      select="nova.gestion.mappers.TaskTypeMapper.getTaskTypeById" />
+
+        <association column="id_user" property="user" javaType="nova.gestion.model.User"
+                     select="nova.gestion.mappers.UserMapper.getUser" />
+
     </resultMap>
 
     <select id="getTaskByWorkSheetId" parameterType="int" resultMap="TaskMap">
@@ -29,8 +33,9 @@
     </select>
 
     <insert id="insertNewTask" parameterType="nova.gestion.model.Task" useGeneratedKeys="true" keyProperty="idTask">
-        INSERT INTO `nova_gestion`.task(id_task_type, id_work_sheet, start_time, end_time)
-        VALUES (#{taskType.idTaskType}, #{idWorkSheet}, #{startTime}, #{endTime})
+        INSERT INTO `nova_gestion`.task(id_task_type, id_work_sheet, id_user, start_time
+                                        <if test="endTime != null">, end_time</if>)
+        VALUES (#{taskType.idTaskType}, #{idWorkSheet}, #{user.idUser} ,#{startTime}<if test="endTime != null">,#{endTime}</if>)
     </insert>
 
     <update id="updateTask" parameterType="nova.gestion.model.Task">
