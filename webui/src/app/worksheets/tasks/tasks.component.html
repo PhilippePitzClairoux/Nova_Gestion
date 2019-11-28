@@ -35,7 +35,8 @@
 
       <ng-container matColumnDef="employee">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="column header">EMPLOYÉ</mat-header-cell>
-        <mat-cell *matCellDef="let row" class="column"> RR</mat-cell>
+        <mat-cell *matCellDef="let row"
+                  class="column">{{row.user?.employee?.name | slice:0:1}}{{row.user?.employee?.surname | slice:0:1}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="start">

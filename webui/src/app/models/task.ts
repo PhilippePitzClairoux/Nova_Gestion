@@ -1,4 +1,5 @@
 import {TaskType} from './task-type';
+import {User} from './user.model';
 
 export class Task {
   idTask: number;
@@ -7,4 +8,5 @@ export class Task {
   taskType: TaskType;
   idWorkSheet: number;
   duration: string;
+  user: User;
 }
