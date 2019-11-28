@@ -45,10 +45,8 @@ public class MaintenanceController {
      * supprime une maintenance de la BD avec l'id spécifié
      * @param idMaintenance
      */
-    @DeleteMapping("/v1/maintenance/{idMaintenance}/")
+    @DeleteMapping("/v1/maintenance/{idMaintenance}")
     public void deleteMaintenance(@PathVariable @Validated int idMaintenance) {
         maintenanceService.deleteMaintenance(idMaintenance);
     }
-
-
 }

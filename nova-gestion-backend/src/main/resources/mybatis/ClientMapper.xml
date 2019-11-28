@@ -16,7 +16,7 @@
     </select>
 
     <select id="getAllClient"  resultMap="ClientMap">
-        SELECT * FROM `nova_gestion`.`client`;
+        SELECT * FROM `nova_gestion`.`client` WHERE activated = TRUE;
     </select>
 
     <insert id = "insertClient" parameterType = "nova.gestion.model.Client"  keyProperty="idClient" useGeneratedKeys="true">
@@ -31,7 +31,9 @@
                         WHERE id_client = #{idClient};
     </update>
 
-    <delete id="deleteClient" parameterType="int">
-        DELETE FROM `nova_gestion`.`client` WHERE `nova_gestion`.`client`.id_client = #{idClient};
-    </delete>
+    <update id="deleteClient" parameterType="int">
+        UPDATE `nova_gestion`.`client`
+        SET activated = FALSE
+        WHERE `nova_gestion`.`client`.id_client = #{idClient};
+    </update>
 </mapper>

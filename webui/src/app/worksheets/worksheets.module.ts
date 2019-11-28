@@ -1,25 +1,31 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SharedModule} from '../shared/shared.module';
 import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule, MatDatepickerModule,
+  MatButtonModule,
+  MatDatepickerModule,
   MatIconModule,
   MatInputModule,
   MatOptionModule,
-  MatPaginatorModule, MatSelectModule,
+  MatPaginatorModule,
+  MatSelectModule,
   MatSortModule,
   MatTableModule
 } from '@angular/material';
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {NgxTimerModule} from 'ngx-timer';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import {TasksComponent} from './tasks/tasks.component';
+import {WorksheetComponent} from './worksheet/worksheet.component';
 import {WorksheetsListComponent} from './worksheets-list/worksheets-list.component';
 import {WorksheetsRoutingModule} from './worksheets-routing.module';
-import {SharedModule} from '../shared/shared.module';
-import {WorksheetComponent} from './worksheet/worksheet.component';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
     WorksheetsListComponent,
-    WorksheetComponent
+    WorksheetComponent,
+    TasksComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +41,8 @@ import {WorksheetComponent} from './worksheet/worksheet.component';
     MatOptionModule,
     MatSelectModule,
     MatDatepickerModule,
+    NgxTimerModule,
+    NgxMaterialTimepickerModule,
     NgxMatSelectSearchModule
   ]
 })

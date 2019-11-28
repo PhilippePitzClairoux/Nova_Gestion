@@ -39,7 +39,13 @@
 
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header quantity">STATUT</mat-header-cell>
-        <mat-cell *matCellDef="let row" class="quantity"><span *ngIf="row.status">{{row.status.name | truncate}}</span>
+        <mat-cell *matCellDef="let row" class="quantity">
+          <span *ngIf="row.status.idStatus === 1" class="waiting">{{row.status.name | truncate}}</span>
+          <span *ngIf="row.status.idStatus === 2" class="affut">{{row.status.name | truncate}}</span>
+          <span *ngIf="row.status.idStatus === 3" class="fab">{{row.status.name | truncate}}</span>
+          <span *ngIf="row.status.idStatus === 4" class="coating">{{row.status.name | truncate}}</span>
+          <span *ngIf="row.status.idStatus === 5" class="complete">{{row.status.name | truncate}}</span>
+          <span *ngIf="row.status.idStatus === 6" class="out">{{row.status.name | truncate}}</span>
         </mat-cell>
       </ng-container>
 

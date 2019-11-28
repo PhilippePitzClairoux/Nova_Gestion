@@ -21,11 +21,13 @@ import {ProgramsModule} from './programs/programs.module';
 import {AuthentificationModule} from './authentification/authentification.module';
 import {ClientsModule} from './clients/clients.module';
 import {AppErrorHandler} from './Error/app-error-handler.injector';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

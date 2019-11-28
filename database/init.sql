@@ -29,6 +29,7 @@ CREATE TABLE blank(
 	code VARCHAR(20),
     length VARCHAR(10),
 	coolant_hole boolean,
+	activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code)
 );
 
@@ -50,7 +51,8 @@ CREATE TABLE machine(
     id_model BIGINT NOT NULL,
     name VARCHAR(255),
     serial_number VARCHAR(255),
-    acquisition_date DATE,
+    acquisition_date DATETIME,
+    activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_model) REFERENCES model(id_model)
 );
 
@@ -58,14 +60,15 @@ CREATE TABLE maintenance(
     id_maintenance BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_machine BIGINT NOT NULL,
     description VARCHAR(255),
-    date DATE,
+    date DATETIME,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine)
 );
 
 CREATE TABLE client(
     id_client BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
-    phone_number VARCHAR(25)
+    phone_number VARCHAR(25),
+    activated BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE tool(
@@ -74,6 +77,7 @@ CREATE TABLE tool(
     stock_quantity INTEGER,
     minimum_quantity INTEGER,
 	id_client BIGINT NOT NULL,
+	activated BOOLEAN DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_client) REFERENCES client(id_client)
 
 );
@@ -85,7 +89,7 @@ CREATE TABLE program(
     id_tool BIGINT,
 	id_blank BIGINT,
     name VARCHAR(255),
-	activated boolean default 1,
+	activated boolean default TRUE,
     CONSTRAINT FOREIGN KEY(id_machine) REFERENCES machine(id_machine),
     CONSTRAINT FOREIGN KEY(id_tool) REFERENCES tool(id_tool),
     CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
@@ -146,6 +150,7 @@ CREATE TABLE user(
     id_employee BIGINT,
     email VARCHAR(255),
     password VARCHAR(255),
+    activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_user_type) REFERENCES type_user(id_type_user),
     CONSTRAINT FOREIGN KEY(id_employee) REFERENCES employee(id_employee)
 );
@@ -154,9 +159,10 @@ CREATE TABLE work_sheet(
     id_work_sheet BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_status BIGINT NOT NULL,
     quantity INTEGER,
-    date_creation DATE,
-    due_date DATE,
+    date_creation DATETIME,
+    due_date DATETIME,
     order_number VARCHAR(255),
+    activated BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT FOREIGN KEY(id_status) REFERENCES status(id_status)
 );
 
@@ -164,8 +170,8 @@ CREATE TABLE task(
     id_task BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_task_type BIGINT NOT NULL,
     id_work_sheet BIGINT NOT NULL,
-    start_time DATE,
-    end_time DATE,
+    start_time DATETIME,
+    end_time DATETIME,
     CONSTRAINT FOREIGN KEY(id_task_type) REFERENCES task_type(id_task_type),
     CONSTRAINT FOREIGN KEY(id_work_sheet) REFERENCES work_sheet(id_work_sheet)
 );

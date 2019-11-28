@@ -14,11 +14,13 @@ import {
 } from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {MachineComponent} from './machine/machine.component';
+import { MaintenancesComponent } from './maintenances/maintenances.component';
 
 @NgModule({
   declarations: [
     MachinesListComponent,
-    MachineComponent
+    MachineComponent,
+    MaintenancesComponent
   ],
   imports: [
     CommonModule,

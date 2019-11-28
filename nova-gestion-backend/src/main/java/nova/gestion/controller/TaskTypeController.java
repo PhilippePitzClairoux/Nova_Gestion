@@ -27,7 +27,7 @@ public class TaskTypeController {
      * @return ArrayList {@link nova.gestion.model.TaskType}
      *
      */
-    @GetMapping("/v1/tasktypes")
+    @GetMapping("/v1/taskTypes")
     public ArrayList<TaskType> getTaskTypes() {
         return taskTypeService.getAllTaskTypes();
     }

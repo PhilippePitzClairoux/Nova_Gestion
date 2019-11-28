@@ -1,6 +1,7 @@
 import {Client} from './client';
 import {Status} from './status';
 import {Program} from './program.model';
+import {Task} from './task';
 
 export class Worksheet {
   public idWorkSheet: number;
@@ -11,4 +12,5 @@ export class Worksheet {
   public client: Client;
   public status: Status;
   public program: Program;
+  public tasks: Task[];
 }
