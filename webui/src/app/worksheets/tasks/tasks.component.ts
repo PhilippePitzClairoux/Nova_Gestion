@@ -147,25 +147,12 @@ export class TasksComponent implements OnInit, OnDestroy {
         if (this.taskForm.dirty) {
           this.stop();
           this.task.taskType = this.taskForm.controls.taskType.value;
-          this.setStatus();
           this.taskService.add(this.task).subscribe(data => {
             this.getTasks();
           });
         }
     } else {
       this.validateAllFields(this.taskForm);
-    }
-  }
-
-  private setStatus() {
-    const worksheet = new Worksheet();
-    worksheet.idWorkSheet = this.idWorkSheet;
-    if (this.task.taskType.idTaskType === 4 || this.task.taskType.idTaskType === 3) {
-      worksheet.status = new Status();
-      worksheet.status.idStatus = 2;
-      this.worksheetService.update(worksheet).subscribe(res => {
-        this.toastr.success(null, 'Feuille de travail mise en cours');
-      });
     }
   }
 
@@ -217,7 +204,6 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.taskService.getWorksheetTasks(this.idWorkSheet).subscribe(tasks => {
       tasks.forEach(task => {
         TasksComponent.getDuration(task);
-        console.log(task);
       });
       this.setDataSource(tasks);
     });

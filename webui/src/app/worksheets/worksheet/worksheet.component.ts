@@ -91,7 +91,6 @@ export class WorksheetComponent implements OnInit {
 
   private getStatus(): void {
     this.statusService.getAll().subscribe(status => {
-      console.log(status);
       this.status = status;
       const s = this.status.filter(x => x.idStatus === 1)[0];
       this.worksheetForm.controls.status.setValue(s);
