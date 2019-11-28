@@ -57,9 +57,15 @@
     color: #ff3823;
     transition: 0.2s all ease;
   }
+
+  .btn-download {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
 }
 
-.btn-delete {
+.btn-delete,
+.btn-download {
   height: 20px;
   width: 35px;
   background: none;

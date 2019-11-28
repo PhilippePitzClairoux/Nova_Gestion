@@ -7,7 +7,6 @@ import { tap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 import { Program } from './../models/program.model';
-import { File } from './../models/File.model';
 import * as config from '../../assets/config/config.json';
 
 @Injectable({
@@ -35,7 +34,7 @@ export class ProgramService {
   }
 
   public getProgramById(id: number): Observable<Program> {
-    return this.http.get<Program>(this.api + 'program/' + id.toString() + '/').pipe(tap(result => console.log(result)));
+    return this.http.get<Program>(this.api + 'program/' + id.toString() + '/');
   }
 
   public createProgram(program: Program): Observable<Program> {
@@ -81,6 +80,16 @@ export class ProgramService {
   public addFileToprogram(file: any): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
-    return this.http.post<any>('/v1/uploadfile', formData).pipe(tap(result => console.log(result)));
+    return this.http.post<any>('/v1/uploadfile', formData);
+  }
+
+  public downloadFile(fileName: string): Observable<any> {
+    return this.http.get('/v1/downloadfile' + '?filename=' + fileName, { responseType: 'blob' });
+  }
+
+  downloadFilea(data: Blob) {
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
   }
 }

@@ -1,6 +1,4 @@
-import { FileProgram } from './../../models/fileProgram.model';
-import { File } from './../../models/File.model';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -30,8 +28,7 @@ export class ProgramComponent implements OnInit {
   public myFile: any;
 
   public fcName: FormControl;
-  public fcProgramme: FormControl;
-  public fcTheFile: FormControl;
+  public fcFile: FormControl;
   public fcTool: FormControl;
   public fcBlank: FormControl;
   public fcMachine: FormControl;
@@ -98,6 +95,26 @@ export class ProgramComponent implements OnInit {
 
   public updateFileValue(files: any): void {
     this.myFile = files.item(0);
+    this.fcFile.setValue(this.myFile.name);
+  }
+
+  public downloadFile(fileName: string): void {
+    this.programService.downloadFile(fileName).subscribe(result => {
+
+      const newBlob = new Blob([result], { type: 'application/pdf' });
+
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(newBlob);
+        return;
+      }
+
+      const data = window.URL.createObjectURL(newBlob);
+
+      const link = document.createElement('a');
+      link.href = data;
+      link.download = fileName;
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    });
   }
 
   public onCreate(): void {
@@ -125,7 +142,6 @@ export class ProgramComponent implements OnInit {
         }
       ];
 
-      console.log(program);
       this.programService.createProgram(program).subscribe(prog => {
         this.addingProgram = false;
         this.pageTitle = 'Modifier un programme';
@@ -151,15 +167,25 @@ export class ProgramComponent implements OnInit {
     if (this.fg.controls.blank.value !== '') {
       program.blank = this.fg.controls.blank.value;
     }
-    this.programService.updateProgram(program);
+    if (this.fcFile.value !== '') {
+      this.programService.addFileToprogram(this.myFile).subscribe(result => {
+        program.filePrograms = [
+          {
+            file: result
+          }
+        ];
+        this.programService.updateProgram(program);
+      });
+    } else {
+      this.programService.updateProgram(program);
+    }
   }
 
 
   private initFgEmpty(): void {
     this.fg = this.fb.group({
       name: (this.fcName = new FormControl('', [Validators.required, Validators.minLength(1)])),
-      file: (this.fcProgramme = new FormControl('')),
-      theFile: (this.fcTheFile = new FormControl('')),
+      file: (this.fcFile = new FormControl({ value: '', disabled: true }, Validators.required)),
       tool: (this.fcTool = new FormControl('')),
       blank: (this.fcBlank = new FormControl('')),
       machine: (this.fcMachine = new FormControl('', Validators.required))
@@ -184,9 +210,6 @@ export class ProgramComponent implements OnInit {
         this.program = result;
         this.programSubject.next(this.program.clients);
         this.fg.controls.name.setValue(this.program.name);
-        // if (this.program.file !== null) {
-        //   this.fg.controls.file.setValue(this.program.file);
-        // }
         if (this.program.tool !== null) {
           this.fg.controls.tool.setValue(this.tools.find(t => t.idTool === this.program.tool.idTool));
         }

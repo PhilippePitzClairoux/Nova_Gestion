@@ -23,14 +23,12 @@ export class BlankService {
   }
 
   public update(blank: Blank): Observable<any> {
-    console.log(blank);
     return this.http.put(this.api + 'blank', blank, this.httpOptions).pipe(
       tap(() => this.toastr.success(null, 'Tige de carbure modifiée'))
     );
   }
 
   public add(blank: Blank): Observable<any> {
-    console.log(blank);
     return this.http.post<any>(this.api + 'blank', blank, this.httpOptions).pipe(
       tap(() => this.toastr.success(null, 'Tige de carbure ajoutée'))
     );

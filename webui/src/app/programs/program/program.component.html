@@ -14,10 +14,19 @@
       <div class="input-btn">
         <mat-form-field class="input">
           <input matInput placeholder="Programme" formControlName="file">
+          <mat-error *ngIf="fcFile.invalid">
+            Un nom de programme est requis.
+          </mat-error>
         </mat-form-field>
         <input type="file" name="file" id="file" hidden (change)="updateFileValue($event.target.files)">
         <label class="parcourir" for="file">Parcourir</label>​
-        <!-- <app-button [label]="'Parcourir'" [style]="'primary'"></app-button> -->
+      </div>
+
+      <div class="client-container">
+        <div class="client-list" *ngFor="let file of program.filePrograms">
+          {{file.file.fileName}}
+          <mat-icon class="btn-download" (click)="downloadFile(file.file.fileName)">get_app</mat-icon>
+        </div>
       </div>
 
       <div class="input-btn">
