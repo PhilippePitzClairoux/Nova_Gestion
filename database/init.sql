@@ -159,8 +159,10 @@ CREATE TABLE task(
     id_work_sheet BIGINT NOT NULL,
     start_time DATETIME,
     end_time DATETIME,
+    id_user BIGINT NOT NULL,
     CONSTRAINT FOREIGN KEY(id_task_type) REFERENCES task_type(id_task_type),
-    CONSTRAINT FOREIGN KEY(id_work_sheet) REFERENCES work_sheet(id_work_sheet)
+    CONSTRAINT FOREIGN KEY(id_work_sheet) REFERENCES work_sheet(id_work_sheet),
+    CONSTRAINT FOREIGN KEY(id_user) REFERENCES user(id_user)
 );
 
 CREATE TABLE ta_work_sheet_client_program(

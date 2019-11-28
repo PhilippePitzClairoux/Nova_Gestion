@@ -15,6 +15,7 @@ public class Task {
     private TaskType taskType;
     private Timestamp startTime;
     private Timestamp endTime;
+    private User user;
 
     @JsonCreator
     public Task(int idTask, int idWorkSheet, Timestamp startTime, Timestamp endTime)
