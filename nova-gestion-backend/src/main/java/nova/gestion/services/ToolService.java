@@ -1,13 +1,9 @@
 package nova.gestion.services;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.ToolMapper;
 import nova.gestion.model.Tool;
-import nova.gestion.model.post.ToolPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -26,7 +22,7 @@ public class ToolService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public ArrayList<Tool> getListOfAllTools() {
         ArrayList<Tool> tools = toolMapper.getAllTool();
 
@@ -37,7 +33,7 @@ public class ToolService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public Tool getTool(Integer idTool) {
 
         Tool tool = toolMapper.getTool(idTool);

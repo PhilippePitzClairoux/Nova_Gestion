@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
@@ -24,7 +25,8 @@ export class UserComponent implements OnInit {
 
   @Output() addUser = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialog, private userService: UsersService, @Inject(MAT_DIALOG_DATA) data) {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialog, private toastr: ToastrService,
+              private userService: UsersService, @Inject(MAT_DIALOG_DATA) data) {
     this.user = data.user;
     this.userTypesList = data.userTypesList;
     this.adding = data.add;
@@ -33,14 +35,26 @@ export class UserComponent implements OnInit {
 
   public ngOnInit(): void {
 
-    this.fg = this.fb.group({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
-      userType: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
-      passwordConfirmation: new FormControl('', Validators.required)
-    });
+    if (this.adding) {
+      this.fg = this.fb.group({
+        name: new FormControl('', Validators.required),
+        surname: new FormControl('', Validators.required),
+        userType: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', Validators.required),
+        passwordConfirmation: new FormControl('', Validators.required)
+      });
+    } else {
+      this.fg = this.fb.group({
+        name: new FormControl('', Validators.required),
+        surname: new FormControl('', Validators.required),
+        userType: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl(''),
+        passwordConfirmation: new FormControl('')
+      });
+    }
+
 
     this.initFormValues();
   }
@@ -54,6 +68,10 @@ export class UserComponent implements OnInit {
       this.validateAllFields(this.fg);
       return;
     }
+    if (this.fg.controls.password.value !== this.fg.controls.passwordConfirmation.value) {
+      this.toastr.error(null, 'Les mots de passe ne corresponde pas');
+      return;
+    }
     const user = this.createUserFromForm();
     this.userService.createUser(user);
     this.dialogRef.closeAll();
@@ -62,6 +80,10 @@ export class UserComponent implements OnInit {
   public onEdit(): void {
     if (this.fg.invalid) {
       this.validateAllFields(this.fg);
+      return;
+    }
+    if (this.fg.controls.password.value !== this.fg.controls.passwordConfirmation.value) {
+      this.toastr.error(null, 'Les mots de passe ne corresponde pas');
       return;
     }
     const user = this.updateUserFromForm(this.user);
@@ -74,8 +96,6 @@ export class UserComponent implements OnInit {
       this.fg.controls.name.setValue(this.user.employee.name);
       this.fg.controls.surname.setValue(this.user.employee.surname);
       this.fg.controls.email.setValue(this.user.email);
-      this.fg.controls.password.setValue(this.user.password);
-      this.fg.controls.passwordConfirmation.setValue(this.user.password);
       this.user.typeUser ? this.setUserType() : this.fg.controls.userType.setValue('');
     }
   }
@@ -103,7 +123,9 @@ export class UserComponent implements OnInit {
     updateUser.employee.name = this.fg.controls.name.value;
     updateUser.employee.surname = this.fg.controls.surname.value;
     updateUser.email = this.fg.controls.email.value;
-    updateUser.password = this.fg.controls.password.value;
+    if (this.fg.controls.password.value !== '') {
+      updateUser.password = this.fg.controls.password.value;
+    }
     updateUser.typeUser.idTypeUser = this.fg.controls.userType.value.idTypeUser;
     updateUser.typeUser.name = this.fg.controls.userType.value.name;
     return updateUser;

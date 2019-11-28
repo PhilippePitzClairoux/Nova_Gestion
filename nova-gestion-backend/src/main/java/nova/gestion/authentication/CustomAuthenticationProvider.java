@@ -41,7 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         User user = userMapper.getUserByEmail(username);
 
-        if (user.getPassword() != null && BCrypt.checkpw(password, user.getPassword())) {
+        if (user != null && user.getPassword() != null && BCrypt.checkpw(password, user.getPassword())) {
             //create token
             return new UsernamePasswordAuthenticationToken(
                     username,

@@ -74,7 +74,8 @@
     </div>
 
     <div class="btn-save" *ngIf="addingProgram">
-      <app-button [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()"></app-button>
+        <app-button [label]="'Retour'" [style]="'secondary'" (clicked)="onReturn()"></app-button>
+      <app-button class="space-btn" [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()"></app-button>
     </div>
 
     <div *ngIf="!addingProgram" [formGroup]="clientFg">

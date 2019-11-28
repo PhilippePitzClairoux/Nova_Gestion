@@ -38,7 +38,7 @@
        UPDATE `nova_gestion`.`tool` SET
                     <if test="name != null">name = #{name},</if>
                     <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
-                    <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity}</if>
+                    <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
                     <if test="client != null">id_client = #{client.idClient}</if>
                     WHERE id_tool = #{idTool};
     </update>
