@@ -6,11 +6,14 @@ import {ToastrService} from 'ngx-toastr';
 
 import {User} from '../models/user.model';
 import {TypeUser} from '../models/user-type.model';
+import {Employee} from '../models/employee.model';
+import * as config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
+  api = config.apiUrl;
 
   private usersList: User[] = [];
   private usersListSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
@@ -70,5 +73,9 @@ export class UsersService {
       this.userTypesList = result;
       this.userTypesListSubject.next(this.userTypesList);
     });
+  }
+
+  public getEmployee(): Observable<Employee> {
+    return this.http.get<Employee>(this.api + 'employee');
   }
 }
