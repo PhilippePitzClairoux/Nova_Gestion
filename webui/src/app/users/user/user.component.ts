@@ -1,12 +1,12 @@
-import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import {ToastrService} from 'ngx-toastr';
+import {Component, OnInit, Output, EventEmitter, Inject} from '@angular/core';
+import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 
-import { UsersService } from '../../services/users.service';
-import { User } from './../../models/user.model';
-import { Employee } from './../../models/employee.model';
-import { TypeUser } from './../../models/user-type.model';
+import {UsersService} from '../../services/users.service';
+import {User} from '../../models/user.model';
+import {Employee} from '../../models/employee.model';
+import {TypeUser} from '../../models/user-type.model';
 
 @Component({
   selector: 'app-user',
@@ -159,7 +159,7 @@ export class UserComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }

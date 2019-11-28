@@ -1,18 +1,18 @@
-import { Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import {Router} from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource, MatPaginator, MatSort, MatDialog} from '@angular/material';
+import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 
-import { tap } from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 
-import { ConfirmationDialogComponent } from './../../shared/confirmation-dialog/confirmation-dialog.component';
-import { ClientService } from './../../services/client.service';
-import { ProgramService } from './../../services/program.service';
-import { MachineService } from './../../services/machine.service';
-import { Program } from './../../models/program.model';
-import { Machine } from './../../models/machine';
-import { Client } from './../../models/client';
-import { BehaviorSubject } from 'rxjs';
+import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
+import {ClientService} from '../../services/client.service';
+import {ProgramService} from '../../services/program.service';
+import {MachineService} from '../../services/machine.service';
+import {Program} from '../../models/program.model';
+import {Machine} from '../../models/machine';
+import {Client} from '../../models/client';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-programs-list',
@@ -33,15 +33,16 @@ export class ProgramsListComponent implements OnInit {
   public fcMachineSearch: FormControl = new FormControl('');
 
   public dataSource: MatTableDataSource<Program>;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private programService: ProgramService,
               private clientService: ClientService,
               private machineService: MachineService,
               private fb: FormBuilder,
               private dialog: MatDialog,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   public ngOnInit(): void {
     this.fg = this.fb.group({
@@ -54,8 +55,14 @@ export class ProgramsListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    this.clientService.getAll().subscribe(result => { this.clients = result; this.filteredClients.next(result); });
-    this.machineService.getAll().subscribe(result => { this.machines = result; this.filteredMachines.next(result); });
+    this.clientService.getAll().subscribe(result => {
+      this.clients = result;
+      this.filteredClients.next(result);
+    });
+    this.machineService.getAll().subscribe(result => {
+      this.machines = result;
+      this.filteredMachines.next(result);
+    });
   }
 
   public onAdd(): void {

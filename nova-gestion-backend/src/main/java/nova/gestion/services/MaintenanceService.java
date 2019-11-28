@@ -20,7 +20,7 @@ public class MaintenanceService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public int insertMaintenance(Maintenance maintenance) {
         if (maintenance == null)
             throw new InvalidRequest("Missing parameters");
@@ -47,7 +47,7 @@ public class MaintenanceService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteMaintenance(int idMaintenance) {
         if (maintenanceMapper.getMaintenance(idMaintenance) == null)
             throw new RessourceNotFound("Invalid idMaintenance");

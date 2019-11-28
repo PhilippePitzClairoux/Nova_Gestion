@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
-import { ClientService } from './../../services/client.service';
-import { MachineService } from './../../services/machine.service';
-import { BlankService } from './../../services/blank.service';
-import { ToolService } from './../../services/tool.service';
-import { ProgramService } from './../../services/program.service';
-import { Program } from './../../models/program.model';
-import { Blank } from './../../models/blank';
-import { Machine } from './../../models/machine';
-import { Client } from './../../models/client';
-import { Tool } from './../../models/tool';
+import {ClientService} from '../../services/client.service';
+import {MachineService} from '../../services/machine.service';
+import {BlankService} from '../../services/blank.service';
+import {ToolService} from '../../services/tool.service';
+import {ProgramService} from '../../services/program.service';
+import {Program} from '../../models/program.model';
+import {Blank} from '../../models/blank';
+import {Machine} from '../../models/machine';
+import {Client} from '../../models/client';
+import {Tool} from '../../models/tool';
 
 @Component({
   selector: 'app-program',
@@ -25,9 +25,10 @@ export class ProgramComponent implements OnInit {
   public pageTitle: string;
   public addingProgram = false;
   public program = new Program();
+  public myFile: any;
 
   public fcName: FormControl;
-  public fcProgramme: FormControl;
+  public fcFile: FormControl;
   public fcTool: FormControl;
   public fcBlank: FormControl;
   public fcMachine: FormControl;
@@ -53,8 +54,9 @@ export class ProgramComponent implements OnInit {
   public program$: Observable<Client[]>;
 
   constructor(private route: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
-    private toolService: ToolService, private blankService: BlankService, private nav: Router,
-    private machineService: MachineService, private clientService: ClientService) { }
+              private toolService: ToolService, private blankService: BlankService, private nav: Router,
+              private machineService: MachineService, private clientService: ClientService) {
+  }
 
   public ngOnInit(): void {
     this.program$ = this.programSubject.asObservable();
@@ -89,7 +91,31 @@ export class ProgramComponent implements OnInit {
   }
 
   public onReturn(): void {
-    this.nav.navigate(['programs']);
+    this.nav.navigate(['/programs']);
+  }
+
+  public updateFileValue(files: any): void {
+    this.myFile = files.item(0);
+    this.fcFile.setValue(this.myFile.name);
+  }
+
+  public downloadFile(fileName: string): void {
+    this.programService.downloadFile(fileName).subscribe(result => {
+
+      const newBlob = new Blob([result], {type: 'application/pdf'});
+
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(newBlob);
+        return;
+      }
+
+      const data = window.URL.createObjectURL(newBlob);
+
+      const link = document.createElement('a');
+      link.href = data;
+      link.download = fileName;
+      link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
+    });
   }
 
   public onCreate(): void {
@@ -97,22 +123,34 @@ export class ProgramComponent implements OnInit {
       this.validateAllFields(this.fg);
       return;
     }
-    const program = new Program();
-    program.name = this.fg.controls.name.value;
-    program.file = this.fg.controls.file.value;
-    if (this.fg.controls.machine.value !== '') {
-      program.machine = this.fg.controls.machine.value;
-    }
-    if (this.fg.controls.tool.value !== '') {
-      program.tool = this.fg.controls.tool.value;
-    }
-    if (this.fg.controls.blank.value !== '') {
-      program.blank = this.fg.controls.blank.value;
-    }
-    this.programService.createProgram(program).subscribe(result => {
-      this.addingProgram = false;
-      this.pageTitle = 'Modifier un programme';
-      this.program.idProgram = result.idProgram;
+
+    this.programService.addFileToprogram(this.myFile).subscribe(result => {
+
+      this.fcFile.setValue('');
+
+      const program = new Program();
+      program.name = this.fg.controls.name.value;
+      if (this.fg.controls.machine.value !== '') {
+        program.machine = this.fg.controls.machine.value;
+      }
+      if (this.fg.controls.tool.value !== '') {
+        program.tool = this.fg.controls.tool.value;
+      }
+      if (this.fg.controls.blank.value !== '') {
+        program.blank = this.fg.controls.blank.value;
+      }
+
+      program.filePrograms = [
+        {
+          file: result
+        }
+      ];
+
+      this.programService.createProgram(program).subscribe(prog => {
+        this.addingProgram = false;
+        this.pageTitle = 'Modifier un programme';
+        this.program.idProgram = prog.idProgram;
+      });
     });
   }
 
@@ -124,7 +162,6 @@ export class ProgramComponent implements OnInit {
     const program = new Program();
     program.idProgram = this.program.idProgram;
     program.name = this.fg.controls.name.value;
-    program.file = this.fg.controls.file.value;
     if (this.fg.controls.machine.value !== '') {
       program.machine = this.fg.controls.machine.value;
     }
@@ -134,14 +171,25 @@ export class ProgramComponent implements OnInit {
     if (this.fg.controls.blank.value !== '') {
       program.blank = this.fg.controls.blank.value;
     }
-    this.programService.updateProgram(program);
+    if (this.fcFile.value !== '') {
+      this.programService.addFileToprogram(this.myFile).subscribe(result => {
+        program.filePrograms = [
+          {
+            file: result
+          }
+        ];
+        this.programService.updateProgram(program);
+      });
+    } else {
+      this.programService.updateProgram(program);
+    }
   }
 
 
   private initFgEmpty(): void {
     this.fg = this.fb.group({
       name: (this.fcName = new FormControl('', [Validators.required, Validators.minLength(1)])),
-      file: (this.fcProgramme = new FormControl('')),
+      file: (this.fcFile = new FormControl({value: '', disabled: true}, Validators.required)),
       tool: (this.fcTool = new FormControl('')),
       blank: (this.fcBlank = new FormControl('')),
       machine: (this.fcMachine = new FormControl('', Validators.required))
@@ -149,10 +197,22 @@ export class ProgramComponent implements OnInit {
   }
 
   private getAllLists(): void {
-    this.toolService.getAll().subscribe(result => { this.tools = result; this.filteredTools.next(result); });
-    this.blankService.getAll().subscribe(result => { this.blanks = result; this.filteredBlanks.next(result); });
-    this.machineService.getAll().subscribe(result => { this.machines = result; this.filteredMachines.next(result); });
-    this.clientService.getAll().subscribe(result => { this.clients = result; this.filteredClients.next(result); });
+    this.toolService.getAll().subscribe(result => {
+      this.tools = result;
+      this.filteredTools.next(result);
+    });
+    this.blankService.getAll().subscribe(result => {
+      this.blanks = result;
+      this.filteredBlanks.next(result);
+    });
+    this.machineService.getAll().subscribe(result => {
+      this.machines = result;
+      this.filteredMachines.next(result);
+    });
+    this.clientService.getAll().subscribe(result => {
+      this.clients = result;
+      this.filteredClients.next(result);
+    });
   }
 
   private initPage(): void {
@@ -166,9 +226,6 @@ export class ProgramComponent implements OnInit {
         this.program = result;
         this.programSubject.next(this.program.clients);
         this.fg.controls.name.setValue(this.program.name);
-        if (this.program.file !== null) {
-          this.fg.controls.file.setValue(this.program.file);
-        }
         if (this.program.tool !== null) {
           this.fg.controls.tool.setValue(this.tools.find(t => t.idTool === this.program.tool.idTool));
         }
@@ -186,7 +243,7 @@ export class ProgramComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }

@@ -1,5 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+
+import { tap } from 'rxjs/operators';
+
+import { AuthentificationService } from './../../../services/authentification.service';
 import {Tool} from '../../../models/tool';
 import {ConfirmationDialogComponent} from '../../../shared/confirmation-dialog/confirmation-dialog.component';
 import {ToolComponent} from '../tool/tool.component';
@@ -11,19 +15,29 @@ import {ToolService} from '../../../services/tool.service';
   styleUrls: ['./tools-list.component.scss']
 })
 export class ToolsListComponent implements OnInit {
-  searchField = '';
-  displayedColumns = ['name', 'stockQuantity', 'minimumQuantity', 'client', 'controls'];
-  dataSource: MatTableDataSource<Tool>;
+
+  public searchField = '';
+  public displayedColumns = ['name', 'stockQuantity', 'minimumQuantity', 'client', 'controls'];
+  public dataSource: MatTableDataSource<Tool>;
+
+  public userType = '';
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(public dialog: MatDialog,
-              public toolService: ToolService) {
+              public toolService: ToolService,
+              private authService: AuthentificationService) {
   }
 
   ngOnInit() {
     this.getTools();
+
+    this.authService.getUserType();
+
+    this.authService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   getTools() {

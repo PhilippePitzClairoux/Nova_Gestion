@@ -66,7 +66,7 @@ public class ToolService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur') or hasRole('Emballeur')")
     public void updateTool(Tool tool) {
         Tool verifiedTool = toolMapper.getTool(tool.getIdTool());
 

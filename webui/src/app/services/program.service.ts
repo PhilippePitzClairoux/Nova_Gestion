@@ -76,4 +76,20 @@ export class ProgramService {
       tap(() => this.toastr.success(null, 'Client supprimé du programme'))
     );
   }
+
+  public addFileToprogram(file: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post<any>('/v1/uploadfile', formData);
+  }
+
+  public downloadFile(fileName: string): Observable<any> {
+    return this.http.get('/v1/downloadfile' + '?filename=' + fileName, { responseType: 'blob' });
+  }
+
+  downloadFilea(data: Blob) {
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
 }

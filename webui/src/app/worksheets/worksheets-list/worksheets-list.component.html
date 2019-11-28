@@ -9,7 +9,7 @@
       </button>
     </mat-form-field>
 
-    <app-button [label]="'Créer une feuille de travail'" [style]="'primary'" (click)="openWorkSheet(null)"></app-button>
+    <app-button *ngIf="userType === 'Admin' || userType === 'Superviseur'" [label]="'Créer une feuille de travail'" [style]="'primary'" (click)="openWorkSheet(null)"></app-button>
   </div>
 
   <div class="mat-elevation-z0">
@@ -53,7 +53,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
         <mat-cell *matCellDef="let row" class="controls">
           <mat-icon class="edit" (click)="openWorkSheet(row.idWorkSheet)">edit</mat-icon>
-          <mat-icon class="delete" (click)="deleteWorkSheet(row.idWorkSheet)">delete</mat-icon>
+          <mat-icon *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="delete" (click)="deleteWorkSheet(row.idWorkSheet)">delete</mat-icon>
         </mat-cell>
       </ng-container>
 

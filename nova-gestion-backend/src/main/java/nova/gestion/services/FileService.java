@@ -18,7 +18,8 @@ import java.nio.file.Paths;
 public class FileService {
 
     private final FileMapper fileMapper;
-    private static final String PATH = "/home/x/program_files/";
+    //private static final String PATH = "/home/x/program_files/";
+    private static final String PATH = "C://Users/lecle/Documents/";
 
     @Autowired
     public FileService(FileMapper fileMapper) {

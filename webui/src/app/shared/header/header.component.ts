@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +9,7 @@ export class HeaderComponent {
 
   @Input() title: string;
 
-  constructor() { }
+  constructor() {
+  }
 
 }

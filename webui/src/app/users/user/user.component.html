@@ -40,14 +40,14 @@
       </mat-form-field>
       <mat-form-field class="block">
         <input matInput id="password" name="password" class="input-100" placeholder="Mot de passe" type="password"
-          formControlName="password">
+               formControlName="password">
         <mat-error *ngIf="!passwordValid()">
           Un mot de passe est requis.
         </mat-error>
       </mat-form-field>
       <mat-form-field class="block">
         <input matInput id="password-confirmation" name="password-confirmation" type="password" class="input-100"
-          placeholder="Confirmation mot de passe" type="password" formControlName="passwordConfirmation">
+               placeholder="Confirmation mot de passe" type="password" formControlName="passwordConfirmation">
         <mat-error *ngIf="!passwordConfirmationValid()">
           Une confirmation de mot de passe est requis.
         </mat-error>
