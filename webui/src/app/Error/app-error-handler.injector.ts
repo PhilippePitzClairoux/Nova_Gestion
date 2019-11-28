@@ -1,6 +1,6 @@
-import { Router } from '@angular/router';
-import { ErrorHandler, Injector, Injectable, NgZone } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import {Router} from '@angular/router';
+import {ErrorHandler, Injector, Injectable, NgZone} from '@angular/core';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {

@@ -35,7 +35,8 @@
           <mat-select formControlName="tool">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
-                (click)="resetTool()" (keyup)="filterTool()" [formControl]="fcToolSearch" placeholder="Rechercher">
+                                     (click)="resetTool()" (keyup)="filterTool()" [formControl]="fcToolSearch"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetTool()">Aucun</mat-option>
@@ -52,12 +53,13 @@
           <mat-select formControlName="blank">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetBlank()" (keyup)="filterBlank()"
-                [formControl]="fcBlankSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                     [formControl]="fcBlankSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetClient()">Aucune</mat-option>
             <mat-option *ngFor="let blank of filteredBlanks.asObservable() | async" [value]="blank"
-              (click)="resetBlank()">
+                        (click)="resetBlank()">
               {{blank.name}}
             </mat-option>
           </mat-select>
@@ -69,11 +71,12 @@
         <mat-select formControlName="machine">
           <mat-option>
             <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetMachine()" (keyup)="filterMachine()"
-              [formControl]="fcMachineSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                   [formControl]="fcMachineSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                   placeholder="Rechercher">
             </ngx-mat-select-search>
           </mat-option>
           <mat-option *ngFor="let machine of filteredMachines.asObservable() | async" [value]="machine"
-            (click)="resetMachine()">
+                      (click)="resetMachine()">
             {{machine.name}}
           </mat-option>
         </mat-select>
@@ -97,11 +100,12 @@
           <mat-select formControlName="client">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
-                [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                     [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-              (click)="resetClient()">
+                        (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>

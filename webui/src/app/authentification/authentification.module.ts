@@ -5,7 +5,7 @@ import {MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/materi
 
 import {AuthentificationRoutingModule} from './authentification-routing.module';
 import {AuthentificationComponent} from './authentification/authentification.component';
-import {SharedModule} from './../shared/shared.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [AuthentificationComponent],

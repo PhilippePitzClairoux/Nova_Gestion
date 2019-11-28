@@ -1,6 +1,6 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
   MatTableModule,
   MatIconModule,
@@ -12,12 +12,12 @@ import {
   MatAutocompleteModule
 } from '@angular/material';
 
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
-import { SharedModule } from './../shared/shared.module';
-import { ProgramsRoutingModule } from './programs-routing.module';
-import { ProgramsListComponent } from './programs-list/programs-list.component';
-import { ProgramComponent } from './program/program.component';
+import {SharedModule} from '../shared/shared.module';
+import {ProgramsRoutingModule} from './programs-routing.module';
+import {ProgramsListComponent} from './programs-list/programs-list.component';
+import {ProgramComponent} from './program/program.component';
 
 
 @NgModule({
@@ -39,4 +39,5 @@ import { ProgramComponent } from './program/program.component';
     NgxMatSelectSearchModule
   ]
 })
-export class ProgramsModule { }
+export class ProgramsModule {
+}

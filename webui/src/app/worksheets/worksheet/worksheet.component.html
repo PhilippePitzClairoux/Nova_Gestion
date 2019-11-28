@@ -18,12 +18,13 @@
           <mat-select formControlName="client">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
-                [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                     [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetClient()">Aucun</mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-              (click)="resetClient()">
+                        (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>
@@ -86,8 +87,8 @@
   <app-tasks [tasks]="worksheet?.tasks" [idWorkSheet]="id"></app-tasks>
 
   <div class="actions">
-    <app-button [style]="'secondary'" [label]="'retour'" (click)="cancel()"></app-button>
+    <app-button [style]="'secondary'" [label]="'Retour'" (click)="cancel()"></app-button>
     <app-button *ngIf="userType === 'Admin' || userType === 'Superviseur'" [style]="'primary'" [label]="'Sauvegarder'"
-      (click)="save()" class="right-button"></app-button>
+                (click)="save()" class="right-button"></app-button>
   </div>
 </div>

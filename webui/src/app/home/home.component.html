@@ -43,7 +43,8 @@
       <span>Commande</span>
     </div>
     <div *ngIf="lateWorksheets.length > 0">
-      <div class="item clickable" *ngFor="let worksheet of lateWorksheets" (click)="navigate('/worksheet/' + worksheet.idWorkSheet)">
+      <div class="item clickable" *ngFor="let worksheet of lateWorksheets"
+           (click)="navigate('/worksheet/' + worksheet.idWorkSheet)">
         <span>{{worksheet.client.name}}</span>
         <span>{{worksheet.orderNumber}}</span>
       </div>
