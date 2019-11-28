@@ -52,4 +52,10 @@
 
 .item.clickable {
   cursor: pointer;
+  transition: 0.3s background ease;
+}
+
+
+.card .item.clickable:hover {
+  background: #fec63d;
 }

@@ -1,19 +1,19 @@
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Router} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {Observable, BehaviorSubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
-import { UserTypeString } from '../models/user-type-string.model';
+import {UserTypeString} from '../models/user-type-string.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) };
+  private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})};
 
   public userType = '';
   public userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -22,11 +22,7 @@ export class AuthentificationService {
   }
 
   public isAuthenticated(): boolean {
-    if (this.userType === '') {
-      return false;
-    } else {
-      return true;
-    }
+    return this.userType !== '';
   }
 
   public userType$(): Observable<string> {

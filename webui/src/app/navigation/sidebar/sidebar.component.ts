@@ -1,10 +1,10 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {tap} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
-import { AuthentificationService } from './../../services/authentification.service';
+import {AuthentificationService} from '../../services/authentification.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +15,10 @@ export class SidebarComponent implements OnInit {
 
   public userType = '';
 
-  constructor(private router: Router, private authentificationService: AuthentificationService, private toastr: ToastrService) { }
+  constructor(private router: Router,
+              private authentificationService: AuthentificationService,
+              private toastr: ToastrService) {
+  }
 
   public ngOnInit(): void {
     if (this.router.url !== '/authentification') {
@@ -29,7 +32,7 @@ export class SidebarComponent implements OnInit {
   public logout(): void {
     this.authentificationService.logout().subscribe(() => {
       this.router.navigate(['authentification']);
-      this.toastr.success(null, 'Déconnexion réussi');
+      this.toastr.success(null, 'Déconnexion réussie');
     });
   }
 
