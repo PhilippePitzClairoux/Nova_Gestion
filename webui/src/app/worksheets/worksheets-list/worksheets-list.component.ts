@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {WorksheetService} from '../../services/worksheet.service';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import {Router} from '@angular/router';
-import {Worksheet} from '../../models/worksheet';
+import { AuthentificationService } from './../../services/authentification.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { WorksheetService } from '../../services/worksheet.service';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
+import { Worksheet } from '../../models/worksheet';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-worksheets-list',
@@ -13,20 +15,28 @@ import {Worksheet} from '../../models/worksheet';
 
 export class WorksheetsListComponent implements OnInit {
   private worksheets: any;
-  searchField = '';
-  displayedColumns = ['idWorkSheet', 'client', 'order', 'dueDate', 'status', 'controls'];
-  dataSource: MatTableDataSource<Worksheet>;
+  public searchField = '';
+  public displayedColumns = ['idWorkSheet', 'client', 'order', 'dueDate', 'status', 'controls'];
+  public dataSource: MatTableDataSource<Worksheet>;
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  public userType = '';
+
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(public dialog: MatDialog,
               private router: Router,
-              private worksheetService: WorksheetService) {
+              private worksheetService: WorksheetService,
+              private authService: AuthentificationService) {
   }
 
   ngOnInit() {
     this.getWorksheets();
+    this.authService.getUserType();
+
+    this.authService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   private getWorksheets() {

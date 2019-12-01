@@ -23,7 +23,7 @@ export class MachineService {
   }
 
   public getAll(): Observable<Machine[]> {
-    return this.http.get<Machine[]>(this.api + 'machines'); // TODO NOT WORKING UPON ERROR WHY?
+    return this.http.get<Machine[]>(this.api + 'machines');
   }
 
   public delete(id: number): Observable<any> {

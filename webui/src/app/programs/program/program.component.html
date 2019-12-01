@@ -14,8 +14,19 @@
       <div class="input-btn">
         <mat-form-field class="input">
           <input matInput placeholder="Programme" formControlName="file">
+          <mat-error *ngIf="fcFile.invalid">
+            Un nom de programme est requis.
+          </mat-error>
         </mat-form-field>
-        <app-button [label]="'Parcourir'" [style]="'primary'"></app-button>
+        <input type="file" name="file" id="file" hidden (change)="updateFileValue($event.target.files)" #fileInput>
+        <label class="parcourir" for="file">Parcourir</label>​
+      </div>
+
+      <div class="client-container">
+        <div class="client-list" *ngFor="let file of program.filePrograms">
+          {{file.file.fileName}}
+          <mat-icon class="btn-download" (click)="downloadFile(file.file.fileName)">get_app</mat-icon>
+        </div>
       </div>
 
       <div class="input-btn">
@@ -24,7 +35,8 @@
           <mat-select formControlName="tool">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
-                (click)="resetTool()" (keyup)="filterTool()" [formControl]="fcToolSearch" placeholder="Rechercher">
+                                     (click)="resetTool()" (keyup)="filterTool()" [formControl]="fcToolSearch"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetTool()">Aucun</mat-option>
@@ -41,12 +53,13 @@
           <mat-select formControlName="blank">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetBlank()" (keyup)="filterBlank()"
-                [formControl]="fcBlankSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                     [formControl]="fcBlankSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option (click)="resetClient()">Aucune</mat-option>
             <mat-option *ngFor="let blank of filteredBlanks.asObservable() | async" [value]="blank"
-              (click)="resetBlank()">
+                        (click)="resetBlank()">
               {{blank.name}}
             </mat-option>
           </mat-select>
@@ -58,11 +71,12 @@
         <mat-select formControlName="machine">
           <mat-option>
             <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetMachine()" (keyup)="filterMachine()"
-              [formControl]="fcMachineSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                   [formControl]="fcMachineSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                   placeholder="Rechercher">
             </ngx-mat-select-search>
           </mat-option>
           <mat-option *ngFor="let machine of filteredMachines.asObservable() | async" [value]="machine"
-            (click)="resetMachine()">
+                      (click)="resetMachine()">
             {{machine.name}}
           </mat-option>
         </mat-select>
@@ -74,8 +88,9 @@
     </div>
 
     <div class="btn-save" *ngIf="addingProgram">
-        <app-button [label]="'Retour'" [style]="'secondary'" (clicked)="onReturn()"></app-button>
-      <app-button class="space-btn" [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()"></app-button>
+      <app-button [label]="'Retour'" [style]="'secondary'" (clicked)="onReturn()"></app-button>
+      <app-button class="space-btn" [label]="'Créer le programme'" [style]="'primary'" (clicked)="onCreate()">
+      </app-button>
     </div>
 
     <div *ngIf="!addingProgram" [formGroup]="clientFg">
@@ -85,11 +100,12 @@
           <mat-select formControlName="client">
             <mat-option>
               <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetClient()" (keyup)="filterClient()"
-                [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+                                     [formControl]="fcClientSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                     placeholder="Rechercher">
               </ngx-mat-select-search>
             </mat-option>
             <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-              (click)="resetClient()">
+                        (click)="resetClient()">
               {{client.name}}
             </mat-option>
           </mat-select>

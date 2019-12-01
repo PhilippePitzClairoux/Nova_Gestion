@@ -43,7 +43,7 @@ public class ClientService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createClient(String name, String phoneNumber ) {
 
         if (name == null || phoneNumber == null)
@@ -59,7 +59,7 @@ public class ClientService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void updateClient(Client client) {
        Client verifiedClient = clientMapper.getClient(client.getIdClient());
 
@@ -75,7 +75,7 @@ public class ClientService {
 
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteClient(Integer idClient) {
 
         Client loadClient = clientMapper.getClient(idClient);

@@ -1,10 +1,12 @@
 package nova.gestion.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import nova.gestion.model.Employee;
 import nova.gestion.model.User;
 import nova.gestion.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +78,11 @@ public class UserController {
     @DeleteMapping("/v1/user/{idUser}/")
     public void deleteUser(@PathVariable @Validated Integer idUser) {
         userService.deleteUser(idUser);
+    }
+
+    @GetMapping("/v1/employee")
+    public Employee getEmployeeInfo(Authentication authentication) {
+        return userService.getEmployeeInformation(authentication.getName());
     }
 
 }

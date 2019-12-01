@@ -38,7 +38,7 @@ public class MachineService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outileur')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur') or hasRole('Outilleur')")
     public Machine getMachine(Integer idMachine) {
 
         Machine machine = machineMapper.getMachine(idMachine);
@@ -50,7 +50,7 @@ public class MachineService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public Integer createMachine(Machine machine)
     {
         if (machine == null)
@@ -72,7 +72,7 @@ public class MachineService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void updateMachine(Machine machine){
         Machine verifiedMachine = machineMapper.getMachine(machine.getIdMachine());
 
@@ -94,7 +94,7 @@ public class MachineService {
     }
 
     @Transactional
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('Admin') or hasRole('Superviseur')")
     public void deleteMachine(Integer idMachine) {
 
         Machine loadMachine = machineMapper.getMachine(idMachine);

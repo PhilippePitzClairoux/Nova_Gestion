@@ -1,9 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BlankService} from '../../../services/blank.service';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+
+import { tap } from 'rxjs/operators';
+
+import {BlankService} from '../../../services/blank.service';
 import {ConfirmationDialogComponent} from '../../../shared/confirmation-dialog/confirmation-dialog.component';
 import {Blank} from '../../../models/blank';
 import {BlankComponent} from '../blank/blank.component';
+import { AuthentificationService } from './../../../services/authentification.service';
 
 @Component({
   selector: 'app-blanks-list',
@@ -11,19 +15,29 @@ import {BlankComponent} from '../blank/blank.component';
   styleUrls: ['./blanks-list.component.scss']
 })
 export class BlanksListComponent implements OnInit {
-  searchField = '';
-  displayedColumns = ['name', 'stockQuantity', 'minimumQuantity', 'controls'];
-  dataSource: MatTableDataSource<Blank>;
+
+  public searchField = '';
+  public displayedColumns = ['name', 'stockQuantity', 'minimumQuantity', 'controls'];
+  public dataSource: MatTableDataSource<Blank>;
+
+  public userType = '';
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(public dialog: MatDialog,
-              private blankService: BlankService) {
+              private blankService: BlankService,
+              private authService: AuthentificationService) {
   }
 
   ngOnInit() {
     this.getBlanks();
+
+    this.authService.getUserType();
+
+    this.authService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   private getBlanks() {

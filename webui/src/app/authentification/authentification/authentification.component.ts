@@ -38,8 +38,6 @@ export class AuthentificationComponent implements OnInit {
 
     this.authentificationService.connect(this.fcEmail.value, this.fcPassword.value).subscribe(() => {
       this.router.navigate(['/home']);
-      // TODO Enter bienvenue+name
-      this.toastr.success(null, 'Connexion réussie');
     }, error => {
       if (error.status === 401) {
         this.toastr.error(null, 'Mauvais courriel ou mot de passe');

@@ -1,12 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
+import { AuthentificationService } from './../../../services/authentification.service';
 import { ClientService } from '../../../services/client.service';
 import { Tool } from '../../../models/tool';
 import { Client } from '../../../models/client';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tool',
@@ -18,12 +20,15 @@ export class ToolComponent implements OnInit {
   public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public toolForm: FormGroup;
 
+  public userType = '';
+
   public fcClientSearch: FormControl = new FormControl('');
 
   constructor(
     public dialogRef: MatDialogRef<ToolComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Tool,
-    private clientService: ClientService) {
+    private clientService: ClientService,
+    private authService: AuthentificationService) {
   }
 
   onNoClick(): void {
@@ -38,6 +43,12 @@ export class ToolComponent implements OnInit {
       client: new FormControl('', Validators.required),
     });
     this.getClients();
+
+    this.authService.getUserType();
+
+    this.authService.userType$().pipe(tap(result => {
+      this.userType = result;
+    })).subscribe();
   }
 
   close() {
@@ -92,7 +103,7 @@ export class ToolComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFields(control);
       }

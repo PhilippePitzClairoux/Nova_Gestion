@@ -88,6 +88,7 @@ export class MaintenancesComponent implements OnInit {
 
   private save(maintenance: Maintenance) {
     this.maintenanceService.add(maintenance).subscribe(res => {
+      maintenance.idMaintenance = res.idMaintenance;
       this.maintenances.push(maintenance);
       this.setDataSource(this.maintenances);
     });
