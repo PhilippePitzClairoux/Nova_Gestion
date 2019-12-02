@@ -25,9 +25,11 @@ export class WorksheetComponent implements OnInit {
   public clients: Client[] = [];
   public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public programs: Program[] = [];
+  public filteredPrograms: BehaviorSubject<Program[]> = new BehaviorSubject<Program[]>([]);
   public status: Status[] = [];
 
   public fcClientSearch: FormControl = new FormControl('');
+  public fcProgramSearch: FormControl = new FormControl('');
 
   public userType = '';
 
@@ -84,7 +86,10 @@ export class WorksheetComponent implements OnInit {
 
   private getPrograms(): void {
     this.programService.getAllProgram();
-    this.programService.programsList$().pipe(tap(result => this.programs = result)).subscribe(() => {
+    this.programService.programsList$().pipe(tap(result => {
+      this.programs = result;
+      this.filteredPrograms.next(result);
+    })).subscribe(() => {
       this.route.params.subscribe(params => {
         if (params.id) {
           this.id = params.id;
@@ -202,5 +207,18 @@ export class WorksheetComponent implements OnInit {
 
   public resetClient(): void {
     this.filteredClients.next(this.clients);
+  }
+
+  public filterProgram(): void {
+    if (this.fcProgramSearch.value === '') {
+      this.filteredPrograms.next(this.programs);
+    } else {
+      this.filteredPrograms.next(this.programs.filter(t => t.name.toLocaleLowerCase()
+        .includes(this.fcProgramSearch.value.toLocaleLowerCase())));
+    }
+  }
+
+  public resetProgram(): void {
+    this.filteredPrograms.next(this.programs);
   }
 }
