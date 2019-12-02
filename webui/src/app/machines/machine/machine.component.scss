@@ -3,15 +3,11 @@
 }
 
 .form {
-  margin: 0 auto;
   display: flex;
-  width: 90%;
   justify-content: space-between;
 }
 
 .controls {
-  width: 90%;
-  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -33,7 +29,5 @@ form {
 }
 
 .space-top {
-  width: 90%;
-  margin: 0 auto;
   margin-top: 30px;
 }
