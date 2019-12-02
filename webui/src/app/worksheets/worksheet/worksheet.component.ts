@@ -12,7 +12,6 @@ import {ProgramService} from '../../services/program.service';
 import {tap} from 'rxjs/operators';
 import {Program} from '../../models/program.model';
 import {BehaviorSubject} from 'rxjs';
-import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-worksheet',
@@ -34,7 +33,6 @@ export class WorksheetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private toastr: ToastrService,
     private worksheetService: WorksheetService,
     private router: Router,
     private fb: FormBuilder,
@@ -147,13 +145,11 @@ export class WorksheetComponent implements OnInit {
   private updateDatabase(newWorksheet: Worksheet): void {
     if (newWorksheet.idWorkSheet) {
       this.worksheetService.update(newWorksheet).subscribe(res => {
-        this.toastr.success(null, 'Feuille de travail modifiée');
         this.getWorksheet();
         this.router.navigate(['/worksheets']);
       });
     } else {
       this.worksheetService.add(newWorksheet).subscribe(result => {
-        this.toastr.success(null, 'Feuille de travail ajoutée');
         this.router.navigate(['worksheet/' + result.idWorkSheet]);
       });
     }
