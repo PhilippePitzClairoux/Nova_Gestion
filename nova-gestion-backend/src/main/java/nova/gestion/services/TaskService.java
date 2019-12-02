@@ -29,7 +29,7 @@ public class TaskService {
         ArrayList<Task> values = taskMapper.getTaskByWorkSheetId(idWorkSheet);
 
         if (values.isEmpty())
-            throw new RessourceNotFound("No tasks to load");
+            values = new ArrayList<Task>();
 
         return values;
     }
