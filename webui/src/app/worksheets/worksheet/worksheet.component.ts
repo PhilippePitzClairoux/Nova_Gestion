@@ -184,7 +184,7 @@ export class WorksheetComponent implements OnInit {
     this.worksheetForm.controls.status.setValue(status);
   }
 
-  private setInfoProgram(selected: Program) {
+  public setInfoProgram(selected: Program) {
     if (selected) {
       if (selected.machine) {
         this.worksheetForm.controls.machine.setValue(selected.machine.name);
