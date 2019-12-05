@@ -1,3 +1,5 @@
+import { ToastrService } from 'ngx-toastr';
+import { tap } from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -16,7 +18,7 @@ export class TaskService {
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
   getAllTypes(): Observable<TaskType[]> {
@@ -24,7 +26,7 @@ export class TaskService {
   }
 
   add(task: Task): Observable<any> {
-    return this.http.post(this.api + 'task', task, this.httpOptions);
+    return this.http.post(this.api + 'task', task, this.httpOptions).pipe(tap(() => this.toastr.success(null, 'Tâche ajoutée')));
   }
 
   getWorksheetTasks(idWorkSheet: number): Observable<Task[]> {
@@ -32,10 +34,10 @@ export class TaskService {
   }
 
   delete(idTask: number): Observable<any> {
-    return this.http.delete(this.api + 'task/' + idTask);
+    return this.http.delete(this.api + 'task/' + idTask).pipe(tap(() => this.toastr.success(null, 'Tâche supprimée')));
   }
 
   update(task: Task): Observable<any> {
-    return this.http.put(this.api + 'task', task, this.httpOptions);
+    return this.http.put(this.api + 'task', task, this.httpOptions).pipe(tap(() => this.toastr.success(null, 'Tâche modifiée')));
   }
 }

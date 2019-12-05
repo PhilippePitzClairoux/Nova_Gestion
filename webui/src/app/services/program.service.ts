@@ -87,7 +87,7 @@ export class ProgramService {
     return this.http.get('/v1/downloadfile' + '?filename=' + fileName, { responseType: 'blob' });
   }
 
-  downloadFilea(data: Blob) {
+  public downloadFilea(data: Blob): void {
     const blob = new Blob([data], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
     window.open(url);

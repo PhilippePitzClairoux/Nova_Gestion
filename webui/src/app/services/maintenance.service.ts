@@ -1,8 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Maintenance} from '../models/maintenance';
+import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Maintenance } from '../models/maintenance';
 import * as config from '../../assets/config/config.json';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class MaintenanceService {
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
   update(maintenance: Maintenance): Observable<any> {
@@ -23,10 +25,14 @@ export class MaintenanceService {
   }
 
   add(maintenance: Maintenance): Observable<any> {
-    return this.http.post<any>(this.api + 'maintenance', maintenance, this.httpOptions);
+    return this.http.post<any>(this.api + 'maintenance', maintenance, this.httpOptions).pipe(
+      tap(() => this.toastr.success(null, 'Maintenance ajoutée'))
+    );
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete<any>(this.api + 'maintenance/' + id);
+    return this.http.delete<any>(this.api + 'maintenance/' + id).pipe(
+      tap(() => this.toastr.success(null, 'Maintenance supprimée'))
+      );
   }
 }
