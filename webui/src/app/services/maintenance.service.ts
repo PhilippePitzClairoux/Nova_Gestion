@@ -26,13 +26,13 @@ export class MaintenanceService {
 
   add(maintenance: Maintenance): Observable<any> {
     return this.http.post<any>(this.api + 'maintenance', maintenance, this.httpOptions).pipe(
-      tap(() => this.toastr.success(null, 'Maintenance ajouté'))
+      tap(() => this.toastr.success(null, 'Maintenance ajoutée'))
     );
   }
 
   delete(id: number): Observable<any> {
     return this.http.delete<any>(this.api + 'maintenance/' + id).pipe(
-      tap(() => this.toastr.success(null, 'Maintenance supprimé'))
+      tap(() => this.toastr.success(null, 'Maintenance supprimée'))
       );
   }
 }

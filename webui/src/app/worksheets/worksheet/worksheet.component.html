@@ -88,7 +88,10 @@
 
   </div>
 
-  <app-tasks [tasks]="worksheet?.tasks" [idWorkSheet]="id"></app-tasks>
+  <div  class="space-top">
+    <app-header [title]="'Tâches'"></app-header>
+    <app-tasks [tasks]="worksheet?.tasks" [idWorkSheet]="id"></app-tasks>
+  </div>
 
   <div class="actions">
     <app-button [style]="'secondary'" [label]="'Retour'" (click)="cancel()"></app-button>
