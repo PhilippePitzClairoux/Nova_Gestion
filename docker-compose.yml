@@ -1,10 +1,21 @@
 version: "3"
 
 services:
-
-    build_database:
+    mariadb_database:
         build: database
         environment:
             - MYSQL_ROOT_PASSWORD=test123
+#        ports:
+#            - "3307:3306"
+    java_api:
+        build: nova-gestion-backend
         ports:
-            - "3307:3306"
+            - "8080:8080"
+        environment:
+            - spring_datasource_url=jdbc:mariadb://mariadb_database:3306/
+            - spring_datasource_username=root
+            - spring_datasource_password=test123
+    angular_app:
+        build: webui
+        ports:
+            - "80:80"
