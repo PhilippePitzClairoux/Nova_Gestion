@@ -5,11 +5,6 @@
 # base image
 FROM node:10.9 as build
 
-# install chrome for protractor tests
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get update && apt-get install -yq google-chrome-stable
-
 # set working directory
 WORKDIR /app
 
@@ -19,12 +14,14 @@ ENV PATH /app/node_modules/.bin:$PATH
 # add app
 COPY . /app
 
+#RUN cat /app/proxy.conf.json
+
 # install and cache app dependencies
 COPY package.json /app/package.json
+#RUN npm install -g @angular/cli
 RUN npm install
-RUN npm update
-RUN npm install -g @angular/cli
-RUN npm install -g npm
+RUN ng build
+
 
 #CMD ["npm", "start"]
 
@@ -36,10 +33,11 @@ RUN npm install -g npm
 FROM nginx:1.16.0-alpine
 
 # copy artifact build from the 'build environment'
-COPY --from=build /app/dist /usr/share/nginx/html
-
+COPY --from=build /app/dist/webui /usr/share/nginx/html
+COPY nginx.conf /config/nginx.conf
+COPY mime.types /config/mime.types
 # expose port 80
 EXPOSE 80
 
 # run nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;", "-c", "/config/nginx.conf"]
