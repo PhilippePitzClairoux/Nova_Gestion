@@ -1,3 +1,4 @@
+import { RapportsModule } from './rapports/rapports.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -52,11 +53,11 @@ import { HomeComponent } from './home/home.component';
     ProgramsModule,
     MatIconModule,
     SharedModule,
-    AppRoutingModule,
     MatIconModule,
-    AppRoutingModule,
     MachinesModule,
-    WorksheetsModule
+    WorksheetsModule,
+    RapportsModule,
+    AppRoutingModule
   ],
   providers: [
     {
