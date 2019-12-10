@@ -9,251 +9,70 @@ export class TestRapportsComponent implements OnInit {
 
   public multi = [
     {
-      name: 'China',
+      name: 'A7-Integration',
       series: [
         {
-          name: '2018',
-          value: 2243772
+          name: 'Nettoyage',
+          value: 3
         },
         {
-          name: '2017',
-          value: 1227770
-        }
-      ]
-    },
-
-    {
-      name: 'USA',
-      series: [
-        {
-          name: '2018',
-          value: 1126000
+          name: 'Programmation',
+          value: 12
         },
         {
-          name: '2017',
-          value: 764666
-        }
-      ]
-    },
-
-    {
-      name: 'Norway',
-      series: [
-        {
-          name: '2018',
-          value: 296215
-        },
-        {
-          name: '2017',
-          value: 209122
-        }
-      ]
-    },
-
-    {
-      name: 'Japan',
-      series: [
-        {
-          name: '2018',
-          value: 257363
-        },
-        {
-          name: '2017',
-          value: 205350
-        }
-      ]
-    },
-
-    {
-      name: 'Germany',
-      series: [
-        {
-          name: '2018',
-          value: 196750
-        },
-        {
-          name: '2017',
-          value: 129246
-        }
-      ]
-    },
-
-    {
-      name: 'France',
-      series: [
-        {
-          name: '2018',
-          value: 204617
-        },
-        {
-          name: '2017',
-          value: 149797
+          name: 'Fabrication',
+          value: 10
         }
       ]
     },
     {
-      name: 'China2',
+      name: 'Bombardier',
       series: [
         {
-          name: '2018',
-          value: 2243772
+          name: 'Nettoyage',
+          value: 20
         },
         {
-          name: '2017',
-          value: 1227770
-        }
-      ]
-    },
-
-    {
-      name: 'USA2',
-      series: [
-        {
-          name: '2018',
-          value: 1126000
+          name: 'Programmation',
+          value: 15
         },
         {
-          name: '2017',
-          value: 764666
-        }
-      ]
-    },
-
-    {
-      name: 'Norway2',
-      series: [
-        {
-          name: '2018',
-          value: 296215
-        },
-        {
-          name: '2017',
-          value: 209122
-        }
-      ]
-    },
-
-    {
-      name: 'Japan2',
-      series: [
-        {
-          name: '2018',
-          value: 257363
-        },
-        {
-          name: '2017',
-          value: 205350
-        }
-      ]
-    },
-
-    {
-      name: 'Germany2',
-      series: [
-        {
-          name: '2018',
-          value: 196750
-        },
-        {
-          name: '2017',
-          value: 129246
-        }
-      ]
-    },
-
-    {
-      name: 'France3',
-      series: [
-        {
-          name: '2018',
-          value: 204617
-        },
-        {
-          name: '2017',
-          value: 149797
+          name: 'Fabrication',
+          value: 250
         }
       ]
     },
     {
-      name: 'China2',
+      name: 'Machinage Gagné Ltée',
       series: [
         {
-          name: '2018',
-          value: 2243772
+          name: 'Nettoyage',
+          value: 5
         },
         {
-          name: '2017',
-          value: 1227770
+          name: 'Programmation',
+          value: 8
+        },
+        {
+          name: 'Fabrication',
+          value: 40
         }
       ]
     },
-
     {
-      name: 'USA4',
+      name: 'NSE-Automatech',
       series: [
         {
-          name: '2018',
-          value: 1126000
+          name: 'Nettoyage',
+          value: 4
         },
         {
-          name: '2017',
-          value: 764666
-        }
-      ]
-    },
-
-    {
-      name: 'Norway3',
-      series: [
-        {
-          name: '2018',
-          value: 296215
+          name: 'Programmation',
+          value: 9.5
         },
         {
-          name: '2017',
-          value: 209122
-        }
-      ]
-    },
-
-    {
-      name: 'Japan3',
-      series: [
-        {
-          name: '2018',
-          value: 257363
-        },
-        {
-          name: '2017',
-          value: 205350
-        }
-      ]
-    },
-
-    {
-      name: 'Germany3',
-      series: [
-        {
-          name: '2018',
-          value: 196750
-        },
-        {
-          name: '2017',
-          value: 129246
-        }
-      ]
-    },
-
-    {
-      name: 'France3',
-      series: [
-        {
-          name: '2018',
-          value: 204617
-        },
-        {
-          name: '2017',
-          value: 149797
+          name: 'Fabrication',
+          value: 60
         }
       ]
     }
