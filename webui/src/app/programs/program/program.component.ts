@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
@@ -55,7 +56,7 @@ export class ProgramComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
               private toolService: ToolService, private blankService: BlankService, private nav: Router,
-              private machineService: MachineService, private clientService: ClientService) {
+              private machineService: MachineService, private clientService: ClientService, private toastr: ToastrService) {
   }
 
   public ngOnInit(): void {
@@ -119,7 +120,10 @@ export class ProgramComponent implements OnInit {
   }
 
   public onCreate(): void {
-    if (this.fg.invalid) {
+    if (this.fg.invalid || this.fcFile.value === '') {
+      if (this.fcFile.value === '') {
+        this.toastr.error(null, 'Vous devez fichier de programme');
+      }
       this.validateAllFields(this.fg);
       return;
     }
@@ -189,7 +193,7 @@ export class ProgramComponent implements OnInit {
   private initFgEmpty(): void {
     this.fg = this.fb.group({
       name: (this.fcName = new FormControl('', [Validators.required, Validators.minLength(1)])),
-      file: (this.fcFile = new FormControl({value: '', disabled: true}, Validators.required)),
+      file: (this.fcFile = new FormControl({value: '', disabled: true}, [ Validators.required, Validators.minLength(1) ])),
       tool: (this.fcTool = new FormControl('')),
       blank: (this.fcBlank = new FormControl('')),
       machine: (this.fcMachine = new FormControl('', Validators.required))
