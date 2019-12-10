@@ -39,7 +39,7 @@ public class OrderHistoryService {
     @Transactional
     @PreAuthorize("hasRole('Admin')")
     public ArrayList<OrderHistory> selectFromTimestampOrderHistoryForProduct(OrderHistory product) {
-        if (product.getIdBlank() == null || product.getValue() == null)
+        if (product.getIdBlank() == null || product.getTimestamp() == null)
             throw new InvalidRequest("Missing idBlank or Value");
 
         return orderHistoryMapper.selectFromTimestampOrderHistoryForProduct(product);

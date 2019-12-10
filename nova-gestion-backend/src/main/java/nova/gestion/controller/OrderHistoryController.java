@@ -26,8 +26,8 @@ public class OrderHistoryController {
      * @return ArrayList {@link nova.gestion.model.OrderHistory}
      */
     @GetMapping("/v1/orderhistory/{timestamp}")
-    public ArrayList<OrderHistory> getAllOrderHistory(@PathVariable Timestamp startDate) {
-        return orderHistoryService.selectFromTimestampOrderHistory(startDate);
+    public ArrayList<OrderHistory> getAllOrderHistory(@PathVariable Timestamp timestamp) {
+        return orderHistoryService.selectFromTimestampOrderHistory(timestamp);
     }
 
     /**
