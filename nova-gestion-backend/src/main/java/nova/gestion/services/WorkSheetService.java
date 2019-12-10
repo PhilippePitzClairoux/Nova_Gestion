@@ -55,6 +55,26 @@ public class WorkSheetService {
     }
 
     @Transactional
+    @PreAuthorize("hasRole('Admin')")
+    public ArrayList<WorkSheet> getWorkSheetsByClientDate(ArrayList<Client> clients, Date dateCreation, Date dueDate) {
+        ArrayList<WorkSheet> workSheets = new ArrayList<>();
+
+        for (int i = 0; i < clients.size(); i++){
+           //caster les dates
+            java.sql.Date dateCreation2 = new java.sql.Date(dateCreation.getTime());
+            java.sql.Date dueDate2 = new java.sql.Date(dueDate.getTime());
+
+            WorkSheet workSheet = workSheetMapper.getWorkSheetsByClientDate(clients.get(i).getIdClient(), dateCreation2, dueDate2);
+
+            workSheet = setClientProgramWorkSheet(workSheet);
+
+            workSheets.add(workSheet);
+        }
+
+        return workSheets;
+    }
+
+    @Transactional
     public WorkSheet getWorkSheet(Integer idWorkSheet){
         WorkSheet workSheet = workSheetMapper.getWorkSheet(idWorkSheet);
         if (workSheet == null || idWorkSheet == 0)
