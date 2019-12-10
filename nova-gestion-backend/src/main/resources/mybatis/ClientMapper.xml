@@ -20,7 +20,7 @@
     </select>
 
     <select id="getClientsActiveInactive"  resultMap="ClientMap">
-        SELECT * FROM `nova_gestion`.`client`;
+        SELECT * FROM `nova_gestion`.`client`  WHERE activated = TRUE OR activated = FALSE;
     </select>
 
     <insert id = "insertClient" parameterType = "nova.gestion.model.Client"  keyProperty="idClient" useGeneratedKeys="true">
