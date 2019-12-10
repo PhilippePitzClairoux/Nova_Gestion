@@ -29,7 +29,7 @@ public class OrderHistoryService {
 
     @Transactional
     @PreAuthorize("hasRole('Admin')")
-    ArrayList<OrderHistory> selectFromTimestampOrderHistory(Timestamp startDate) {
+    public ArrayList<OrderHistory> selectFromTimestampOrderHistory(Timestamp startDate) {
         if (startDate == null)
             throw new InvalidRequest("No Date provided");
 
@@ -38,7 +38,7 @@ public class OrderHistoryService {
 
     @Transactional
     @PreAuthorize("hasRole('Admin')")
-    ArrayList<OrderHistory> selectFromTimestampOrderHistoryForProduct(OrderHistory product) {
+    public ArrayList<OrderHistory> selectFromTimestampOrderHistoryForProduct(OrderHistory product) {
         if (product.getIdBlank() == null || product.getValue() == null)
             throw new InvalidRequest("Missing idBlank or Value");
 

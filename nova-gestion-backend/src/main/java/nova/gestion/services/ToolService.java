@@ -4,7 +4,6 @@ import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.OrderHistoryMapper;
 import nova.gestion.mappers.ToolMapper;
-import nova.gestion.model.OrderHistory;
 import nova.gestion.model.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
