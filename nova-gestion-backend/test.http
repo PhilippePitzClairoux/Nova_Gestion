@@ -48,7 +48,7 @@ GET localhost:8080/v1/tasktypes
 
 
 ###
-POST localhost:8080/v1/task
+POST localhost:80/v1/task
 Content-Type: application/json
 
 {

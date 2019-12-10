@@ -6,7 +6,9 @@ import nova.gestion.errors.exceptions.RessourceNotFound;
 import nova.gestion.mappers.BlankMapper;
 import nova.gestion.mappers.CoolantHoleMapper;
 import nova.gestion.mappers.GradeMapper;
+import nova.gestion.mappers.OrderHistoryMapper;
 import nova.gestion.model.Blank;
+import nova.gestion.model.OrderHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,14 @@ public class BlankService {
     private final BlankMapper blankMapper;
     private final GradeMapper gradeMapper;
     private final CoolantHoleMapper coolantHoleMapper;
+    private final OrderHistoryMapper orderHistoryMapper;
 
     @Autowired
-    public BlankService(BlankMapper blankMapper, GradeMapper gradeMapper, CoolantHoleMapper coolantHoleMapper) {
+    public BlankService(BlankMapper blankMapper, GradeMapper gradeMapper, CoolantHoleMapper coolantHoleMapper, OrderHistoryMapper orderHistoryMapper) {
         this.blankMapper = blankMapper;
         this.gradeMapper = gradeMapper;
         this.coolantHoleMapper = coolantHoleMapper;
+        this.orderHistoryMapper = orderHistoryMapper;
     }
 
     @Transactional
@@ -65,6 +69,10 @@ public class BlankService {
 
         blankMapper.insertBlank(blank);
 
+        if (blank.getStockQuantity() != 0)
+            orderHistoryMapper.insertOrderHistory(new OrderHistory(null, blank.getIdBlank(),
+                    null, blank.getStockQuantity()));
+
         return blank.getIdBlank();
     }
 
@@ -81,6 +89,11 @@ public class BlankService {
 
         if (blank.getName() != null || blank.getDiameter() != null || blank.getLength() != null || blank.getCode() != null || blank.getGrade() != null )
             blankMapper.updateBlank(blank);
+
+        if (verifiedBlank.getStockQuantity() != blank.getStockQuantity()) {
+            orderHistoryMapper.insertOrderHistory(new OrderHistory(null, blank.getIdBlank(), null,
+                    blank.getStockQuantity() - verifiedBlank.getStockQuantity()));
+        }
 
     }
 

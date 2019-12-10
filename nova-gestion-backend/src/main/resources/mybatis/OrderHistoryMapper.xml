@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.OrderHistoryMapper">
+
+    <select id="selectOrderHistory" parameterType="Integer" resultType="nova.gestion.model.OrderHistory">
+        SELECT * FROM `nova_gestion`.order_history WHERE id_order_history = #{idOrderHistory};
+    </select>
+    
+    <select id="selectFromTimestampOrderHistory" parameterType="java.sql.Timestamp" resultType="nova.gestion.model.OrderHistory">
+        SELECT * FROM `nova_gestion`.order_history WHERE timestamp >= #{startDate};
+    </select>
+
+    <select id="selectFromTimestampOrderHistoryForProduct" parameterType="nova.gestion.model.OrderHistory" resultType="nova.gestion.model.OrderHistory">
+        SELECT * FROM `nova_gestion`.order_history WHERE timestamp >= #{timestamp} AND id_blank = #{idBlank};
+    </select>
+
+    <insert id="insertOrderHistory" parameterType="nova.gestion.model.OrderHistory" useGeneratedKeys="true" keyProperty="idOrderHistory">
+        INSERT INTO `nova_gestion`.order_history(id_blank, value)
+        VALUE (#{idBlank}, #{value});
+    </insert>
+
+</mapper>
