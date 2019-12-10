@@ -2,6 +2,7 @@ package nova.gestion.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import nova.gestion.model.Client;
 import nova.gestion.model.User;
 import nova.gestion.model.WorkSheet;
 import nova.gestion.services.WorkSheetService;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -42,6 +44,11 @@ public class WorkSheetController {
     @GetMapping("/v1/workSheets")
     public ArrayList<WorkSheet> getAllWorkSheets() throws JsonProcessingException {
         return workSheetService.getAllWorkSheets();
+    }
+
+    @GetMapping("/v1/workSheets/{clients}/{dateCreation}/{dueDate}/")
+    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated ArrayList<Client> clients, @PathVariable @Validated Date dateCreation, @PathVariable @Validated Date dueDate) throws JsonProcessingException {
+        return workSheetService.getWorkSheetsByClientDate(clients, dateCreation, dueDate);
     }
 
     /**

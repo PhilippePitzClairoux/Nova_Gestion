@@ -19,6 +19,10 @@
         SELECT * FROM `nova_gestion`.`client` WHERE activated = TRUE;
     </select>
 
+    <select id="getClientsActiveInactive"  resultMap="ClientMap">
+        SELECT * FROM `nova_gestion`.`client`;
+    </select>
+
     <insert id = "insertClient" parameterType = "nova.gestion.model.Client"  keyProperty="idClient" useGeneratedKeys="true">
        INSERT INTO `nova_gestion`.`client` (name, phone_number)
        VALUES (#{name}, #{phoneNumber});
