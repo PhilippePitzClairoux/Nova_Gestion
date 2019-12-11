@@ -47,9 +47,9 @@ public class WorkSheetController {
         return workSheetService.getAllWorkSheets();
     }
 
-    @GetMapping("/v1/workSheets/{clients}/{dateCreation}/{dueDate}/")
-    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated ArrayList<Integer> clients, @PathVariable @Validated String dateCreation, @PathVariable @Validated String dueDate) throws JsonProcessingException, ParseException {
-        return workSheetService.getWorkSheetsByClientDate(clients, dateCreation, dueDate);
+    @GetMapping("/v1/workSheets/{dateCreation}/{dueDate}/")
+    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated String dateCreation, @PathVariable @Validated String dueDate) throws JsonProcessingException, ParseException {
+        return workSheetService.getWorkSheetsByClientDate(dateCreation, dueDate);
     }
 
     /**
