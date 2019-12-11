@@ -33,7 +33,7 @@ public class ClientService {
 
     @Transactional
     public ArrayList<Client> getClientsActiveInactive() {
-        ArrayList<Client> clients = clientMapper.getAllClient();
+        ArrayList<Client> clients = clientMapper.getClientsActiveInactive();
 
         if (clients == null)
             throw new RessourceNotFound("No clients available");
