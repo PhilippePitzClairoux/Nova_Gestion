@@ -28,7 +28,7 @@ export class RapportService {
   public getAllWorkSheetByClientAndDate() {
     const beginDate = '2010-01-01';
     const endDate = '2020-01-01';
-    this.http.get<Worksheet[]>('/v1/workSheets/1,2,3,4/' + beginDate + '/' + endDate).subscribe(result => {
+    this.http.get<Worksheet[]>('/v1/workSheets/1,2,3,4/' + beginDate + '/' + endDate + '/').subscribe(result => {
       console.log(result);
     });
   }
