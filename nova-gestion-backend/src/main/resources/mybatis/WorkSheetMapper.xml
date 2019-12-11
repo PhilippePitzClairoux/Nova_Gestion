@@ -59,7 +59,7 @@
     <select id="getWorkSheetsByClientDate" resultMap="WorkSheetMap">
         SELECT ws.id_work_sheet, ws.id_status, ws.quantity, ws.date_creation, ws.due_date, ws.order_number
         FROM `nova_gestion`.`work_sheet` AS ws
-        WHERE ws.due_date <![CDATA[ >= ]]> #{dateCreation} AND ws.due_date <![CDATA[ <= ]]> #{dueDate};
+        WHERE ws.date_creation >= #{dateCreation} AND ws.due_date <![CDATA[ <= ]]> #{dueDate};
     </select>
 
 </mapper>
