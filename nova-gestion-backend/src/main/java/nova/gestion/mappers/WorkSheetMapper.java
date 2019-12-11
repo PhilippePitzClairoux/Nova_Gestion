@@ -22,6 +22,6 @@ public interface WorkSheetMapper {
 
     void deleteWorkSheet(int idWorkSheet);
 
-    ArrayList<WorkSheet> getWorkSheetsByClientDate(@Param("dateCreation")Date dateCreation, @Param("dueDate")Date dueDate);
+    ArrayList<WorkSheet> getWorkSheetsByClientDate(Date dateCreation,Date dueDate);
 
 }

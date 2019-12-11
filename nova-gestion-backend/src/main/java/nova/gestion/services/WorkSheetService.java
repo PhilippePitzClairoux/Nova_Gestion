@@ -43,11 +43,9 @@ public class WorkSheetService {
         ArrayList<WorkSheet> workSheets = new ArrayList<>();
         ArrayList<WorkSheetClientProgram> workSheetClientPrograms = workSheetClientProgramMapper.getAllWorkSheetClientPrograms();
 
-        for (int i = 0; i < workSheetClientPrograms.size(); i++){
-            WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheetClientPrograms.get(i).getIdWorkSheet());
-
-            workSheet = setClientProgramWorkSheet(workSheet);
-
+        for (WorkSheetClientProgram workSheetClientProgram : workSheetClientPrograms) {
+            WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheetClientProgram.getIdWorkSheet());
+            setClientProgramWorkSheet(workSheet);
             workSheets.add(workSheet);
         }
 
@@ -57,8 +55,6 @@ public class WorkSheetService {
     @Transactional
     @PreAuthorize("hasRole('Admin')")
     public ArrayList<WorkSheet> getWorkSheetsByClientDate(String dateCreation, String dueDate) throws ParseException {
-      //  ArrayList<WorkSheet> workSheets = new ArrayList<>();
-
         Date date_creation=new SimpleDateFormat("yyyy-MM-dd").parse(dateCreation);
         Date due_date=new SimpleDateFormat("yyyy-MM-dd").parse(dueDate);
 
@@ -67,15 +63,9 @@ public class WorkSheetService {
         java.sql.Date dueDate2 = new java.sql.Date(due_date.getTime());
 
         ArrayList<WorkSheet> workSheets = workSheetMapper.getWorkSheetsByClientDate(dateCreation2, dueDate2);
-        int count = workSheets.size();
-        System.out.println("***count: "+count);
-        for (int i = 0; i < count; i++){
+        for (WorkSheet workSheet : workSheets) {
 
-            System.out.println("----"+ workSheets.get(i).getIdWorkSheet());
-           WorkSheet workSheet = workSheets.get(i);// workSheetMapper.getWorkSheet(workSheets.get(i).getIdWorkSheet());
-
-            workSheet = setClientProgramWorkSheet(workSheet);
-            workSheets.add(workSheet);
+            setClientProgramWorkSheet(workSheet);
         }
 
         return workSheets;
@@ -86,19 +76,15 @@ public class WorkSheetService {
         WorkSheet workSheet = workSheetMapper.getWorkSheet(idWorkSheet);
         if (workSheet == null || idWorkSheet == 0)
             throw new RessourceNotFound("workSheet does not exist");
-        workSheet = setClientProgramWorkSheet(workSheet);
+        setClientProgramWorkSheet(workSheet);
         return  workSheet;
     }
 
-    private WorkSheet setClientProgramWorkSheet(WorkSheet workSheet){
+    private void setClientProgramWorkSheet(WorkSheet workSheet){
         WorkSheetClientProgram workSheetClientProgram = workSheetClientProgramMapper.getWorkSheetClientProgram(workSheet.getIdWorkSheet());
-        Client client = clientMapper.getClient(workSheetClientProgram.getIdClient());
-        Program program = programMapper.getProgram(workSheetClientProgram.getIdProgram());
+        workSheet.setClient(clientMapper.getClient(workSheetClientProgram.getIdClient()));
+        workSheet.setProgram(programMapper.getProgram(workSheetClientProgram.getIdProgram()));
 
-        workSheet.setClient(client);
-        workSheet.setProgram(program);
-
-        return workSheet;
     }
 
     @Transactional
