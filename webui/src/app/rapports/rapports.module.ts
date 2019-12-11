@@ -1,3 +1,5 @@
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +14,10 @@ import { TestRapportsComponent } from './test-rapports/test-rapports.component';
   declarations: [TestRapportsComponent],
   imports: [
     CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
     SharedModule,
+    NgxMatSelectSearchModule,
     NgxChartsModule,
     RapportsRoutingModule
   ]

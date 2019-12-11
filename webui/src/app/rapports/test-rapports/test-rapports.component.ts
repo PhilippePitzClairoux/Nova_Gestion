@@ -1,4 +1,9 @@
+import { tap } from 'rxjs/operators';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/app/models/client';
+import { BehaviorSubject } from 'rxjs';
+import { RapportService } from 'src/app/services/rapport.service';
 
 @Component({
   selector: 'app-test-rapports',
@@ -6,6 +11,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test-rapports.component.scss']
 })
 export class TestRapportsComponent implements OnInit {
+
+  public fg: FormGroup;
+  public fcClientSearch: FormControl = new FormControl('');
+  public clients: Client[] = [];
+  public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
 
   public multi = [
     {
@@ -93,16 +103,21 @@ export class TestRapportsComponent implements OnInit {
 
   colorScheme = 'cool';
 
-  constructor() {
+  constructor(private fb: FormBuilder, private rapport: RapportService) {
   }
 
-  onSelect(event) {
-    console.log(event);
+  public ngOnInit(): void {
+    this.fg = this.fb.group({
+      client: new FormControl('')
+    });
+    this.rapport.getAllClients();
+    this.rapport.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
+      this.filteredClients.next(this.clients);
+    });
   }
 
-  ngOnInit() {
-  }
-
-
+  public onSelect(event): void {
+  console.log(event);
+}
 
 }
