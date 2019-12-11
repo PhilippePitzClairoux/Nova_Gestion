@@ -57,7 +57,7 @@ public class WorkSheetService {
     @Transactional
     @PreAuthorize("hasRole('Admin')")
     public ArrayList<WorkSheet> getWorkSheetsByClientDate(String dateCreation, String dueDate) throws ParseException {
-        ArrayList<WorkSheet> workSheets = new ArrayList<>();
+      //  ArrayList<WorkSheet> workSheets = new ArrayList<>();
 
         Date date_creation=new SimpleDateFormat("yyyy-MM-dd").parse(dateCreation);
         Date due_date=new SimpleDateFormat("yyyy-MM-dd").parse(dueDate);
@@ -66,18 +66,17 @@ public class WorkSheetService {
         java.sql.Date dateCreation2 = new java.sql.Date(date_creation.getTime());
         java.sql.Date dueDate2 = new java.sql.Date(due_date.getTime());
 
-        workSheets = workSheetMapper.getWorkSheetsByClientDate(dateCreation2, dueDate2);
+        ArrayList<WorkSheet> workSheets = workSheetMapper.getWorkSheetsByClientDate(dateCreation2, dueDate2);
+        int count = workSheets.size();
+        System.out.println("***count: "+count);
+        for (int i = 0; i < count; i++){
 
-      /*  for (int i = 0; i < workSheets.size(); i++){
+            System.out.println("----"+ workSheets.get(i).getIdWorkSheet());
+           WorkSheet workSheet = workSheets.get(i);// workSheetMapper.getWorkSheet(workSheets.get(i).getIdWorkSheet());
 
-            WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheets.get(i).getIdWorkSheet());
-
-            if (workSheet.getClient() !=null)
             workSheet = setClientProgramWorkSheet(workSheet);
-
             workSheets.add(workSheet);
-
-        }*/
+        }
 
         return workSheets;
     }
