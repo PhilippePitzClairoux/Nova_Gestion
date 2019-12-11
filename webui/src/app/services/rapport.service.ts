@@ -1,3 +1,4 @@
+import { Worksheet } from './../models/worksheet';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +22,14 @@ export class RapportService {
     this.http.get<Client[]>('/v1/clientsActiveInactive').subscribe(result => {
       this.clientsList = result;
       this.clientsListSubject.next(this.clientsList);
+    });
+  }
+
+  public getAllWorkSheetByClientAndDate() {
+    const beginDate = '2010-01-01';
+    const endDate = '2020-01-01';
+    this.http.get<Worksheet[]>('/v1/workSheets/1,2,3,4/' + beginDate + '/' + endDate).subscribe(result => {
+      console.log(result);
     });
   }
 }

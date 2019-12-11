@@ -107,6 +107,7 @@ export class TestRapportsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.rapport.getAllWorkSheetByClientAndDate();
     this.fg = this.fb.group({
       client: new FormControl('')
     });
