@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class WorkSheetController {
     }
 
     @GetMapping("/v1/workSheets/{clients}/{dateCreation}/{dueDate}/")
-    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated ArrayList<Integer> clients, @PathVariable @Validated Date dateCreation, @PathVariable @Validated Date dueDate) throws JsonProcessingException {
+    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated ArrayList<Integer> clients, @PathVariable @Validated String dateCreation, @PathVariable @Validated String dueDate) throws JsonProcessingException, ParseException {
         return workSheetService.getWorkSheetsByClientDate(clients, dateCreation, dueDate);
     }
 
