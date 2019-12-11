@@ -35,6 +35,10 @@ public class ClientController {
         return clientService.getListOfAllClients();
     }
 
+    @GetMapping("/v1/clientsActiveInactive")
+    public ArrayList<Client> getClientsActiveInactive() throws JsonProcessingException {
+        return clientService.getClientsActiveInactive();
+    }
     /**
      * GET /v1/client/{idClient}/ -> retourne un Client ayant le id specifié
      * @param idClient l'id du Client voulu

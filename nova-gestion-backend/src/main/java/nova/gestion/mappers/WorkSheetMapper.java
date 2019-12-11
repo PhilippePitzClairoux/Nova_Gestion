@@ -2,8 +2,10 @@ package nova.gestion.mappers;
 
 import nova.gestion.model.WorkSheet;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 @Mapper
@@ -19,4 +21,7 @@ public interface WorkSheetMapper {
     void updateWorkSheet(WorkSheet workSheet);
 
     void deleteWorkSheet(int idWorkSheet);
+
+    ArrayList<WorkSheet> getWorkSheetsByClientDate(Date dateCreation,Date dueDate);
+
 }
