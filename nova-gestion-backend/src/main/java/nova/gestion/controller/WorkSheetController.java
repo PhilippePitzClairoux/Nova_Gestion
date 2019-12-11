@@ -47,7 +47,7 @@ public class WorkSheetController {
     }
 
     @GetMapping("/v1/workSheets/{clients}/{dateCreation}/{dueDate}/")
-    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated ArrayList<Client> clients, @PathVariable @Validated Date dateCreation, @PathVariable @Validated Date dueDate) throws JsonProcessingException {
+    public ArrayList<WorkSheet> getWorkSheetsByClientDate(@PathVariable @Validated ArrayList<Integer> clients, @PathVariable @Validated Date dateCreation, @PathVariable @Validated Date dueDate) throws JsonProcessingException {
         return workSheetService.getWorkSheetsByClientDate(clients, dateCreation, dueDate);
     }
 
