@@ -1,6 +1,6 @@
 <app-header [title]="'Rapports'"></app-header>
 
-<div [formGroup]="fg">
+<!-- <div [formGroup]="fg">
   <mat-form-field class="search-select">
     <mat-label>Client</mat-label>
     <mat-select formControlName="client" (selectionChange)="canApplyFilterClient()">
@@ -16,10 +16,13 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-</div>
-<div class="chart-container">
-  <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
-    [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-  </ngx-charts-bar-vertical-2d>
+</div> -->
+<div class="page-content">
+  <div class="chart-container">
+    <app-header [title]="'Nombre d\'heure passé pour chaque client pour chaque type de tâche'"></app-header>
+    <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+      [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical-2d>
+  </div>
 </div>

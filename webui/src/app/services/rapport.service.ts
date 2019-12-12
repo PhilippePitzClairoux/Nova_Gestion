@@ -11,11 +11,17 @@ export class RapportService {
 
   private clientsList: Client[] = [];
   private clientsListSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
+  private WorksheetList: Worksheet[] = [];
+  private worksheetListSubject: BehaviorSubject<Worksheet[]> = new BehaviorSubject<Worksheet[]>([]);
 
   constructor(private http: HttpClient) { }
 
   public clientsList$(): Observable<Client[]> {
     return this.clientsListSubject.asObservable();
+  }
+
+  public worksheetList$(): Observable<Worksheet[]> {
+    return this.worksheetListSubject.asObservable();
   }
 
   public getAllClients() {
@@ -28,8 +34,9 @@ export class RapportService {
   public getAllWorkSheetByClientAndDate() {
     const beginDate = '2010-01-01';
     const endDate = '2020-01-01';
-    this.http.get<Worksheet[]>('/v1/workSheets/' + beginDate + '/' + endDate + '/').subscribe(result => {
-      console.log(result);
+    return this.http.get<Worksheet[]>('/v1/workSheets/' + beginDate + '/' + endDate + '/').subscribe(result => {
+      this.WorksheetList = result;
+      this.worksheetListSubject.next(this.WorksheetList);
     });
   }
 }

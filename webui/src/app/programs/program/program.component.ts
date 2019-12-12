@@ -154,6 +154,22 @@ export class ProgramComponent implements OnInit {
         this.addingProgram = false;
         this.pageTitle = 'Modifier un programme';
         this.program.idProgram = prog.idProgram;
+
+        this.programService.getProgramById(this.program.idProgram).subscribe(r => {
+          this.program = r;
+          this.programSubject.next(this.program.clients);
+          this.fg.controls.name.setValue(this.program.name);
+          if (this.program.tool !== null) {
+            this.fg.controls.tool.setValue(this.tools.find(t => t.idTool === this.program.tool.idTool));
+          }
+          if (this.program.blank !== null) {
+            this.fg.controls.blank.setValue(this.blanks.find(t => t.idBlank === this.program.blank.idBlank));
+          }
+          if (this.program.machine !== null) {
+            this.fg.controls.machine.setValue(this.machines.find(t => t.idMachine === this.program.machine.idMachine));
+          }
+        });
+
       });
     });
   }

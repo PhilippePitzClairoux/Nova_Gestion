@@ -1,3 +1,4 @@
+import { Worksheet } from './../../models/worksheet';
 import { tap } from 'rxjs/operators';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ export class TestRapportsComponent implements OnInit {
   public fcClientSearch: FormControl = new FormControl('');
   public clients: Client[] = [];
   public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
+  public worksheet: Worksheet[] = [];
 
   public multi = [
     {
@@ -108,6 +110,9 @@ export class TestRapportsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.rapport.getAllWorkSheetByClientAndDate();
+    this.rapport.worksheetList$().pipe(tap(result => this.worksheet = result)).subscribe(() => {
+      this.makeChart();
+    });
     this.fg = this.fb.group({
       client: new FormControl('')
     });
@@ -133,6 +138,35 @@ export class TestRapportsComponent implements OnInit {
 
   public resetClient(): void {
     this.filteredClients.next(this.clients);
+  }
+
+  private makeChart(): void {
+
+    let seriesOfWorksheet;
+    let newChartTable;
+
+    this.multi = [];
+
+    this.worksheet.forEach(worksheet => {
+
+      seriesOfWorksheet = [];
+
+      worksheet.tasks.forEach(worksheetTask => {
+        const starttime = new Date(worksheetTask.startTime);
+        const endtime = new Date(worksheetTask.endTime);
+
+        let time = endtime.getHours() - starttime.getHours();
+        time += ((endtime.getMinutes() - starttime.getMinutes()) / 60);
+
+        seriesOfWorksheet.push({ name: worksheetTask.taskType.description, value: time });
+      });
+      newChartTable = {
+        name: worksheet.client.name,
+        series: seriesOfWorksheet
+      };
+
+      this.multi.push(newChartTable);
+    });
   }
 
 }
