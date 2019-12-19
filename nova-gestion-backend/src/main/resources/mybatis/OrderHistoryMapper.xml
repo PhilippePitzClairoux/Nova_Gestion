@@ -4,6 +4,12 @@
 
 <mapper namespace="nova.gestion.mappers.OrderHistoryMapper">
 
+    <parameterMap id="selectMap" type="Object">
+        <parameter property="timestampStart" javaType="java.sql.Timestamp"/>
+        <parameter property="timestampEnd" javaType="java.sql.Timestamp"/>
+        <parameter property="idBlank" javaType="Integer" />
+    </parameterMap>
+
     <select id="selectOrderHistory" parameterType="Integer" resultType="nova.gestion.model.OrderHistory">
         SELECT * FROM `nova_gestion`.order_history WHERE id_order_history = #{idOrderHistory};
     </select>
@@ -21,8 +27,8 @@
         VALUE (#{idBlank}, #{value});
     </insert>
 
-    <select id="selectFromTimestampToTimestampOrderHistory" parameterType="java.sql.Timestamp" resultType="nova.gestion.model.OrderHistory">
-        SELECT * FROM `nova_gestion`.order_history WHERE timestamp >= #{timestampStart} AND timestamp <![CDATA[<=]]> #{timestampEnd};
+    <select id="selectFromTimestampToTimestampOrderHistory" parameterMap="selectMap" resultType="nova.gestion.model.OrderHistory">
+        SELECT * FROM `nova_gestion`.order_history WHERE timestamp >= #{timestampStart} AND timestamp <![CDATA[<=]]> #{timestampEnd} AND id_blank = #{idBlank};
     </select>
 
 
