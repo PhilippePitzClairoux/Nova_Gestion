@@ -23,7 +23,7 @@
       </div>
       <mat-form-field class="search-select">
         <mat-label>Client</mat-label>
-        <mat-select formControlName="client" (selectionChange)="canApplyFilterClient()" multiple>
+        <mat-select formControlName="client" (selectionChange)="makeChart()" multiple>
           <mat-option>
             <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
               (click)="resetClient()" (keyup)="filterClient()" [formControl]="fcClientSearch" placeholder="Rechercher">

@@ -1,9 +1,11 @@
-import { Worksheet } from './../../models/worksheet';
-import { tap } from 'rxjs/operators';
-import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Client } from 'src/app/models/client';
+
+import { tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+
+import { Client } from 'src/app/models/client';
+import { Worksheet } from './../../models/worksheet';
 import { RapportService } from 'src/app/services/rapport.service';
 
 @Component({
@@ -56,24 +58,6 @@ export class TestRapportsComponent implements OnInit {
 
   public onSelect(event): void {
     console.log(event);
-  }
-
-  public applyFilterClient(): void {
-
-  }
-
-  public unselectClient(): void {
-
-  }
-
-  public canApplyFilterClient(): void {
-    if (this.fg.controls.client.value !== undefined) {
-      this.applyFilterClient();
-    } else {
-      this.unselectClient();
-      this.applyFilterClient();
-    }
-    this.makeChart();
   }
 
   public filterClient(): void {
@@ -139,15 +123,15 @@ export class TestRapportsComponent implements OnInit {
   }
 
   public dateChange(): void {
+
     if (this.fg.controls.startDate.value !== '' && this.fg.controls.endDate.value !== '') {
+
       let date = this.fg.controls.startDate.value;
-      console.log(date.getDay());
       const startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
 
       date = this.fg.controls.endDate.value;
       const endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
 
-      console.log('making the call');
       this.rapportService.getAllWorkSheetByClientAndDate(startDate, endDate).subscribe(() => {
         this.makeChart();
       });

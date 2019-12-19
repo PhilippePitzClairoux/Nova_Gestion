@@ -1,9 +1,12 @@
-import { Worksheet } from './../models/worksheet';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Client } from '../models/client';
+
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
+import { Worksheet } from './../models/worksheet';
+import { Client } from '../models/client';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +28,7 @@ export class RapportService {
     return this.worksheetListSubject.asObservable();
   }
 
-  public getAllClients() {
+  public getAllClients(): void {
     this.http.get<Client[]>('/v1/clientsActiveInactive').subscribe(result => {
       this.clientsList = result;
       this.clientsListSubject.next(this.clientsList);
@@ -33,7 +36,6 @@ export class RapportService {
   }
 
   public getAllWorkSheetByClientAndDate(beginDate: string, endDate: string): Observable<Worksheet[]> {
-    console.log(beginDate, endDate);
     return this.http.get<Worksheet[]>('/v1/workSheets/' + beginDate + '/' + endDate + '/').pipe(tap((result) => {
       console.log(result);
       this.WorksheetList = result;
