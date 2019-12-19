@@ -43,6 +43,4 @@ public class OrderHistoryController {
                                                                                 @PathVariable Integer idBlank) {
         return orderHistoryService.selectFromTimestampToTimestampOrderHistoryForProduct(startTimestamp, endTimestamp, idBlank);
     }
-
-
 }

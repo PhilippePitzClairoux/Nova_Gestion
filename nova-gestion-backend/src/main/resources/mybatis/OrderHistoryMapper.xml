@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="nova.gestion.mappers.OrderHistoryMapper">
-
     <parameterMap id="selectMap" type="Object">
         <parameter property="timestampStart" javaType="java.sql.Timestamp"/>
         <parameter property="timestampEnd" javaType="java.sql.Timestamp"/>
@@ -29,6 +28,7 @@
 
     <select id="selectFromTimestampToTimestampOrderHistory" parameterMap="selectMap" resultType="nova.gestion.model.OrderHistory">
         SELECT * FROM `nova_gestion`.order_history WHERE timestamp >= #{timestampStart} AND timestamp <![CDATA[<=]]> #{timestampEnd} AND id_blank = #{idBlank};
+
     </select>
 
 

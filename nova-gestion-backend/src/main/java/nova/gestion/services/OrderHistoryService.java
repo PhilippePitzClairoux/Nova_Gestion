@@ -59,7 +59,6 @@ public class OrderHistoryService {
         ArrayList<OrderHistory> data = orderHistoryMapper.selectFromTimestampToTimestampOrderHistory(Map.of("timestampStart", startTimestamp,
                                                                                                             "timestampEnd", endTimestamp,
                                                                                                                   "idBlank", idBlank));
-        System.out.println(data);
         Map<Integer, OrderHistoryData> orderedData = new HashMap<Integer, OrderHistoryData>();
 
         for (OrderHistory orderHistory : data) {
@@ -85,6 +84,7 @@ public class OrderHistoryService {
         }
 
         return orderedData.values();
+
     }
 
 }
