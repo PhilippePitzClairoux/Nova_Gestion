@@ -39,7 +39,7 @@ export class TestRapportsComponent implements OnInit {
   public legendTitle = 'Légende';
   public colorScheme = 'cool';
 
-  constructor(private fb: FormBuilder, private rapportService: RapportService) {}
+  constructor(private fb: FormBuilder, private rapportService: RapportService) { }
 
   public ngOnInit(): void {
     this.rapportService.worksheetList$().pipe(tap(result => this.worksheets = result)).subscribe(() => {
@@ -54,10 +54,6 @@ export class TestRapportsComponent implements OnInit {
     this.rapportService.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
       this.filteredClients.next(this.clients);
     });
-  }
-
-  public onSelect(event): void {
-    console.log(event);
   }
 
   public filterClient(): void {
@@ -99,6 +95,13 @@ export class TestRapportsComponent implements OnInit {
           let time = endtime.getHours() - starttime.getHours();
           time += ((endtime.getMinutes() - starttime.getMinutes()) / 60);
 
+
+          const myIndex = tasksOfWorksheet.findIndex(t => t.name === worksheetTask.taskType.description);
+          if (myIndex !== -1) {
+            tasksOfWorksheet[myIndex].value += time;
+            return;
+          }
+
           tasksOfWorksheet.push({ name: worksheetTask.taskType.description, value: time });
         });
 
@@ -107,6 +110,17 @@ export class TestRapportsComponent implements OnInit {
           series: tasksOfWorksheet
         };
 
+      }
+
+      const index = this.clientsAndTasks.findIndex(t => t.name === worksheet.client.name);
+      if (index !== -1) {
+        tasksOfWorksheet.forEach(t => {
+          const taskType = this.clientsAndTasks[index].series.findIndex(value => value.name === t.name);
+          if (taskType !== -1) {
+            this.clientsAndTasks[index].series[taskType].value += t.value;
+            newChartItem = undefined;
+          }
+        });
       }
 
       if (newChartItem !== undefined) {
