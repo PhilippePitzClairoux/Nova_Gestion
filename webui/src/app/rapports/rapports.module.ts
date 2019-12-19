@@ -1,5 +1,5 @@
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatFormFieldModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule, MatDatepickerModule, MatInputModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -16,6 +16,8 @@ import { TestRapportsComponent } from './test-rapports/test-rapports.component';
     CommonModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatInputModule,
     SharedModule,
     NgxMatSelectSearchModule,
     NgxChartsModule,

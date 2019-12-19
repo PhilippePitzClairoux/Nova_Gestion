@@ -1,6 +1,6 @@
 import { Worksheet } from './../../models/worksheet';
 import { tap } from 'rxjs/operators';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Client } from 'src/app/models/client';
 import { BehaviorSubject } from 'rxjs';
@@ -19,76 +19,9 @@ export class TestRapportsComponent implements OnInit {
   public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
   public worksheet: Worksheet[] = [];
 
-  public multi = [
-    {
-      name: 'A7-Integration',
-      series: [
-        {
-          name: 'Nettoyage',
-          value: 3
-        },
-        {
-          name: 'Programmation',
-          value: 12
-        },
-        {
-          name: 'Fabrication',
-          value: 10
-        }
-      ]
-    },
-    {
-      name: 'Bombardier',
-      series: [
-        {
-          name: 'Nettoyage',
-          value: 20
-        },
-        {
-          name: 'Programmation',
-          value: 15
-        },
-        {
-          name: 'Fabrication',
-          value: 250
-        }
-      ]
-    },
-    {
-      name: 'Machinage Gagné Ltée',
-      series: [
-        {
-          name: 'Nettoyage',
-          value: 5
-        },
-        {
-          name: 'Programmation',
-          value: 8
-        },
-        {
-          name: 'Fabrication',
-          value: 40
-        }
-      ]
-    },
-    {
-      name: 'NSE-Automatech',
-      series: [
-        {
-          name: 'Nettoyage',
-          value: 4
-        },
-        {
-          name: 'Programmation',
-          value: 9.5
-        },
-        {
-          name: 'Fabrication',
-          value: 60
-        }
-      ]
-    }
-  ];
+  public chartHidden = true;
+
+  public multi = [];
 
   view: any[];
 
@@ -111,10 +44,12 @@ export class TestRapportsComponent implements OnInit {
   public ngOnInit(): void {
     this.rapport.getAllWorkSheetByClientAndDate();
     this.rapport.worksheetList$().pipe(tap(result => this.worksheet = result)).subscribe(() => {
-      this.makeChart();
+
     });
     this.fg = this.fb.group({
-      client: new FormControl('')
+      client: new FormControl(''),
+      startDate: new FormControl(''),
+      endDate: new FormControl('')
     });
     this.rapport.getAllClients();
     this.rapport.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
@@ -124,6 +59,24 @@ export class TestRapportsComponent implements OnInit {
 
   public onSelect(event): void {
     console.log(event);
+  }
+
+  public applyFilterClient(): void {
+
+  }
+
+  public unselectClient(): void {
+
+  }
+
+  public canApplyFilterClient(): void {
+    if (this.fg.controls.client.value !== undefined) {
+      this.applyFilterClient();
+    } else {
+      this.unselectClient();
+      this.applyFilterClient();
+    }
+    this.makeChart();
   }
 
   public filterClient(): void {
@@ -151,22 +104,32 @@ export class TestRapportsComponent implements OnInit {
 
       seriesOfWorksheet = [];
 
-      worksheet.tasks.forEach(worksheetTask => {
-        const starttime = new Date(worksheetTask.startTime);
-        const endtime = new Date(worksheetTask.endTime);
+      if (this.fg.controls.client.value.find(t => t.idClient === worksheet.client.idClient)) {
+        worksheet.tasks.forEach(worksheetTask => {
 
-        let time = endtime.getHours() - starttime.getHours();
-        time += ((endtime.getMinutes() - starttime.getMinutes()) / 60);
+          const starttime = new Date(worksheetTask.startTime);
+          const endtime = new Date(worksheetTask.endTime);
 
-        seriesOfWorksheet.push({ name: worksheetTask.taskType.description, value: time });
-      });
-      newChartTable = {
-        name: worksheet.client.name,
-        series: seriesOfWorksheet
-      };
+          let time = endtime.getHours() - starttime.getHours();
+          time += ((endtime.getMinutes() - starttime.getMinutes()) / 60);
 
-      this.multi.push(newChartTable);
+          seriesOfWorksheet.push({ name: worksheetTask.taskType.description, value: time });
+        });
+        newChartTable = {
+          name: worksheet.client.name,
+          series: seriesOfWorksheet
+        };
+      }
+      if (newChartTable !== undefined) {
+        this.multi.push(newChartTable);
+      }
     });
+
+    if (this.multi === []) {
+      this.chartHidden = true;
+    } else {
+      this.chartHidden = false;
+    }
   }
 
 }

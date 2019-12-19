@@ -10,3 +10,30 @@
   margin-top: 50px;
   height: 600px;
 }
+
+.client-selection {
+  padding-top: 30px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.search-select {
+  width: 100%;
+}
+
+.date-selection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-datepicker {
+  width: 45%;
+}
+
+.right-datepicker {
+  width: 45%;
+}
+
+h2 {
+  color: #2370b8;
+}
