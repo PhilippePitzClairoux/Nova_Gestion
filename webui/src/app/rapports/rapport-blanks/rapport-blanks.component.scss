@@ -1,0 +1,48 @@
+.chart-container {
+  margin-top: 50px;
+  height: 600px;
+}
+
+.client-selection {
+  padding-top: 30px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.titles {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-select {
+  width: 75%;
+}
+
+.date-selection {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.datepicker {
+  width: 45%;
+}
+
+h2 {
+  color: #2370b8;
+}
+
+.space-before {
+  margin-top: 20px;
+}

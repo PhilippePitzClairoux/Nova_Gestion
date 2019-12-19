@@ -1,1 +1,11 @@
-<app-rapport-blanks></app-rapport-blanks>
+<app-header [title]="'Rapports'"></app-header>
+
+<mat-tab-group class="tabs">
+  <mat-tab label="Tâches">
+    <app-rapport-tasks></app-rapport-tasks>
+  </mat-tab>
+  <mat-tab label="Tiges de carbure">
+    <app-rapport-blanks></app-rapport-blanks>
+  </mat-tab>
+</mat-tab-group>
+

@@ -1,5 +1,5 @@
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
-import {MatFormFieldModule, MatSelectModule} from '@angular/material';
+import {MatDatepickerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTabsModule} from '@angular/material';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
@@ -24,7 +24,10 @@ import {RapportsComponent} from './rapports/rapports.component';
     SharedModule,
     NgxMatSelectSearchModule,
     NgxChartsModule,
-    RapportsRoutingModule
+    RapportsRoutingModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatInputModule
   ]
 })
 export class RapportsModule {

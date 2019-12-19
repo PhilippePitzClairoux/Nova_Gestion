@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import * as config from '../../assets/config/config.json';
 import { Blank } from '../models/blank';
+import {OrderHistory} from '../models/order-history';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class BlankService {
     return this.http.delete<any>(this.api + 'blank/' + id).pipe(
       tap(() => this.toastr.success(null, 'Tige de carbure supprimée'))
     );
+  }
+
+  getOrderHistory(startDate: string, endDate: string, id: number) {
+    return this.http.get<OrderHistory[]>(this.api + startDate + '/' + endDate + '/' + id);
   }
 }
