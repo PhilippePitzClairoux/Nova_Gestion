@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .chart-container {
@@ -17,11 +18,28 @@
   margin: 0 auto;
 }
 
+.choices {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.titles {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+}
+
 .search-select {
-  width: 100%;
+  width: 75%;
 }
 
 .date-selection {
+  width: 20%;
   display: flex;
   justify-content: space-between;
 }
@@ -32,4 +50,8 @@
 
 h2 {
   color: #2370b8;
+}
+
+.space-before {
+  margin-top: 20px;
 }

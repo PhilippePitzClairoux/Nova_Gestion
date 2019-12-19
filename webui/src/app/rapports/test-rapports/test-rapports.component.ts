@@ -30,10 +30,11 @@ export class TestRapportsComponent implements OnInit {
   public gradient = false;
   public showLegend = true;
   public showXAxisLabel = true;
-  public xAxisLabel = 'Client';
+  public xAxisLabel = 'Nom des clients';
   public showYAxisLabel = true;
   public yAxisLabel = 'Nombre d\'heure';
   public timeline = true;
+  public legendTitle = 'Légende';
   public colorScheme = 'cool';
 
   constructor(private fb: FormBuilder, private rapportService: RapportService) {}
