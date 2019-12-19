@@ -50,11 +50,15 @@ public class OrderHistoryService {
 
     @Transactional
     @PreAuthorize("hasRole('Admin')")
-    public Collection<OrderHistoryData> selectFromTimestampToTimestampOrderHistoryForProduct(Timestamp startTimestamp, Timestamp endTimestamp) {
+    public Collection<OrderHistoryData> selectFromTimestampToTimestampOrderHistoryForProduct(Timestamp startTimestamp,
+                                                                                             Timestamp endTimestamp,
+                                                                                             Integer idBlank) {
         if (startTimestamp == null || endTimestamp == null)
             throw new InvalidRequest("Missing timestamp");
 
-        ArrayList<OrderHistory> data = orderHistoryMapper.selectFromTimestampToTimestampOrderHistory(startTimestamp, endTimestamp);
+        ArrayList<OrderHistory> data = orderHistoryMapper.selectFromTimestampToTimestampOrderHistory(Map.of("timestampStart", startTimestamp,
+                                                                                                            "timestampEnd", endTimestamp,
+                                                                                                                  "idBlank", idBlank));
         Map<Integer, OrderHistoryData> orderedData = new HashMap<Integer, OrderHistoryData>();
 
         for (OrderHistory orderHistory : data) {
@@ -79,7 +83,8 @@ public class OrderHistoryService {
             }
         }
 
-        return  orderedData.values();
+        return orderedData.values();
+
     }
 
 }

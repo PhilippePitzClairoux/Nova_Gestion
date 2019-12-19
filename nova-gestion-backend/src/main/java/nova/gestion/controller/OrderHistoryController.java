@@ -37,11 +37,10 @@ public class OrderHistoryController {
      *
      * @return ArrayList {@link nova.gestion.model.OrderHistory}
      */
-    @GetMapping("/v1/orderhistory/{startTimestamp}/{endTimestamp}")
-    public Collection<OrderHistoryData> getAllOrderHistoryForBlankFromTimestamp(@PathVariable Timestamp startTimestamp, @PathVariable Timestamp endTimestamp) {
-        return orderHistoryService.selectFromTimestampToTimestampOrderHistoryForProduct(startTimestamp, endTimestamp);
+    @GetMapping("/v1/orderhistory/{startTimestamp}/{endTimestamp}/{idBlank}")
+    public Collection<OrderHistoryData> getAllOrderHistoryForBlankFromTimestamp(@PathVariable Timestamp startTimestamp,
+                                                                                @PathVariable Timestamp endTimestamp,
+                                                                                @PathVariable Integer idBlank) {
+        return orderHistoryService.selectFromTimestampToTimestampOrderHistoryForProduct(startTimestamp, endTimestamp, idBlank);
     }
-
-
-
 }

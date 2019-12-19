@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Map;
+
 
 @Mapper
 @Repository
@@ -16,7 +18,7 @@ public interface OrderHistoryMapper {
 
     ArrayList<OrderHistory> selectFromTimestampOrderHistoryForProduct(OrderHistory product);
 
-    ArrayList<OrderHistory> selectFromTimestampToTimestampOrderHistory(Timestamp timestampStart, Timestamp timestampEnd);
+    ArrayList<OrderHistory> selectFromTimestampToTimestampOrderHistory(Map<String, Object> map);
 
     void insertOrderHistory(OrderHistory order);
 }
