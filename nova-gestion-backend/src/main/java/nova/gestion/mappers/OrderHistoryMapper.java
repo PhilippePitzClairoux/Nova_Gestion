@@ -16,5 +16,7 @@ public interface OrderHistoryMapper {
 
     ArrayList<OrderHistory> selectFromTimestampOrderHistoryForProduct(OrderHistory product);
 
+    ArrayList<OrderHistory> selectFromTimestampToTimestampOrderHistory(Timestamp timestampStart, Timestamp timestampEnd);
+
     void insertOrderHistory(OrderHistory order);
 }

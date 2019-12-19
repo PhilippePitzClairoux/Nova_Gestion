@@ -21,4 +21,9 @@
         VALUE (#{idBlank}, #{value});
     </insert>
 
+    <select id="selectFromTimestampToTimestampOrderHistory" parameterType="java.sql.Timestamp" resultType="nova.gestion.model.OrderHistory">
+        SELECT * FROM `nova_gestion`.order_history WHERE timestamp >= #{timestampStart} AND timestamp <![CDATA[<=]]> #{timestampEnd};
+    </select>
+
+
 </mapper>

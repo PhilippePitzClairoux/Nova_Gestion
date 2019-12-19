@@ -1,5 +1,6 @@
 package nova.gestion.controller;
 
+import nova.gestion.model.OrderHistoryData;
 import nova.gestion.services.OrderHistoryService;
 import nova.gestion.model.OrderHistory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,10 +37,11 @@ public class OrderHistoryController {
      *
      * @return ArrayList {@link nova.gestion.model.OrderHistory}
      */
-    @GetMapping("/v1/orderhistory/{idBlank}/{timestamp}")
-    public ArrayList<OrderHistory> getAllOrderHistoryForBlank(@PathVariable Integer idBlank, @PathVariable Timestamp timestamp) {
-        return orderHistoryService.selectFromTimestampOrderHistoryForProduct(new OrderHistory(null, idBlank,
-                timestamp, null));
+    @GetMapping("/v1/orderhistory/{startTimestamp}/{endTimestamp}")
+    public Collection<OrderHistoryData> getAllOrderHistoryForBlankFromTimestamp(@PathVariable Timestamp startTimestamp, @PathVariable Timestamp endTimestamp) {
+        return orderHistoryService.selectFromTimestampToTimestampOrderHistoryForProduct(startTimestamp, endTimestamp);
     }
+
+
 
 }
