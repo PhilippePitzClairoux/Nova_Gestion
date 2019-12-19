@@ -17,33 +17,29 @@ export class TestRapportsComponent implements OnInit {
   public fcClientSearch: FormControl = new FormControl('');
   public clients: Client[] = [];
   public filteredClients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
-  public worksheet: Worksheet[] = [];
+  public worksheets: Worksheet[] = [];
 
   public chartHidden = true;
 
-  public multi = [];
+  // Données pour le rapport
+  public clientsAndTasks = [];
+  // Options pour le rapport
+  public view: any[];
+  public showXAxis = true;
+  public showYAxis = true;
+  public gradient = false;
+  public showLegend = true;
+  public showXAxisLabel = true;
+  public xAxisLabel = 'Client';
+  public showYAxisLabel = true;
+  public yAxisLabel = 'Nombre d\'heure';
+  public timeline = true;
+  public colorScheme = 'cool';
 
-  view: any[];
-
-  // options for the chart
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = true;
-  xAxisLabel = 'Client';
-  showYAxisLabel = true;
-  yAxisLabel = 'Nombre d\'heure';
-  timeline = true;
-
-  colorScheme = 'cool';
-
-  constructor(private fb: FormBuilder, private rapport: RapportService) {
-  }
+  constructor(private fb: FormBuilder, private rapportService: RapportService) {}
 
   public ngOnInit(): void {
-    this.rapport.getAllWorkSheetByClientAndDate();
-    this.rapport.worksheetList$().pipe(tap(result => this.worksheet = result)).subscribe(() => {
+    this.rapportService.worksheetList$().pipe(tap(result => this.worksheets = result)).subscribe(() => {
 
     });
     this.fg = this.fb.group({
@@ -51,8 +47,8 @@ export class TestRapportsComponent implements OnInit {
       startDate: new FormControl(''),
       endDate: new FormControl('')
     });
-    this.rapport.getAllClients();
-    this.rapport.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
+    this.rapportService.getAllClients();
+    this.rapportService.clientsList$().pipe(tap(result => this.clients = result)).subscribe(() => {
       this.filteredClients.next(this.clients);
     });
   }
@@ -95,16 +91,21 @@ export class TestRapportsComponent implements OnInit {
 
   private makeChart(): void {
 
-    let seriesOfWorksheet;
-    let newChartTable;
+    if (this.fg.controls.client.value === '') {
+      return;
+    }
 
-    this.multi = [];
+    let tasksOfWorksheet;
+    let newChartItem;
 
-    this.worksheet.forEach(worksheet => {
+    this.clientsAndTasks = [];
 
-      seriesOfWorksheet = [];
+    this.worksheets.forEach(worksheet => {
+
+      tasksOfWorksheet = [];
 
       if (this.fg.controls.client.value.find(t => t.idClient === worksheet.client.idClient)) {
+
         worksheet.tasks.forEach(worksheetTask => {
 
           const starttime = new Date(worksheetTask.startTime);
@@ -113,22 +114,42 @@ export class TestRapportsComponent implements OnInit {
           let time = endtime.getHours() - starttime.getHours();
           time += ((endtime.getMinutes() - starttime.getMinutes()) / 60);
 
-          seriesOfWorksheet.push({ name: worksheetTask.taskType.description, value: time });
+          tasksOfWorksheet.push({ name: worksheetTask.taskType.description, value: time });
         });
-        newChartTable = {
+
+        newChartItem = {
           name: worksheet.client.name,
-          series: seriesOfWorksheet
+          series: tasksOfWorksheet
         };
+
       }
-      if (newChartTable !== undefined) {
-        this.multi.push(newChartTable);
+
+      if (newChartItem !== undefined) {
+        this.clientsAndTasks.push(newChartItem);
       }
+
     });
 
-    if (this.multi === []) {
+    if (this.clientsAndTasks.length === 0) {
       this.chartHidden = true;
     } else {
       this.chartHidden = false;
+    }
+  }
+
+  public dateChange(): void {
+    if (this.fg.controls.startDate.value !== '' && this.fg.controls.endDate.value !== '') {
+      let date = this.fg.controls.startDate.value;
+      console.log(date.getDay());
+      const startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
+
+      date = this.fg.controls.endDate.value;
+      const endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
+
+      console.log('making the call');
+      this.rapportService.getAllWorkSheetByClientAndDate(startDate, endDate).subscribe(() => {
+        this.makeChart();
+      });
     }
   }
 

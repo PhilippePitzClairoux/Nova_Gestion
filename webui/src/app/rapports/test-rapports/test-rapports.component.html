@@ -1,40 +1,41 @@
 <app-header [title]="'Rapports'"></app-header>
 
-<div [formGroup]="fg" class="client-selection">
-  <h2>Choisisser le ou les clients:</h2>
-  <mat-form-field class="search-select">
-    <mat-label>Client</mat-label>
-    <mat-select formControlName="client" (selectionChange)="canApplyFilterClient()" multiple>
-      <mat-option>
-        <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
-          (click)="resetClient()" (keyup)="filterClient()" [formControl]="fcClientSearch" placeholder="Rechercher">
-        </ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
-        (click)="resetClient()">
-        {{client.name}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="page-content">
+  <div [formGroup]="fg">
+    <h2>Choisisser les dates:</h2>
+    <div class="date-selection">
+      <mat-form-field class="datepicker">
+        <input (dateInput)="dateChange()" matInput placeholder="De" formControlName="startDate" [matDatepicker]="startPicker">
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="datepicker">
+        <input (dateInput)="dateChange()" matInput placeholder="À" formControlName="endDate" [matDatepicker]="endPicker">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
 
-  <h2>Choisisser les dates:</h2>
-  <div class="date-selection">
-    <mat-form-field class="left-datepicker">
-      <input matInput placeholder="De" formControlName="startDate" [matDatepicker]="startPicker">
-      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="right-datepicker">
-      <input matInput placeholder="À" formControlName="endDate" [matDatepicker]="endPicker">
-      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker></mat-datepicker>
+    <h2>Choisisser le ou les clients:</h2>
+    <mat-form-field class="search-select">
+      <mat-label>Client</mat-label>
+      <mat-select formControlName="client" (selectionChange)="canApplyFilterClient()" multiple>
+        <mat-option>
+          <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+            (click)="resetClient()" (keyup)="filterClient()" [formControl]="fcClientSearch" placeholder="Rechercher">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let client of filteredClients.asObservable() | async" [value]="client"
+          (click)="resetClient()">
+          {{client.name}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
-</div>
-<div class="page-content">
+
   <div *ngIf="!chartHidden" class="chart-container">
     <app-header [title]="'Nombre d\'heure passé pour chaque client pour chaque type de tâche'"></app-header>
-    <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+    <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="clientsAndTasks" [gradient]="gradient"
       [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
       [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
     </ngx-charts-bar-vertical-2d>

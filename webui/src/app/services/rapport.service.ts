@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Client } from '../models/client';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +32,12 @@ export class RapportService {
     });
   }
 
-  public getAllWorkSheetByClientAndDate() {
-    const beginDate = '2010-01-01';
-    const endDate = '2020-01-01';
-    return this.http.get<Worksheet[]>('/v1/workSheets/' + beginDate + '/' + endDate + '/').subscribe(result => {
+  public getAllWorkSheetByClientAndDate(beginDate: string, endDate: string): Observable<Worksheet[]> {
+    console.log(beginDate, endDate);
+    return this.http.get<Worksheet[]>('/v1/workSheets/' + beginDate + '/' + endDate + '/').pipe(tap((result) => {
+      console.log(result);
       this.WorksheetList = result;
       this.worksheetListSubject.next(this.WorksheetList);
-    });
+    }));
   }
 }
