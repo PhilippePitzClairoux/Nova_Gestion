@@ -37,7 +37,6 @@ export class RapportService {
 
   public getAllWorkSheetByClientAndDate(beginDate: string, endDate: string): Observable<Worksheet[]> {
     return this.http.get<Worksheet[]>('/v1/workSheets/' + beginDate + '/' + endDate + '/').pipe(tap((result) => {
-      console.log(result);
       this.WorksheetList = result;
       this.worksheetListSubject.next(this.WorksheetList);
     }));
