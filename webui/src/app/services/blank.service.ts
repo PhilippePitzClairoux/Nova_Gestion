@@ -41,7 +41,7 @@ export class BlankService {
     );
   }
 
-  getOrderHistory(startDate: string, endDate: string, id: number) {
-    return this.http.get<OrderHistory[]>(this.api + startDate + '/' + endDate + '/' + id);
+  getOrderHistory(startDate: string, endDate: string, id: number): Observable<any> {
+    return this.http.get<any>(this.api + 'orderhistory/' + startDate + '/' + endDate + '/' + id);
   }
 }

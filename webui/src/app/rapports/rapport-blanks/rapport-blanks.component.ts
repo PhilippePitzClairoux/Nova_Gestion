@@ -16,11 +16,13 @@ export class RapportBlanksComponent implements OnInit {
   public fcBlankSearch: FormControl = new FormControl('');
   public blanks: Blank[] = [];
   public filteredBlanks: BehaviorSubject<Blank[]> = new BehaviorSubject<Blank[]>([]);
+  private startDate: string;
+  private endDate: string;
 
   public chartHidden = true;
 
   // Données pour le rapport
-  public orderHistory: OrderHistory[];
+  public orderHistory = [];
 
   // Options pour le rapport
   public view: any[];
@@ -48,31 +50,13 @@ export class RapportBlanksComponent implements OnInit {
     });
     this.blankService.getAll().subscribe(data => {
       this.blanks = data;
-      console.log(data);
       this.filteredBlanks.next(this.blanks);
     });
-  }
-
-  public onSelect(event): void {
-    console.log(event);
-  }
-
-  public applyFilterBlank(): void {
-
-  }
-
-  public unselectBlank(): void {
-
-  }
-
-  public canApplyFilterBlank(): void {
-    if (this.fg.controls.blank.value !== undefined) {
-      this.applyFilterBlank();
-    } else {
-      this.unselectBlank();
-      this.applyFilterBlank();
-    }
-    //this.makeChart();
+    const date = new Date();
+    this.startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+      + '-' + date.getDate().toString() + ' 00:00:00';
+    this.endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+      + '-' + date.getDate().toString() + ' 24:59:59';
   }
 
   public filterBlank(): void {
@@ -89,40 +73,56 @@ export class RapportBlanksComponent implements OnInit {
     this.filteredBlanks.next(this.blanks);
   }
 
-  private makeChart(): void {
+  public makeChart(): void {
+    const selectedBlanks = this.fg.controls.blank.value;
 
-    if (this.fg.controls.blank.value === '') {
-      return;
+    if (selectedBlanks !== '') {
+      let newChartItem;
+      this.orderHistory = [];
+
+      selectedBlanks.forEach(blank => {
+        this.blankService.getOrderHistory(this.startDate, this.endDate, blank.idBlank).subscribe(res => {
+          newChartItem = {
+            name: blank.code,
+            series: [{
+              name: 'Reçue',
+              value: res[0].receivedQuantity
+            },
+              {
+                name: 'Utilisée',
+                value: res[0].usedQuantity
+              }]
+          };
+          this.orderHistory.push(newChartItem);
+        });
+      });
+
+      console.log(this.orderHistory);
+      this.chartHidden = this.orderHistory.length === 0;
     }
-
-    this.orderHistory = [];
-
-    this.blanks.forEach(worksheet => {
-
-      tasksOfWorksheet = [];
-
-      if (newChartItem !== undefined) {
-        this.orderHistory.push(newChartItem);
-      }
-    });
-
-    this.chartHidden = this.orderHistory.length === 0;
   }
 
   public dateChange(): void {
-    if (this.fg.controls.startDate.value !== '' && this.fg.controls.endDate.value !== '') {
-      let date = this.fg.controls.startDate.value;
-      console.log(date.getDay());
-      const startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
-
-      date = this.fg.controls.endDate.value;
-      const endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
-
-      this.blankService.getOrderHistory(startDate, endDate, 1).subscribe(() => {
-        //this.makeChart();
-      });
+    if (this.fg.controls.startDate.value === undefined || this.fg.controls.startDate.value === '') {
+      const date = new Date();
+      this.startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+        + '-' + date.getDate().toString() + ' 00:00:00';
+    } else {
+      const date = this.fg.controls.startDate.value;
+      this.startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+        + '-' + date.getDate().toString() + ' 00:00:00';
     }
+
+    if (this.fg.controls.endDate.value === undefined || this.fg.controls.endDate.value === '') {
+      const date = new Date();
+      this.endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+        + '-' + date.getDate().toString() + ' 24:59:59';
+    } else {
+      const date = this.fg.controls.endDate.value;
+      this.endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+        + '-' + date.getDate().toString() + ' 24:59:59';
+    }
+
+    this.makeChart();
   }
-
-
 }
