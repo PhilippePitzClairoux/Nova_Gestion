@@ -121,7 +121,6 @@ export class RapportBlanksComponent implements OnInit {
     let date = new Date();
     this.startDate = '';
     this.endDate = '';
-
     if (RapportBlanksComponent.isNull(this.fg.controls.startDate.value)) {
       this.startDate = RapportBlanksComponent.createDate(date, ' 00:00:00');
     } else {
