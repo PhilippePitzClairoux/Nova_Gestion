@@ -12,6 +12,7 @@ public interface ClientMapper {
 
     Client getClient(int idClient);
     ArrayList<Client> getAllClient();
+    ArrayList<Client> getClientsActiveInactive();
     void insertClient(Client client);
     void updateClient(Client client);
     void deleteClient(int idClient);

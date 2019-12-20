@@ -14,12 +14,15 @@ GET localhost:8080/v1/machine/1
 ###
 GET localhost:8080/v1/program/6
 
-###
-GET localhost:8080/v1/workSheets
-GET localhost:8080/v1/program/1/
 
 ###
-GET localhost:8080/v1/workSheets
+GET localhost:8080/v1/workSheets/2010-12-02/2019-12-10/
+
+###
+GET localhost:8080/v1/clientsActiveInactive
+
+###
+GET localhost:8080/v1/clients
 ###
 GET localhost:8080/v1/programs
 

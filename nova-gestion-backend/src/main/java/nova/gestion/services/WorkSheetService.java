@@ -43,12 +43,29 @@ public class WorkSheetService {
         ArrayList<WorkSheet> workSheets = new ArrayList<>();
         ArrayList<WorkSheetClientProgram> workSheetClientPrograms = workSheetClientProgramMapper.getAllWorkSheetClientPrograms();
 
-        for (int i = 0; i < workSheetClientPrograms.size(); i++){
-            WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheetClientPrograms.get(i).getIdWorkSheet());
-
-            workSheet = setClientProgramWorkSheet(workSheet);
-
+        for (WorkSheetClientProgram workSheetClientProgram : workSheetClientPrograms) {
+            WorkSheet workSheet = workSheetMapper.getWorkSheet(workSheetClientProgram.getIdWorkSheet());
+            setClientProgramWorkSheet(workSheet);
             workSheets.add(workSheet);
+        }
+
+        return workSheets;
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('Admin')")
+    public ArrayList<WorkSheet> getWorkSheetsByClientDate(String dateCreation, String dueDate) throws ParseException {
+        Date date_creation=new SimpleDateFormat("yyyy-MM-dd").parse(dateCreation);
+        Date due_date=new SimpleDateFormat("yyyy-MM-dd").parse(dueDate);
+
+        //caster les dates
+        java.sql.Date dateCreation2 = new java.sql.Date(date_creation.getTime());
+        java.sql.Date dueDate2 = new java.sql.Date(due_date.getTime());
+
+        ArrayList<WorkSheet> workSheets = workSheetMapper.getWorkSheetsByClientDate(dateCreation2, dueDate2);
+        for (WorkSheet workSheet : workSheets) {
+
+            setClientProgramWorkSheet(workSheet);
         }
 
         return workSheets;
@@ -59,19 +76,15 @@ public class WorkSheetService {
         WorkSheet workSheet = workSheetMapper.getWorkSheet(idWorkSheet);
         if (workSheet == null || idWorkSheet == 0)
             throw new RessourceNotFound("workSheet does not exist");
-        workSheet = setClientProgramWorkSheet(workSheet);
+        setClientProgramWorkSheet(workSheet);
         return  workSheet;
     }
 
-    private WorkSheet setClientProgramWorkSheet(WorkSheet workSheet){
+    private void setClientProgramWorkSheet(WorkSheet workSheet){
         WorkSheetClientProgram workSheetClientProgram = workSheetClientProgramMapper.getWorkSheetClientProgram(workSheet.getIdWorkSheet());
-        Client client = clientMapper.getClient(workSheetClientProgram.getIdClient());
-        Program program = programMapper.getProgram(workSheetClientProgram.getIdProgram());
+        workSheet.setClient(clientMapper.getClient(workSheetClientProgram.getIdClient()));
+        workSheet.setProgram(programMapper.getProgram(workSheetClientProgram.getIdProgram()));
 
-        workSheet.setClient(client);
-        workSheet.setProgram(program);
-
-        return workSheet;
     }
 
     @Transactional
