@@ -54,7 +54,6 @@ import {RapportsModule} from './rapports/rapports.module';
     ProgramsModule,
     MatIconModule,
     SharedModule,
-    MatIconModule,
     MachinesModule,
     WorksheetsModule,
     AppRoutingModule

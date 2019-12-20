@@ -33,7 +33,7 @@ export class RapportBlanksComponent implements OnInit {
   public gradient = false;
   public showLegend = true;
   public showXAxisLabel = true;
-  public xAxisLabel = 'Code de tige';
+  public xAxisLabel = 'Code de la tige';
   public showYAxisLabel = true;
   public yAxisLabel = 'Quantité';
   public legendTitle = 'Légende';
@@ -121,6 +121,7 @@ export class RapportBlanksComponent implements OnInit {
     let date = new Date();
     this.startDate = '';
     this.endDate = '';
+
     if (RapportBlanksComponent.isNull(this.fg.controls.startDate.value)) {
       this.startDate = RapportBlanksComponent.createDate(date, ' 00:00:00');
     } else {
