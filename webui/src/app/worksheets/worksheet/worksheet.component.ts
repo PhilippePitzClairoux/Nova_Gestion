@@ -1,4 +1,4 @@
-import { AuthentificationService } from './../../services/authentification.service';
+import {AuthentificationService} from '../../services/authentification.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WorksheetService} from '../../services/worksheet.service';
