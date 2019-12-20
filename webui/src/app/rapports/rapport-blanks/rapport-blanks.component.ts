@@ -77,21 +77,22 @@ export class RapportBlanksComponent implements OnInit {
     const selectedBlanks = this.fg.controls.blank.value;
 
     if (selectedBlanks !== '') {
-      let newChartItem;
       this.orderHistory = [];
 
       selectedBlanks.forEach(blank => {
         this.blankService.getOrderHistory(this.startDate, this.endDate, blank.idBlank).subscribe(res => {
-          newChartItem = {
+          const newChartItem = {
             name: blank.code,
-            series: [{
-              name: 'Reçue',
-              value: res[0].receivedQuantity
-            },
+            series: [
+              {
+                name: 'Reçue',
+                value: res[0].receivedQuantity
+              },
               {
                 name: 'Utilisée',
                 value: res[0].usedQuantity
-              }]
+              }
+            ]
           };
           this.orderHistory.push(newChartItem);
         });
