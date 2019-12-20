@@ -1,9 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {InventoryComponent} from './inventory/inventory.component';
 import {SharedModule} from '../shared/shared.module';
 import {InventoryRoutingModule} from './inventory-routing.module';
-import {ToolsListComponent} from './tools/tools-list/tools-list.component';
 import {
   MatButtonModule, MatCheckboxModule, MatDialogModule,
   MatIconModule,
@@ -14,10 +12,13 @@ import {
   MatTabsModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+
+import {InventoryComponent} from './inventory/inventory.component';
+import {ToolsListComponent} from './tools/tools-list/tools-list.component';
 import {ToolComponent} from './tools/tool/tool.component';
 import {BlanksListComponent} from './blank/blanks-list/blanks-list.component';
 import {BlankComponent} from './blank/blank/blank.component';
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [

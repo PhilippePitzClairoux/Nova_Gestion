@@ -20,7 +20,8 @@ import {ProgramsModule} from './programs/programs.module';
 import {AuthentificationModule} from './authentification/authentification.module';
 import {ClientsModule} from './clients/clients.module';
 import {AppErrorHandler} from './Error/app-error-handler.injector';
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
+import {RapportsModule} from './rapports/rapports.module';
 
 @NgModule({
   declarations: [
@@ -49,14 +50,14 @@ import { HomeComponent } from './home/home.component';
     InventoryModule,
     ClientsModule,
     MachinesModule,
+    RapportsModule,
     ProgramsModule,
     MatIconModule,
     SharedModule,
-    AppRoutingModule,
     MatIconModule,
-    AppRoutingModule,
     MachinesModule,
-    WorksheetsModule
+    WorksheetsModule,
+    AppRoutingModule
   ],
   providers: [
     {
