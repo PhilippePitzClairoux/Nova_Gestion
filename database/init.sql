@@ -33,6 +33,14 @@ CREATE TABLE blank(
     CONSTRAINT FOREIGN KEY(code_grade) REFERENCES grade(code)
 );
 
+CREATE TABLE order_history(
+    id_order_history BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_blank BIGINT NOT NULL,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    value INT NOT NULL,
+    CONSTRAINT FOREIGN KEY(id_blank) REFERENCES blank(id_blank)
+);
+
 CREATE TABLE notification(
     id_notification BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_blank BIGINT NOT NULL,
