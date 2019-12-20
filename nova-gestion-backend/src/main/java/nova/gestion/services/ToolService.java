@@ -2,6 +2,7 @@ package nova.gestion.services;
 
 import nova.gestion.errors.exceptions.InvalidRequest;
 import nova.gestion.errors.exceptions.RessourceNotFound;
+import nova.gestion.mappers.OrderHistoryMapper;
 import nova.gestion.mappers.ToolMapper;
 import nova.gestion.model.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import java.util.ArrayList;
 public class ToolService {
 
     private final ToolMapper toolMapper;
+    private final OrderHistoryMapper orderHistoryMapper;
 
     @Autowired
-    public ToolService(ToolMapper toolMapper) {
+    public ToolService(ToolMapper toolMapper, OrderHistoryMapper orderHistoryMapper) {
         this.toolMapper = toolMapper;
+        this.orderHistoryMapper = orderHistoryMapper;
     }
 
     @Transactional
