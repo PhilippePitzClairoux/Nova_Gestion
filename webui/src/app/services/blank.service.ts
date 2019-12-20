@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 import * as config from '../../assets/config/config.json';
-import { Blank } from '../models/blank';
+import {Blank} from '../models/blank';
 import {OrderHistory} from '../models/order-history';
 
 @Injectable({
@@ -14,7 +14,7 @@ import {OrderHistory} from '../models/order-history';
 })
 export class BlankService {
   api = config.apiUrl;
-  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
   }

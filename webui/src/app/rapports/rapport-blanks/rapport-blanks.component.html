@@ -38,9 +38,9 @@
 
 
 <div *ngIf="true" class="chart-container">
-  <app-header [title]="'Quantité reçue et utilisée selon la tige'"></app-header>
+  <app-header [title]="'Quantité reçue et utilisée selon la tige de carbure'"></app-header>
   <div class="space-before"></div>
-  <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="orderHistory" [gradient]="gradient"
+  <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="blanksHistory" [gradient]="gradient"
                               [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                               [showXAxisLabel]="showXAxisLabel" [legendTitle]="legendTitle"
                               [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">

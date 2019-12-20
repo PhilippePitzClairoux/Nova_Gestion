@@ -12,6 +12,10 @@ import {OrderHistory} from '../../models/order-history';
 })
 export class RapportBlanksComponent implements OnInit {
 
+  constructor(private fb: FormBuilder,
+              private blankService: BlankService) {
+  }
+
   public fg: FormGroup;
   public fcBlankSearch: FormControl = new FormControl('');
   public blanks: Blank[] = [];
@@ -19,10 +23,8 @@ export class RapportBlanksComponent implements OnInit {
   private startDate: string;
   private endDate: string;
 
-  public chartHidden = true;
-
   // Données pour le rapport
-  public orderHistory = [];
+  public blanksHistory = [];
 
   // Options pour le rapport
   public view: any[];
@@ -31,15 +33,35 @@ export class RapportBlanksComponent implements OnInit {
   public gradient = false;
   public showLegend = true;
   public showXAxisLabel = true;
-  public xAxisLabel = 'Tige';
+  public xAxisLabel = 'Code de tige';
   public showYAxisLabel = true;
   public yAxisLabel = 'Quantité';
-  public timeline = true;
   public legendTitle = 'Légende';
   public colorScheme = 'cool';
 
-  constructor(private fb: FormBuilder,
-              private blankService: BlankService) {
+  private static isNull(item): boolean {
+    return item === null || item === undefined || item === '';
+  }
+
+  private static createDate(date, time): string {
+    return date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
+      + '-' + date.getDate().toString() + time;
+  }
+
+  private static createChartData(item: OrderHistory): any {
+    return {
+      name: item.blank.code,
+      series: [
+        {
+          name: 'Reçue',
+          value: item.receivedQuantity
+        },
+        {
+          name: 'Utilisée',
+          value: item.usedQuantity
+        }
+      ]
+    };
   }
 
   public ngOnInit(): void {
@@ -74,54 +96,43 @@ export class RapportBlanksComponent implements OnInit {
   }
 
   public makeChart(): void {
+    let history = [];
     const selectedBlanks = this.fg.controls.blank.value;
+    this.blanksHistory = [];
 
-    if (selectedBlanks !== '') {
-      this.orderHistory = [];
-
+    if (!RapportBlanksComponent.isNull(selectedBlanks)) {
       selectedBlanks.forEach(blank => {
-        this.blankService.getOrderHistory(this.startDate, this.endDate, blank.idBlank).subscribe(res => {
-          const newChartItem = {
-            name: blank.code,
-            series: [
-              {
-                name: 'Reçue',
-                value: res[0].receivedQuantity
-              },
-              {
-                name: 'Utilisée',
-                value: res[0].usedQuantity
-              }
-            ]
-          };
-          this.orderHistory.push(newChartItem);
-        });
+        this.blankService.getOrderHistory(this.startDate, this.endDate, blank.idBlank).subscribe(
+          data => {
+            if (data.length > 0) {
+              history.push(RapportBlanksComponent.createChartData(data[0]));
+              this.blanksHistory = [...history];
+            }
+          },
+          error => {
+            history = [];
+            this.blanksHistory = [...history];
+          });
       });
-
-      console.log(this.orderHistory);
-      this.chartHidden = this.orderHistory.length === 0;
     }
   }
 
   public dateChange(): void {
-    if (this.fg.controls.startDate.value === undefined || this.fg.controls.startDate.value === '') {
-      const date = new Date();
-      this.startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
-        + '-' + date.getDate().toString() + ' 00:00:00';
+    let date = new Date();
+    this.startDate = '';
+    this.endDate = '';
+    if (RapportBlanksComponent.isNull(this.fg.controls.startDate.value)) {
+      this.startDate = RapportBlanksComponent.createDate(date, ' 00:00:00');
     } else {
-      const date = this.fg.controls.startDate.value;
-      this.startDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
-        + '-' + date.getDate().toString() + ' 00:00:00';
+      date = this.fg.controls.startDate.value;
+      this.startDate = RapportBlanksComponent.createDate(date, ' 00:00:00');
     }
 
-    if (this.fg.controls.endDate.value === undefined || this.fg.controls.endDate.value === '') {
-      const date = new Date();
-      this.endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
-        + '-' + date.getDate().toString() + ' 24:59:59';
+    if (RapportBlanksComponent.isNull(this.fg.controls.endDate.value)) {
+      this.endDate = RapportBlanksComponent.createDate(date, ' 24:59:59');
     } else {
-      const date = this.fg.controls.endDate.value;
-      this.endDate = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString()
-        + '-' + date.getDate().toString() + ' 24:59:59';
+      date = this.fg.controls.endDate.value;
+      this.endDate = RapportBlanksComponent.createDate(date, ' 24:59:59');
     }
 
     this.makeChart();
