@@ -1,0 +1,48 @@
+<div [formGroup]="fg" class="choices">
+  <div class="titles">
+    <h2 class="date-selection">Choisir les dates:</h2>
+    <h2 class="search-select">Choisir le ou les tiges:</h2>
+  </div>
+  <div class="inputs">
+    <div class="date-selection">
+      <mat-form-field class="datepicker">
+        <input (dateInput)="dateChange()" matInput placeholder="De" formControlName="startDate"
+               [matDatepicker]="startPicker">
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="datepicker">
+        <input (dateInput)="dateChange()" matInput placeholder="À" formControlName="endDate"
+               [matDatepicker]="endPicker">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="search-select">
+      <mat-label>Tige</mat-label>
+      <mat-select formControlName="blank" (selectionChange)="makeChart()" multiple>
+        <mat-option>
+          <ngx-mat-select-search [placeholderLabel]="'Rechercher'" [noEntriesFoundLabel]="'Aucun résultat trouvé'"
+                                 (click)="resetBlank()" (keyup)="filterBlank()" [formControl]="fcBlankSearch"
+                                 placeholder="Rechercher">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let blank of filteredBlanks.asObservable() | async" [value]="blank"
+                    (click)="resetBlank()">
+          {{blank.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+
+<div *ngIf="true" class="chart-container">
+  <app-header [title]="'Quantité reçue et utilisée selon la tige de carbure'"></app-header>
+  <div class="space-before"></div>
+  <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="blanksHistory" [gradient]="gradient"
+                              [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                              [showXAxisLabel]="showXAxisLabel" [legendTitle]="legendTitle"
+                              [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+  </ngx-charts-bar-vertical-2d>
+</div>
