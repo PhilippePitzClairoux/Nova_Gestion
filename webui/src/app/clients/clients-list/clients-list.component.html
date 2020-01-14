@@ -1,0 +1,88 @@
+<app-header [title]="'Gestion des clients'"></app-header>
+<div class="page-wrapper">
+  <div class="top">
+    <mat-form-field class="search-content">
+      <input matInput placeholder="Recherche" [(ngModel)]="searchField" name="searchField"
+             (keyup)="applyFilter($event.target.value)">
+      <button mat-button *ngIf="searchField" matSuffix mat-icon-button aria-label="Effacer" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="add-inputs">
+    <div [formGroup]="fgAdd" class="add-form">
+      <mat-form-field class="column">
+        <input matInput id="name" name="name" type="text" formControlName="name" placeholder="Nom">
+        <mat-error *ngIf="!nameValid()">
+          Nom requis.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="column">
+        <input matInput type="text" formControlName="phoneNumber" placeholder="Numéro de téléphone">
+        <mat-error *ngIf="!phoneValid()">
+          Numéro de téléphone requis.
+        </mat-error>
+      </mat-form-field>
+      <div class="add">
+        <app-button (clicked)="onAdd()" [label]="'Ajouter'" [style]="'primary'"></app-button>
+      </div>
+    </div>
+  </div>
+
+  <div [formGroup]="fgEdit" class="mat-elevation-z0">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">NOM</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div *ngIf="row.idClient !== selectedIndex">{{row.name | truncate}}</div>
+          <div *ngIf="row.idClient === selectedIndex">
+            <mat-form-field class="table-item  space">
+              <input matInput type="text" class="inputs" formControlName="newName" placeholder="Nom">
+              <mat-error *ngIf="!editNameValid()">
+                Nom requis.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">NUMÉRO DE TÉLÉPHONE</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div *ngIf="row.idClient !== selectedIndex">{{row.phoneNumber | truncate}}</div>
+          <div *ngIf="row.idClient === selectedIndex">
+            <mat-form-field class="table-item space">
+              <input matInput type="text" class="inputs" formControlName="newPhoneNumber"
+                     placeholder="Numéro de téléphone">
+              <mat-error *ngIf="!editPhoneValid()">
+                Numéro de téléphone requis.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="header controls"></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="controls">
+          <div *ngIf="row.idClient !== selectedIndex">
+            <mat-icon class="btn-edit" (click)="onEdit(row.idClient)">edit</mat-icon>
+            <mat-icon class="btn-delete" (click)="onDelete(row.idClient)">delete</mat-icon>
+          </div>
+          <div *ngIf="row.idClient === selectedIndex">
+            <mat-icon class="btn-done" (click)="onDoneEdit()">done</mat-icon>
+            <mat-icon class="btn-cancel" (click)="onCancelEdit()">clear</mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'phoneNumber', 'controls']"></mat-header-row>
+      <mat-row class="table-row" *matRowDef="let row; columns: ['name', 'phoneNumber', 'controls'];">
+      </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  </div>
+</div>

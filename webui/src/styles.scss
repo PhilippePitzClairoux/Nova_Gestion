@@ -1,0 +1,62 @@
+/* Let us personalize angular matérial dialog */
+
+@font-face {
+  font-family: Roboto Medium;
+  src: url('assets/fonts/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$primary: (
+  500: #2370b8,
+  contrast: (
+    500: white
+  )
+);
+
+$accent: (
+  500: #f1f1f6,
+  contrast: (
+    500: 444444
+  )
+);
+
+$danger: (
+  500: #ff3823,
+  contrast: (
+    500: #333
+  )
+);
+
+$webui-primary: mat-palette($primary);
+$webui-accent: mat-palette($accent);
+$webui-warn: mat-palette($danger);
+$webui-theme: mat-light-theme($webui-primary, $webui-accent, $webui-warn);
+
+@include angular-material-theme($webui-theme);
+
+mat-header-cell {
+  font-size: 14px !important;
+}
+
+.mat-form-field-disabled .mat-form-field-underline {
+  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #c2c7cc 0 ) !important;
+  background-size: 1px 100% !important;
+  background-repeat: repeat-x !important;
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.WorkSheetMapper">
+
+    <resultMap id="WorkSheetMap" type="nova.gestion.model.WorkSheet">
+        <constructor>
+            <arg name="idWorkSheet" column="id_work_sheet"/>
+            <arg name="quantity" column="quantity"/>
+            <arg name="dateCreation" column="date_creation"/>
+            <arg name="dueDate" column="due_date"/>
+            <arg name="orderNumber" column="order_number"/>
+        </constructor>
+        <id column="id_work_sheet" javaType="int" property="idWorkSheet"/>
+        <result column="quantity" javaType="int" property="quantity"/>
+        <result column="date_creation"  jdbcType="DATE" javaType="java.sql.Date" property="dateCreation"/>
+        <result column="due_date"  jdbcType="DATE" javaType="java.sql.Date"  property="dueDate"/>
+        <result column="order_number" javaType="string" property="orderNumber"/>
+
+        <association column="id_status" property="status" javaType="nova.gestion.model.Status"
+                     select="nova.gestion.mappers.StatusMapper.getStatus"/>
+
+        <collection column="id_work_sheet" property="tasks" javaType="ArrayList"
+                    select="nova.gestion.mappers.TaskMapper.getTaskByWorkSheetId"/>
+
+    </resultMap>
+
+    <select id="getWorkSheet" parameterType="int" resultMap="WorkSheetMap">
+        SELECT id_work_sheet, id_status, quantity, date_creation, due_date, order_number
+        FROM `nova_gestion`.`work_sheet`
+        WHERE `nova_gestion`.`work_sheet`.id_work_sheet = #{idWorkSheet};
+    </select>
+
+    <select id="getAllWorkSheets" resultMap="WorkSheetMap">
+        SELECT * FROM `nova_gestion`.`work_sheet` WHERE activated = TRUE;
+    </select>
+
+    <insert id="insertWorkSheet" parameterType="nova.gestion.model.WorkSheet" keyProperty="idWorkSheet" useGeneratedKeys="true">
+        INSERT INTO `nova_gestion`.`work_sheet`(id_status, quantity, date_creation, due_date, order_number)
+        VALUES (#{status.idStatus}, #{quantity}, #{dateCreation}, #{dueDate}, #{orderNumber});
+    </insert>
+
+    <update id="updateWorkSheet" parameterType="nova.gestion.model.WorkSheet">
+        UPDATE `nova_gestion`.`work_sheet` SET
+        <if test="status != null">id_status = #{status.idStatus},</if>
+        <if test="quantity >=0"> quantity = #{quantity},</if>
+        <if test="dueDate != null"> due_date = #{dueDate},</if>
+        <if test="orderNumber != null"> order_number = #{orderNumber}</if>
+        WHERE id_work_sheet = #{idWorkSheet};
+    </update>
+
+    <update id="deleteWorkSheet" parameterType="int">
+        UPDATE `nova_gestion`.`work_sheet`
+        SET activated = FALSE
+        WHERE `nova_gestion`.`work_sheet`.id_work_sheet = #{idWorkSheet};
+    </update>
+
+    <select id="getWorkSheetsByClientDate" resultMap="WorkSheetMap">
+        SELECT ws.id_work_sheet, ws.id_status, ws.quantity, ws.date_creation, ws.due_date, ws.order_number
+        FROM `nova_gestion`.`work_sheet` AS ws
+        WHERE ws.date_creation >= #{dateCreation} AND ws.due_date <![CDATA[ <= ]]> #{dueDate};
+    </select>
+
+</mapper>

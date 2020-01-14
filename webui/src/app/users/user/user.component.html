@@ -1,0 +1,64 @@
+<h1 mat-dialog-title *ngIf="adding" class="dialog-header">Création d'un compte utilisateur</h1>
+<h1 mat-dialog-title *ngIf="editing" class="dialog-header">Modification d'un compte utilisateur</h1>
+
+
+<mat-dialog-content class="mat-typography container">
+  <div [formGroup]="fg">
+
+    <div class="input-container">
+      <mat-form-field class="block">
+        <input matInput id="name" name="name" class="input-100" placeholder="Prénom" formControlName="name">
+        <mat-error *ngIf="!nameValid()">
+          Un prénom est requis.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="block">
+        <input matInput id="surname" name="surname" class="input-100" placeholder="Nom" formControlName="surname">
+        <mat-error *ngIf="!surnameValid()">
+          Un nom est requis.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-container">
+      <mat-form-field class="block">
+        <mat-label>Type d'utilisateur</mat-label>
+        <mat-select formControlName="userType">
+          <mat-option *ngFor="let userType of userTypesList" [value]="userType">
+            {{userType.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!typeUserValid()">
+          Un type d'utilisateur est requis.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="block">
+        <input matInput id="email" name="email" class="input-100" placeholder="Courriel" formControlName="email">
+        <mat-error *ngIf="!emailValid()">
+          Un courriel est requis, ou le courriel entré est invalide.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="block">
+        <input matInput id="password" name="password" class="input-100" placeholder="Mot de passe" type="password"
+               formControlName="password">
+        <mat-error *ngIf="!passwordValid()">
+          Un mot de passe est requis.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="block">
+        <input matInput id="password-confirmation" name="password-confirmation" type="password" class="input-100"
+               placeholder="Confirmation mot de passe" type="password" formControlName="passwordConfirmation">
+        <mat-error *ngIf="!passwordConfirmationValid()">
+          Une confirmation de mot de passe est requis.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="buttons">
+      <app-button (clicked)="onClose()" [label]="'Annuler'" [style]="'secondary'"></app-button>
+      <app-button *ngIf="adding" class="btn-space" (clicked)="onAdd()" [label]="'Créer'" [style]="'primary'">
+      </app-button>
+      <app-button *ngIf="editing" class="btn-space" (clicked)="onEdit()" [label]="'Modifier'" [style]="'primary'">
+      </app-button>
+    </div>
+  </div>
+</mat-dialog-content>

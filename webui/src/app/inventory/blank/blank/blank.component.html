@@ -1,0 +1,100 @@
+<h1 mat-dialog-title class="title" *ngIf="data">Modifier une tige</h1>
+<h1 mat-dialog-title class="title" *ngIf="!data">Ajouter une tige</h1>
+
+<form mat-dialog-content [formGroup]="blankForm">
+  <div *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="content">
+    <div class="code">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Code" formControlName="code">
+        <mat-error *ngIf="blankForm.controls.code.hasError('required')">
+          Un code est requis.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="quantities">
+      <div class="inch">
+        <mat-form-field class="dimension">
+          <input matInput placeholder="Diamètre" formControlName="diameter">
+          <mat-error *ngIf="blankForm.controls.diameter.hasError('required')">
+            Un diamètre est requis.
+          </mat-error>
+          <mat-error *ngIf="blankForm.controls.diameter.hasError('maxLength')">
+            Un maximum de 10 caractères est permis.
+          </mat-error>
+        </mat-form-field>
+
+        <span>pouce(s)</span>
+      </div>
+
+      <div class="inch">
+        <mat-form-field class="dimension">
+          <input matInput placeholder="Longueur" formControlName="length">
+          <mat-error *ngIf="blankForm.controls.length.hasError('required')">
+            Une longueur est requise.
+          </mat-error>
+          <mat-error
+            *ngIf="!blankForm.controls.diameter.hasError('required') && blankForm.controls.diameter.hasError('maxLength')">
+            Un maximum de 10 caractères est permis.
+          </mat-error>
+        </mat-form-field>
+
+        <span>pouce(s)</span>
+      </div>
+    </div>
+
+    <mat-form-field class="full-width">
+      <mat-label>Grade</mat-label>
+      <mat-select formControlName="grade">
+        <mat-option>
+          <ngx-mat-select-search [placeholderLabel]="'Rechercher'" (click)="resetGrade()" (keyup)="filterGrade()"
+            [formControl]="fcGradeSearch" [noEntriesFoundLabel]="'Aucun résultat trouvé'" placeholder="Rechercher">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option (click)="resetGrade()" *ngFor="let grade of filteredGrades.asObservable() | async" [value]="grade">
+          {{grade.description}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="blankForm.controls.grade.hasError('required')">
+        Un grade est requis.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox [checked]="hasCoolantHole" (change)="showCoolantHoleOptions($event)" [color]="'primary'">Coolant holes
+    </mat-checkbox>
+
+
+
+  </div>
+
+  <div class="content">
+
+    <mat-form-field *ngIf="userType === 'Admin' || userType === 'Superviseur'" class="full-width">
+      <input matInput placeholder="Nom" formControlName="name">
+      <mat-error *ngIf="blankForm.controls.name.hasError('required')">
+        Un nom est requis.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="quantities">
+      <mat-form-field class="mid">
+        <input matInput placeholder="Quantité en stock" type="number" formControlName="stockQuantity">
+        <mat-error *ngIf="blankForm.controls.stockQuantity.hasError('required')">
+          Une quantité est requise.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="mid">
+        <input matInput placeholder="Quantité minimum" type="number" formControlName="minimumQuantity">
+        <mat-error *ngIf="blankForm.controls.minimumQuantity.hasError('required')">
+          Une quantité est requise.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+</form>
+
+<div mat-dialog-actions class="controls">
+  <app-button [style]="'secondary'" [label]="'Annuler'" (click)="onNoClick()"></app-button>
+  <app-button [style]="'primary'" [label]="'Sauvegarder'" (click)="close()"></app-button>
+</div>

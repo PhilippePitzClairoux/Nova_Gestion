@@ -1,0 +1,85 @@
+.page-wrapper {
+  padding: 20px;
+}
+
+.top {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search {
+  width: 80%;
+}
+
+.header {
+  text-transform: uppercase;
+  color: #2370b8;
+  font-weight: bold;
+}
+
+.controls {
+  max-width: 10%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.controls mat-icon {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #c0c0c0;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.affut {
+  background: #92d36e;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.fab {
+  background: #fec63d;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.waiting {
+  background: #aaaaaa;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.coating {
+  border: 1px solid #333333;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.out {
+  background: #3d8af7;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.complete {
+  background: #E94922;
+  padding: 4px;
+  border-radius: 4px;
+}
+

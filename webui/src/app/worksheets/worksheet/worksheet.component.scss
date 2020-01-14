@@ -1,0 +1,78 @@
+.page-wrapper {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.worksheet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.two-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mid {
+  width: 49%;
+  margin-bottom: 10px;
+}
+
+.right-button {
+  margin-left: 10px;
+}
+
+.header {
+  color: #2370b8;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.controls {
+  max-width: 10%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.controls mat-icon {
+  color: #c0c0c0;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.space-top {
+  margin-top: 30px;
+}

@@ -1,0 +1,119 @@
+.page-wrapper {
+  padding: 20px;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-done,
+.btn-cancel {
+  height: 20px;
+  width: 35px;
+  background: none;
+  border: none;
+  color: #c0c0c0;
+  cursor: pointer;
+}
+
+.table-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.search-add-content,
+.table-header,
+.table-row-no-hover,
+.inputs {
+  display: flex;
+  width: 100%;
+}
+
+.table-item {
+  display: flex;
+  width: 45%;
+}
+
+.controls {
+  max-width: 10%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.table-header {
+  background-color: transparent;
+  color: #2370b8;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.table-row, .table-row-no-hover {
+  background-color: transparent;
+  color: #000000;
+}
+
+.table-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .btn-edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .btn-delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+
+  .btn-done {
+    color: #92d36e;
+  }
+
+  .btn-cancel {
+    color: #ff3823;
+  }
+}
+
+.top {
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.search-content {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.space {
+  padding-top: 10px;
+}
+
+.add-inputs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.column {
+  width: calc(90% / 2);
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.add-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.add {
+  width: 10%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.full-width {
+  width: 100%;
+}

@@ -1,0 +1,60 @@
+.page-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.card {
+  background: #2370b8;
+  padding: 10px;
+  width: 30%;
+  margin: 10px;
+  min-width: 300px;
+  color: #fff;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card .title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+
+.card .quantity {
+  text-align: center;
+  padding: 5px 0;
+}
+
+.card .item.header {
+  background: #2370b8;
+  color: #fff;
+}
+
+.card .item {
+  color: #232323;
+  background: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card .item .name {
+  width: 50%;
+}
+
+.card .item .qty {
+  width: 25%;
+}
+
+.item.clickable {
+  cursor: pointer;
+  transition: 0.3s background ease;
+}
+
+.card .item.clickable:hover {
+  background: #fec63d;
+}

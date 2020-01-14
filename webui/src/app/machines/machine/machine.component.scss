@@ -1,0 +1,33 @@
+.content-wrapper {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.right-button {
+  margin-left: 10px;
+}
+
+.space-top {
+  margin-top: 30px;
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.MaintenanceMapper">
+
+    <resultMap id="MaintenanceMap" type="nova.gestion.model.Maintenance">
+
+        <id column="id_maintenance" javaType="int" property="idMaintenance"/>
+        <result column="id_machine" javaType="int" property="idMachine"/>
+        <result column="description" javaType="string" property="description"/>
+        <result column="date" javaType="date" property="date"/>
+
+
+   <!--     <association column="id_machine" property="machine" javaType="nova.gestion.model.Maintenance"
+                     select="nova.gestion.mappers.MachineMapper.getMachine"/> -->
+    </resultMap>
+
+    <select id="getMaintenance" parameterType="int" resultMap="MaintenanceMap">
+        SELECT * FROM `nova_gestion`.`maintenance`
+        WHERE `nova_gestion`.`maintenance`.id_maintenance = #{idMaintenance};
+    </select>
+
+    <select id="getMaintenancesByMachine" parameterType="nova.gestion.model.Machine" resultMap="MaintenanceMap">
+        SELECT * FROM `nova_gestion`.`maintenance`
+        WHERE `nova_gestion`.`maintenance`.id_machine = #{machine.idMachine};
+    </select>
+
+    <insert id="insertMaintenance" parameterType="nova.gestion.model.Maintenance" useGeneratedKeys="true" keyProperty="idMaintenance">
+        INSERT INTO `nova_gestion`.maintenance(id_machine, description, date)
+        VALUES (#{idMachine}, #{description}, #{date})
+    </insert>
+
+    <update id="updateMaintenance" parameterType="nova.gestion.model.Maintenance">
+        UPDATE `nova_gestion`.maintenance SET
+        <if test="idMachine != 0">id_machine = #{idMachine},</if>
+        <if test="description != null">description = #{description},</if>
+        <if test="date != null">date = #{date}</if>
+        WHERE maintenance.id_maintenance = #{idMaintenance};
+    </update>
+
+    <delete id="deleteMaintenance" parameterType="int">
+        DELETE FROM `nova_gestion`.maintenance WHERE maintenance.id_maintenance = #{idMaintenance};
+    </delete>
+
+
+</mapper>

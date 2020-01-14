@@ -1,0 +1,55 @@
+.tasks-container {
+  padding-top: 20px;
+}
+
+.new-timer .title {
+  font-size: 14px;
+  color: #2370b8;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.new-timer .new-task {
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.header {
+  color: #2370b8;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.controls {
+  max-width: 10%;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.controls mat-icon {
+  color: #c0c0c0;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+mat-row:hover {
+  background: #e4f4fd;
+  transition: 0.2s all ease;
+
+  .edit {
+    color: #2370b8;
+    transition: 0.2s all ease;
+  }
+
+  .delete {
+    color: #ff3823;
+    transition: 0.2s all ease;
+  }
+}
+
+.mid {
+  width: 49%;
+  margin-bottom: 10px;
+}

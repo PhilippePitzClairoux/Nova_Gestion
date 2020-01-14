@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nova.gestion.mappers.ToolMapper">
+
+    <resultMap id="ToolMap" type="nova.gestion.model.Tool">
+        <constructor>
+            <arg name="idTool" column="id_tool"/>
+            <arg name="name" column="name"/>
+            <arg name="stockQuantity" column="stock_quantity"/>
+            <arg name="minimumQuantity" column="minimum_quantity"/>
+        </constructor>
+        <id column="id_tool" javaType="int" property="idTool"/>
+        <result column="name" javaType="string" property="name"/>
+        <result column="stock_quantity" javaType="int" property="stockQuantity"/>
+        <result column="minimum_quantity" javaType="int" property="minimumQuantity"/>
+
+        <association column="id_client" property="client" javaType="nova.gestion.model.Client"
+                     select="nova.gestion.mappers.ClientMapper.getClient"/>
+    </resultMap>
+
+    <select id="getTool" parameterType="int" resultMap="ToolMap">
+        SELECT * FROM `nova_gestion`.`tool`
+        WHERE `nova_gestion`.`tool`.id_tool = #{idTool};
+    </select>
+
+    <select id="getAllTool"  resultMap="ToolMap">
+        SELECT * FROM `nova_gestion`.`tool` WHERE activated = TRUE;
+    </select>
+
+    <insert id = "insertTool" parameterType = "nova.gestion.model.Tool" keyProperty="idTool" useGeneratedKeys="true">
+       INSERT INTO `nova_gestion`.`tool` (name, stock_quantity, minimum_quantity, id_client)
+       VALUES (#{name}, #{stockQuantity}, #{minimumQuantity}, #{client.idClient});
+    </insert>
+
+    <update id = "updateTool" parameterType = "nova.gestion.model.Tool">
+       UPDATE `nova_gestion`.`tool` SET
+                    <if test="name != null">name = #{name},</if>
+                    <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>
+                    <if test="minimumQuantity != 0">minimum_quantity = #{minimumQuantity},</if>
+                    <if test="client != null">id_client = #{client.idClient}</if>
+                    WHERE id_tool = #{idTool};
+    </update>
+
+    <update id = "deleteTool" parameterType = "nova.gestion.model.Tool">
+        UPDATE `nova_gestion`.`tool`
+        SET activated = FALSE
+        WHERE id_tool = #{idTool};
+    </update>
+
+</mapper>
