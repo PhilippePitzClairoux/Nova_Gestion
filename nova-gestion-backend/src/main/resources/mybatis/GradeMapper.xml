@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.GradeMapper">
+<mapper namespace="ca.nova.gestion.mappers.GradeMapper">
 
-    <resultMap id="GradeMap" type="nova.gestion.model.Grade">
+    <resultMap id="GradeMap" type="ca.nova.gestion.model.Grade">
         <id property="code" column="code" javaType="int"/>
         <result property="description" column="description" javaType="string"/>
     </resultMap>

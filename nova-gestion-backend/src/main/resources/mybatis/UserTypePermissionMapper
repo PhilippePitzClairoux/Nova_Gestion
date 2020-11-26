@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.authentication.mappers.UserTypePermissionMapper">
+<mapper namespace="UserTypePermissionMapper">
 
-    <resultMap id="UserTypePermission" type="nova.gestion.model.UserTypePermission">
+    <resultMap id="UserTypePermission" type="UserTypePermission">
         <constructor>
             <arg name="idTaUserTypePermission" column="id_ta_user_type_permission"/>
         </constructor>
 
         <id column="id_ta_user_type_permission" property="idTaUserTypePermission" javaType="int"/>
 
-        <association column="id_user_type" property="typeUser" javaType="nova.gestion.model.TypeUser"
-        select="nova.gestion.mappers.TypeUserMapper.getTypeUser"/>
+        <association column="id_user_type" property="typeUser" javaType="TypeUser"
+        select="TypeUserMapper.getTypeUser"/>
 
-        <association column="id_permission" property="permission" javaType="nova.gestion.model.Permission"
-                     select="nova.gestion.authentication.mappers.PermissionMapper.getPermission"/>
+        <association column="id_permission" property="permission" javaType="Permission"
+                     select="PermissionMapper.getPermission"/>
     </resultMap>
 
     <select id="getUserTypePermissions" resultMap="UserTypePermission" parameterType="long">

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.MachineMapper">
+<mapper namespace="ca.nova.gestion.mappers.MachineMapper">
 
-    <resultMap id="MachineMap" type="nova.gestion.model.Machine">
+    <resultMap id="MachineMap" type="ca.nova.gestion.model.Machine">
         <constructor>
             <arg name="idMachine" column="id_machine"/>
             <arg name="name" column="name"/>
@@ -17,11 +17,11 @@
         <result column="serial_number" javaType="string" property="serialNumber"/>
         <result column="acquisition_date" javaType="date" property="acquisitionDate"/>
 
-        <association column="id_model" property="model" javaType="nova.gestion.model.Model"
-                     select="nova.gestion.mappers.ModelMapper.getModel"/>
+        <association column="id_model" property="model" javaType="ca.nova.gestion.model.Model"
+                     select="ca.nova.gestion.mappers.ModelMapper.getModel"/>
 
         <collection column="id_machine" property="maintenances" javaType="ArrayList"
-                     select="nova.gestion.mappers.MaintenanceMapper.getMaintenancesByMachine"/>
+                     select="ca.nova.gestion.mappers.MaintenanceMapper.getMaintenancesByMachine"/>
     </resultMap>
 
     <select id="getMachine" parameterType="int" resultMap="MachineMap">
@@ -34,12 +34,12 @@
         SELECT * FROM `nova_gestion`.`machine` WHERE activated = TRUE;
     </select>
 
-    <insert id="insertMachine" parameterType="nova.gestion.model.Machine" keyProperty="idMachine" useGeneratedKeys="true">
+    <insert id="insertMachine" parameterType="ca.nova.gestion.model.Machine" keyProperty="idMachine" useGeneratedKeys="true">
         INSERT INTO `nova_gestion`.`machine`(id_model, name , serial_number, acquisition_date)
         VALUES (#{model.idModel}, #{name}, #{serialNumber}, #{acquisitionDate});
     </insert>
 
-    <update id="updateMachine" parameterType="nova.gestion.model.Machine">
+    <update id="updateMachine" parameterType="ca.nova.gestion.model.Machine">
         UPDATE `nova_gestion`.`machine` SET
         <if test="name  != null">name = #{name},</if>
         <if test="serialNumber != null"> serial_number = #{serialNumber},</if>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.BlankMapper">
+<mapper namespace="ca.nova.gestion.mappers.BlankMapper">
 
-    <resultMap id="BlankMap" type="nova.gestion.model.Blank">
+    <resultMap id="BlankMap" type="ca.nova.gestion.model.Blank">
         <constructor>
             <arg name="idBlank" column="id_blank"/>
             <arg name="name" column="name"/>
@@ -25,11 +25,11 @@
         <result column="code" javaType="string" property="code"/>
         <result column="coolant_hole" javaType="boolean" property="coolantHole"/>
 
-        <association column="code_grade" property="grade" javaType="nova.gestion.model.Grade"
-                     select="nova.gestion.mappers.GradeMapper.getGrade"/>
+        <association column="code_grade" property="grade" javaType="ca.nova.gestion.model.Grade"
+                     select="ca.nova.gestion.mappers.GradeMapper.getGrade"/>
 
-     <!--   <association column="id_coolant_hole" property="coolantHole" javaType="nova.gestion.model.CoolantHole"
-                     select="nova.gestion.mappers.CoolantHoleMapper.getCoolantHole"/>-->
+     <!--   <association column="id_coolant_hole" property="coolantHole" javaType="CoolantHole"
+                     select="CoolantHoleMapper.getCoolantHole"/>-->
     </resultMap>
 
     <select id="getBlank" parameterType="int" resultMap="BlankMap">
@@ -42,12 +42,12 @@
         SELECT * FROM `nova_gestion`.`blank` WHERE activated = TRUE;
     </select>
 
-    <insert id="insertBlank" parameterType="nova.gestion.model.Blank" keyProperty="idBlank" useGeneratedKeys="true">
+    <insert id="insertBlank" parameterType="ca.nova.gestion.model.Blank" keyProperty="idBlank" useGeneratedKeys="true">
         INSERT INTO `nova_gestion`.`blank`(code_grade, coolant_hole, name, stock_quantity, minimum_quantity, diameter, length, code)
         VALUES (#{grade.code}, #{coolantHole}, #{name}, #{stockQuantity}, #{minimumQuantity}, #{diameter}, #{length}, #{code});
     </insert>
 
-   <!-- <update id="updateBlank" parameterType="nova.gestion.model.Blank">
+   <!-- <update id="updateBlank" parameterType="Blank">
         UPDATE `nova_gestion`.`blank` SET
                                     <if test="grade != null">code_grade = #{grade.code},</if>
                                       id_coolant_hole = #{coolantHole.idCoolantHole},
@@ -58,7 +58,7 @@
                                     <if test="length != 0">length = #{length}</if>
                                      WHERE id_blank = #{idBlank};
     </update>-->
-    <update id="updateBlank" parameterType="nova.gestion.model.Blank">
+    <update id="updateBlank" parameterType="ca.nova.gestion.model.Blank">
         UPDATE `nova_gestion`.`blank` SET
         <if test="name != null">name = #{name},</if>
         <if test="stockQuantity != 0">stock_quantity = #{stockQuantity},</if>

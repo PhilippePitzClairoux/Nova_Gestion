@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.NotificationMapper">
+<mapper namespace="ca.nova.gestion.mappers.NotificationMapper">
 
-    <resultMap id="NotificationMap" type="nova.gestion.model.Notification">
+    <resultMap id="NotificationMap" type="ca.nova.gestion.model.Notification">
         <constructor>
             <idArg name="idNotification" column="id_notification"/>
             <arg name="viewed" column="viewed"/>
@@ -12,8 +12,8 @@
         <id property="idNotification" column="id_notification"/>
         <result property="viewed" column="viewed"/>
         
-        <association property="blank" column="id_blank" javaType="nova.gestion.model.Blank"
-                     select="nova.gestion.mappers.BlankMapper.getBlank" />
+        <association property="blank" column="id_blank" javaType="ca.nova.gestion.model.Blank"
+                     select="ca.nova.gestion.mappers.BlankMapper.getBlank" />
     </resultMap>
 
     <select id="getNotViewedNotifications" resultMap="NotificationMap" >

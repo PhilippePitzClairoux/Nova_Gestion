@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.ProgramMapper">
+<mapper namespace="ca.nova.gestion.mappers.ProgramMapper">
 
-    <resultMap id="ProgramMap" type="nova.gestion.model.Program">
+    <resultMap id="ProgramMap" type="ca.nova.gestion.model.Program">
         <constructor>
             <arg name="idProgram" column="id_program"/>
             <arg name="name" column="name"/>
@@ -14,20 +14,20 @@
         <result column="name" javaType="string" property="name"/>
         <result column="activated" javaType="boolean" property="activated"/>
 
-        <association column="id_machine" property="machine" javaType="nova.gestion.model.Machine"
-                     select="nova.gestion.mappers.MachineMapper.getMachine"/>
+        <association column="id_machine" property="machine" javaType="ca.nova.gestion.model.Machine"
+                     select="ca.nova.gestion.mappers.MachineMapper.getMachine"/>
 
-        <association column="id_tool" property="tool" javaType="nova.gestion.model.Tool"
-                     select="nova.gestion.mappers.ToolMapper.getTool"/>
+        <association column="id_tool" property="tool" javaType="ca.nova.gestion.model.Tool"
+                     select="ca.nova.gestion.mappers.ToolMapper.getTool"/>
 
-        <association column="id_blank" property="blank" javaType="nova.gestion.model.Blank"
-                     select="nova.gestion.mappers.BlankMapper.getBlank"/>
+        <association column="id_blank" property="blank" javaType="ca.nova.gestion.model.Blank"
+                     select="ca.nova.gestion.mappers.BlankMapper.getBlank"/>
 
         <association column="id_program" property="filePrograms" javaType="ArrayList"
-                     select="nova.gestion.mappers.FileProgramMapper.selectAllFileProgramByIdProgram"/>
+                     select="ca.nova.gestion.mappers.FileProgramMapper.selectAllFileProgramByIdProgram"/>
         
        <!-- <collection column="id_program" property="clients" javaType="ArrayList"
-                    select="nova.gestion.mappers.WorkSheetClientProgramMapper.getProgramsByClient"/> -->
+                    select="WorkSheetClientProgramMapper.getProgramsByClient"/> -->
     </resultMap>
 
 
@@ -41,12 +41,12 @@
         SELECT * FROM `nova_gestion`.`program` WHERE `nova_gestion`.`program`.activated = 1;
     </select>
 
-    <insert id="insertProgram" parameterType="nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
+    <insert id="insertProgram" parameterType="ca.nova.gestion.model.Program" keyProperty="idProgram" useGeneratedKeys="true">
         INSERT INTO `nova_gestion`.`program`(id_machine, id_tool, id_blank, name)
         VALUES (#{machine.idMachine}, #{tool.idTool}, #{blank.idBlank}, #{name});
     </insert>
 
-    <update id="updateProgram" parameterType="nova.gestion.model.Program">
+    <update id="updateProgram" parameterType="ca.nova.gestion.model.Program">
         UPDATE `nova_gestion`.`program` SET
         <if test="machine != null">id_machine = #{machine.idMachine},</if>
         id_tool = #{tool.idTool},
