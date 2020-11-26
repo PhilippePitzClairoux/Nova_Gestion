@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.StatusMapper">
+<mapper namespace="ca.nova.gestion.mappers.StatusMapper">
 
-    <resultMap id="StatusMap" type="nova.gestion.model.Status">
+    <resultMap id="StatusMap" type="ca.nova.gestion.model.Status">
         <id property="idStatus" column="id_status" javaType="int"/>
         <result property="name" column="name" javaType="string"/>
     </resultMap>

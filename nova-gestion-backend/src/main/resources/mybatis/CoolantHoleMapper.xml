@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.CoolantHoleMapper">
+<mapper namespace="ca.nova.gestion.mappers.CoolantHoleMapper">
 
-    <resultMap id="CoolantHoleMap" type="nova.gestion.model.CoolantHole">
+    <resultMap id="CoolantHoleMap" type="ca.nova.gestion.model.CoolantHole">
 
         <constructor>
             <arg name="idCoolantHole" column="id_coolant_hole"/>
@@ -16,8 +16,8 @@
         <result property="quantity" column="quantity" javaType="int"/>
         <result property="diameter" column="diameter" javaType="double"/>
 
-        <association column="id_type_coolant_hole" property="typeCoolantHole" javaType="nova.gestion.model.TypeCoolantHole"
-                     select="nova.gestion.mappers.TypeCoolantHoleMapper.getTypeCoolantHole"/>
+        <association column="id_type_coolant_hole" property="typeCoolantHole" javaType="ca.nova.gestion.model.TypeCoolantHole"
+                     select="ca.nova.gestion.mappers.TypeCoolantHoleMapper.getTypeCoolantHole"/>
 
     </resultMap>
 
@@ -26,7 +26,7 @@
         WHERE id_coolant_hole = #{idCoolantHole};
     </select>
 
-    <update id="updateCoolantHole" parameterType="nova.gestion.model.CoolantHole">
+    <update id="updateCoolantHole" parameterType="ca.nova.gestion.model.CoolantHole">
         UPDATE `nova_gestion`.coolant_hole  SET
                     <if test="quantity != null">quantity = #{quantity},</if>
                     <if test="diameter != null"> diameter = #{diameter},</if>
@@ -34,7 +34,7 @@
                     WHERE id_coolant_hole = #{idCoolantHole};
     </update>
 
-    <insert id="insertCoolantHole" parameterType="nova.gestion.model.CoolantHole" useGeneratedKeys="true" keyProperty="idCoolantHole">
+    <insert id="insertCoolantHole" parameterType="ca.nova.gestion.model.CoolantHole" useGeneratedKeys="true" keyProperty="idCoolantHole">
         INSERT INTO `nova_gestion`.coolant_hole(id_type_coolant_hole, quantity, diameter)
         VALUE
         (#{typeCoolantHole.idTypeCoolantHole}, #{quantity}, #{diameter});

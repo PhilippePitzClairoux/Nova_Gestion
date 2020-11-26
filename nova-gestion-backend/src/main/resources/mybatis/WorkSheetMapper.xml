@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.WorkSheetMapper">
+<mapper namespace="ca.nova.gestion.mappers.WorkSheetMapper">
 
-    <resultMap id="WorkSheetMap" type="nova.gestion.model.WorkSheet">
+    <resultMap id="WorkSheetMap" type="ca.nova.gestion.model.WorkSheet">
         <constructor>
             <arg name="idWorkSheet" column="id_work_sheet"/>
             <arg name="quantity" column="quantity"/>
@@ -18,11 +18,11 @@
         <result column="due_date"  jdbcType="DATE" javaType="java.sql.Date"  property="dueDate"/>
         <result column="order_number" javaType="string" property="orderNumber"/>
 
-        <association column="id_status" property="status" javaType="nova.gestion.model.Status"
-                     select="nova.gestion.mappers.StatusMapper.getStatus"/>
+        <association column="id_status" property="status" javaType="ca.nova.gestion.model.Status"
+                     select="ca.nova.gestion.mappers.StatusMapper.getStatus"/>
 
         <collection column="id_work_sheet" property="tasks" javaType="ArrayList"
-                    select="nova.gestion.mappers.TaskMapper.getTaskByWorkSheetId"/>
+                    select="ca.nova.gestion.mappers.TaskMapper.getTaskByWorkSheetId"/>
 
     </resultMap>
 
@@ -36,12 +36,12 @@
         SELECT * FROM `nova_gestion`.`work_sheet` WHERE activated = TRUE;
     </select>
 
-    <insert id="insertWorkSheet" parameterType="nova.gestion.model.WorkSheet" keyProperty="idWorkSheet" useGeneratedKeys="true">
+    <insert id="insertWorkSheet" parameterType="ca.nova.gestion.model.WorkSheet" keyProperty="idWorkSheet" useGeneratedKeys="true">
         INSERT INTO `nova_gestion`.`work_sheet`(id_status, quantity, date_creation, due_date, order_number)
         VALUES (#{status.idStatus}, #{quantity}, #{dateCreation}, #{dueDate}, #{orderNumber});
     </insert>
 
-    <update id="updateWorkSheet" parameterType="nova.gestion.model.WorkSheet">
+    <update id="updateWorkSheet" parameterType="ca.nova.gestion.model.WorkSheet">
         UPDATE `nova_gestion`.`work_sheet` SET
         <if test="status != null">id_status = #{status.idStatus},</if>
         <if test="quantity >=0"> quantity = #{quantity},</if>

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.FileMapper">
+<mapper namespace="ca.nova.gestion.mappers.FileMapper">
 
-    <select id="selectFile" parameterType="String" resultType="nova.gestion.model.File">
+    <select id="selectFile" parameterType="String" resultType="ca.nova.gestion.model.File">
         SELECT * FROM `nova_gestion`.file WHERE file_name = #{fileName};
     </select>
 
-    <insert id="insertFile" parameterType="nova.gestion.model.File" useGeneratedKeys="true" keyProperty="fileName">
+    <insert id="insertFile" parameterType="ca.nova.gestion.model.File" useGeneratedKeys="true" keyProperty="fileName">
         INSERT INTO `nova_gestion`.file(file_name) VALUE (#{fileName})
     </insert>
 
