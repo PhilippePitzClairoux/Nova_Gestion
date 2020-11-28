@@ -9,7 +9,6 @@ import ca.nova.gestion.model.Client;
 import ca.nova.gestion.model.FileProgram;
 import ca.nova.gestion.model.Program;
 import ca.nova.gestion.model.WorkSheetClientProgram;
-import nova.gestion.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
