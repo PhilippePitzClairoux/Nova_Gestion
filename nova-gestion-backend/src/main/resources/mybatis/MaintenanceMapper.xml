@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.MaintenanceMapper">
+<mapper namespace="ca.nova.gestion.mappers.MaintenanceMapper">
 
-    <resultMap id="MaintenanceMap" type="nova.gestion.model.Maintenance">
+    <resultMap id="MaintenanceMap" type="ca.nova.gestion.model.Maintenance">
 
         <id column="id_maintenance" javaType="int" property="idMaintenance"/>
         <result column="id_machine" javaType="int" property="idMachine"/>
@@ -12,8 +12,8 @@
         <result column="date" javaType="date" property="date"/>
 
 
-   <!--     <association column="id_machine" property="machine" javaType="nova.gestion.model.Maintenance"
-                     select="nova.gestion.mappers.MachineMapper.getMachine"/> -->
+   <!--     <association column="id_machine" property="machine" javaType="Maintenance"
+                     select="MachineMapper.getMachine"/> -->
     </resultMap>
 
     <select id="getMaintenance" parameterType="int" resultMap="MaintenanceMap">
@@ -21,17 +21,17 @@
         WHERE `nova_gestion`.`maintenance`.id_maintenance = #{idMaintenance};
     </select>
 
-    <select id="getMaintenancesByMachine" parameterType="nova.gestion.model.Machine" resultMap="MaintenanceMap">
+    <select id="getMaintenancesByMachine" parameterType="ca.nova.gestion.model.Machine" resultMap="MaintenanceMap">
         SELECT * FROM `nova_gestion`.`maintenance`
         WHERE `nova_gestion`.`maintenance`.id_machine = #{machine.idMachine};
     </select>
 
-    <insert id="insertMaintenance" parameterType="nova.gestion.model.Maintenance" useGeneratedKeys="true" keyProperty="idMaintenance">
+    <insert id="insertMaintenance" parameterType="ca.nova.gestion.model.Maintenance" useGeneratedKeys="true" keyProperty="idMaintenance">
         INSERT INTO `nova_gestion`.maintenance(id_machine, description, date)
         VALUES (#{idMachine}, #{description}, #{date})
     </insert>
 
-    <update id="updateMaintenance" parameterType="nova.gestion.model.Maintenance">
+    <update id="updateMaintenance" parameterType="ca.nova.gestion.model.Maintenance">
         UPDATE `nova_gestion`.maintenance SET
         <if test="idMachine != 0">id_machine = #{idMachine},</if>
         <if test="description != null">description = #{description},</if>

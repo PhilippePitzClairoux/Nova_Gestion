@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.TaskMapper">
+<mapper namespace="ca.nova.gestion.mappers.TaskMapper">
 
-    <resultMap id="TaskMap" type="nova.gestion.model.Task">
+    <resultMap id="TaskMap" type="ca.nova.gestion.model.Task">
         <constructor>
             <idArg name="idTask" column="id_task"/>
             <arg name="idWorkSheet" column="id_work_sheet"/>
@@ -16,8 +16,8 @@
         <result column="start_time" javaType="java.sql.Timestamp" property="startTime"/>
         <result column="end_time" javaType="java.sql.Timestamp" property="endTime"/>
 
-        <association column="id_task_type" property="taskType" javaType="nova.gestion.model.TaskType"
-                     select="nova.gestion.mappers.TaskTypeMapper.getTaskTypeById" />
+        <association column="id_task_type" property="taskType" javaType="ca.nova.gestion.model.TaskType"
+                     select="ca.nova.gestion.mappers.TaskTypeMapper.getTaskTypeById" />
     </resultMap>
 
     <select id="getTaskByWorkSheetId" parameterType="int" resultMap="TaskMap">
@@ -28,12 +28,12 @@
         SELECT * FROM `nova_gestion`.task WHERE id_task = #{idTask};
     </select>
 
-    <insert id="insertNewTask" parameterType="nova.gestion.model.Task" useGeneratedKeys="true" keyProperty="idTask">
+    <insert id="insertNewTask" parameterType="ca.nova.gestion.model.Task" useGeneratedKeys="true" keyProperty="idTask">
         INSERT INTO `nova_gestion`.task(id_task_type, id_work_sheet, start_time, end_time)
         VALUES (#{taskType.idTaskType}, #{idWorkSheet}, #{startTime}, #{endTime})
     </insert>
 
-    <update id="updateTask" parameterType="nova.gestion.model.Task">
+    <update id="updateTask" parameterType="ca.nova.gestion.model.Task">
         UPDATE `nova_gestion`.task SET
             <if test="idWorkSheet != 0">id_work_sheet = #{idWorkSheet},</if>
             <if test="taskType != null">id_task_type = #{taskType.idTaskType},</if>

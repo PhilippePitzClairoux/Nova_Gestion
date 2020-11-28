@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.mappers.WorkSheetClientProgramMapper">
+<mapper namespace="ca.nova.gestion.mappers.WorkSheetClientProgramMapper">
 
-    <resultMap id="WorkSheetClientProgramMap" type="nova.gestion.model.WorkSheetClientProgram">
+    <resultMap id="WorkSheetClientProgramMap" type="ca.nova.gestion.model.WorkSheetClientProgram">
 
         <id column="idTaWorkSheetClientProgram" javaType="int" property="id_ta_work_sheet_client_program"/>
         <result column="id_work_sheet" javaType="int" property="idWorkSheet"/>
         <result column="id_program" javaType="int" property="idProgram"/>
         <result column="id_client" javaType="int" property="idClient"/>
 
-     <!--   <association column="id_program" property="program" javaType="nova.gestion.model.Program"
-                     select="nova.gestion.mappers.ProgramMapper.getProgram"/>
+     <!--   <association column="id_program" property="program" javaType="Program"
+                     select="ProgramMapper.getProgram"/>
 
-        <association column="id_client" property="client" javaType="nova.gestion.model.Client"
-                     select="nova.gestion.mappers.ClientMapper.getClient"/> -->
+        <association column="id_client" property="client" javaType="Client"
+                     select="ClientMapper.getClient"/> -->
 
     </resultMap>
 

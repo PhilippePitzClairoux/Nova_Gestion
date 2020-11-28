@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="nova.gestion.authentication.mappers.PermissionMapper">
+<mapper namespace="ca.nova.gestion.authentication.mappers.PermissionMapper">
 
-    <resultMap id="PermissionMap" type="nova.gestion.model.Permission">
+    <resultMap id="PermissionMap" type="ca.nova.gestion.model.Permission">
         <id column="id_permission" javaType="Integer" property="idPermission"/>
         <result column="description" javaType="String" property="description"/>
     </resultMap>
