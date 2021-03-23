@@ -2,15 +2,17 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {InventoryRoutingModule} from './inventory-routing.module';
-import {
-  MatButtonModule, MatCheckboxModule, MatDialogModule,
-  MatIconModule,
-  MatInputModule, MatOptionModule,
-  MatPaginatorModule, MatSelectModule,
-  MatSortModule,
-  MatTableModule,
-  MatTabsModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 

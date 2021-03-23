@@ -5,15 +5,13 @@ import {CommonModule} from '@angular/common';
 
 import {ClientsRoutingModule} from './clients-routing.module';
 import {ClientsListComponent} from './clients-list/clients-list.component';
-import {
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatTableModule,
-  MatButtonModule,
-  MatPaginatorModule,
-  MatSortModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [ClientsListComponent],
