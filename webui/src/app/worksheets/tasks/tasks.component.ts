@@ -48,7 +48,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   displayedColumns = ['taskType', 'employee', 'start', 'end', 'duration', 'controls'];
   dataSource: MatTableDataSource<Task>;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   @Input() idWorkSheet: number;

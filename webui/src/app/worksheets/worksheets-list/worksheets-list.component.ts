@@ -21,8 +21,8 @@ export class WorksheetsListComponent implements OnInit {
 
   public userType = '';
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog,
               private router: Router,

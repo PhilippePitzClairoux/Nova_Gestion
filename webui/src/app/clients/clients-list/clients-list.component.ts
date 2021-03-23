@@ -16,8 +16,8 @@ import {ConfirmationDialogComponent} from './../../shared/confirmation-dialog/co
 export class ClientsListComponent implements OnInit {
 
   dataSource: MatTableDataSource<Client>;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   public selectedIndex = 0;
   public inEdit = true;

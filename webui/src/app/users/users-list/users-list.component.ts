@@ -21,8 +21,8 @@ export class UsersListComponent implements OnInit {
   public userTypesList: TypeUser[] = [];
 
   dataSource: MatTableDataSource<User>;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   searchField = '';
 

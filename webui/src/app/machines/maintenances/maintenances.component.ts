@@ -17,8 +17,8 @@ export class MaintenancesComponent implements OnInit {
   dataSource: MatTableDataSource<Maintenance>;
   maintenanceForm: FormGroup;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   @Input() idMachine: number;
   @Input() set maintenances(value: Maintenance[]) {

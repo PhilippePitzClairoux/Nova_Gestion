@@ -33,8 +33,8 @@ export class ProgramsListComponent implements OnInit {
   public fcMachineSearch: FormControl = new FormControl('');
 
   public dataSource: MatTableDataSource<Program>;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private programService: ProgramService,
               private clientService: ClientService,

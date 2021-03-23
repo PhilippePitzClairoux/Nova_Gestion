@@ -19,8 +19,8 @@ export class MachinesListComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<Machine>;
   mySubscription: Subscription;
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   machineForm: FormGroup;
 
   constructor(public dialog: MatDialog,
