@@ -4,15 +4,12 @@ import {TaskType} from '../../models/task-type';
 import {TaskService} from '../../services/task.service';
 import {countUpTimerConfigModel, CountupTimerService, timerTexts} from 'ngx-timer';
 import {ConfirmationDialogComponent} from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 import {BehaviorSubject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {WorksheetService} from '../../services/worksheet.service';
-import {Worksheet} from '../../models/worksheet';
-import {ToastrService} from 'ngx-toastr';
-import {Status} from '../../models/status';
 
 @Component({
   selector: 'app-tasks',
@@ -33,8 +30,7 @@ export class TasksComponent implements OnInit, OnDestroy {
     private worksheetService: WorksheetService,
     private taskService: TaskService,
     private timerService: CountupTimerService,
-    public dialog: MatDialog,
-    private toastr: ToastrService
+    public dialog: MatDialog
   ) {
   }
 
@@ -57,7 +53,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private static getTime(time: string): string {
     const temp = new Date(time);
-    const date =  new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(),
+    const date = new Date(Date.UTC(temp.getUTCFullYear(), temp.getUTCMonth(), temp.getUTCDate(),
       temp.getUTCHours(), temp.getUTCMinutes(), temp.getUTCSeconds()));
     const hours = date.getHours();
     const minutes = date.getMinutes();
@@ -145,14 +141,14 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   saveTask() {
-      if (this.taskForm.valid) {
-        if (this.taskForm.dirty) {
-          this.stop();
-          this.task.taskType = this.taskForm.controls.taskType.value;
-          this.taskService.add(this.task).subscribe(data => {
-            this.getTasks();
-          });
-        }
+    if (this.taskForm.valid) {
+      if (this.taskForm.dirty) {
+        this.stop();
+        this.task.taskType = this.taskForm.controls.taskType.value;
+        this.taskService.add(this.task).subscribe(data => {
+          this.getTasks();
+        });
+      }
     } else {
       this.validateAllFields(this.taskForm);
     }

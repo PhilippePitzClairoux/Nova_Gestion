@@ -1,11 +1,11 @@
-import { ToastrService } from 'ngx-toastr';
-import { tap } from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {TaskType} from '../models/task-type';
 import * as config from '../../assets/config/config.json';
-import { Task } from '../models/task';
+import {Task} from '../models/task';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class TaskService {
     })
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient, public snackBar: MatSnackBar) {
   }
 
   getAllTypes(): Observable<TaskType[]> {
@@ -26,7 +26,9 @@ export class TaskService {
   }
 
   add(task: Task): Observable<any> {
-    return this.http.post(this.api + 'task', task, this.httpOptions).pipe(tap(() => this.toastr.success(null, 'Tâche ajoutée')));
+    return this.http.post(this.api + 'task', task, this.httpOptions).pipe(tap(() => {
+      this.snackBar.open('Tâche ajoutée', 'x', {duration: 1500});
+    }));
   }
 
   getWorksheetTasks(idWorkSheet: number): Observable<Task[]> {
@@ -34,10 +36,14 @@ export class TaskService {
   }
 
   delete(idTask: number): Observable<any> {
-    return this.http.delete(this.api + 'task/' + idTask).pipe(tap(() => this.toastr.success(null, 'Tâche supprimée')));
+    return this.http.delete(this.api + 'task/' + idTask).pipe(tap(() => {
+      this.snackBar.open('Tâche supprimée', 'x', {duration: 1500});
+    }));
   }
 
   update(task: Task): Observable<any> {
-    return this.http.put(this.api + 'task', task, this.httpOptions).pipe(tap(() => this.toastr.success(null, 'Tâche modifiée')));
+    return this.http.put(this.api + 'task', task, this.httpOptions).pipe(tap(() => {
+      this.snackBar.open('Tâche modifiée', 'x', {duration: 1500});
+    }));
   }
 }

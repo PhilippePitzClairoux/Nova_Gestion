@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-
 import {BehaviorSubject, Observable} from 'rxjs';
-import {ToastrService} from 'ngx-toastr';
-
 import {User} from '../models/user.model';
 import {TypeUser} from '../models/user-type.model';
 import {Employee} from '../models/employee.model';
 import * as config from '../../assets/config/config.json';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +22,7 @@ export class UsersService {
   private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   constructor(private http: HttpClient,
-              private toastr: ToastrService) {
+              public snackBar: MatSnackBar) {
   }
 
   public usersList$(): Observable<User[]> {
@@ -47,7 +45,7 @@ export class UsersService {
       user.idUser = result.idUser;
       this.usersList = [...this.usersList, user];
       this.usersListSubject.next(this.usersList);
-      this.toastr.success(null, 'Utilisateur ajouté');
+      this.snackBar.open('Utilisateur ajouté', 'x', {duration: 1500});
     });
   }
 
@@ -56,7 +54,7 @@ export class UsersService {
       const index = this.usersList.findIndex(t => t.idUser === user.idUser);
       this.usersList[index] = user;
       this.usersListSubject.next(this.usersList);
-      this.toastr.success(null, 'Utilisateur modifié');
+      this.snackBar.open('Utilisateur modifié', 'x', {duration: 1500});
     });
   }
 
@@ -64,7 +62,7 @@ export class UsersService {
     this.http.delete<User>('/v1/user/' + id.toString() + '/').subscribe(() => {
       this.usersList = this.usersList.filter(t => t.idUser !== id);
       this.usersListSubject.next(this.usersList);
-      this.toastr.success(null, 'Utilisateur supprimé');
+      this.snackBar.open('Utilisateur supprimé', 'x', {duration: 1500});
     });
   }
 

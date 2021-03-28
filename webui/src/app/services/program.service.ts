@@ -1,13 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-
-import { Program } from './../models/program.model';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {Program} from '../models/program.model';
 import * as config from '../../assets/config/config.json';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +13,15 @@ import * as config from '../../assets/config/config.json';
 export class ProgramService {
   api = config.apiUrl;
 
-  private httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   private programsList: Program[] = [];
   private programsListSubject: BehaviorSubject<Program[]> = new BehaviorSubject<Program[]>([]);
 
-  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              public snackBar: MatSnackBar) {
+  }
 
   public programsList$(): Observable<Program[]> {
     return this.programsListSubject.asObservable();
@@ -43,7 +44,7 @@ export class ProgramService {
       this.programsList = [...this.programsList, program];
       this.programsListSubject.next(this.programsList);
       this.router.navigate(['programs', result.idProgram]);
-      this.toastr.success(null, 'Programme ajouté');
+      this.snackBar.open('Programme ajouté', 'x', {duration: 1500});
     }));
   }
 
@@ -53,7 +54,7 @@ export class ProgramService {
       this.programsList[index] = program;
       this.programsListSubject.next(this.programsList);
       this.router.navigate(['programs']);
-      this.toastr.success(null, 'Programme modifié');
+      this.snackBar.open('Programme modifié', 'x', {duration: 1500});
     });
   }
 
@@ -61,19 +62,23 @@ export class ProgramService {
     this.http.delete<Program>(this.api + 'program/' + id.toString() + '/').subscribe(() => {
       this.programsList = this.programsList.filter(t => t.idProgram !== id);
       this.programsListSubject.next(this.programsList);
-      this.toastr.success(null, 'Programme suprimé');
+      this.snackBar.open('Programme supprimé', 'x', {duration: 1500});
     });
   }
 
   public addClientToProgram(idProg: number, idCli: number): Observable<any> {
-    return this.http.post<Program>(this.api + 'workSheetClientProgram', { idProgram: idProg, idClient: idCli }, this.httpOptions).pipe(
-      tap(() => this.toastr.success(null, 'Client ajouté au programme'))
+    return this.http.post<Program>(this.api + 'workSheetClientProgram', {idProgram: idProg, idClient: idCli}, this.httpOptions).pipe(
+      tap(() => {
+        this.snackBar.open('Client ajouté au programme', 'x', {duration: 1500});
+      })
     );
   }
 
   public deleteClientOfProgram(idProgram: number, idClient: number): Observable<any> {
     return this.http.delete<Program>(this.api + 'workSheetClientProgram/' + idProgram.toString() + '/' + idClient.toString() + '/').pipe(
-      tap(() => this.toastr.success(null, 'Client supprimé du programme'))
+      tap(() => {
+        this.snackBar.open('Client supprimé du programme', 'x', {duration: 1500});
+      })
     );
   }
 
@@ -84,11 +89,11 @@ export class ProgramService {
   }
 
   public downloadFile(fileName: string): Observable<any> {
-    return this.http.get('/v1/downloadfile' + '?filename=' + fileName, { responseType: 'blob' });
+    return this.http.get('/v1/downloadfile' + '?filename=' + fileName, {responseType: 'blob'});
   }
 
   public downloadFilea(data: Blob): void {
-    const blob = new Blob([data], { type: 'text/csv' });
+    const blob = new Blob([data], {type: 'text/csv'});
     const url = window.URL.createObjectURL(blob);
     window.open(url);
   }

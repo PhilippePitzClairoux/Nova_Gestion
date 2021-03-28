@@ -1,9 +1,6 @@
 import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
-
 import {tap} from 'rxjs/operators';
-import {ToastrService} from 'ngx-toastr';
-
 import {AuthentificationService} from '../../services/authentification.service';
 import {UsersService} from '../../services/users.service';
 import {Employee} from '../../models/employee.model';
@@ -20,8 +17,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(private router: Router,
               private userService: UsersService,
-              private authentificationService: AuthentificationService,
-              private toastr: ToastrService) {
+              private authentificationService: AuthentificationService) {
   }
 
   public ngOnInit(): void {
@@ -37,7 +33,6 @@ export class SidebarComponent implements OnInit {
   public logout(): void {
     this.authentificationService.logout().subscribe(() => {
       this.router.navigate(['authentification']);
-      this.toastr.success(null, 'Déconnexion réussie');
     });
   }
 

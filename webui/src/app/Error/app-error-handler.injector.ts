@@ -1,16 +1,13 @@
 import {Router} from '@angular/router';
 import {ErrorHandler, Injector, Injectable, NgZone} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable()
 export class AppErrorHandler extends ErrorHandler {
 
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector,
+              public snackBar: MatSnackBar) {
     super();
-  }
-
-  private get toastrService(): ToastrService {
-    return this.injector.get(ToastrService);
   }
 
   private get router(): Router {
@@ -24,18 +21,12 @@ export class AppErrorHandler extends ErrorHandler {
   public handleError(error: any): void {
     if (error.status === 401) {
       this.ngZone.run(() => this.router.navigate(['/authentification']));
-      this.toastrService.error('Veuillez-vous connecter pour accéder le site', 'Erreur');
+      this.snackBar.open('Veuillez-vous connecter pour accéder le site.', 'x', {duration: 1500});
     } else if (error.status === 403) {
       this.ngZone.run(() => this.router.navigate(['/home']));
-      this.toastrService.error('Vous n\'avez pas les droits pour exécuter cette action', 'Erreur');
+      this.snackBar.open('Vous n\'avez pas les droits pour exécuter cette action.', 'x', {duration: 1500});
     } else {
-      this.toastrService.error(
-        'Un problème est survenu, veuillez contacter l\'administrateur.',
-        'Erreur',
-        {
-          onActivateTick: true
-        }
-      );
+      this.snackBar.open('Un problème est survenu, veuillez contacter l\'administrateur.', 'x', {duration: 1500});
     }
 
     super.handleError(error);

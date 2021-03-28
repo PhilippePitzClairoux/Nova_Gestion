@@ -1,12 +1,11 @@
-import {ToastrService} from 'ngx-toastr';
 import {Component, OnInit, Output, EventEmitter, Inject} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {UsersService} from '../../services/users.service';
 import {User} from '../../models/user.model';
 import {Employee} from '../../models/employee.model';
 import {TypeUser} from '../../models/user-type.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
@@ -25,8 +24,11 @@ export class UserComponent implements OnInit {
 
   @Output() addUser = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialog, private toastr: ToastrService,
-              private userService: UsersService, @Inject(MAT_DIALOG_DATA) data) {
+  constructor(private fb: FormBuilder,
+              private dialogRef: MatDialog,
+              public snackBar: MatSnackBar,
+              private userService: UsersService,
+              @Inject(MAT_DIALOG_DATA) data) {
     this.user = data.user;
     this.userTypesList = data.userTypesList;
     this.adding = data.add;
@@ -69,7 +71,7 @@ export class UserComponent implements OnInit {
       return;
     }
     if (this.fg.controls.password.value !== this.fg.controls.passwordConfirmation.value) {
-      this.toastr.error(null, 'Les mots de passe ne corresponde pas');
+      this.snackBar.open('Les mots de passe ne correspondent pas.', 'x', {duration: 1500});
       return;
     }
     const user = this.createUserFromForm();
@@ -83,7 +85,7 @@ export class UserComponent implements OnInit {
       return;
     }
     if (this.fg.controls.password.value !== this.fg.controls.passwordConfirmation.value) {
-      this.toastr.error(null, 'Les mots de passe ne corresponde pas');
+      this.snackBar.open('Les mots de passe ne correspondent pas.', 'x', {duration: 1500});
       return;
     }
     const user = this.updateUserFromForm(this.user);

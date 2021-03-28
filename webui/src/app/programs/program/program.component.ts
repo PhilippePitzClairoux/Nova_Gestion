@@ -1,10 +1,7 @@
-import { ToastrService } from 'ngx-toastr';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
-
 import {BehaviorSubject, Observable} from 'rxjs';
-
 import {ClientService} from '../../services/client.service';
 import {MachineService} from '../../services/machine.service';
 import {BlankService} from '../../services/blank.service';
@@ -15,6 +12,7 @@ import {Blank} from '../../models/blank';
 import {Machine} from '../../models/machine';
 import {Client} from '../../models/client';
 import {Tool} from '../../models/tool';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-program',
@@ -56,7 +54,7 @@ export class ProgramComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private programService: ProgramService, private fb: FormBuilder,
               private toolService: ToolService, private blankService: BlankService, private nav: Router,
-              private machineService: MachineService, private clientService: ClientService, private toastr: ToastrService) {
+              public snackBar: MatSnackBar, private machineService: MachineService, private clientService: ClientService) {
   }
 
   public ngOnInit(): void {
@@ -122,16 +120,14 @@ export class ProgramComponent implements OnInit {
   public onCreate(): void {
     if (this.fg.invalid || this.fcFile.value === '') {
       if (this.fcFile.value === '') {
-        this.toastr.error(null, 'Vous devez fichier de programme');
+        this.snackBar.open('Vous devez fichier de programme.', 'x', {duration: 1500});
       }
       this.validateAllFields(this.fg);
       return;
     }
 
     this.programService.addFileToprogram(this.myFile).subscribe(result => {
-
       this.fcFile.setValue('');
-
       const program = new Program();
       program.name = this.fg.controls.name.value;
       if (this.fg.controls.machine.value !== '') {
@@ -209,7 +205,7 @@ export class ProgramComponent implements OnInit {
   private initFgEmpty(): void {
     this.fg = this.fb.group({
       name: (this.fcName = new FormControl('', [Validators.required, Validators.minLength(1)])),
-      file: (this.fcFile = new FormControl({value: '', disabled: true}, [ Validators.required, Validators.minLength(1) ])),
+      file: (this.fcFile = new FormControl({value: '', disabled: true}, [Validators.required, Validators.minLength(1)])),
       tool: (this.fcTool = new FormControl('')),
       blank: (this.fcBlank = new FormControl('')),
       machine: (this.fcMachine = new FormControl('', Validators.required))

@@ -1,12 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import * as config from '../../assets/config/config.json';
-import { Machine } from '../models/machine';
+import {Machine} from '../models/machine';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +17,8 @@ export class MachineService {
     })
   };
 
-  constructor(private http: HttpClient, public toastr: ToastrService) {
+  constructor(private http: HttpClient,
+              public snackBar: MatSnackBar) {
   }
 
   public getAll(): Observable<Machine[]> {
@@ -28,7 +27,9 @@ export class MachineService {
 
   public delete(id: number): Observable<any> {
     return this.http.delete<any>(this.api + 'machine/' + id).pipe(
-      tap(() => this.toastr.success('Machine supprimée'))
+      tap(() => {
+        this.snackBar.open('Machine supprimée', 'x', {duration: 1500});
+      })
     );
   }
 
@@ -38,13 +39,17 @@ export class MachineService {
 
   public update(newMachine: Machine): Observable<any> {
     return this.http.put(this.api + 'machine', newMachine, this.httpOptions).pipe(
-      tap(() => this.toastr.success('Machine modifiée.'))
+      tap(() => {
+        this.snackBar.open('Machine modifiée', 'x', {duration: 1500});
+      })
     );
   }
 
   public add(newMachine: Machine): Observable<any> {
     return this.http.post(this.api + 'machine', newMachine, this.httpOptions).pipe(
-      tap(() => this.toastr.success('Machine ajoutée.'))
+      tap(() => {
+        this.snackBar.open('Machine ajoutée', 'x', {duration: 1500});
+      })
     );
   }
 

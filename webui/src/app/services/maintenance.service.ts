@@ -1,10 +1,10 @@
-import { ToastrService } from 'ngx-toastr';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Maintenance } from '../models/maintenance';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Maintenance} from '../models/maintenance';
 import * as config from '../../assets/config/config.json';
-import { tap } from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class MaintenanceService {
     })
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient,
+              public snackBar: MatSnackBar) {
   }
 
   update(maintenance: Maintenance): Observable<any> {
@@ -26,13 +27,17 @@ export class MaintenanceService {
 
   add(maintenance: Maintenance): Observable<any> {
     return this.http.post<any>(this.api + 'maintenance', maintenance, this.httpOptions).pipe(
-      tap(() => this.toastr.success(null, 'Maintenance ajoutée'))
+      tap(() => {
+        this.snackBar.open('Maintenance ajoutée', 'x', {duration: 1500});
+      })
     );
   }
 
   delete(id: number): Observable<any> {
     return this.http.delete<any>(this.api + 'maintenance/' + id).pipe(
-      tap(() => this.toastr.success(null, 'Maintenance supprimée'))
-      );
+      tap(() => {
+        this.snackBar.open('Maintenance supprimée', 'x', {duration: 1500});
+      })
+    );
   }
 }

@@ -1,12 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, BehaviorSubject} from 'rxjs';
+import {tap} from 'rxjs/operators';
 import * as config from '../../assets/config/config.json';
-import { Client } from './../models/client';
+import {Client} from '../models/client';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +20,8 @@ export class ClientService {
   private clientsList: Client[] = [];
   private clientsListSubject: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>([]);
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient,
+              public snackBar: MatSnackBar) {
   }
 
   public clientsList$(): Observable<Client[]> {
@@ -41,7 +40,7 @@ export class ClientService {
       client.idClient = result.idClient;
       this.clientsList = [...this.clientsList, client];
       this.clientsListSubject.next(this.clientsList);
-      this.toastr.success(null, 'Client créé');
+      this.snackBar.open('Client créé', 'x', {duration: 1500});
     });
   }
 
@@ -51,7 +50,7 @@ export class ClientService {
       this.clientsList[index] = client;
       this.clientsList = [...this.clientsList];
       this.clientsListSubject.next(this.clientsList);
-      this.toastr.success(null, 'Client modifié');
+      this.snackBar.open('Client modifié', 'x', {duration: 1500});
     });
   }
 
@@ -59,7 +58,7 @@ export class ClientService {
     this.http.delete<Client>(this.api + 'client/' + id.toString() + '/').subscribe(() => {
       this.clientsList = this.clientsList.filter(t => t.idClient !== id);
       this.clientsListSubject.next(this.clientsList);
-      this.toastr.success(null, 'Client supprimé');
+      this.snackBar.open('Client supprimé', 'x', {duration: 1500});
     });
   }
 }
