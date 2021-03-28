@@ -77,7 +77,7 @@ export class RapportTasksComponent implements OnInit {
     this.filteredClients.next(this.clients);
   }
 
-  private makeChart(): void {
+  makeChart(): void {
     let tasksOfWorksheet;
     let newChartItem;
     this.clientsAndTasks = [];
